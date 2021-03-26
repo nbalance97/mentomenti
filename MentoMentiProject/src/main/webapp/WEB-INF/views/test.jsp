@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,11 +8,9 @@
 </head>
 <body>
 	sibar
-<<<<<<< HEAD
-	wow
-=======
 	injung
 	<h3>하히후헤호</h3>
->>>>>>> branch 'master' of https://github.com/nbalance97/mentomenti.git
+	dddjijlfisjdilf
+
 </body>
 </html>
