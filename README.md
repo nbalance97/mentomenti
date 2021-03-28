@@ -30,6 +30,10 @@ https://mine-it-record.tistory.com/125
 <h3> Installed JREs에 jdk가 없으면 Add 눌러서 jdk 폴더 불러와서 체크 후 Apply </h3>
 
 ![10](https://user-images.githubusercontent.com/76891875/112756951-7324a000-9022-11eb-9809-24718f4106e2.PNG) <br>
+![11](https://user-images.githubusercontent.com/76891875/112757131-60f73180-9023-11eb-953b-11c4b4442c64.PNG) <br>
+![11 5](https://user-images.githubusercontent.com/76891875/112757135-62285e80-9023-11eb-8018-4c05ef028870.PNG) <br>
+![12](https://user-images.githubusercontent.com/76891875/112757137-63f22200-9023-11eb-8d4a-e3efb682db51.PNG) <br>
+
 
 
 
