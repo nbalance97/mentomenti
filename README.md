@@ -15,8 +15,10 @@ https://mine-it-record.tistory.com/125
 
 <hr>
 <h2> Eclipse Project 연동 </h2>
+<h3> Git Repositories/Working Tree/MentoMenti에서 우클릭</h3>
 ![5](https://user-images.githubusercontent.com/76891875/112756538-a403d580-9020-11eb-9a62-f2bb5176661f.png) <br>
 ![6](https://user-images.githubusercontent.com/76891875/112756541-a6662f80-9020-11eb-95dd-82a7cbddcf38.PNG) <br>
+<h3> 생성된 프로젝트에서 Maven clean / build / Boot App  </h3>
 ![7](https://user-images.githubusercontent.com/76891875/112756543-a7975c80-9020-11eb-8262-c640238a7bad.png) <br>
 
 <hr>
