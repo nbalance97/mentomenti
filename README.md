@@ -27,7 +27,7 @@ https://mine-it-record.tistory.com/125
 <h2> jdk jre 에러 발생 시 </h3>
 
 ![9](https://user-images.githubusercontent.com/76891875/112756944-6738de00-9022-11eb-91ef-1e49cfa0c81b.png) <br>
-<h3> Installed JREs에 jdk가 없으면 Add 눌러서 jdk 폴더 불러옴. 이후 jre에 체크되어있는 부분 jdk 체크 후 Apply </h3>
+<h3> Installed JREs에 jdk가 없으면 Add 눌러서 jdk 폴더 불러옴. <br> 이후 jre에 체크되어있는 부분 jdk 체크 후 Apply </h3>
 
 ![10](https://user-images.githubusercontent.com/76891875/112756951-7324a000-9022-11eb-9809-24718f4106e2.PNG) <br>
 
