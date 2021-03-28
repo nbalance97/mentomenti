@@ -7,6 +7,7 @@ https://mine-it-record.tistory.com/125
 <h1>프로젝트 설정</h1>
 
 <h2> git Repository 설정 </h2>
+
 ![1](https://user-images.githubusercontent.com/76891875/112756500-6d2dbf80-9020-11eb-8ad4-2138f4f8521b.PNG) <br>
 ![2](https://user-images.githubusercontent.com/76891875/112756511-80d92600-9020-11eb-9230-20f002c647ad.PNG) <br>
 ![3](https://user-images.githubusercontent.com/76891875/112756515-85054380-9020-11eb-9ac9-2c4a51cc217c.PNG) <br>
