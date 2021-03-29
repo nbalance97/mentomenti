@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<% request.setCharacterEncoding("utf-8"); %>
-	<form name="compileView" method="post" action="./Compile.jsp">
-		<label>Code Input</label>
-		<input type="textarea" cols="50" rows="10" name="CodeText">
+	<% request.setCharacterEncoding("UTF-8"); %>
+	<form name="compileView" method="post" action="./Compile">
+		<label>Code Input</label> <br>
+		<textarea rows=30 cols=30 name="CodeText"></textarea><br><br>
 		<input type="submit" value="등록">
 	</form>
 
