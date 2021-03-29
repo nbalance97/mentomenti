@@ -18,4 +18,9 @@ public class HomeController {
     	return "CompileTestView";
     }
     
+    @RequestMapping(value="/Compile")
+    public String index3() {
+    	return "Compile";
+    }
+    
 }
