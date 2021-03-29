@@ -13,4 +13,9 @@ public class HomeController {
         return "home";
     }
     
+    @RequestMapping(value="/compiler")
+    public String index2() {
+    	return "CompileTestView";
+    }
+    
 }
