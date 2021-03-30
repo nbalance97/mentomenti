@@ -39,7 +39,7 @@
                                         </tr>
                                         <tr role="row" class="odd">
                                             <td class="">1</td>
-                                            <td>모코 사이트 소개</td>
+                                            <td>아악 왜 안바껴어어어어ㅓㅓㅇ</td>
                                             <td>정예원</td>
                                             <td>61</td>
                                         </tr>
