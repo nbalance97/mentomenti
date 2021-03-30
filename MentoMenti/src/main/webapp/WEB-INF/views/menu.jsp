@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="resources/css/bootstrap.min.css" rel="stylesheet" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -15,7 +15,7 @@
 	.shadow {
     	box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 	}
-	li{
+	li {
 		list-style:none;
 	}
 	.logo{
@@ -116,7 +116,7 @@
             	<!-- <div style="font-size:50px;">MOCO<sup style="font-size:10px;">모두의 코딩</sup></div> -->
                 <div style="font-size:30px; color:white;text-align:center;">프로필</div><br>
                 <span class="d-none d-lg-block">
-                	<img class="img-fluid img-profile rounded-circle mx-auto mb-2 img-circle" src="../../img/logo.png" alt="">
+                	<img class="img-fluid img-profile rounded-circle mx-auto mb-2 img-circle" src="resources/img/logo.png" alt="">
                 	<a href="#"><span>로그인이 필요합니다!</span></a>
                 </span>
             <!-- </a> -->
