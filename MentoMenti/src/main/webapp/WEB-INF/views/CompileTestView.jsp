@@ -9,6 +9,7 @@
 	<title>Insert title here</title>
 	<link rel="stylesheet" type="text/css" href="resources/css/codemirror.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/mdn-like.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/dracula.css">
 	<script type="text/javascript" src="resources/js/codemirror.js"></script>
 	<script src="resources/js/python.js"></script>
 </head>
@@ -58,7 +59,7 @@
 		var editor = CodeMirror.fromTextArea(textarea, {
 			lineNumbers: true,
 			lineWrapping: true,
-			theme: "mdn-like",
+			theme: "dracula",
 			mode: "python",
 			value: textarea.value
 		});
