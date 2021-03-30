@@ -8,14 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     
     @RequestMapping(value="/")
-    public String index() {
-        
+    public String index() {      
         return "home";
     }
     
     @RequestMapping(value="/compiler")
     public String index2() {
     	return "CompileTestView";
+    }
+    
+    @RequestMapping(value="/yewon")
+    public String index3() {
+    	return "yewon";
     }
 
     
