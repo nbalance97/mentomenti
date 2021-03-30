@@ -15,12 +15,13 @@
  		
  		String Code = request.getParameter("CodeText");
  		System.out.println(Code);
- 		
+ 		/* 코드를 파일 형태로 저장 */
  		FileWriter fw = new FileWriter("C:/Temp/MentoMenti.py");
  		fw.write(Code);
  		fw.flush();
  		fw.close();
  		
+ 		/* 저장한 코드로 python 컴파일 및 결과를 BufferedReader로 가져옴 */
  		String cmd = "python C:/Temp/MentoMenti.py";
  		Process process = Runtime.getRuntime().exec(cmd);
  		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
