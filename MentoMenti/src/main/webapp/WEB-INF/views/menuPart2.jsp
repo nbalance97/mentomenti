@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<!-- 본문 닫는 태그부터 body 닫는 태그까지 포함-->
+
                 </div>
                 <!-- /.container-fluid -->
 
