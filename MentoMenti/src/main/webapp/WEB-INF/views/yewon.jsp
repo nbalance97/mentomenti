@@ -27,26 +27,23 @@
                     <p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>
 					
 					<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%; background:white">
-                                    <thead>
-                                        <tr role="row"><th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">공지 번호</th><th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th><th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th><th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th></tr>
-                                    </thead>
-                                    <tbody>
-                                    	<tr role="row" class="odd">
-                                            <td class="">2</td>
-                                            <td>모코 이용방법</td>
-                                            <td>정예원</td>
-                                            <td>128</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="">1</td>
-                                            <td>아악 왜 안바껴어어어어ㅓㅓㅇ</td>
-                                            <td>정예원</td>
-                                            <td>61</td>
-                                        </tr>
-                                   	</tbody>
-                                </table>
-                        </div>
-                    </div>
-
+                    	<thead>
+                        	<tr role="row"><th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">공지 번호</th><th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th><th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th><th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th></tr>
+                        </thead>
+                        <tbody>
+                        	<tr role="row" class="odd">
+                            	<td class="">2</td>
+                            	<td>모코 이용방법</td>
+                                <td>정예원</td>
+                                <td>128</td>
+                            </tr>
+                            <tr role="row" class="odd">
+                            	<td class="">1</td>
+                            	<td>아악 왜 안바껴어어어어ㅓㅓㅇ</td>
+                            	<td>정예원</td>
+                            	<td>61</td>
+                            </tr>
+                       </tbody>
+                   </table>
 
 <%@include file="menuPart2.jsp"%>
