@@ -26,4 +26,9 @@ public class HomeController {
     public String index4() {
     	return "studyPageMentor";
     }
+    
+    @RequestMapping(value="/loginPage") //로그인 화면
+    public String index5() {
+    	return "loginPage";
+    }
 }
