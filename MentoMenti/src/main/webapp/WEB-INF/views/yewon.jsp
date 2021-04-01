@@ -23,27 +23,49 @@
 
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">공지사항</h1>
-                    <p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>
+					<div class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">공지사항</h1>						
+						<ul class="navbar-nav ml-auto">
+							<li>
+								<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        			<div class="input-group">
+                            			<input type="text" class="form-control border-0 small" placeholder="검색" aria-label="Search" aria-describedby="basic-addon2">
+                            			<div class="input-group-append">
+                                			<button class="btn btn-primary" type="button">
+                                    		<i class="fas fa-search fa-sm"></i>
+                                			</button>
+                            			</div>
+                        			</div>
+                        		</form>
+                        	</li>
+                       	</ul>
+                    </div>
+                    <p class="mb-4">모두의 코딩교실의 공지사항입니다. //이 부분은 뺄 수도 있음</p>					
 					
-					<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%; background:white">
+					<!-- 리스트 -->
+					<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%; background:white; text-align:center;">
                     	<thead>
-                        	<tr role="row"><th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">공지 번호</th><th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th><th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th><th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th></tr>
+                        	<tr role="row">
+	                        	<th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">No.</th>
+	                        	<th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th>
+	                        	<th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th>
+	                        	<th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th>
+                        	</tr>
                         </thead>
                         <tbody>
-                        	<tr role="row" class="odd">
-                            	<td class="">2</td>
-                            	<td>모코 이용방법</td>
-                                <td>정예원</td>
-                                <td>128</td>
-                            </tr>
+                        <% for (int i=0;i<10;i++ ){ %>
                             <tr role="row" class="odd">
                             	<td class="">1</td>
-                            	<td>아악 왜 안바껴어어어어ㅓㅓㅇ</td>
+                            	<td>모코 사이트 이용 방법 안내</td>
                             	<td>정예원</td>
                             	<td>61</td>
                             </tr>
+                        <%} %>
                        </tbody>
                    </table>
+                   
+                   <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                   		
+                   </div>
 
 <%@include file="menuPart2.jsp"%>
