@@ -22,5 +22,8 @@ public class HomeController {
     	return "yewon";
     }
 
-    
+    @RequestMapping(value="/studyPageMentor")///studyPage/studyPageMentor
+    public String index4() {
+    	return "studyPageMentor";
+    }
 }
