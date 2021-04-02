@@ -18,9 +18,10 @@
 		response.setCharacterEncoding("UTF-8"); 
 		String SRC = request.getParameter("CodeText"); // 코드와 입력값 받음
 		String input = request.getParameter("InputText");
-		
-		SRC.trim();
-		input.trim();
+		if (SRC != null)
+			SRC.trim();
+		if (input != null)
+			input.trim();
 	%>
 	
 	<form name="compileView" method="post" action="./compiler">
