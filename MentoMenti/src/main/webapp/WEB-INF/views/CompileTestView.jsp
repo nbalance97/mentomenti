@@ -30,6 +30,7 @@
 		stdin : <br> <textarea rows=5 cols=5 name="InputText" id="input"><%
 			if (input != null) {
 				out.println(input);
+				
 			}
 		%></textarea>
 		<br>
