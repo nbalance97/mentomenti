@@ -23,11 +23,6 @@ public class WebCompiler {
 		 	
 		 	ProcessBuilder processBuilder = new ProcessBuilder(cmd);
 		 	Process process = processBuilder.start();
-		 	/*
-		 	while (process.isAlive()) {
-		 	
-		 	}
-		 	*/
 		 	BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		 	String line;
 		 	StringBuffer result = new StringBuffer();

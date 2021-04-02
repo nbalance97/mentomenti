@@ -37,6 +37,8 @@
 			StringBuffer temp = WC.compile(SRC);
 			if (temp != null) 
 				out.println(temp);
+			else
+				out.println("에러 발생");
 		}
 	%></textarea>
 	<!-- Library textarea에 적용하는 과정 -->
