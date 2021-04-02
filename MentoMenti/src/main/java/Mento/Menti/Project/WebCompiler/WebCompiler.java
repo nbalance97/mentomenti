@@ -18,14 +18,16 @@ public class WebCompiler {
 		 		
 		 	/* 저장한 코드로 python 컴파일 및 결과를 BufferedReader로 가져옴 */
 		 	List cmd = new ArrayList();
-		 	cmd.add("python"); cmd.add("C:/Temp/MentoMenti.py");
+		 	cmd.add("python"); 
+		 	cmd.add("C:/Temp/MentoMenti.py");
+		 	
 		 	ProcessBuilder processBuilder = new ProcessBuilder(cmd);
 		 	Process process = processBuilder.start();
-		 	
+		 	/*
 		 	while (process.isAlive()) {
 		 	
 		 	}
-		 	
+		 	*/
 		 	BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		 	String line;
 		 	StringBuffer result = new StringBuffer();

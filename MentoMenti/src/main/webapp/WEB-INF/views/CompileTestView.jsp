@@ -33,7 +33,10 @@
 	<hr>
 	<textarea rows=5 cols=5 name="ResultText" id="result"><%
 		if (SRC != null) {
-			
+			WebCompiler WC = new WebCompiler();
+			StringBuffer temp = WC.compile(SRC);
+			if (temp != null) 
+				out.println(temp);
 		}
 	%></textarea>
 	<!-- Library textarea에 적용하는 과정 -->
