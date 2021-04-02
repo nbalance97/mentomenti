@@ -34,11 +34,12 @@
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
                             	<div class="p-5">
-                            		<div class="text-center">로고 이미지 추가 예정</div>
+                            		<!-- 로고 이미지 -->
+                            		<div class="text-center"><img src="resources/img/logo.png" style="width:150px"></div>
                             	</div>
-                                <div class="p-5">
+                                <div class="p-3">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">로그인</h1>
+                                        <!--  <h1 class="h4 text-gray-900 mb-4">로그인</h1> -->
                                     </div>
                                     <form class="user">
                                         <div class="form-group">
