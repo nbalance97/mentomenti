@@ -40,7 +40,7 @@ public class WebCompiler {
 		 		result.append("\n");
 		 	}
 		 	
-		 	return result.toString().trim();
+		 	return result.toString().trim(); // 공백 모두 제거
 		}
 		catch (Exception e) {
 			System.out.println("예기치 못한 에러가 발생했습니다.");
