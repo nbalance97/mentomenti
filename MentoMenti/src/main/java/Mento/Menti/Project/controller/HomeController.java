@@ -22,13 +22,14 @@ public class HomeController {
     	return "yewon";
     }
 
-    @RequestMapping(value="/studyPageMentor")///studyPage/studyPageMentor
+    @RequestMapping(value="/studyPage/studyPageMentor")//수업화면-멘토
     public String index4() {
-    	return "studyPageMentor";
+    	return "/studyPage/studyPageMentor";
     }
     
     @RequestMapping(value="/loginPage") //로그인 화면
     public String index5() {
     	return "loginPage";
     }
+    
 }
