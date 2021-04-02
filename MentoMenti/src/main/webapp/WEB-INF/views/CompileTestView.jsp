@@ -16,7 +16,8 @@
 	<% 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8"); 
-		String SRC = request.getParameter("CodeText");
+		String SRC = request.getParameter("CodeText"); // 코드와 입력값 받음
+		String input = request.getParameter("InputText");
 	%>
 	
 	<form name="compileView" method="post" action="./compiler">
@@ -25,16 +26,22 @@
 			/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
 			if (SRC != null)
 				out.println(SRC);
+		%></textarea> <br>
+		stdin : <br> <textarea rows=5 cols=5 name="InputText" id="input"><%
+			if (input != null) {
+				out.println(input);
+			}
 		%></textarea>
-		<br><br>
+		<br>
 		<input type="submit" value="Execute">
 	</form>
 	
 	<hr>
+	
 	<textarea rows=5 cols=5 name="ResultText" id="result"><%
 		if (SRC != null) {
 			WebCompiler WC = new WebCompiler();
-			StringBuffer temp = WC.compile(SRC);
+			String temp = WC.compile(SRC, input);
 			if (temp != null) 
 				out.println(temp);
 			else
@@ -56,9 +63,22 @@
 		var editor2 = CodeMirror.fromTextArea(textarea2, {
 			lineNumbers: true,
 			lineWrapping: true,
-			theme: "mdn-like",
+			theme: "dracula",
 			value: textarea2.value
 		});
+		
+		var textarea3 = document.getElementById('input');
+		var editor3 = CodeMirror.fromTextArea(textarea3, {
+			lineNumbers: true,
+			lineWrapping: true,
+			theme: "dracula",
+			mode: "python",
+			value: textarea3.value
+		});
+		
+		editor.setSize(500, 300);
+		editor2.setSize(500, 100);
+		editor3.setSize(500, 100);
 	</script>
 
 </body>
