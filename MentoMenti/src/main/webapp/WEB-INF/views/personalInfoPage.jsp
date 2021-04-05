@@ -24,7 +24,7 @@
 </div>
 
 <div style="text-align:center">
-		<img src="img/undraw_profile_1.svg" style="width:150px; margin-bottom:30px">
+		<img src="resources/img/undraw_profile_1.svg" style="width:150px; margin-bottom:30px">
 
 	<table class="table" style="width:60%; margin:0 auto;">
 		<tr style="width:50px"><td>이름</td><td>정예원</td></tr>
