@@ -36,4 +36,9 @@ public class HomeController {
     public String index6() {
     	return "notice";
     }
+    
+    @RequestMapping(value="/main") //로그인 화면
+    public String index7() {
+    	return "main";
+    }
 }
