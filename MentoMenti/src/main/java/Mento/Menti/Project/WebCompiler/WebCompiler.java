@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class WebCompiler {
 	public static WebCompiler instance = null;
+	
 	public static WebCompiler getInstance() {
 		if (instance == null)
 			instance = new WebCompiler();
