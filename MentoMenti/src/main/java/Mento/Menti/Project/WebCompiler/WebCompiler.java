@@ -19,7 +19,7 @@ public class WebCompiler {
 		 	return executeCMD(command, input);
 		}
 		catch (Exception e) {
-			System.out.println("[C]예기치 못한 에러가 발생했습니다.");
+			System.out.println("예기치 못한 에러가 발생했습니다.");
 			return null;
 		}
 	}
@@ -32,7 +32,7 @@ public class WebCompiler {
 		 	return executeCMD(command, input);
 		}
 		catch (Exception e) {
-			System.out.println("[Python]예기치 못한 에러가 발생했습니다.");
+			System.out.println("예기치 못한 에러가 발생했습니다.");
 			return null;
 		}
 	}

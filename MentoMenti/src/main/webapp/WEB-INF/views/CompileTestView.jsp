@@ -24,7 +24,7 @@
 			input.trim();
 	%>
 	
-	<form name="compileView" method="post" action="./compiler">
+	<form name="compileView" method="post" action="./compiler"> 
 		<label>Code Input</label> <br>
 		<textarea rows=30 cols=30 name="CodeText" id="editor"><%
 			/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
@@ -33,7 +33,7 @@
 		%></textarea> <br>
 		stdin : <br> <textarea rows=5 cols=5 name="InputText" id="input"><%
 			if (input != null) {
-				out.println(input);
+				out.println(input); // 사라지지 않게 처리
 			}
 		%></textarea>
 		<br>
