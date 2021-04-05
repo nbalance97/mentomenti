@@ -11,7 +11,7 @@
 	.list{
 		float:right;
 		width:25%;
-		height:345px;
+		height:345px;<!--345-->
 	}
 </style>
 </head>

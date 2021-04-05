@@ -19,10 +19,15 @@
 	.shadow {
     	box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
 	}
+	.visual{
+		width:100%;
+		margin:0 auto;
+		text-align:center;
+	}
 </style>
 </head>
 <body>
-	<div>
+	<div class="visual">
 	<!-- 화면공유  -->
 	<%@ include file="studyPageScreen.jsp" %>
 	<!-- 참여자 리스트 메뉴 -->

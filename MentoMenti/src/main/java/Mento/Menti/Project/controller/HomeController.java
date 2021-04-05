@@ -32,4 +32,30 @@ public class HomeController {
     	return "loginPage";
     }
     
+    @RequestMapping(value="/notice") //공지사항
+    public String index6() {
+    	return "notice";
+    }
+    
+    @RequestMapping(value="/main") //로그인 화면
+    public String index7() {
+    	return "main";
+    }
+    
+    @RequestMapping(value="/studyPage/debugStudy")//수업화면-멘토 다시 레이아웃
+    public String index8() {
+    	return "/studyPage/debugStudy";
+    }
+    @RequestMapping(value="/practice")//실습화면-멘티레이아웃1
+    public String index9() {
+    	return "/studyPage/practicePage";
+    }
+    @RequestMapping(value="/practice2")//실습화면-멘티레이아웃2
+    public String index10() {
+    	return "/studyPage/practicePage2";
+    }
+    @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
+    public String index11() {
+    	return "/studyPage/practiceMento";
+    }
 }

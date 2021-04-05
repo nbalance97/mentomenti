@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.FileWriter, java.io.Reader" %>
-<%@ page import="java.io.InputStream, java.io.InputStreamReader, java.io.BufferedReader" %>
+<%@ page import="Mento.Menti.Project.WebCompiler.WebCompiler" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,40 +16,40 @@
 	<% 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8"); 
-		String code = request.getParameter("CodeText");
+		String SRC = request.getParameter("CodeText"); // 코드와 입력값 받음
+		String input = request.getParameter("InputText");
+		if (SRC != null)
+			SRC.trim();
+		if (input != null)
+			input.trim();
 	%>
 	
 	<form name="compileView" method="post" action="./compiler">
 		<label>Code Input</label> <br>
 		<textarea rows=30 cols=30 name="CodeText" id="editor"><%
 			/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
-			if (code != null)
-				out.println(code);
+			if (SRC != null)
+				out.println(SRC);
+		%></textarea> <br>
+		stdin : <br> <textarea rows=5 cols=5 name="InputText" id="input"><%
+			if (input != null) {
+				out.println(input);
+			}
 		%></textarea>
-		<br><br>
+		<br>
 		<input type="submit" value="Execute">
 	</form>
 	
 	<hr>
+	
 	<textarea rows=5 cols=5 name="ResultText" id="result"><%
-		if (code != null) {
-	 		FileWriter fw = new FileWriter("C:/Temp/MentoMenti.py");
-	 		fw.write(code);
-	 		fw.flush();
-	 		fw.close();
-	 		
-	 		/* 저장한 코드로 python 컴파일 및 결과를 BufferedReader로 가져옴 */
-	 		String cmd = "python C:/Temp/MentoMenti.py";
-	 		Process process = Runtime.getRuntime().exec(cmd);
-	 		BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-	 		String line;
-	 		StringBuffer result = new StringBuffer();
-	 		while ((line = br.readLine()) != null) {
-	 			result.append(line);
-	 			result.append("\n");
-	 		}
-	 		
-	 		out.println(result);
+		if (SRC != null) {
+			WebCompiler WC = new WebCompiler();
+			String temp = WC.compile(SRC, input);
+			if (temp != null) 
+				out.println(temp);
+			else
+				out.println("에러 발생");
 		}
 	%></textarea>
 	<!-- Library textarea에 적용하는 과정 -->
@@ -68,9 +67,22 @@
 		var editor2 = CodeMirror.fromTextArea(textarea2, {
 			lineNumbers: true,
 			lineWrapping: true,
-			theme: "mdn-like",
+			theme: "dracula",
 			value: textarea2.value
 		});
+		
+		var textarea3 = document.getElementById('input');
+		var editor3 = CodeMirror.fromTextArea(textarea3, {
+			lineNumbers: true,
+			lineWrapping: true,
+			theme: "dracula",
+			mode: "python",
+			value: textarea3.value
+		});
+		
+		editor.setSize(500, 300);
+		editor2.setSize(500, 100);
+		editor3.setSize(500, 100);
 	</script>
 
 </body>

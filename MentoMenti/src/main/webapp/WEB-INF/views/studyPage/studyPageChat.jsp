@@ -12,7 +12,7 @@
 		float:right;
 		background:#666;
 		width:25%;
-		height:345px;
+		height:345px;<!--345-->
 		margin-top:10px;
 		margin-bottom:10px;
 	}

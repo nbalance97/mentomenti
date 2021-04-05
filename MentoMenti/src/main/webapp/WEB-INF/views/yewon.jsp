@@ -40,7 +40,7 @@
                         	</li>
                        	</ul>
                     </div>
-                    <p class="mb-4">모두의 코딩교실의 공지사항입니다. //이 부분은 뺄 수도 있음</p>					
+                    <p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>					
 					
 					<!-- 리스트 -->
 					<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%; background:white; text-align:center;">
@@ -53,19 +53,40 @@
                         	</tr>
                         </thead>
                         <tbody>
-                        <% for (int i=0;i<10;i++ ){ %>
+                        <% for (int i=0;i<7;i++ ){ %>
                             <tr role="row" class="odd">
                             	<td class="">1</td>
                             	<td>모코 사이트 이용 방법 안내</td>
                             	<td>정예원</td>
-                            	<td>61</td>
+                            	<td>62</td>
                             </tr>
                         <%} %>
                        </tbody>
                    </table>
                    
-                   <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                   <!-- 페이지 버튼 -->
+                   <div class="d-flex align-items-center justify-content-between">
+                   		<div style="margin:0 auto;">
+                   			<a href="#" class="btn-primary" style="width:40px; height:10px; font-size:15px; padding:5px; border-radius:5px; text-decoration:none">
+                   			<<</a>
+                   			<%
+                   				for(int j=1; j<=10; j++){
+                   			%>
+                   			<a href="#" style="text-decoration:none">
+                   					<%out.println(j);%>
+                   			</a>
+                   			<%
+                   				}
+                   			%>
+                   			<a href="#" class="btn-primary" style="width:40px; height:10px; font-size:15px; padding:5px; border-radius:5px; text-decoration:none">
+                   			>></a>
+                   		</div>
                    		
+                   		<div class="d-sm-flex justify-content-between">
+                   			<div style="margin:0 auto; float:right">
+                   				<a href="#" class="btn btn-secondary">작성</a>
+                   			</div>
+                   		</div>
                    </div>
 
 <%@include file="menuPart2.jsp"%>
