@@ -42,7 +42,6 @@ public class HomeController {
     	return "main";
     }
     
-<<<<<<< HEAD
     @RequestMapping(value="/studyPage/debugStudy")//수업화면-멘토 다시 레이아웃
     public String index8() {
     	return "/studyPage/debugStudy";
@@ -60,23 +59,22 @@ public class HomeController {
     	return "/studyPage/practiceMento";
 =======
     @RequestMapping(value="/openedGroups") //개설된 그룹
-    public String index8() {
+    public String index12() {
     	return "openedGroups";
     }
     
     @RequestMapping(value="/freeBoard") //자유게시판
-    public String index9() {
+    public String index13() {
     	return "freeBoard";
     }
     
     @RequestMapping(value="/personalInfoPage") //회원 정보 확인
-    public String index10() {
+    public String index14() {
     	return "personalInfoPage";
     }
     
     @RequestMapping(value="/personalInfoChange") //회원 정보 수정
-    public String index11() {
+    public String index15() {
     	return "personalInfoChange";
->>>>>>> refs/remotes/origin/master
     }
 }
