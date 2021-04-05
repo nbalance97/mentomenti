@@ -56,4 +56,9 @@ public class HomeController {
     public String index10() {
     	return "personalInfoPage";
     }
+    
+    @RequestMapping(value="/personalInfoChange") //회원 정보 수정
+    public String index11() {
+    	return "personalInfoChange";
+    }
 }
