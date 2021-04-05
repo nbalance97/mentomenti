@@ -42,7 +42,7 @@ public class HomeController {
     	return "main";
     }
     
-    @RequestMapping(value="/openedGroups") //개설된 그룹 화면
+    @RequestMapping(value="/openedGroups") //개설된 그룹
     public String index8() {
     	return "openedGroups";
     }
