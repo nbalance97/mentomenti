@@ -31,4 +31,9 @@ public class HomeController {
     public String index5() {
     	return "loginPage";
     }
+    
+    @RequestMapping(value="/notice") //공지사항
+    public String index6() {
+    	return "notice";
+    }
 }
