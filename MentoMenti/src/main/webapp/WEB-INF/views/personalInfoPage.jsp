@@ -28,7 +28,7 @@
 
 	<table class="table" style="width:60%; margin:0 auto;">
 		<tr style="width:50px"><td>이름</td><td>정예원</td></tr>
-		<tr><td>닉네임</td><td>죠르디는커여워</td></tr> <!-- 닉네임제 유무 고민 -->
+		<tr><td>닉네임</td><td>죠르디는커여워</td></tr>  <!-- 닉네임제 유무 고민 -->
 		<tr><td>소개글</td><td>컴공 4학년 재학 중</td></tr>
 		<tr>
 			<td>가입 그룹</td>
