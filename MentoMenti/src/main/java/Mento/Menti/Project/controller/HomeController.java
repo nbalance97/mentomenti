@@ -57,7 +57,7 @@ public class HomeController {
     @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
     public String index11() {
     	return "/studyPage/practiceMento";
-=======
+    }
     @RequestMapping(value="/openedGroups") //개설된 그룹
     public String index12() {
     	return "openedGroups";
