@@ -106,7 +106,7 @@
 		bottom:50%;
 		transform:translateY(50%) rotate(-45deg);
 	}
-	.content{
+	.content{ 
 		color:white;
 	}
 	.list, .chating{

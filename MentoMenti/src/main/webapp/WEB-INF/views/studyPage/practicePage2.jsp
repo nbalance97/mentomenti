@@ -85,7 +85,7 @@
 	</style>
 </head>
 <body>
-	<div class="main">
+	<div class="main"> 
 		<div class="coding">
 			<div class="compiler shadow img-rounded">
 				<h1>compile</h1>

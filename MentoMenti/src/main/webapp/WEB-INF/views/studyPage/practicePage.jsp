@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"> 
 	<title>prac</title>
 	<link rel="stylesheet" type="text/css" href="/resources/css/codemirror.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/mdn-like.css">
