@@ -36,4 +36,19 @@ public class HomeController {
     public String index6() {
     	return "notice";
     }
+    
+    @RequestMapping(value="/main") //로그인 화면
+    public String index7() {
+    	return "main";
+    }
+    
+    @RequestMapping(value="/openedGroups") //개설된 그룹
+    public String index8() {
+    	return "openedGroups";
+    }
+    
+    @RequestMapping(value="/freeBoard") //자유게시판
+    public String index9() {
+    	return "freeBoard";
+    }
 }
