@@ -46,4 +46,9 @@ public class HomeController {
     public String index8() {
     	return "openedGroups";
     }
+    
+    @RequestMapping(value="/freeBoard") //자유게시판
+    public String index9() {
+    	return "freeBoard";
+    }
 }
