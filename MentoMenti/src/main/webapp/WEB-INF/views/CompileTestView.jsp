@@ -45,7 +45,7 @@
 	<textarea rows=5 cols=5 name="ResultText" id="result"><%
 		if (SRC != null) {
 			WebCompiler WC = new WebCompiler();
-			String temp = WC.compile(SRC, input);
+			String temp = WC.compileC(SRC, input);
 			if (temp != null) 
 				out.println(temp);
 			else
