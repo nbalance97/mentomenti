@@ -1,38 +1,54 @@
 package Mento.Menti.Project.WebCompiler;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public class WebCompiler {
+	public static WebCompiler instance = null;
 	
+	public static WebCompiler getInstance() {
+		if (instance == null)
+			instance = new WebCompiler();
+		return instance;
+	}
+
 	public String compileC(String SRC, String input) {
-		/* 컴파일 실행 함수 */
+		/* C언어 컴파일 실행 함수 */
 		try {
-			setFile("c", SRC);
-		 	ArrayList<String> command = setCommand("c");
-		 	return executeCMD(command, input);
+			setFile("C", SRC);
+			/* 컴파일 파트 */
+		 	ArrayList<String> command = setCommand("C");
+		 	executeCMD(command, null);
+		 	
+		 	/* 실행 파트 */
+		 	command.clear();
+		 	command.add("c:/Temp/MentoMenti.exe");
+		 	String temp = executeCMD(command, input);
+		 	File f = new File("C:/Temp/MentoMenti.exe"); // 파일 삭제
+		 	f.delete();
+		 	
+		 	return temp;
 		}
 		catch (Exception e) {
-			System.out.println("예기치 못한 에러가 발생했습니다.");
+			e.printStackTrace();
 			return null;
 		}
 	}
 	
 	public String compilePython(String SRC, String input) { 
-		/* 컴파일 실행 함수 */
+		/* 파이썬 컴파일 실행 함수 */
 		try {
+			/* 파이썬 같은 경우는 인터프리터라서 컴파일->실행 필요 X */
 			setFile("python", SRC);
 		 	ArrayList<String> command = setCommand("python");
 		 	return executeCMD(command, input);
 		}
 		catch (Exception e) {
-			System.out.println("예기치 못한 에러가 발생했습니다.");
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -42,24 +58,22 @@ public class WebCompiler {
 		if (mode.contentEquals("python")){
 		 	cmd.add("python"); 
 		 	cmd.add("C:/Temp/MentoMenti.py");
-		} else if (mode.contentEquals("c")) {
+		} else if (mode.contentEquals("C")) {
 			cmd.add("gcc");
 			cmd.add("-o");
 			cmd.add("C:/Temp/MentoMenti.exe");
-			cmd.add("C:/Temp/MentoMenti.c"); // 여기까지 gcc 컴파일
-			cmd.add("C:/Temp/MentoMenti.exe"); // 컴파일 결과 실행
+			cmd.add("C:/Temp/MentoMenti.c"); 
 		}
-		
 		return cmd;
-	
 	}
 	
 	public void setFile(String mode, String SRC) throws Exception {
+		/* 컴파일러에 맞추어서 파일 저장 */
 		FileWriter fw = null;
 		if (mode.contentEquals("python")) {
 		 	fw = new FileWriter("C:/Temp/MentoMenti.py");
 		 	fw.write(SRC);
-		} else if (mode.contentEquals("c")) {
+		} else if (mode.contentEquals("C")) {
 		 	fw = new FileWriter("C:/Temp/MentoMenti.c");
 		 	fw.write(SRC);
 		}
@@ -72,13 +86,16 @@ public class WebCompiler {
 	
 	
 	public String executeCMD(ArrayList<String> cmd, String input) throws Exception {
+		System.out.println(cmd);
 		ProcessBuilder processbuilder = new ProcessBuilder(cmd);
 		Process process = processbuilder.start();
 	 	
 	 	/* 입력 값 받고 적용하기 위한 writer 설정 */
-	 	PrintWriter writer = new PrintWriter(process.getOutputStream());
-	 	writer.write(input + "\n"); // 맨 마지막에 enter 눌른거 표시하기 위해 \n 추가
-	 	writer.flush();
+		if (input != null) {
+		 	PrintWriter writer = new PrintWriter(process.getOutputStream());
+		 	writer.write(input + "\n"); // 맨 마지막에 enter 눌른거 표시하기 위해 \n 추가
+		 	writer.flush();
+		}
 	 	
 	 	/* 실행 결과 가져오는 파트 */
 	 	BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -89,6 +106,7 @@ public class WebCompiler {
 	 		result.append("\n");
 	 	}
 	 	
+	 	process.waitFor();
 	 	return result.toString().trim(); // 공백 모두 제거한 실행결과 반환
 	}
 	
