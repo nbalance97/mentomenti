@@ -51,4 +51,9 @@ public class HomeController {
     public String index9() {
     	return "freeBoard";
     }
+    
+    @RequestMapping(value="/personalInfoPage") //회원 정보 확인
+    public String index10() {
+    	return "personalInfoPage";
+    }
 }
