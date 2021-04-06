@@ -19,6 +19,8 @@
 			window.location.href = 'compiler?mode=python';
 		} else if (e.value == 'C') {
 			window.location.href = 'compiler?mode=C';
+		} else if (e.value == 'java') {
+			window.location.href = 'compiler?mode=java';
 		}
 	}
 </script>
@@ -37,6 +39,8 @@
 			settingFile = "python";
 		else if (mode.equals("C"))
 			settingFile = "text/x-csrc";
+		else if (mode.equals("java"))
+			settingFile = "text/x-java";
 		
 		
 		if (SRC != null)
@@ -56,6 +60,10 @@
 			if (mode.equals("C"))
 				out.println("selected");
 		%>>C</option>
+		<option value="java" <%
+			if (mode.equals("java"))
+				out.println("selected");
+		%>>java</option>
 	</select>	
 	
 	<!-- 소스코드 화면  -->
