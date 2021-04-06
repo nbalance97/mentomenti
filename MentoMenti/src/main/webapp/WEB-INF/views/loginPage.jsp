@@ -30,12 +30,11 @@
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <div class="row">
-                            <!-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> -->
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
                             	<div class="p-5">
                             		<!-- 로고 이미지 -->
-                            		<div class="text-center"><img src="resources/img/logo.png" style="width:150px"></div>
+                            		<div class="text-center"><img src="resources/img/logo3.png" style="width:170px"></div>
                             	</div>
                                 <div class="p-3">
                                     <div class="text-center">
