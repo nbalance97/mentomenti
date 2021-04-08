@@ -42,18 +42,11 @@ public class HomeController {
     	return "main";
     }
     
-    @RequestMapping(value="/studyPage/debugStudy")//수업화면-멘토 다시 레이아웃
+    @RequestMapping(value="/practiceMentee")//실습화면-멘티레이아웃1
     public String index8() {
-    	return "/studyPage/debugStudy";
+    	return "/studyPage/practiceMentee";
     }
-    @RequestMapping(value="/practice")//실습화면-멘티레이아웃1
-    public String index9() {
-    	return "/studyPage/practicePage";
-    }
-    @RequestMapping(value="/practice2")//실습화면-멘티레이아웃2
-    public String index10() {
-    	return "/studyPage/practicePage2";
-    }
+   
     @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
     public String index11() {
     	return "/studyPage/practiceMento";
