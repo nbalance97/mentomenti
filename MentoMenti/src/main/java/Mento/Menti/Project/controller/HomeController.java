@@ -82,6 +82,10 @@ public class HomeController {
     public String index16() {
     	return "chatPage";
     }
+    @RequestMapping(value="/screenShare") //화면공유
+    public String index17() {
+    	return "screenShare";
+    }
     @RequestMapping(value="/testPage")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
     public String index100() {
     	return "/studyPage/debugStudy_test";
