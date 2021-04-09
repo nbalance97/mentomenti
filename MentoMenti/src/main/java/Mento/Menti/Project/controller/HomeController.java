@@ -71,6 +71,11 @@ public class HomeController {
     	return "personalInfoChange";
     }
     
+    @RequestMapping(value="/tmp") //테스트용
+    public String index20() {
+    	return "tmp";
+    }
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";

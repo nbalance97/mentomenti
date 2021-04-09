@@ -10,7 +10,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
-	    <div class = "sidebar">
+	    <div class = "sidebar" style="z-index:1000;">
     	<header>MOCO</header>
     	<ul>
     		<li><a href="#"><i class="fas fa-qrcode"></i>test</a></li>
