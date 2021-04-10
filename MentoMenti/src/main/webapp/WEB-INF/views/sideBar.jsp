@@ -33,8 +33,10 @@
 				<div id="collapseOne" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
-						<a class="collapse-item" id="colItems" href="openedGroups">개설된 그룹</a>
-						<a class="collapse-item" id="colItems" href="#">가입한 그룹</a>
+						<a class="collapse-item" id="colItems" href="openedGroups">
+						<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>개설된 그룹</a>
+						<a class="collapse-item" id="colItems" href="#">
+						<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>가입한 그룹</a>
 					</div>
 				</div></li>
 		
@@ -47,8 +49,10 @@
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
-						<a class="collapse-item" id="colItems" href="personalInfoPage">회원 정보 확인</a>
-						<a class="collapse-item" id="colItems" href="personalInfoChange">회원 정보 수정</a>
+						<a class="collapse-item" id="colItems" href="personalInfoPage">
+						<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보 확인</a>
+						<a class="collapse-item" id="colItems" href="personalInfoChange">
+						<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보 수정</a>
 					</div>
 				</div></li>
 		</ul>

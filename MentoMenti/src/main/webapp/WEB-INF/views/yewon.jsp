@@ -34,7 +34,7 @@
 						placeholder="검색" aria-label="Search"
 						aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn" type="button" style="background: black">
+						<button class="btn" type="button" style="background: black; box-shadow: 5px black;">
 							<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>
@@ -46,18 +46,18 @@
 <p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>
 
 <!-- 리스트 -->
-<table class="table table-bordered dataTable" id="dataTable"
+<table class="table table-bordered" id="dataTable"
 	width="100%" cellspacing="0" role="grid"
 	aria-describedby="dataTable_info"
 	style="width: 100%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">No.</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 90px;">No.</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th>
 		</tr>
-	</thead>
+		</thead>
 	<tbody>
 		<%
 			for (int i = 0; i < 10; i++) {

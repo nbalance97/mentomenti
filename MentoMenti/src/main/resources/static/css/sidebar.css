@@ -41,7 +41,7 @@ body{
 	transition : .4s;
 }
 
-ul li:hover a{
+.sidebar2 ul li:hover a{
 	padding-left: 50px;
 
 }
