@@ -52,6 +52,22 @@ public class WebCompiler {
 			return null;
 		}
 	}
+	
+	public String compileJava(String SRC, String input) {
+		try {
+			setFile("java", SRC);
+			ArrayList<String> command = setCommand("java");
+			executeCMD(command, null);
+			
+			command.clear();
+			command.add("java");
+			command.add("MentoMenti");
+			return executeCMD(command, input);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public ArrayList<String> setCommand(String mode) { 
 		ArrayList<String> cmd = new ArrayList<String>();
@@ -63,6 +79,11 @@ public class WebCompiler {
 			cmd.add("-o");
 			cmd.add("C:/Temp/MentoMenti.exe");
 			cmd.add("C:/Temp/MentoMenti.c"); 
+		} else if (mode.contentEquals("java")) {
+			cmd.add("javac");
+			cmd.add("C:/Temp/MentoMenti.java");
+			cmd.add("--release");
+			cmd.add("8");
 		}
 		return cmd;
 	}
@@ -76,6 +97,9 @@ public class WebCompiler {
 		} else if (mode.contentEquals("C")) {
 		 	fw = new FileWriter("C:/Temp/MentoMenti.c");
 		 	fw.write(SRC);
+		} else if (mode.contentEquals("java")) {
+		 	fw = new FileWriter("C:/Temp/MentoMenti.java");
+		 	fw.write(SRC);
 		}
 		
 		if (fw != null) {
@@ -88,6 +112,7 @@ public class WebCompiler {
 	public String executeCMD(ArrayList<String> cmd, String input) throws Exception {
 		System.out.println(cmd);
 		ProcessBuilder processbuilder = new ProcessBuilder(cmd);
+		processbuilder = processbuilder.directory(new File("c:/Temp"));
 		Process process = processbuilder.start();
 	 	
 	 	/* 입력 값 받고 적용하기 위한 writer 설정 */
