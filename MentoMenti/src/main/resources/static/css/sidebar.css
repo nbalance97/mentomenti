@@ -132,3 +132,7 @@ section{
 	padding-top:100px;
 }
 
+#colItems{
+	line-height:30px;
+	height:30px
+}

@@ -60,7 +60,7 @@
 	</thead>
 	<tbody>
 		<%
-			for (int i = 0; i < 15; i++) {
+			for (int i = 0; i < 10; i++) {
 		%>
 		<tr role="row" class="odd">
 			<td class="">1</td>
