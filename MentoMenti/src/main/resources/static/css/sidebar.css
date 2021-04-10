@@ -10,6 +10,7 @@ body{
 }
 
 .sidebar2{
+	z-index:10000;
 	position : fixed;
 	left : -250px;
 	top: 0px;
@@ -61,18 +62,19 @@ label #btn, label #cancel{
 }
 
 label #btn{
+	z-index : 10001;
 	left: 40px;
-	top : 17px;
+	top : 15px;
 	font-size : 35px;
 	color: white;
-	padding : 6px 12px;
+	padding : 4px 9px;
 	transition : all .5s;
 }
 
 label #cancel{
-	z-index : 1111;
+	z-index : 10001;
 	left : -195px;
-	top : 17px;
+	top : 15px;
 	font-size : 30px;
 	color : #0a5275;
 	padding : 4px 9px;
@@ -111,12 +113,12 @@ section{
 
 
 
-#check:checked ~ #tmpSection{
+#check:checked ~ #contentSection{
 	margin-left:250px;
 	width:80%;
 }
  
-#tmpSection{
+#contentSection{
 	background-position: absolute;
 	background-size : cover;
 	left: 0;
@@ -126,4 +128,7 @@ section{
 	transition:all .5s;
 }
 
+#pageHeading{
+	padding-top:100px;
+}
 
