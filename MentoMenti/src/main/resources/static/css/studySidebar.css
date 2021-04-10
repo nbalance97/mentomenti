@@ -1,0 +1,85 @@
+/*사이드바 + 사이드바 내부 컨텐츠(멘티리스트 및 채팅)*/
+@charset "UTF-8";
+
+/*사이드바 및 버튼*/
+div[class="sidebar"]{
+	width:300px;
+	height:100%;
+	position:fixed;
+	top:0;
+	background:#000;
+	left:-300px;
+	z-index:100;
+	transition:all .35s;
+	opacity: 0.8;
+}
+input[id="menuicon"]:checked +label + div{
+	left:0;
+}
+input[id="menuicon"] +label {
+	display:block;
+	width:30px;
+	height:25px;
+	top:20px;
+	position:fixed;
+	left:0;
+	transition:all .35s;
+	cursor:pointer;
+}
+input[id="menuicon"]:checked +label {
+	z-index:2;
+	left:300px;
+}
+input[id="menuicon"]{
+	display:none;
+}
+input[id="menuicon"]+label span{
+	display:block;
+	position:absolute;
+	width:100%;
+	height:5px;
+	border-radius:30px;
+	background:#fff;
+	transition:all .35s;
+}
+input[id="menuicon"] + label span:nth-child(1){
+	top:0;
+}
+input[id="menuicon"] + label span:nth-child(2){
+	top:50%;
+	transform:translateY(-50%);
+}
+input[id="menuicon"] + label span:nth-child(3){
+	bottom:0;
+}
+input[id="menuicon"]:checked + label span:nth-child(1){
+	top:50%;
+	transform:translateY(-50%) rotate(45deg);
+}
+input[id="menuicon"]:checked + label span:nth-child(2){
+	opacity:0;
+}
+input[id="menuicon"]:checked + label span:nth-child(3){
+	bottom:50%;
+	transform:translateY(50%) rotate(-45deg);
+}
+/*사이드바 내부 컨텐츠 : 멘티리스트 & 채팅*/
+.content{ 
+	color:white;
+}
+.list, .chating{
+	overflow:auto;
+	height:50vh;
+}
+.list{
+	text-align:left;
+}
+.stateIcon{
+	color:white;
+}
+.chatSize{
+	height:70%;
+	z-index:500;
+	color:black;
+	margin-bottom:3%;
+}
