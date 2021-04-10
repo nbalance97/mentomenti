@@ -32,6 +32,12 @@
 		String input = request.getParameter("InputText");
 		String mode = request.getParameter("mode");
 		String settingFile = null; // 설정된 파일명
+		String java_default = 
+				"public class MentoMenti {\n\t"+
+				"public static void main(String args[]) {\n\n\t"+
+		    	"}\n"+
+				"}";
+
 		if (mode == null) 
 			mode = "python";
 		
@@ -73,6 +79,9 @@
 			/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
 			if (SRC != null)
 				out.println(SRC);
+			if (SRC == null && mode.equals("java")) {
+				out.println(java_default);
+			}
 		%></textarea> <br>
 		stdin : <br> <textarea rows=5 cols=5 name="InputText" id="input"><%
 			if (input != null) {
@@ -94,6 +103,8 @@
 				temp = WC.compilePython(SRC, input);
 			} else if (mode.equals("C")) {
 				temp = WC.compileC(SRC, input);
+			} else if (mode.equals("java")) {
+				temp = WC.compileJava(SRC, input);
 			}
 			
 			if (temp != null) 

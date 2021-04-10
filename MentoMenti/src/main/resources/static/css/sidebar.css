@@ -15,7 +15,7 @@ body{
 	top: 0px;
 	width : 250px;
 	height : 100%;
-	background : rgba(0,0,0,0.5);
+	background : rgba(0,0,0);
 	transition: all .5s ease;
 }
 .sidebar2 header{
@@ -31,11 +31,12 @@ body{
 	height : 50px;
 	width : 100%;
 	line-height : 65px;
-	font-size : 20px;
+	font-size : 15px;
 	color : white;
 	padding-left : 40px;
 	box-sizing : border-box;
 	border-top : 1px solid rgba(255,255,255,.1);
+	text-decoration: none;
 	transition : .4s;
 }
 
@@ -61,7 +62,7 @@ label #btn, label #cancel{
 
 label #btn{
 	left: 40px;
-	top : 25px;
+	top : 17px;
 	font-size : 35px;
 	color: white;
 	padding : 6px 12px;
@@ -96,9 +97,6 @@ label #cancel{
 	margin-left:250px;
 }
 
-
-
-
 section{
 	background : url("../img/mainimg1.png") no-repeat;
 	background-position: absolute;
@@ -111,5 +109,21 @@ section{
 	transition:all .5s;
 }
 
+
+
+#check:checked ~ #tmpSection{
+	margin-left:250px;
+	width:80%;
+}
+ 
+#tmpSection{
+	background-position: absolute;
+	background-size : cover;
+	left: 0;
+    top: 0;
+    width:100%;
+    padding:0 5%;
+	transition:all .5s;
+}
 
 

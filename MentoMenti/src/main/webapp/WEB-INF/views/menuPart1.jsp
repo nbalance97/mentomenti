@@ -9,8 +9,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background:black">
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
