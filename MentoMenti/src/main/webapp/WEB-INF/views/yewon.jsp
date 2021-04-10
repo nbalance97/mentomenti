@@ -9,6 +9,7 @@
     <meta name="author" content="">
 
     <title>MOCO</title>
+    
 
     <!-- Custom fonts for this template-->
     <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
@@ -16,11 +17,16 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="resources/css/sidebar.css" rel="stylesheet" type="text/css">
 
 </head>
 
-<%@include file="menuPart1.jsp" %>
+<body id="page-top">
+	<%@include file="menuPart1.jsp" %>
+		<%@include file="sideBar.jsp" %>
 
+		
+					<!-- 공지사항 페이지 -->
 
                     <!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -88,5 +94,8 @@
                    			</div>
                    		</div>
                    </div>
+		
+	<%@include file="menuPart2.jsp" %>
 
-<%@include file="menuPart2.jsp"%>
+
+</body></html>
