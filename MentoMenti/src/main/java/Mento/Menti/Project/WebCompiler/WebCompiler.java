@@ -112,7 +112,7 @@ public class WebCompiler {
 	public String executeCMD(ArrayList<String> cmd, String input) throws Exception {
 		System.out.println(cmd);
 		ProcessBuilder processbuilder = new ProcessBuilder(cmd);
-		processbuilder = processbuilder.directory(new File("c:/Temp"));
+		processbuilder = processbuilder.directory(new File("c:/Temp")); // 현재 실행폴더를 c:/Temp로 전환
 		Process process = processbuilder.start();
 	 	
 	 	/* 입력 값 받고 적용하기 위한 writer 설정 */
