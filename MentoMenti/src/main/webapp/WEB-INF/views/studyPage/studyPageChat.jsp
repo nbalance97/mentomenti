@@ -1,5 +1,5 @@
 <!-- 채팅기능 -->
-<style>
+<style> 
 	.chatSize{
 		height:70%;
 		z-index:500;
