@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <div class="list">
 				<h1>참여자</h1>
-				<table class="table table-hover"">
+				<table class="table">
 					<thread>
 						<th>No.</th>
 						<th>이름</th>
