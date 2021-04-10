@@ -46,7 +46,7 @@ public class HomeController {
     public String index8() {
     	return "/studyPage/practiceMentee";
     }
-   
+    
     @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
     public String index11() {
     	return "/studyPage/practiceMento";
