@@ -71,6 +71,11 @@ public class HomeController {
     	return "personalInfoChange";
     }
     
+    @RequestMapping(value="/writepage") //회원 정보 수정
+    public String index16() {
+    	return "writepage";
+    }
+    
     @RequestMapping(value="/tmp") //테스트용
     public String index20() {
     	return "tmp";
