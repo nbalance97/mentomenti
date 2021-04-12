@@ -51,6 +51,7 @@ public class HomeController {
     public String index11() {
     	return "/studyPage/practiceMento";
     }
+    
     @RequestMapping(value="/openedGroups") //개설된 그룹
     public String index12() {
     	return "openedGroups";
@@ -60,7 +61,6 @@ public class HomeController {
     public String index13() {
     	return "freeBoard";
     }
-    
     @RequestMapping(value="/personalInfoPage") //회원 정보 확인
     public String index14() {
     	return "personalInfoPage";
