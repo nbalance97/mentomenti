@@ -16,7 +16,7 @@ public class MentoMentiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MentoMentiApplication.class, args);
 	}
-	/*
+	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
@@ -27,5 +27,4 @@ public class MentoMentiApplication {
 		
 		return sessionFactory.getObject();
 	}
-	*/
 }
