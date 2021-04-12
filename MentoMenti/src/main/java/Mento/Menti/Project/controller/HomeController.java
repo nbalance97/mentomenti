@@ -2,22 +2,39 @@ package Mento.Menti.Project.controller;
  
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import Mento.Menti.Project.dto.PostDTO;
+
 @Controller
 public class HomeController {
+	public static DAOConfiguration dao; // 실제로 사용하는 static 저장소
+
 	@Autowired
-	public static DAOConfiguration dao;
+	private DAOConfiguration temp;
+	
+	@PostConstruct
+	private void initDao() {
+		dao = temp;
+	}
 	
     @RequestMapping(value="/")
-    public String index() {      
+    public String index() {    
         return "home";
     }
     
     @RequestMapping(value="/compiler")
     public String index2() throws Exception{
+    	System.out.println(dao);
+    	List<PostDTO> temp = dao.getPostDAO().selectPosts();
+    	PostDTO post = temp.get(0);
+    	System.out.println(post.getTitle() + " // " + post.getUserid() + " // ");
+    	System.out.println(post.getGroupid() + " // " + post.getPostdate() + " // ");
+    	System.out.println(post.getContent() + " // " + post.getViewcount() + " // ");
     	return "CompileTestView";
     }
     

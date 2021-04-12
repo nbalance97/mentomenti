@@ -1,5 +1,9 @@
 package Mento.Menti.Project.dao;
 
-public interface PostDAO {
+import java.util.List;
 
+import Mento.Menti.Project.dto.PostDTO;
+
+public interface PostDAO {
+	List<PostDTO> selectPosts() throws Exception;
 }

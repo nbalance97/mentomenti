@@ -1,5 +1,9 @@
 package Mento.Menti.Project.dao;
 
-public interface GroupDAO {
+import java.util.List;
 
+import Mento.Menti.Project.dto.GroupDTO;
+
+public interface GroupDAO {
+	List<GroupDTO> selectGroups() throws Exception;
 }
