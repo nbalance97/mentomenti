@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class commentDTO {
+public class CommentDTO {
 	private int commentid;
 	private int postid;
 	private String writerid;

@@ -4,6 +4,7 @@
 
 <mapper namespace="Mento.Menti.Project.dao.UserDAO">	
   <select id="selectUsers" resultType="Mento.Menti.Project.dto.UserDTO"> 
-  	SELECT * FROM user;
+  	SELECT * 
+  	FROM user;
   </select>
 </mapper>
