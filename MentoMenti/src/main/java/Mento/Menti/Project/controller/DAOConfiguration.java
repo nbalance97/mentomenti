@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import Mento.Menti.Project.dao.UserDAO;
+import Mento.Menti.Project.dao.*;
 import lombok.Getter;
 
 @Configuration
@@ -14,4 +14,21 @@ public class DAOConfiguration {
     @Autowired
     private UserDAO userDAO;
     
+    @Autowired
+    private ClassDAO classDAO;
+    
+    @Autowired
+    private ClassmateDAO classmateDAO;
+    
+    @Autowired
+    private CommentDAO commentDAO;
+    
+    @Autowired
+    private GroupDAO groupDAO;
+    
+    @Autowired
+    private GroupmateDAO groupmateDAO;
+    
+    @Autowired
+    private PostDAO postDAO;  
 }

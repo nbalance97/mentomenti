@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 	@Autowired
-	DAOConfiguration dao;
+	public static DAOConfiguration dao;
 	
     @RequestMapping(value="/")
     public String index() {      
