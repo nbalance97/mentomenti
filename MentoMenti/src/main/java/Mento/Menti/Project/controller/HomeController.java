@@ -110,8 +110,12 @@ public class HomeController {
     public String index101() {
     	return "screenShare";
     }
-    @RequestMapping(value="/testPage")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
+    @RequestMapping(value="/audio") //목소리 공유
     public String index102() {
+    	return "audio";
+    }
+    @RequestMapping(value="/testPage")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
+    public String index103() {
     	return "/studyPage/debugStudy_test";
     }
 }
