@@ -13,4 +13,5 @@ import lombok.Getter;
 public class DAOConfiguration {
     @Autowired
     private UserDAO userDAO;
+    
 }
