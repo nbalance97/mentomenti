@@ -31,12 +31,20 @@ public class HomeController {
     @RequestMapping(value="/insert")
     // select문, insert문 전용 테스트 함수
     public String insert() throws Exception {
-    	List<UserDTO> temp = dao.getUserDAO().selectUsers();
-    	UserDTO user = temp.get(0);
-    	user.setId("user3"); // user가 기본키이므로 수정
-    	dao.getUserDAO().insertUsers(user);
+    	UserDTO insUser = new UserDTO(null, null, null, null, null, null, null, false, null);
+    	insUser.setEmail("a@naver.com");
+     	List<UserDTO> temp = dao.getUserDAO().searchUser(insUser);
+     	for (UserDTO u: temp)
+     		System.out.println(u.getId() + "//" + u.getPw());
     	return "insert";
     }
+    
+    /*  User 리스트중 첫번쨰 user의 데이터를 수정 후 insert
+     *  List<UserDTO> temp = dao.getUserDAO().selectUsers();
+    	UserDTO user = temp.get(0);
+    	user.setId("user4"); 
+    	dao.getUserDAO().insertUsers(user);
+     */
     
     @RequestMapping(value="/compiler")
     public String index2() throws Exception{
@@ -111,14 +119,17 @@ public class HomeController {
     public String index100() {
     	return "chatPage";
     }
+    
     @RequestMapping(value="/screenShare") //화면공유
     public String index101() {
     	return "screenShare";
     }
+    
     @RequestMapping(value="/audio") //목소리 공유
     public String index102() {
     	return "audio";
     }
+    
     @RequestMapping(value="/testPage")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
     public String index103() {
     	return "/studyPage/debugStudy_test";
