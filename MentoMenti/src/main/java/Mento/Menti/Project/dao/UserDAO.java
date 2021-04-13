@@ -8,4 +8,5 @@ public interface UserDAO {
 	List<UserDTO> selectUsers() throws Exception;
 	void insertUsers(UserDTO user) throws Exception;
 	List<UserDTO> searchUser(UserDTO user) throws Exception;
+	List<UserDTO> searchUserByIdPw(UserDTO user) throws Exception;
 }

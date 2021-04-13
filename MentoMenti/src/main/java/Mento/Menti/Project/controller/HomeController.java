@@ -115,6 +115,11 @@ public class HomeController {
     	return "tmp";
     }
     
+    @RequestMapping(value="/processLogin") //로그인 진행
+    public String index21() {
+    	return "/process/processLogin";
+    }
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
