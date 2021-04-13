@@ -7,4 +7,8 @@
   	SELECT * 
   	FROM user;
   </select>
+  <insert id="insertUsers" parameterType="Mento.Menti.Project.dto.UserDTO">
+  	insert into user 
+  	values (#{id}, #{pw}, #{birth}, #{joindate}, #{email}, #{name}, #{nickname}, #{is_admin}, #{intro});
+  </insert>
 </mapper>

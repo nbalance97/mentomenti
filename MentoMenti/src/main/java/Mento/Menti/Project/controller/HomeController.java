@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import Mento.Menti.Project.dto.PostDTO;
+import Mento.Menti.Project.dto.UserDTO;
 
 @Controller
 public class HomeController {
@@ -27,14 +28,17 @@ public class HomeController {
         return "home";
     }
     
+    @RequestMapping(value="/insert")
+    public String insert() throws Exception {
+    	List<UserDTO> temp = dao.getUserDAO().selectUsers();
+    	UserDTO user = temp.get(0);
+    	user.setId("user3"); // user가 기본키이므로 수정
+    	dao.getUserDAO().insertUsers(user);
+    	return "insert";
+    }
+    
     @RequestMapping(value="/compiler")
     public String index2() throws Exception{
-    	System.out.println(dao);
-    	List<PostDTO> temp = dao.getPostDAO().selectPosts();
-    	PostDTO post = temp.get(0);
-    	System.out.println(post.getTitle() + " // " + post.getUserid() + " // ");
-    	System.out.println(post.getGroupid() + " // " + post.getPostdate() + " // ");
-    	System.out.println(post.getContent() + " // " + post.getViewcount() + " // ");
     	return "CompileTestView";
     }
     

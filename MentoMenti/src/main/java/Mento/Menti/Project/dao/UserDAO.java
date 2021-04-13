@@ -6,4 +6,5 @@ import Mento.Menti.Project.dto.UserDTO;
 
 public interface UserDAO {
 	List<UserDTO> selectUsers() throws Exception;
+	void insertUsers(UserDTO user) throws Exception;
 }
