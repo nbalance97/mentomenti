@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Mento.Menti.Project.controller.HomeController" %>
+<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO" %>
+<%@ page import="java.util.List" %>
 <head>
 
 <meta charset="utf-8">
@@ -51,21 +54,25 @@
 	style="width: 100%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">No.</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">No.</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 60%">제목</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 20%;">작성자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
 		</tr>
 	</thead>
 	<tbody>
 		<%
-			for (int i = 0; i < 7; i++) {
+			//Post DB에서 내용 가져오기
+			List<PostDTO> generalPosts = HomeController.dao.getPostDAO().selectGeneralPost();
+			for (PostDTO gp: generalPosts){
 		%>
 		<tr role="row" class="odd">
-			<td class="">1</td>
-			<td>공지사항 페이지랑 큰 차이가 없서여...</td>
-			<td>정예원</td>
-			<td>62</td>
+			<td class=""><%=gp.getPostid() %></td>	<!-- 게시물 번호 -->
+			<td>									<!-- 제목 -->
+				<a href="#" style="text-decoration:none; color:gray"><%=gp.getTitle() %></a>
+			</td>
+			<td><%=gp.getUserid() %></td>			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=gp.getViewcount() %></td>		<!-- 조회수 -->
 		</tr>
 		<%
 			}

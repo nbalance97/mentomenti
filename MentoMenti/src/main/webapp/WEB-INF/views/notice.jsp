@@ -3,7 +3,6 @@
 <%@ page import="Mento.Menti.Project.controller.HomeController" %>
 <%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO" %>
 <%@ page import="java.util.List" %>
-<html lang="en">
 <head>
 
 <meta charset="utf-8">
