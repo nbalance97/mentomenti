@@ -145,13 +145,15 @@ function captureUserMedia(callback) {
 
         if (navigator.mediaDevices.getDisplayMedia) {
             navigator.mediaDevices.getDisplayMedia({
-                video: true
+                video: true,
+                audio: true
             }).then(stream => {
                 onGettingSteam(stream);
             }, getDisplayMediaError).catch(getDisplayMediaError);
         } else if (navigator.getDisplayMedia) {
             navigator.getDisplayMedia({
-                video: true
+                video: true,
+                audio: true
             }).then(stream => {
                 onGettingSteam(stream);
             }, getDisplayMediaError).catch(getDisplayMediaError);
