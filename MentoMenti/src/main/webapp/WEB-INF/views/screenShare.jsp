@@ -38,41 +38,28 @@
         <script src="https://www.webrtc-experiment.com/Pluginfree-Screen-Sharing/conference.js"> </script>
     </head>
 
-    <body>
-        <article>
-
-            <h2 style="display: block;text-align: center;border:0;margin-bottom:0;">사랑합니다 <a href="https://www.webrtc-experiment.com/">WebRTC</a>!</h2>
-			
+    <body>			
 			<!-- 현재 방 코드 -->
-			<script type="text/javascript">
-				var myPage = location.href.split('#');
-				document.write(myPage[1]);
-			</script>
-			
-            <section id="logs-message" class="experiment" style="display: none;text-align: center;font-size: 1.5em;line-height: 2;color: red;">WebRTC getDisplayMedia API.</section>
-
+		<div style="width: 90%;">	
+           <!--  <section id="logs-message" class="experiment" style="display: none;text-align: center;font-size: 1.5em;line-height: 2;color: red;">WebRTC getDisplayMedia API.</section> -->
+			<section class="hide-after-join" style="text-align: center;">   
+					<!-- 프론트에 삽입 시 버튼 제거해야 제대로 작동함, class에 css 먹혀있어서 안넣는게 좋을듯-->                 
+                    <!--  <button id="share-screen" class="setup">화면공유</button> --> 
+            </section>
             <!-- just copy this <section> and next script -->
-            <section class="experiment">
-                <section class="hide-after-join" style="text-align: center;">                    
-                    <input type="text" id="room-name" placeholder="Enter " style="width: 80%; text-align: center; display: none;">
-                    <button id="share-screen" class="setup">화면공유</button>
-                </section>
-
+           
                 <!-- local/remote videos container -->
                 <div id="videos-container"></div>
-
-                <section id="unique-token" style="display: none; text-align: center; padding: 20px;"></section>
-            </section>
+                <!-- <section id="unique-token" style="display: none; text-align: center; padding: 20px;"></section> -->
+           
 			
-			<!-- 화면공유 기능 js 분리 -->
-            <script src="resources/js/screenShare.js"></script>
-       
-
-            <section class="experiment"><small id="send-message"></small></section>
-
-        </article>
+			<!-- 화면공유 기능 js 분리, 프론트에 삽입-->
+			<!-- <script src="resources/js/screenShare.js"></script> -->
+			
+            <!-- <section class="experiment"><small id="send-message"></small></section> -->
 
 
+		</div>
                 <!-- commits.js is useless for you! -->
         <script src="https://www.webrtc-experiment.com/commits.js" async> </script>
     </body>
