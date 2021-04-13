@@ -29,6 +29,7 @@ public class HomeController {
     }
     
     @RequestMapping(value="/insert")
+    // select문, insert문 전용 테스트 함수
     public String insert() throws Exception {
     	List<UserDTO> temp = dao.getUserDAO().selectUsers();
     	UserDTO user = temp.get(0);
