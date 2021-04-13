@@ -63,7 +63,7 @@
 	<tbody>
 		<%
 			//Post DB에서 내용 가져오기
-			List<PostDTO> generalPosts = HomeController.dao.getPostDAO().selectGeneralPost();
+			List<PostDTO> generalPosts = HomeController.dao.getPostDAO().selectGeneralPosts();
 			for (PostDTO gp: generalPosts){
 		%>
 		<tr role="row" class="odd">

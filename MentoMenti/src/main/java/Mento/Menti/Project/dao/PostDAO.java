@@ -6,8 +6,8 @@ import Mento.Menti.Project.dto.PostDTO;
 
 public interface PostDAO {
 	List<PostDTO> selectPosts() throws Exception;
-	List<PostDTO> selectGeneralNotice() throws Exception;
-	List<PostDTO> selectGeneralPost() throws Exception;
-	List<PostDTO> selectGroupNotice() throws Exception;
-	List<PostDTO> selectGroupPost() throws Exception;
+	List<PostDTO> selectGeneralNotices() throws Exception;
+	List<PostDTO> selectGeneralPosts() throws Exception;
+	List<PostDTO> selectGroupNotices() throws Exception;
+	List<PostDTO> selectGroupPosts() throws Exception;
 }
