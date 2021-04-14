@@ -125,6 +125,10 @@ public class HomeController {
     	return "chatPage";
     }
     
+    @RequestMapping(value="/chat2") //채팅2
+    public String index1001() {
+    	return "chat";
+    }
     @RequestMapping(value="/screenShare") //화면공유
     public String index101() {
     	return "screenShare";

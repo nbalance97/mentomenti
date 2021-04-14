@@ -161,7 +161,7 @@
 			<div class="chating">
 				<h1>채팅</h1>
 				<div class="chatSize">
-				<jsp:include page="../chatPage.jsp" flush="true"/>
+				<jsp:include page="../chat.jsp" flush="true"/>
 				</div>
 			</div>
 		</div>

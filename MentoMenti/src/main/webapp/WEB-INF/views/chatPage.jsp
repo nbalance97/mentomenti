@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>DevEric Chatting</title>
+<title>Chatting</title>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 
@@ -118,7 +118,7 @@
 
 	var textarea = document.getElementById("messageWindow");
 	
-	var webSocket = new WebSocket('ws://localhost:8090/webChatServer'); //webChatServer는 Mento.Menti.Project.WebChat에 있음
+	var webSocket = new WebSocket("ws://"+location.host+"/chating"); 
 	var inputMessage = document.getElementById('inputMessage');
 	
 	webSocket.onerror = function(e){
@@ -140,7 +140,7 @@
 			var $chat = $("<div class='chat notice'>" + chatMsg + "</div>");
 			$('#chat-container').append($chat);
 		}else{
-			var $chat = $("<div class='chat-box'><div class='chat'>" + chatMsg + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
+			var $chat = $("<div id='other' class='chat-box'><div class='chat'>" + chatMsg + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
 			$('#chat-container').append($chat);
 		}
 		
@@ -165,6 +165,7 @@
 		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 		var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + chatMsg + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
 		$('#chat-container').append($chat);
+		$('.chat-box').hide();
 		webSocket.send(chatMsg);
 		inputMessage.value = "";
 		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
