@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Mento.Menti.Project.controller.HomeController" %>
-<%@ page import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO" %>
-<%@ page import="java.util.List" %>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -33,7 +34,7 @@
 <div style="text-align: center">
 	<img src="resources/img/undraw_profile_1.svg"
 		style="width: 150px; margin-bottom: 30px">
-		
+
 	<%
 		//추후에 로그인 기능이 완성되면 해당 계정 정보를 불러오는 것으로 수정할 것
 		UserDTO user = HomeController.dao.getUserDAO().selectUsers().get(0);

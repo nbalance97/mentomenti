@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Mento.Menti.Project.controller.HomeController" %>
-<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO" %>
-<%@ page import="java.util.List" %>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -63,16 +64,19 @@
 	<tbody>
 		<%
 			//Post DB에서 내용 가져오기
-			List<PostDTO> generalPosts = HomeController.dao.getPostDAO().selectGeneralPosts();
-			for (PostDTO gp: generalPosts){
+		List<PostDTO> generalPosts = HomeController.dao.getPostDAO().selectGeneralPosts();
+		for (PostDTO gp : generalPosts) {
 		%>
 		<tr role="row" class="odd">
-			<td class=""><%=gp.getPostid() %></td>	<!-- 게시물 번호 -->
-			<td>									<!-- 제목 -->
-				<a href="#" style="text-decoration:none; color:gray"><%=gp.getTitle() %></a>
+			<td class=""><%=gp.getPostid()%></td>
+			<!-- 게시물 번호 -->
+			<td>
+				<!-- 제목 --> <a href="#" style="text-decoration: none; color: gray"><%=gp.getTitle()%></a>
 			</td>
-			<td><%=gp.getUserid() %></td>			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
-			<td><%=gp.getViewcount() %></td>		<!-- 조회수 -->
+			<td><%=gp.getUserid()%></td>
+			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=gp.getViewcount()%></td>
+			<!-- 조회수 -->
 		</tr>
 		<%
 			}

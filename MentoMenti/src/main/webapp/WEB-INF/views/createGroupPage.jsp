@@ -43,12 +43,10 @@
 		</tr>
 		<tr>
 			<td>그룹 분류</td>
-			<td>
-				<select name="category">
+			<td><select name="category">
 					<option value=""></option>
 					<option></option>
-				</select>
-			</td>
+			</select></td>
 			<td><input type="password" id="pw_current_text"
 				style="width: 60%" /> <a href="#" onClick="chkPW()"
 				class="btn btn-warning btn-sm" style="margin-left: 10px">확인</a></td>

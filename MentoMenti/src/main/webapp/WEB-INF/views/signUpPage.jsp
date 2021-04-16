@@ -1,4 +1,4 @@
-<!-- 오류처리 하나도안함,,, 해야함,,, ex아이디중복 내용없을시alert intro에서 스페이스 생김 이유몰러  -->
+<!-- 오류처리 하나도안함,,, 해야함,,, ex아이디중복 내용없을시alert -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -73,9 +73,7 @@
                                         		</select> -->
                                         	</div>
                                         	<div class="form-group">
-                                        		<textarea style="rows:100%; text-align:left;" class="form-control form-control-user" name="introInput" placeholder="소개말">
-                                        			안녕하세요!
-                                        		</textarea>
+                                        		<textarea style="rows:100%; text-align:left;" class="form-control form-control-user" name="introInput" placeholder="소개말">안녕하세요!</textarea>
                                         	</div>
                                         </div>
                                     

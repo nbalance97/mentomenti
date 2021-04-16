@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+	pageEncoding="UTF-8"%>
+
 <!-- body 여는 태그부터  본문 여는 태그까지 포함-->
 
 <body id="page-top">
@@ -17,7 +17,7 @@
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow sticky-top"
-					style="position: fixed; width: 100%; background:#002266">
+					style="position: fixed; width: 100%; background: #002266">
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -32,7 +32,7 @@
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
-								<h6 class="dropdown-header" style="background:black;">알림</h6>
+								<h6 class="dropdown-header" style="background: black;">알림</h6>
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="mr-3">
 										<div class="icon-circle bg-primary">
@@ -78,11 +78,11 @@
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="messagesDropdown">
-								<h6 class="dropdown-header" style="background:black;">메세지</h6>
+								<h6 class="dropdown-header" style="background: black;">메세지</h6>
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="resources/img/undraw_profile_2.svg"
-											alt="">
+										<img class="rounded-circle"
+											src="resources/img/undraw_profile_2.svg" alt="">
 										<div class="status-indicator bg-success"></div>
 									</div>
 									<div>
@@ -91,8 +91,8 @@
 									</div>
 								</a> <a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle" src="resources/img/undraw_profile_1.svg"
-											alt="">
+										<img class="rounded-circle"
+											src="resources/img/undraw_profile_1.svg" alt="">
 										<div class="status-indicator bg-success"></div>
 									</div>
 									<div>
@@ -112,7 +112,8 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small">김모코</span> <img
-								class="img-profile rounded-circle" src="/resources/img/undraw_profile_1.svg">
+								class="img-profile rounded-circle"
+								src="/resources/img/undraw_profile_1.svg">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -141,7 +142,7 @@
 
 				<%@include file="sideBar.jsp"%>
 				<!-- 사이드바 -->
- 
+
 				<!-- <section>  -->
 				<div id="contentSection">
 
