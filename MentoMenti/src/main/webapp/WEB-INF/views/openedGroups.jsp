@@ -139,65 +139,10 @@
                     </div>
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    	카드 배치 수정 ing <!-- 배치 수정 필요 -->
-                    	<div class="col-lg-6">
-                    		<!-- 선택한 그룹 분류에 따라 보여주는 그룹 목록 다름 -->
-                    		<%
-                    			String cate = request.getParameter("category");
-                    			List<GroupDTO> groups = null;
-                    			if (cate == null)
-                    				groups = HomeController.dao.getGroupDAO().selectGroups();
-                    			else if (cate.equals("C"))	//C언어 그룹 선택
-                    				groups = groupsC;
-                    			else if (cate.equals("Java"))	//Java 그룹 선택
-                    				groups = groupsJava;
-                    			else if (cate.equals("Python"))	//Python 그룹 선택
-                    				groups = groupsPython;
-                    			else	//기타 그룹 선택
-                    				groups = groupsEtc;
-                    			for(GroupDTO g: groups){
-                    		%>
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                	<!-- 그룹 이름 및 상세 정보 페이지로 넘어가는 버튼 -->
-                                    <h5 class="m-0 font-weight-bold text-primary"><%=g.getName() %>
-                                    	<!-- 버튼 모양 수정 예정 -->
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                <div class="card-body"> <!-- 간단한 그룹 정보 -->
-                                	<p>과목 : <%=g.getCategory() %>
-                                	<p>설명 : <%=g.getIntro() %></p>
-                                	<p>멘토 : <%=g.getMentoid() %></p> <!-- 멘토 아이디? 이름? 닉네임? -->
-                                	<p>인원 수 : (현재 인원 수) / <%=g.getMaxperson() %></p>
-                                </div>
-                            </div>
-                            <%
-                    			}
-                            %>
-                    	</div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    이건 원래 하던 배치
                     <div class="row">
+                    	<%
+                    		for (int i=0;i<10;i++){
+                    	%>
                     	<div class="col-lg-4">
                     		<div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -216,91 +161,9 @@
                                 	<p>인원 수 : 5/10</p>
                                 </div>
                             </div>
-                            
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">2
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : JAVA
-                                	<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                    	</div>
-                    	
-                    	<div class="col-lg-4">
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">3
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : 파이썬
-                                	<p>설명 : 주 2회 스터디 진행합니다. 열심히 참여하실 분만 들어오세요!!!</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                            
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">4
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : ?
-                                	<p>설명 : 아무튼 들어오셈 ㅋㅋ</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                    	</div>
-                    	
-                    	<div class="col-lg-4">
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">5
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : ?
-                                	<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                            
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">6
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : ?
-                                	<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                    	</div>
+                        </div>
+                        <%} %>
+                        
                     </div>
                     
                     <!-- 그룹 개설 버튼, 화면 고정 -->
