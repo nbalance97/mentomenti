@@ -27,6 +27,7 @@ public class HomeController {
     public String index() {    
         return "home";
     }
+    
     /*
     @RequestMapping(value="/insert")
     // select문, insert문 전용 테스트 함수
