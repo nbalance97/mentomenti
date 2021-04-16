@@ -89,7 +89,7 @@ top:-292;
 	<div>
 		<p class="left1">Notice</p>
 			<hr class="hr1" width = "400px" color = "#D3D3D3">
-		<p class="left2">db에서 받아와야 함</p>
+		<p class="left2">db에서 받아와야됨</p>
 
 		<p class="center">Board</p>
 			<hr class="hr2" width = "400px" color = "#D3D3D3">
