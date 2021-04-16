@@ -52,14 +52,19 @@
 									<form class="user" action="processLogin" method="post">
 
 										<%
-											String mode = request.getParameter("mode"); //processLogin 결과 일치하는 계정이 없을 경우
+											String mode = request.getParameter("mode");
 										if (mode != null) {
+											if (mode.equals("noAccount")){ //processLogin 결과 일치하는 계정이 없을 경우
 										%>
-										<div class="form-group text-center"
-											style="text-align: center; color: red">아이디와 비밀번호를 다시
-											확인해주세요</div>
+										<div class="form-group text-center" style="text-align: center; color: red">아이디와 비밀번호를 다시 확인해주세요</div>
+											
+										<%
+											} else if (mode.equals("nidLogin")){	//로그인 x 상태로 로그인이 필요한 서비스를 접근한 경우
+										%>
+										<div class="form-group text-center" style="text-align: center; color: red">로그인이 필요한 서비스입니다</div>
 										<%
 											}
+										}
 										%>
 
 										<div class="form-group">

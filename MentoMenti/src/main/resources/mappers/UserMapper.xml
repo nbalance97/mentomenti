@@ -19,6 +19,12 @@
   	where email = #{email};
   </select>
   
+  <select id="searchUserById" resultType="Mento.Menti.Project.dto.UserDTO">
+  	select *
+  	from user
+  	where id = #{id};
+  </select>
+  
   <select id="searchUserByIdPw" resultType="Mento.Menti.Project.dto.UserDTO">
   	select *
   	from user
