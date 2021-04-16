@@ -120,6 +120,11 @@ public class HomeController {
     	return "/process/processLogin";
     }
     
+    @RequestMapping(value="/createGroupPage") //로그인 진행
+    public String index22() {
+    	return "createGroupPage";
+    }
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
