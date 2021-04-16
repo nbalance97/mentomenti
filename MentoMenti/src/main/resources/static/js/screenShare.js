@@ -183,6 +183,13 @@ function captureUserMedia(callback) {
     }
 }
 
+function stopCapture(evt) {
+  let tracks = videoElem.srcObject.getTracks();
+
+  tracks.forEach(track => track.stop());
+  videoElem.srcObject = null;
+}
+
 /* on page load: get public rooms */
 var conferenceUI = conference(config);
 
@@ -199,6 +206,14 @@ document.getElementById('share-screen').onclick = function() {
     });
     //this.disabled = true;
 };
+
+const stopElem = document.getElementById('stop-share');
+
+document.getElementById('stop-share').onclick = function() {
+	stopCapture();
+
+};
+
 
 /* 화면공유 후 나오는 링크..
 function showPrivateLink() {
