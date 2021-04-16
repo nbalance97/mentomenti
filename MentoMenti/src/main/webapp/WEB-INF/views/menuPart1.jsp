@@ -75,8 +75,7 @@
 								<!-- Counter - Messages --> <span
 								class="badge badge-danger badge-counter">7</span>
 						</a> <!-- Dropdown - Messages -->
-							<div
-								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="messagesDropdown">
 								<h6 class="dropdown-header" style="background: black;">메세지</h6>
 								<a class="dropdown-item d-flex align-items-center" href="#">
@@ -89,32 +88,49 @@
 										<div class="text-truncate">오늘 3시에 수업 있습니다. 늦지 말고 들어오세요.</div>
 										<div class="small text-gray-500">선바(C언어 초보) · 58분전</div>
 									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
+								</a>
+								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="dropdown-list-image mr-3">
 										<img class="rounded-circle"
 											src="resources/img/undraw_profile_1.svg" alt="">
 										<div class="status-indicator bg-success"></div>
 									</div>
 									<div>
-										<div class="text-truncate">안녕하세요 여러분 오티 자료를 그룹 공지사항에
-											올렸으니 확인하시길 바랍니다.</div>
+										<div class="text-truncate">안녕하세요 여러분 오티 자료를 그룹 공지사항에 올렸으니 확인하시길 바랍니다.</div>
 										<div class="small text-gray-500">한서현(자바를 자바) · 1주전</div>
 									</div>
-								</a> <a class="dropdown-item text-center small text-gray-500"
-									href="#">모든 메세지 확인하기</a>
-							</div></li>
+								</a>
+								<a class="dropdown-item text-center small text-gray-500" href="#">모든 메세지 확인하기</a>
+							</div>
+						</li>
 
 						<div class="topbar-divider d-none d-sm-block"></div>
-
-						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow"><a
-							class="nav-link dropdown-toggle" href="#" id="userDropdown"
+						<%
+							String id = (String)session.getAttribute("userID");	//세션에서 아이디 받아오기
+							
+							if (id == null){	//로그인 하지 않은 상태
+						%>
+							<!-- 클릭 시 로그인 화면으로 이동 -->
+							<li class="nav-item dropdown no-arrow">
+							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
+							role="button" aria-haspopup="true" aria-expanded="false">
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
+							<img class="img-profile rounded-circle" src="/resources/img/undraw_profile_1.svg">
+							</a>
+							<%
+								}
+								else{	//로그인 한 상태
+							%>
+							<!-- 클릭 시 드롭다운 메뉴 나옴 -->
+							<li class="nav-item dropdown no-arrow">
+							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">김모코</span> <img
-								class="img-profile rounded-circle"
-								src="/resources/img/undraw_profile_1.svg">
-						</a> <!-- Dropdown - User Information -->
+							aria-expanded="false">
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id%></span> <!-- 아이디 -->
+							<img class="img-profile rounded-circle" src="/resources/img/undraw_profile_1.svg">
+							</a>
+							
+							<!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
@@ -127,12 +143,18 @@
 									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 나의 활동
 								</a>
 								<div class="dropdown-divider"></div>
+								
+								<!-- logoutModal은 menuPart2.jsp에 -->
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									로그아웃
 								</a>
-							</div></li>
+							</div>
+							<%
+								}
+							%>
+						</li>
 
 					</ul>
 

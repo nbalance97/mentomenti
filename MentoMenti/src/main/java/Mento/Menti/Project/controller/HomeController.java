@@ -135,6 +135,11 @@ public class HomeController {
     	return "createGroupPage";
     }
     
+    @RequestMapping(value="/processLogout") //로그아웃 진행
+    public String index23() {
+    	return "/process/processLogout";
+    }
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";

@@ -20,7 +20,7 @@
 
 	<div class="sidebar2" style="background: #002266">
 		<!-- 사이드바 메뉴 -->
-		<header style="background: #002266">MOCO</header>
+		<a href="main" style="text-decoration:none;"><header style="background: #002266">MOCO</header></a>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
 			<li><a href="notice"><i class="fas fa-qrcode"></i>공지사항</a></li>
 			<li><a href="freeBoard"><i class="fas fa-qrcode"></i>자유게시판</a></li>
