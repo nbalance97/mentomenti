@@ -216,7 +216,9 @@
                                 	<p>인원 수 : 5/10</p>
                                 </div>
                             </div>
-                            
+                    	</div>
+                    	
+                    	<div class="col-lg-4">	                            
                     		<div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h5 class="m-0 font-weight-bold text-primary">2
@@ -250,7 +252,9 @@
                                 	<p>인원 수 : 5/10</p>
                                 </div>
                             </div>
-                            
+                        </div>
+                        
+                        <div class="col-lg-4">
                     		<div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h5 class="m-0 font-weight-bold text-primary">4
@@ -284,7 +288,8 @@
                                 	<p>인원 수 : 5/10</p>
                                 </div>
                             </div>
-                            
+                        </div>
+                        <div class="col-lg-4">    
                     		<div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h5 class="m-0 font-weight-bold text-primary">6

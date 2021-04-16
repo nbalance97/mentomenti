@@ -52,6 +52,11 @@ public class HomeController {
     	return "CompileTestView";
     }
     
+    @RequestMapping(value="/BH")
+    public String bhidx() throws Exception {
+    	return "BH_screenshare";
+    }
+    
     @RequestMapping(value="/yewon")
     public String index3() {
     	return "yewon";
