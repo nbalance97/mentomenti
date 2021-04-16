@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<html lang="en">
+<%@ page import="Mento.Menti.Project.controller.HomeController" %>
+<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO" %>
+<%@ page import="java.util.List" %>
 <head>
 
 <meta charset="utf-8">
@@ -12,13 +14,10 @@
 
 <title>MOCO</title>
 
-<!-- Custom fonts for this template-->
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
-<!-- Custom styles for this template-->
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
@@ -58,21 +57,25 @@
 	style="width: 100%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 100px;">No.</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">No.</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 60%">제목</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 20%;">작성자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
 		</tr>
 	</thead>
 	<tbody>
 		<%
-			for (int i = 0; i < 7; i++) {
+			//Post DB에서 내용 가져오기
+			List<PostDTO> generalNotices = HomeController.dao.getPostDAO().selectGeneralNotices();
+			for (PostDTO gn: generalNotices){
 		%>
 		<tr role="row" class="odd">
-			<td class="">1</td>
-			<td>모코 사이트 이용 방법 안내</td>
-			<td>정예원</td>
-			<td>62</td>
+			<td class=""><%=gn.getPostid() %></td>	<!-- 게시물 번호 -->
+			<td>									<!-- 제목 -->
+				<a href="#" style="text-decoration:none; color:gray"><%=gn.getTitle() %></a>
+			</td>
+			<td><%=gn.getUserid() %></td>			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=gn.getViewcount() %></td>		<!-- 조회수 -->
 		</tr>
 		<%
 			}
@@ -87,7 +90,7 @@
 			style="width: 40px; height: 10px; font-size: 15px; padding: 5px; border-radius: 5px; text-decoration: none">
 			<<</a>
 		<%
-			for (int j = 1; j <= 10; j++) {
+			for (int j = 1; j <= 10; j++) {	//나중에 게시물 수에 따라 표시할 번호 다르게 해야함
 		%>
 		<a href="#" style="text-decoration: none"> <%
  	out.println(j);

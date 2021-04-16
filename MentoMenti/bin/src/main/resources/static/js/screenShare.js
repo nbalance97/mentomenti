@@ -122,7 +122,7 @@ function captureUserMedia(callback) {
     }
 
     if (navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia) {
-        function onGettingSteam(stream) {
+        function onGettingStream(stream) {
             video.srcObject = stream;
             videosContainer.insertBefore(video, videosContainer.firstChild);
 
@@ -148,14 +148,14 @@ function captureUserMedia(callback) {
                 video: true,
                 audio: true
             }).then(stream => {
-                onGettingSteam(stream);
+                onGettingStream(stream);
             }, getDisplayMediaError).catch(getDisplayMediaError);
         } else if (navigator.getDisplayMedia) {
             navigator.getDisplayMedia({
                 video: true,
                 audio: true
             }).then(stream => {
-                onGettingSteam(stream);
+                onGettingStream(stream);
             }, getDisplayMediaError).catch(getDisplayMediaError);
         }
     } else {
@@ -197,17 +197,8 @@ document.getElementById('share-screen').onclick = function() {
             roomName: (roomName.value || 'Anonymous') + ' shared his screen with you'
         });
     });
-    this.disabled = true;
+    //this.disabled = true;
 };
-
-/*  화면공유 실행 시 비디오 회전.. 좀 쓸모 없음
-		function rotateVideo(video) {
-     video.style[navigator.mozGetUserMedia ? 'transform' : '-webkit-transform'] = 'rotate(0deg)';
-     setTimeout(function() {
-         video.style[navigator.mozGetUserMedia ? 'transform' : '-webkit-transform'] = 'rotate(360deg)';
-     }, 1000);
- }
-*/
 
 /* 화면공유 후 나오는 링크..
 function showPrivateLink() {

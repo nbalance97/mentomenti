@@ -43,7 +43,7 @@
 		</li>
 	</ul>
 </div>
-<p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>
+<p class="mb-4">데스크탑 세팅 잘 됐는지 확인해보겠습니다</p>
 
 <!-- 리스트 -->
 <table class="table table-bordered" id="dataTable"

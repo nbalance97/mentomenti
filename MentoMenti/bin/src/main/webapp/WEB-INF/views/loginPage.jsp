@@ -19,7 +19,7 @@
 
 </head>
 
-<body class="bg-gradient-primary sidebar-toggled">
+<body class="sidebar-toggled" style="background:#002266">
 
     <div class="container">
 
@@ -32,37 +32,51 @@
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
-                            	<div class="p-5">
+                            	<div class="p-4">
                             		<!-- 로고 이미지 -->
                             		<div class="text-center"><img src="resources/img/logo3.png" style="width:170px"></div>
                             	</div>
+                            	
                                 <div class="p-3">
                                     <div class="text-center">
                                         <!--  <h1 class="h4 text-gray-900 mb-4">로그인</h1> -->
                                     </div>
-                                    <form class="user">
+                                    
+                                    
+                                    <!-- 로그인 폼 태그 -->
+                                    <form class="user" action="processLogin" method="post">
+                                    
+                                    	<%
+                                    		String mode = request.getParameter("mode");	//processLogin 결과 일치하는 계정이 없을 경우
+                                    		if (mode!=null){
+                                    	%>
+                                    	<div class="form-group text-center" style="text-align:center; color:red">아이디와 비밀번호를 다시 확인해주세요</div>
+                                    	<% } %>
+                                    
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="아이디">
+                                        	<!-- 아이디 입력 -->
+                                            <input type="text" class="form-control form-control-user" name="idInput" placeholder="아이디">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="비밀번호">
+                                        	<!-- 비밀번호 입력 -->
+                                            <input type="password" class="form-control form-control-user" name="pwInput" placeholder="비밀번호">
                                         </div>
                                         <div class="form-group">
+                                        	<!-- 아이디 저장 기능은 삭제할 수도 있음 -->
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <input type="checkbox" class="custom-control-input">
                                                 <label class="custom-control-label" for="customCheck">아이디 저장하기</label>
                                             </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                           	 로그인
-                                        </a>
+                                        
+                                        
+                                        <input type="submit" class="btn btn-user btn-block" value="로그인" style="background:#002266; color:white">
+                          
                                         <hr>
                                     </form>
                                     <div class="text-center">
                                     	<a class="small" href="#">아이디 찾기</a>
-                                    	<!-- 간격 필요 -->
                                         <a class="small" href="#">비밀번호 찾기</a>
-                                        <!-- 간격 필요 -->
                                         <a class="small" href="#">회원가입</a>
                                     </div>
                                 </div>
