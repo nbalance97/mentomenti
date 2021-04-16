@@ -30,10 +30,21 @@
 	</div>
 	<!-- End of Page Wrapper -->
 
+
+	<!-- topButton 클릭 시 사이트 맨 위로 이동하는 애니메이션 -->
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){
+			$('#topButton').on("click",function(){
+				$("html, body").animate({scrollTop:0}, '500');
+				return false;
+			});
+		});
+	</script>	
 	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
+	<div class="scroll-to-top rounded" id="topButton"> <i
 		class="fas fa-angle-up"></i>
-	</a>
+	</div>
 
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"

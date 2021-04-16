@@ -189,7 +189,7 @@
 
 <!-- 그룹 개설 버튼, 화면 고정 -->
 <a href="createGroupPage" class="btn btn-success btn-circle"
-	style="position: fixed; right: 20px; bottom: 20px; width: 70px; height: 70px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)">
+	style="position: fixed; right: 70px; bottom: 20px; width: 70px; height: 70px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)">
 	<h1>+</h1>
 </a>
 
