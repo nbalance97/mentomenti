@@ -86,7 +86,7 @@
 		
 	%>
 	<%@include file="studySidebar.jsp"%>
-
+	
 	<div class="main">
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">

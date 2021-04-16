@@ -27,7 +27,7 @@ public class HomeController {
     public String index() {    
         return "home";
     }
-    
+    /*
     @RequestMapping(value="/insert")
     // select문, insert문 전용 테스트 함수
     public String insert() throws Exception {
@@ -38,7 +38,7 @@ public class HomeController {
      		System.out.println(u.getId() + "//" + u.getPw());
     	return "insert";
     }
-    
+    */
     /*  User 리스트중 첫번쨰 user의 데이터를 수정 후 insert
      *  List<UserDTO> temp = dao.getUserDAO().selectUsers();
     	UserDTO user = temp.get(0);
@@ -129,6 +129,7 @@ public class HomeController {
     public String index1001() {
     	return "chat";
     }
+    
     @RequestMapping(value="/screenShare") //화면공유
     public String index101() {
     	return "screenShare";
