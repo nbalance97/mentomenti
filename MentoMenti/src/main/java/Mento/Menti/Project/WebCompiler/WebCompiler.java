@@ -15,7 +15,16 @@ public class WebCompiler {
 			instance = new WebCompiler();
 		return instance;
 	}
-
+	
+	public String getJavaDefault() {
+		String java_default = 
+				"public class MentoMenti {\n\t"+
+				"public static void main(String args[]) {\n\n\t"+
+		    	"}\n"+
+				"}";
+		return java_default;
+	}
+	
 	public String compileC(String SRC, String input) {
 		/* C언어 컴파일 실행 함수 */
 		try {

@@ -180,9 +180,9 @@
 			value: textarea3.value
 		});
 		
-		editor.setSize(600, 150);
-		editor2.setSize(600, 100);
-		editor3.setSize(600, 100);
+		editor.setSize(580, 150);
+		editor2.setSize(580, 100);
+		editor3.setSize(580, 40);
 	</script>
 </body>
 </html>
