@@ -15,7 +15,8 @@
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="resources/css/sidebar.css" rel="stylesheet" type="text/css">
-<link href="resources/css/component.css" rel="stylesheet" type="text/css">
+<link href="resources/css/component.css" rel="stylesheet"
+	type="text/css">
 
 </head>
 
@@ -24,7 +25,8 @@
 <!-- 공지사항 페이지 -->
 
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
+<div class="d-sm-flex align-items-center justify-content-between mb-4"
+	id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800">공지사항</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
@@ -34,7 +36,8 @@
 						placeholder="검색" aria-label="Search"
 						aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn" type="button" style="background: black; box-shadow: 5px black;">
+						<button class="btn" type="button"
+							style="background: black; box-shadow: 5px black;">
 							<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>
@@ -46,9 +49,8 @@
 <p class="mb-4">데스크탑 세팅 잘 됐는지 확인해보겠습니다</p>
 
 <!-- 리스트 -->
-<table class="table table-bordered" id="dataTable"
-	width="100%" cellspacing="0" role="grid"
-	aria-describedby="dataTable_info"
+<table class="table table-bordered" id="dataTable" width="100%"
+	cellspacing="0" role="grid" aria-describedby="dataTable_info"
 	style="width: 100%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
@@ -57,7 +59,7 @@
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th>
 		</tr>
-		</thead>
+	</thead>
 	<tbody>
 		<%
 			for (int i = 0; i < 10; i++) {
@@ -77,20 +79,18 @@
 <!-- 페이지 버튼 -->
 <div class="d-flex align-items-center justify-content-between">
 	<div style="margin: 0 auto;">
-		<a href="#" class="btn-primary pageButton">
-		<<</a>
+		<a href="#" class="btn-primary pageButton"> <<</a>
 		<%
 			for (int j = 1; j <= 10; j++) {
 		%>
-		<a href="#" style="text-decoration: none; color:gray"> <%
+		<a href="#" style="text-decoration: none; color: gray"> <%
  	out.println(j);
  %>
 		</a>
 		<%
 			}
 		%>
-		<a href="#" class="btn-primary pageButton">
-		>></a>
+		<a href="#" class="btn-primary pageButton"> >></a>
 	</div>
 
 	<div class="d-sm-flex justify-content-between">

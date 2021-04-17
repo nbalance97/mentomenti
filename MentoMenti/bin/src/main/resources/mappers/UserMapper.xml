@@ -18,4 +18,10 @@
   	from user
   	where email = #{email};
   </select>
+  
+  <select id="searchUserByIdPw" resultType="Mento.Menti.Project.dto.UserDTO">
+  	select *
+  	from user
+  	where id = #{id} and pw = #{pw};
+  </select>
 </mapper>

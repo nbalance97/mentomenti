@@ -3,5 +3,37 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Mento.Menti.Project.dao.GroupDAO">	
-
+  <!-- 모든 그룹 -->
+  <select id="selectGroups" resultType="Mento.Menti.Project.dto.GroupDTO"> 
+  	SELECT * 
+  	FROM mmgroup;
+  </select>
+  
+  <!-- C언어 그룹 -->
+  <select id="selectGroupsC" resultType="Mento.Menti.Project.dto.GroupDTO"> 
+  	SELECT * 
+  	FROM mmgroup
+  	WHERE category = 'C언어';
+  </select>
+  
+  <!-- Java 그룹 -->
+  <select id="selectGroupsJava" resultType="Mento.Menti.Project.dto.GroupDTO"> 
+  	SELECT * 
+  	FROM mmgroup
+  	WHERE category = 'Java';
+  </select>
+  
+  <!-- Python 그룹 -->
+  <select id="selectGroupsPython" resultType="Mento.Menti.Project.dto.GroupDTO"> 
+  	SELECT * 
+  	FROM mmgroup
+  	WHERE category = 'Python';
+  </select>
+  
+  <!-- 기타 그룹 -->
+  <select id="selectGroupsEtc" resultType="Mento.Menti.Project.dto.GroupDTO"> 
+  	SELECT * 
+  	FROM mmgroup
+  	WHERE category != 'C언어' and category != 'Java' and category != 'Python';
+  </select>
 </mapper>

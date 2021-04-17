@@ -10,8 +10,14 @@
 <script src="resources/js/jquery.min.js"></script>
 <script>
 	$(function(){
+		$("#close").hide();
 		$("#start").click(function(){
-			$("#start").hide();
+			$("#close").show();
+		});
+	})
+	$(function(){
+		$("#close").click(function(){
+			$("#close").hide();
 		});
 	})
 </script>
@@ -28,9 +34,11 @@
 		text-align:center;
 	}
 	.screen{
-		width:100%;
+		width:80%;
 		height:90%;
 		background:black;
+		margin:0 auto;
+		overflow:auto;
 	}
 	.function{
 		width:100%;
@@ -122,8 +130,7 @@
 		height:50vh;
 	}
 	.chatSize{
-		height:80%;
-		z-index:500;
+		height:92%;
 	}
 </style>
 </head>
@@ -134,7 +141,7 @@
 			<span></span>
 			<span></span>
 		</label>
-	<div class="sidebar">
+	<div class="sidebar" >
 		<div class="content">
 			<div class="list">
 				<h1>참여자</h1>
@@ -161,7 +168,7 @@
 			<div class="chating">
 				<h1>채팅</h1>
 				<div class="chatSize">
-				<jsp:include page="../chat.jsp" flush="true"/>
+					<jsp:include page="../chat.jsp" flush="true"/>
 				</div>
 			</div>
 		</div>
@@ -170,7 +177,7 @@
 	<div class="main">
 		<!-- 화면공유  -->
 		<div class="screen">
-		<div style="width:80%; "><jsp:include page="../screenShare.jsp" flush="true"/></div>
+		<div class="screen-share"><jsp:include page="../screenShare.jsp" flush="true"/></div>
 		</div>
 		<!-- 수업페이지 기능모음 메뉴 -->
 		<div class="function">
@@ -179,6 +186,7 @@
 				<li><a href="#"><i class="fas fa-eraser fa-3x"></i></a></li>
 				<li><a href="#"><i class="fas fa-microphone fa-3x"></i></a></li>
 				<li id= "start" ><a id="share-screen"><i class="fas fa-desktop fa-3x"></i></a></li>
+				<li id= "close"><a id="stop-share"><i class="far fa-window-close fa-3x"></i></a></li>
 				<li><a href="#"><i class="fas fa-exchange-alt fa-3x"></i></a></li>
 				<li class="exit"><a href="#"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
 			</ul>

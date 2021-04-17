@@ -87,6 +87,15 @@ public class HomeController {
     	return "/studyPage/practiceMentee";
     }
     
+    @RequestMapping(value="/signup")//회원가입
+    public String index9() {
+    	return "/signUpPage";
+    }
+    @RequestMapping(value="/processSignUp") //회원가입
+    public String index10() {
+    	return "/process/processSignUp";
+    }
+    
     @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
     public String index11() {
     	return "/studyPage/practiceMento";
@@ -129,6 +138,11 @@ public class HomeController {
     @RequestMapping(value="/createGroupPage") //로그인 진행
     public String index22() {
     	return "createGroupPage";
+    }
+    
+    @RequestMapping(value="/processLogout") //로그아웃 진행
+    public String index23() {
+    	return "/process/processLogout";
     }
     
     @RequestMapping(value="/chat") //채팅

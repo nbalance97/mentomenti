@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Mento.Menti.Project.controller.HomeController" %>
-<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO" %>
-<%@ page import="java.util.List" %>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -70,12 +71,15 @@
 			for (PostDTO gn: generalNotices){
 		%>
 		<tr role="row" class="odd">
-			<td class=""><%=gn.getPostid() %></td>	<!-- 게시물 번호 -->
-			<td>									<!-- 제목 -->
-				<a href="#" style="text-decoration:none; color:gray"><%=gn.getTitle() %></a>
+			<td class=""><%=gn.getPostid() %></td>
+			<!-- 게시물 번호 -->
+			<td>
+				<!-- 제목 --> <a href="#" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
 			</td>
-			<td><%=gn.getUserid() %></td>			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
-			<td><%=gn.getViewcount() %></td>		<!-- 조회수 -->
+			<td><%=gn.getUserid() %></td>
+			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=gn.getViewcount() %></td>
+			<!-- 조회수 -->
 		</tr>
 		<%
 			}

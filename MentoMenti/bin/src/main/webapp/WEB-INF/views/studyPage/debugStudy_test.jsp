@@ -7,6 +7,15 @@
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="resources/js/jquery.min.js"></script>
+<script>
+	$(function(){
+		$("#start").click(function(){
+			$("#start").hide();
+		});
+	})
+</script>
+
 <style>
 	html,body{
 		width:100%;
@@ -19,7 +28,6 @@
 		text-align:center;
 	}
 	.screen{
-		float:left;
 		width:100%;
 		height:90%;
 		background:black;
@@ -153,7 +161,7 @@
 			<div class="chating">
 				<h1>채팅</h1>
 				<div class="chatSize">
-				<jsp:include page="../chatPage.jsp" flush="true"/>
+				<jsp:include page="../chat.jsp" flush="true"/>
 				</div>
 			</div>
 		</div>
@@ -162,7 +170,7 @@
 	<div class="main">
 		<!-- 화면공유  -->
 		<div class="screen">
-			<h1>화면</h1>
+		<div style="width:80%; "><jsp:include page="../screenShare.jsp" flush="true"/></div>
 		</div>
 		<!-- 수업페이지 기능모음 메뉴 -->
 		<div class="function">
@@ -170,11 +178,14 @@
 				<li><a href="#"><i class="fas fa-pencil-alt fa-3x"></i></a></li>
 				<li><a href="#"><i class="fas fa-eraser fa-3x"></i></a></li>
 				<li><a href="#"><i class="fas fa-microphone fa-3x"></i></a></li>
-				<li><a href="#"><i class="fas fa-desktop fa-3x"></i></a></li>
+				<li id= "start" ><a id="share-screen"><i class="fas fa-desktop fa-3x"></i></a></li>
 				<li><a href="#"><i class="fas fa-exchange-alt fa-3x"></i></a></li>
 				<li class="exit"><a href="#"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
 			</ul>
+			
 		</div>
 	</div>
+	<script src="resources/js/screenShare.js"></script> 
+	
 </body>
 </html>

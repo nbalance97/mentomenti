@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="Mento.Menti.Project.controller.HomeController" %>
+<%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO" %>
+<%@ page import="java.util.List" %>
 <head>
 
     <meta charset="utf-8">
@@ -43,15 +46,19 @@
                     <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
-                            	<a href="#" style="text-decoration:none;">
+                            	<a href="openedGroups?category=C" style="text-decoration:none;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">C언어 그룹</div>
                                         </div>
                                         <div class="col-auto">
-                                        	<div class="font-weight-bold text-primary mb-1">
-                                                (10)</div>
+                                        	<div class="font-weight-bold text-primary mb-1">(
+                                        	<!-- C언어 그룹 수 -->
+                                        	<%
+                                     			List<GroupDTO> groupsC = HomeController.dao.getGroupDAO().selectGroupsC();
+                                        		out.println(groupsC.size());
+                                        	%>)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -61,15 +68,19 @@
 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
-                            	<a href="#" style="text-decoration:none;">
+                            	<a href="openedGroups?category=Java" style="text-decoration:none;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">JAVA 그룹</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">Java 그룹</div>
                                         </div>
                                         <div class="col-auto">
-                                        	<div class="font-weight-bold text-success mb-1">
-                                                (5)</div>
+                                        	<div class="font-weight-bold text-primary mb-1">(
+                                        	<!-- Java 그룹 수 -->
+                                        	<%
+                                     			List<GroupDTO> groupsJava = HomeController.dao.getGroupDAO().selectGroupsJava();
+                                        		out.println(groupsJava.size());
+                                        	%>)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -79,15 +90,19 @@
 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
-                            	<a href="#" style="text-decoration:none;">
+                            	<a href="openedGroups?category=Python" style="text-decoration:none;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Python 그룹</div>
                                         </div>
                                         <div class="col-auto">
-                                        	<div class="font-weight-bold text-info mb-1">(7)
-                                            </div>
+                                        	<div class="font-weight-bold text-primary mb-1">(
+                                        	<!-- Python 그룹 수 -->
+                                        	<%
+                                     			List<GroupDTO> groupsPython = HomeController.dao.getGroupDAO().selectGroupsPython();
+                                        		out.println(groupsPython.size());
+                                        	%>)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -97,15 +112,19 @@
 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
-                            	<a href="#" style="text-decoration:none;">
+                            	<a href="openedGroups?category=Etc" style="text-decoration:none;">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">기타 그룹</div>
                                         </div>
                                         <div class="col-auto">
-                                            <div class="font-weight-bold text-warning mb-1">
-                                                	(3)</div>
+                                            <div class="font-weight-bold text-warning mb-1">(
+                                        	<!-- 기타 그룹 수 -->
+                                        	<%
+                                     			List<GroupDTO> groupsEtc = HomeController.dao.getGroupDAO().selectGroupsEtc();
+                                        		out.println(groupsEtc.size());
+                                        	%>)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -119,12 +138,16 @@
 						<h5 class="h5 mb-0 text-gray-800">그룹 목록</h5>
                     </div>
                     
+                    
                     <div class="row">
+                    	<%
+                    		for (int i=0;i<10;i++){
+                    	%>
                     	<div class="col-lg-4">
                     		<div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                 	<!-- 그룹 이름 및 상세 정보 페이지로 넘어가는 버튼 -->
-                                    <h5 class="m-0 font-weight-bold text-primary">C언어 기초 스터디
+                                    <h5 class="m-0 font-weight-bold text-primary">1
                                     	<!-- 버튼 모양 수정 예정 -->
                                     	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
                                     	<i class="fas fa-check"></i></a>
@@ -138,95 +161,13 @@
                                 	<p>인원 수 : 5/10</p>
                                 </div>
                             </div>
-                            
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">자바 GUI 스터디
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : JAVA
-                                	<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                    	</div>
-                    	
-                    	<div class="col-lg-4">
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">파이썬 고수만 컴온
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : 파이썬
-                                	<p>설명 : 주 2회 스터디 진행합니다. 열심히 참여하실 분만 들어오세요!!!</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                            
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">그룹 이름 짓기 귀찮다
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : ?
-                                	<p>설명 : 아무튼 들어오셈 ㅋㅋ</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                    	</div>
-                    	
-                    	<div class="col-lg-4">
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">스터디
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : ?
-                                	<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                            
-                    		<div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h5 class="m-0 font-weight-bold text-primary">스터디
-                                    	<a href="#" class="btn btn-warning btn-circle btn-sm" style="float:right">
-                                    	<i class="fas fa-check"></i></a>
-                                    </h5>
-                                </div>
-                                
-                                <div class="card-body">
-                                	<p>과목 : ?
-                                	<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
-                                	<p>멘토 : 이병훈</p>
-                                	<p>인원 수 : 5/10</p>
-                                </div>
-                            </div>
-                    	</div>
+                        </div>
+                        <%} %>
+                        
                     </div>
                     
                     <!-- 그룹 개설 버튼, 화면 고정 -->
-                    <a href="#" class="btn btn-success btn-circle"
+                    <a href="createGroupPage" class="btn btn-success btn-circle"
                     style="position:fixed; right:20px; bottom:20px; width:70px; height:70px; box-shadow:0px 0px 10px rgba(0,0,0,0.3)">
                     	<h1>+</h1></a>
 

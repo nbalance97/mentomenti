@@ -48,6 +48,13 @@
 
 <%@include file="menuPart1.jsp"%>
 
+<%
+	if (id == null){	//로그인 안된 상태면 로그인 페이지로 이동
+		response.sendRedirect("loginPage?mode=nidLogin");
+	} else {
+%>
+
+
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800">회원 정보 수정</h1>
@@ -62,17 +69,22 @@
 		<a href="#" onClick="changeImage()" class="btn btn-success"
 			style="margin-bottom: 20px;">프로필 수정</a>
 	</p>
-	
-	
+
+
 	<%
-		//추후에 로그인 기능이 완성되면 해당 계정 정보를 불러오는 것으로 수정할 것
-		UserDTO user = HomeController.dao.getUserDAO().selectUsers().get(0);
+		//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
+		UserDTO findUser = new UserDTO(null, null, null, null, null, null, null, false, null);
+		findUser.setId(id);
+		UserDTO loginUser = null;
+		if (HomeController.dao.getUserDAO().searchUserById(findUser).size()>0){
+			loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
+		}
 	%>
 
 	<table class="table" style="width: 80%; margin: 0 auto;">
 		<tr style="width: 50px">
 			<td>이름</td>
-			<td><input type="text" id="name_text" value=<%=user.getName() %>
+			<td><input type="text" id="name_text" value=<%=loginUser.getName()%>
 				disabled="true" style="width: 60%" /></td>
 		</tr>
 		<tr>
@@ -82,10 +94,10 @@
 		</tr>
 		<tr>
 			<td>닉네임</td>
-			<td><input type="text" id="nickname_text" value=<%=user.getNickname() %>
-				style="width: 60%" /> <a href="#" onClick="chkNickname()"
-				class="btn btn-danger btn-sm" id="nickname_btn"
-				style="margin-left: 10px">중복 확인</a></td>
+			<td><input type="text" id="nickname_text"
+				value=<%=loginUser.getNickname()%> style="width: 60%" /> <a href="#"
+				onClick="chkNickname()" class="btn btn-danger btn-sm"
+				id="nickname_btn" style="margin-left: 10px">중복 확인</a></td>
 		</tr>
 		<tr>
 			<td>현재 비밀번호</td>
@@ -99,12 +111,12 @@
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><input type="text" id="email_text" value=<%=user.getEmail() %>
-				style="width: 60%" />
+			<td><input type="text" id="email_text"
+				value=<%=loginUser.getEmail()%> style="width: 60%" />
 		</tr>
 		<tr>
 			<td>소개글</td>
-			<td><textarea id="intro_text" rows="4" style="width: 80%"><%=user.getIntro() %></textarea></td>
+			<td><textarea id="intro_text" rows="4" style="width: 80%"><%=loginUser.getIntro()%></textarea></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -113,5 +125,10 @@
 		</tr>
 	</table>
 </div>
+
+<%
+	}
+%>
+
 
 <%@include file="menuPart2.jsp"%>

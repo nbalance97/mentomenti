@@ -5,6 +5,34 @@
 <mapper namespace="Mento.Menti.Project.dao.PostDAO">
   <select id="selectPosts" resultType="Mento.Menti.Project.dto.PostDTO"> 
   	SELECT * 
-  	FROM Post;
+  	FROM post;
+  </select>
+  
+  <!-- 사이트 전체 공지사항 -->
+  <select id="selectGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid is null and is_notice = True;
+  </select>
+  
+  <!-- 사이트 자유게시판 게시물 -->
+  <select id="selectGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid is null and is_notice = False;
+  </select>
+  
+  <!-- 그룹 내 공지사항 -->
+  <select id="selectGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid = #{groupid} and is_notice = True;
+  </select>
+  
+  <!-- 그룹 내 게시물 -->
+  <select id="selectGroupPosts" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid = #{groupid} and is_notice = False;
   </select>
 </mapper>

@@ -86,7 +86,7 @@
 		
 	%>
 	<%@include file="studySidebar.jsp"%>
-
+	
 	<div class="main">
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
@@ -111,7 +111,7 @@
 					</select>
 				</div>
 				<form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?mode=<%=mode%>">
-					<div class="compiler shadow img-rounded">
+					<div class="compiler shadow img-rounded" style="padding:5px">
 							<label>Code Input</label>
 							<input type="submit" value="Execute">
 							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"><%
@@ -121,7 +121,7 @@
 							%></textarea> 
 					</div>
 			
-					<div class="input shadow img-rounded">
+					<div class="input shadow img-rounded" style="padding:5px">
 						<label>stdin : </label>
 						<textarea style="width:100%; height:100%;" name="InputText" id="input"><%
 								if (input != null) {
@@ -131,7 +131,7 @@
 					</div>
 				</form>
 			
-				<div class="result shadow img-rounded">
+				<div class="result shadow img-rounded" style="padding:5px">
 					<textarea style="width:100%; height:100%;" name="ResultText" id="result"><%
 						if (SRC != null) {
 							WebCompiler WC = WebCompiler.getInstance();
@@ -180,9 +180,9 @@
 			value: textarea3.value
 		});
 		
-		editor.setSize(750, 200);
-		editor2.setSize(750, 100);
-		editor3.setSize(750, 100);
+		editor.setSize("100%", 150);
+		editor2.setSize("100%", 100);
+		editor3.setSize("100%", 40);
 	</script>
 </body>
 </html>

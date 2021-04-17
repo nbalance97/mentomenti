@@ -11,41 +11,34 @@
 
 <title>채팅</title>
 <style>
+html, body{
+		height: 100%;
+	}
 
-.container {
+.container{
+
 	width: 100%;
 	height: 100%;
 }
-
 .chating {
 	background-color: #000;
-	max-height: 90%;
+	height: 80%;
 	overflow: auto;
 }
 
 .chating p {
-	min-width: 50px;
-	width: auto;
-	word-break: break-all;
-	border-radius: 5px 5px 5px 5px;
+	color: #fff;
+	text-align: left;
 }
 
 .chating .me {
-	color: BLACK;
-	display: inline-block;
-	text-align: right;
-	background: #F7E600;
-}
-
-.me-box {
+	color: #F6F6F6;
 	text-align: right;
 }
 
 .chating .others {
-	color: #F6F6F6;
-	display: inline-block;
+	color: #FFE400;
 	text-align: left;
-	background: #292B33;
 }
 
 #yourMsg {
@@ -78,14 +71,9 @@
 					}
 				} else if (d.type == "message") {
 					if (d.sessionId == $("#sessionId").val()) {
-						$("#chating").append(
-								"<div class='me-box'><p class='me'>나 : "
-										+ d.msg + "</p></div>");
+						$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
 					} else {
-						$("#chating").append(
-								"<div class='other-box'><p class='others'>"
-										+ d.userName + " : " + d.msg
-										+ "</p></div>");
+						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
 					}
 				} else {
 					console.warn("unknown type!");
@@ -114,70 +102,58 @@
 
 	function send() {
 		var option = {
-			type : "message",
+			type: "message",
 			sessionId : $("#sessionId").val(),
 			userName : $("#userName").val(),
 			msg : $("#chatting").val()
 		}
-
+		
 		ws.send(JSON.stringify(option));
 		$('#chatting').val("");
 	}
-	
-	
-</script>
-<script>
-var down = document.getElementById("chating");
-
-$(down).scrollTop($(down).height());
 </script>
 <body>
 	<div id="container" class="container">
 		<!-- 세션값 확인용 변수같이 쓰는 sessionId -->
-		<input type="hidden" id="sessionId" value="">
+		<input type="hidden" id="sessionId" value=""> 
 		<div id="chating" class="chating"></div>
 
-		<div id="yourName" class="row">
-			<div class="col-md-9">
-				<input class="form-control form-control-sm" type="text"	name="userName" id="userName">
-			</div>
-			<div class="col-md-2">
-				<button class="btn btn-sm btn-warning" onclick="chatName()"	id="startBtn">등록</button>
-			</div>
-
+		<div id="yourName">
+			<table>
+				<tr>
+					<th><input class="form-control form-control-sm" type="text"	name="userName" id="userName"></th>
+					<th><button class="btn btn-sm btn-primary" onclick="chatName()" id="startBtn">등록</button></th>
+				</tr>
+			</table>
 		</div>
-		<div id="yourMsg" class="row">
-			<div class="col-md-9">
-				<input class="form-control form-control-sm" id="chatting"
-						placeholder="보내실 메시지를 입력하세요.">
-			</div>
-			<div class="col-md-2">
-				<button class="btn btn-sm btn-warning" onclick="send()"	id="sendBtn">
-					<i class="far fa-paper-plane"></i>
-				</button>
-			</div>
+		<div id="yourMsg">
+			<table>
+				<tr>
+					<th><input class="form-control form-control-sm" id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+					<th><button class="btn btn-sm btn-primary" onclick="send()"	id="sendBtn">보내기</button></th>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	// Enter 입력 인식
-	
-	$(function() {
-		$('#userName').keydown(function(key) {
-			if (key.keyCode == 13) {
-				$('#userName').focus();
-				chatName();
-			}
-		});
-	})
-	$(function() {
-		$('#sendBtn').keydown(function(key) {
-			if (key.keyCode == 13) {
+$(function(){
+	$('#userName').keydown(function(key){
+		if(key.keyCode == 13){
+			$('#userName').focus();
+			chatName();
+		}
+	});
+})
+	$(function(){
+		$('#sendBtn').keydown(function(key){
+			if(key.keyCode == 13){
 				$('#sendBtn').focus();
 				send();
 			}
 		});
 	})
+	
 </script>
 
 </html>
