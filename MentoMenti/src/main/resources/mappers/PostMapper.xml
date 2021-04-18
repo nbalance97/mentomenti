@@ -35,4 +35,12 @@
   	FROM post
   	WHERE groupid = #{groupid} and is_notice = False;
   </select>
+  
+  
+  <!-- 사이트 전체 공지사항 검색 -->
+  <select id="searchGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="String">
+  	SELECT *
+  	FROM post
+  	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = True;
+  </select>
 </mapper>
