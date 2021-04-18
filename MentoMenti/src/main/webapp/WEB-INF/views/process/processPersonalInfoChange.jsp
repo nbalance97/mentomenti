@@ -10,6 +10,12 @@
 <meta charset="UTF-8">
 <title>MOCO</title>
 </head>
+
+<script type="text/javascript">
+	alert(document.getElement)
+
+</script>
+
 <body>
 	<%
 		String id = (String)session.getAttribute("userID");	//세션으로부터 아이디 받아옴
@@ -20,6 +26,7 @@
 		String intro = request.getParameter("new_intro");
 		
 		UserDTO user = new UserDTO(null, null, null, null, null, null, null, false, null);
+		user.setId(id);
 		user.setNickname(nickname);
 		user.setPw(pw);
 		user.setEmail(email);
