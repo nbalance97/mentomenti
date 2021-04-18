@@ -6,6 +6,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
+import Mento.Menti.Project.handler.ScreenShareSocketHandler;
 import Mento.Menti.Project.handler.SocketHandler;
 
 @Configuration
@@ -13,10 +14,12 @@ import Mento.Menti.Project.handler.SocketHandler;
 public class WebSockConfig implements WebSocketConfigurer {
 	@Autowired
 	SocketHandler socketHandler;
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
 		registry.addHandler(socketHandler, "/chating");
+		registry.addHandler(new ScreenShareSocketHandler(), "/socket").setAllowedOrigins("*");
 	}
 
 }
