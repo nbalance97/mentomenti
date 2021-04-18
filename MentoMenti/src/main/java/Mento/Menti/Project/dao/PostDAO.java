@@ -12,4 +12,5 @@ public interface PostDAO {
 	List<PostDTO> selectGroupPosts() throws Exception;
 	
 	List<PostDTO> searchGeneralNotices(String kwd) throws Exception;
+	List<PostDTO> searchGeneralPosts(String kwd) throws Exception;
 }
