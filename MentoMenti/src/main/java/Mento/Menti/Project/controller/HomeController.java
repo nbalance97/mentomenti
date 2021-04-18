@@ -110,17 +110,17 @@ public class HomeController {
     public String index13() {
     	return "freeBoard";
     }
-    @RequestMapping(value="/personalInfoPage") //회원 정보 확인
+    @RequestMapping(value="/personalInfoPage") //회원 정보 확인 페이지
     public String index14() {
     	return "personalInfoPage";
     }
     
-    @RequestMapping(value="/personalInfoChange") //회원 정보 수정
+    @RequestMapping(value="/personalInfoChange") //회원 정보 수정 페이지
     public String index15() {
     	return "personalInfoChange";
     }
     
-    @RequestMapping(value="/writepage") //회원 정보 수정
+    @RequestMapping(value="/writepage") //게시물 작성 페이지
     public String index16() {
     	return "writepage";
     }
@@ -135,7 +135,7 @@ public class HomeController {
     	return "/process/processLogin";
     }
     
-    @RequestMapping(value="/createGroupPage") //로그인 진행
+    @RequestMapping(value="/createGroupPage") //그룹 개설 페이지
     public String index22() {
     	return "createGroupPage";
     }
@@ -145,10 +145,16 @@ public class HomeController {
     	return "/process/processLogout";
     }
     
-    @RequestMapping(value="/group") //로그아웃 진행
+    @RequestMapping(value="/group") //그룹 페이지
     public String index24() {
     	return "/grouppage";
     }
+    
+    @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
+    public String index25() {
+    	return "/process/processPersonalInfoChange";
+    }
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";

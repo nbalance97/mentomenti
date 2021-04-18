@@ -90,8 +90,7 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td style="text-align: right;"><a href="#"
-				class="btn btn-primary">수정</a></td>
+			<td style="text-align: right;"><a href="personalInfoChange" class="btn btn-primary">수정</a></td>
 		</tr>
 	</table>
 </div>
