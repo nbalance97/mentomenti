@@ -30,11 +30,12 @@
 	<h1 class="h3 mb-0 text-gray-800">개설된 그룹</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
+			<!-- 그룹 검색 기능 구현해야 함 -->
 			<form
 				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small"
-						placeholder="검색" aria-label="Search"
+						placeholder="그룹 명 검색" aria-label="Search"
 						aria-describedby="basic-addon2">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="button">
@@ -174,7 +175,7 @@
 
 			<div class="card-body">
 				<!-- 간단한 그룹 정보 -->
-				<p>과목 : C언어
+				<p>과목 : C언어</p>
 				<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
 				<p>멘토 : 이병훈</p>
 				<p>인원 수 : 5/10</p>
