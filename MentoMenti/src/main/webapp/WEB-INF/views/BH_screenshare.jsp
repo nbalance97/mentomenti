@@ -24,6 +24,7 @@ html, body{
    placeholder="message">
   <button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
 	<script>
+	    // JS 디버깅 너무 어렵다(대,소문자 구분)
 		var conn = new WebSocket('ws://localhost:8000/socket');
 		var peerConnection;
 		var dataChannel;
