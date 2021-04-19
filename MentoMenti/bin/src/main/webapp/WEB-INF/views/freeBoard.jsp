@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Mento.Menti.Project.controller.HomeController" %>
-<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO" %>
-<%@ page import="java.util.List" %>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -29,14 +30,13 @@
 	<h1 class="h3 mb-0 text-gray-800">게시판</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
-			<form
-				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+				action="freeBoard" method="GET">
 				<div class="input-group">
-					<input type="text" class="form-control border-0 small"
-						placeholder="검색" aria-label="Search"
-						aria-describedby="basic-addon2">
+					<input type="text" class="form-control border-0 small" name="keyword"
+						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
+						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>
@@ -62,23 +62,49 @@
 	</thead>
 	<tbody>
 		<%
-			//Post DB에서 내용 가져오기
-			List<PostDTO> generalPosts = HomeController.dao.getPostDAO().selectGeneralPosts();
-			for (PostDTO gp: generalPosts){
-		%>
-		<tr role="row" class="odd">
-			<td class=""><%=gp.getPostid() %></td>	<!-- 게시물 번호 -->
-			<td>									<!-- 제목 -->
-				<a href="#" style="text-decoration:none; color:gray"><%=gp.getTitle() %></a>
-			</td>
-			<td><%=gp.getUserid() %></td>			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
-			<td><%=gp.getViewcount() %></td>		<!-- 조회수 -->
-		</tr>
-		<%
+			String kwd = request.getParameter("keyword");	//검색 키워드
+			List<PostDTO> postList = null;
+			if (kwd == null) {	//검색x, 전체 공지
+				postList = HomeController.dao.getPostDAO().selectGeneralPosts();
+			} else{	//검색o
+				postList = HomeController.dao.getPostDAO().searchGeneralPosts(kwd);
 			}
+			
+			
+			if (postList.size() == 0){	//결과가 없다면
 		%>
 	</tbody>
 </table>
+	<div style="height:200px; text-align:center; line-height:200px">
+		결과가 없습니다.		
+	</div>
+		
+		<%
+			}
+			
+			else {	//결과가 있다면
+				for (PostDTO pl: postList){
+		%>
+		<tr role="row" class="odd">
+			<td class=""><%=pl.getPostid() %></td>
+			<!-- 게시물 번호 -->
+			<td>
+				<!-- 제목 --> <a href="#" style="text-decoration: none; color: gray"><%=pl.getTitle() %></a>
+			</td>
+			<td><%=pl.getUserid() %></td>
+			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=pl.getViewcount() %></td>
+			<!-- 조회수 -->
+		</tr>
+		<%
+				}
+		%>
+	</tbody>
+		<%
+			}
+		%>
+</table>
+
 
 <!-- 페이지 버튼 -->
 <div class="d-flex align-items-center justify-content-between">

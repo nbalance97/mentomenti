@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@page import="pen.Main" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,7 +183,7 @@
 		<!-- 수업페이지 기능모음 메뉴 -->
 		<div class="function">
 			<ul>					
-				<li><a href="#"><i class="fas fa-pencil-alt fa-3x"></i></a></li>
+				<li><input type="button" id="button1" onclick="pen();"/><i class="fas fa-pencil-alt fa-3x"></i></li>
 				<li><a href="#"><i class="fas fa-eraser fa-3x"></i></a></li>
 				<li><a href="#"><i class="fas fa-microphone fa-3x"></i></a></li>
 				<li id= "start" ><a id="share-screen"><i class="fas fa-desktop fa-3x"></i></a></li>
@@ -193,6 +194,12 @@
 			
 		</div>
 	</div>
+	<script>
+		function pen(){
+			return{
+				result:pen.Main.main()
+			};
+		}</script>
 	<script src="resources/js/screenShare.js"></script> 
 	
 </body>

@@ -40,11 +40,11 @@
 
     <body>			
 			<!-- 현재 방 코드 -->
-		<div style="width: 90%;">	
+		<div>	
            <!--  <section id="logs-message" class="experiment" style="display: none;text-align: center;font-size: 1.5em;line-height: 2;color: red;">WebRTC getDisplayMedia API.</section> -->
-			<section class="hide-after-join" style="text-align: center;">   
+			<section class="hide-after-join" ">   
 					<!-- 프론트에 삽입 시 버튼 제거해야 제대로 작동함, class에 css 먹혀있어서 안넣는게 좋을듯-->                 
-                    <!--  <button id="share-screen" class="setup">화면공유</button> --> 
+                    <!-- <button id="share-screen" class="setup">화면공유</button> -->
             </section>
             <!-- just copy this <section> and next script -->
            
@@ -64,15 +64,22 @@
         <script src="https://www.webrtc-experiment.com/commits.js" async> </script>
     </body>
     <style>
+    		/*#videos-container{
+    			display: inline-block;
+    			text-align:center;
+    		}*/
             video {
-                -moz-transition: all 1s ease;
-                -ms-transition: all 1s ease;
-
-                -o-transition: all 1s ease;
-                -webkit-transition: all 1s ease;
+            	
+                -moz-transition: all 1s ease; /*파이어폭스*/ 
+                -ms-transition: all 1s ease; /*익스플로어*/
+                -o-transition: all 1s ease; /*오페라*/
+                -webkit-transition: all 1s ease; /*모두*/
                 transition: all 1s ease;
                 vertical-align: top;
-                width: 100%;
+                width:100%;
+                height:auto;
+                margin:0 auto;
+                display:block;
             }
 
             input {

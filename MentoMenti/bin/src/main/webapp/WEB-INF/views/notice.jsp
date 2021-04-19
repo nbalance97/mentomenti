@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Mento.Menti.Project.controller.HomeController" %>
-<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO" %>
-<%@ page import="java.util.List" %>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -32,14 +33,14 @@
 	<h1 class="h3 mb-0 text-gray-800">공지사항</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
-			<form
-				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<!-- 검색 버튼 누르면 processSearchNotice로 이동 -->
+			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+				action="notice" method="GET">
 				<div class="input-group">
-					<input type="text" class="form-control border-0 small"
-						placeholder="검색" aria-label="Search"
-						aria-describedby="basic-addon2">
+					<input type="text" class="form-control border-0 small" name="keyword"
+						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
+						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>
@@ -49,6 +50,7 @@
 	</ul>
 </div>
 <p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>
+
 
 <!-- 리스트 -->
 <table class="table table-bordered dataTable" id="dataTable"
@@ -63,25 +65,52 @@
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
 		</tr>
 	</thead>
+	
 	<tbody>
 		<%
-			//Post DB에서 내용 가져오기
-			List<PostDTO> generalNotices = HomeController.dao.getPostDAO().selectGeneralNotices();
-			for (PostDTO gn: generalNotices){
-		%>
-		<tr role="row" class="odd">
-			<td class=""><%=gn.getPostid() %></td>	<!-- 게시물 번호 -->
-			<td>									<!-- 제목 -->
-				<a href="#" style="text-decoration:none; color:gray"><%=gn.getTitle() %></a>
-			</td>
-			<td><%=gn.getUserid() %></td>			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
-			<td><%=gn.getViewcount() %></td>		<!-- 조회수 -->
-		</tr>
-		<%
+			String kwd = request.getParameter("keyword");	//검색 키워드
+			List<PostDTO> noticeList = null;
+			if (kwd == null) {	//검색x, 전체 공지
+				noticeList = HomeController.dao.getPostDAO().selectGeneralNotices();
+			} else{	//검색o
+				noticeList = HomeController.dao.getPostDAO().searchGeneralNotices(kwd);
 			}
+			
+			
+			if (noticeList.size() == 0){	//결과가 없다면
 		%>
 	</tbody>
 </table>
+	<div style="height:200px; text-align:center; line-height:200px">
+		결과가 없습니다.		
+	</div>
+		
+		<%
+			}
+			
+			else {	//결과가 있다면
+				for (PostDTO gn: noticeList){
+		%>
+		<tr role="row" class="odd">
+			<td class=""><%=gn.getPostid() %></td>
+			<!-- 게시물 번호 -->
+			<td>
+				<!-- 제목 --> <a href="#" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
+			</td>
+			<td><%=gn.getUserid() %></td>
+			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=gn.getViewcount() %></td>
+			<!-- 조회수 -->
+		</tr>
+		<%
+				}
+		%>
+	</tbody>
+		<%
+			}
+		%>
+</table>
+
 
 <!-- 페이지 버튼 -->
 <div class="d-flex align-items-center justify-content-between">

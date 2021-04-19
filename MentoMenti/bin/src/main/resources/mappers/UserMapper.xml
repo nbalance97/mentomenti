@@ -19,9 +19,25 @@
   	where email = #{email};
   </select>
   
+  <select id="searchUserById" resultType="Mento.Menti.Project.dto.UserDTO">
+  	select *
+  	from user
+  	where id = #{id};
+  </select>
+  
   <select id="searchUserByIdPw" resultType="Mento.Menti.Project.dto.UserDTO">
   	select *
   	from user
   	where id = #{id} and pw = #{pw};
   </select>
+  
+  <!-- 회원 정보 수정 -->
+  <update id="updateUserInfo" parameterType="Mento.Menti.Project.dto.UserDTO">
+  	update user
+  	set nickname = #{nickname}
+  	, pw = #{pw}
+  	, email = #{email}
+  	, intro = #{intro}
+  	where id = #{id};
+  </update>
 </mapper>

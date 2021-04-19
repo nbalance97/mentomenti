@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Mento.Menti.Project.controller.HomeController" %>
-<%@ page import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO" %>
-<%@ page import="java.util.List" %>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -23,6 +24,13 @@
 
 <%@include file="menuPart1.jsp"%>
 
+
+<%
+	if (id == null){	//로그인 안된 상태면 로그인 페이지로 이동
+		response.sendRedirect("loginPage?mode=nidLogin");
+	} else {
+%>
+
 <!-- 마이페이지 중 회원 정보 확인 페이지 -->
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -33,40 +41,45 @@
 <div style="text-align: center">
 	<img src="resources/img/undraw_profile_1.svg"
 		style="width: 150px; margin-bottom: 30px">
-		
+
 	<%
-		//추후에 로그인 기능이 완성되면 해당 계정 정보를 불러오는 것으로 수정할 것
-		UserDTO user = HomeController.dao.getUserDAO().selectUsers().get(0);
+		//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
+		UserDTO findUser = new UserDTO(null, null, null, null, null, null, null, false, null);
+		findUser.setId(id);
+		UserDTO loginUser = null;
+		if (HomeController.dao.getUserDAO().searchUserById(findUser).size()>0){
+			loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
+		}
 	%>
 
 	<table class="table" style="width: 60%; margin: 0 auto;">
 		<tr style="width: 50px">
 			<td>이름</td>
-			<td><%=user.getName() %></td>
+			<td><%=loginUser.getName() %></td>
 		</tr>
 		<tr style="width: 50px">
 			<td>아이디</td>
-			<td><%=user.getId() %></td>
+			<td><%=loginUser.getId() %></td>
 		</tr>
 		<tr>
 			<td>닉네임</td>
-			<td><%=user.getNickname() %></td>
+			<td><%=loginUser.getNickname() %></td>
 		</tr>
 		<tr>
 			<td>이메일</td>
-			<td><%=user.getEmail() %></td>
+			<td><%=loginUser.getEmail() %></td>
 		</tr>
 		<tr>
 			<td>생일</td>
-			<td><%=user.getBirth() %></td>
+			<td><%=loginUser.getBirth() %></td>
 		</tr>
 		<tr>
 			<td>소개글</td>
-			<td><%=user.getIntro() %></td>
+			<td><%=loginUser.getIntro() %></td>
 		</tr>
 		<tr>
 			<td>가입 일자</td>
-			<td><%=user.getJoindate() %></td>
+			<td><%=loginUser.getJoindate() %></td>
 		</tr>
 		<tr>
 			<!-- 나중에 user, group DB 연결해서 가져올 것 -->
@@ -77,10 +90,13 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td style="text-align: right;"><a href="#"
-				class="btn btn-primary">수정</a></td>
+			<td style="text-align: right;"><a href="personalInfoChange" class="btn btn-primary">수정</a></td>
 		</tr>
 	</table>
 </div>
+
+<%
+	}
+%>
 
 <%@include file="menuPart2.jsp"%>
