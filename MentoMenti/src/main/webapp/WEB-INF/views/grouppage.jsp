@@ -19,12 +19,27 @@ position : relative;
 
 }
 
-h2.text2{
+h1.text2{
 font-size:30px;
 COLOR : #5F5F5F;
 position : relative;
-left : -180;
+left : 100;
+top : -222;
+text-align: center;
+}
 
+h1.text3{
+font-size:30px;
+COLOR : #5F5F5F;
+}
+
+h1.text4{
+font-size:30px;
+COLOR : #5F5F5F;
+position : relative;
+text-align: center;
+left : 100;
+top : -152;
 }
 </style>
 
@@ -48,7 +63,7 @@ left : -180;
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
-	<h1 class="text1"> 가입멤버</h1>
+	<h1 class="text1">가입멤버</h1>
 
 </div>
 
@@ -76,31 +91,20 @@ left : -180;
 		%>
 	</tbody>
 </table>
-	<h2 class="text2"> 공지사항</h1>
+	<h1 class="text2">공지사항</h1>
 
-<!-- 리스트2 -->
-<table class="table table-bordered" id="dataTable" width="40%" align = "right"
-	cellspacing="0" role="grid" aria-describedby="dataTable_info"
-	style="width: 40%; background: white; text-align: center; position : relative; top : -155;" >
-	<thead>
-		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 90px;">No.</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 150px;">작성자</th>
-		</tr>
-	</thead>
-	<tbody>
-		<%
-			for (int i = 1; i < 3; i++) {
-		%>
-		<tr role="row" class="odd">
-			<td><%= i %></TD>
-			<td>이병훈</td>
-		</tr>
-		<%
-			}
-		%>
-	</tbody>
-</table>
+	<h1 class="text3">개설수업</h1>
+
+
+	 	<form>
+    		<button type="submit" class="btn btn-primary" style="width: 40%; margin-bottom : 10px; margin-top : 20px" >입장</button>      
+		</form>
+    	 <form>
+   			 <button type="submit" class="btn btn-info" style="width: 40%">개설</button>
+   		 </form>
+   		 
+   		 
+ 	<h1 class="text4">Q & A</h1> 		 
 
 <%@include file="menuPart2.jsp"%>
 </html>
