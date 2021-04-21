@@ -59,9 +59,9 @@
 	style="width: 100%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">No.</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 60%">제목</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 20%;">작성자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 65%">제목</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">작성자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성일자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
 		</tr>
 	</thead>
@@ -92,13 +92,14 @@
 				for (PostDTO gn: noticeList){
 		%>
 		<tr role="row" class="odd">
-			<td class=""><%=gn.getPostid() %></td>
-			<!-- 게시물 번호 -->
 			<td>
-				<!-- 제목 --> <a href="#" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
+				<!-- 제목 -->
+				<a href="#" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
 			</td>
 			<td><%=gn.getUserid() %></td>
 			<!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=gn.getPostdate()%></td>
+			<!-- 게시물 번호 -->
 			<td><%=gn.getViewcount() %></td>
 			<!-- 조회수 -->
 		</tr>

@@ -71,42 +71,7 @@
 									href="#">모든 알림 보기</a>
 							</div></li>
 
-						<!-- Nav Item - Messages -->
-						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
-								<!-- Counter - Messages --> <span
-								class="badge badge-danger badge-counter">7</span>
-						</a> <!-- Dropdown - Messages -->
-							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="messagesDropdown">
-								<h6 class="dropdown-header" style="background: black;">메세지</h6>
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle"
-											src="resources/img/undraw_profile_2.svg" alt="">
-										<div class="status-indicator bg-success"></div>
-									</div>
-									<div>
-										<div class="text-truncate">오늘 3시에 수업 있습니다. 늦지 말고 들어오세요.</div>
-										<div class="small text-gray-500">선바(C언어 초보) · 58분전</div>
-									</div>
-								</a>
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle"
-											src="resources/img/undraw_profile_1.svg" alt="">
-										<div class="status-indicator bg-success"></div>
-									</div>
-									<div>
-										<div class="text-truncate">안녕하세요 여러분 오티 자료를 그룹 공지사항에 올렸으니 확인하시길 바랍니다.</div>
-										<div class="small text-gray-500">한서현(자바를 자바) · 1주전</div>
-									</div>
-								</a>
-								<a class="dropdown-item text-center small text-gray-500" href="#">모든 메세지 확인하기</a>
-							</div>
-						</li>
+						<!-- 쪽지 아이콘 삭제 -->
 
 						<div class="topbar-divider d-none d-sm-block"></div>
 						<%
