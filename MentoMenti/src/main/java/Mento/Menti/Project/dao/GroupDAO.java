@@ -10,4 +10,6 @@ public interface GroupDAO {
 	List<GroupDTO> selectGroupsJava() throws Exception;
 	List<GroupDTO> selectGroupsPython() throws Exception;
 	List<GroupDTO> selectGroupsEtc() throws Exception;
+	
+	void insertGroup(GroupDTO group) throws Exception;
 }
