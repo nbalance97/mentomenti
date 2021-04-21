@@ -116,7 +116,7 @@
 								<!-- Python 그룹 수 -->
 								<%
 									List<GroupDTO> groupsPython = HomeController.dao.getGroupDAO().selectGroupsPython();
-								out.println(groupsPython.size());
+									out.println(groupsPython.size());
 								%>)
 							</div>
 						</div>
@@ -158,15 +158,21 @@
 
 
 <div class="row">
+
 	<%
-		for (int i = 0; i < 10; i++) {
+		List<GroupDTO> allGroups = HomeController.dao.getGroupDAO().selectGroups();
+	%>
+
+	<%
+		for (GroupDTO group : allGroups){
+		//for (int i = 0; i < 10; i++) {
 	%>
 	<div class="col-lg-4">
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
 				<!-- 그룹 이름 및 상세 정보 페이지로 넘어가는 버튼 -->
 				<h5 class="m-0 font-weight-bold text-primary">
-					1
+					<%=group.getName() %>
 					<!-- 버튼 모양 수정 예정 -->
 					<a href="#" class="btn btn-warning btn-circle btn-sm"
 						style="float: right"> <i class="fas fa-check"></i></a>
@@ -175,10 +181,10 @@
 
 			<div class="card-body">
 				<!-- 간단한 그룹 정보 -->
-				<p>과목 : C언어</p>
-				<p>설명 : 병훈짱이 캐리하는 그룹입니다</p>
-				<p>멘토 : 이병훈</p>
-				<p>인원 수 : 5/10</p>
+				<p>과목 : <%=group.getCategory() %></p>
+				<p>설명 : <%=group.getIntro() %></p>
+				<p>멘토 : <%=group.getMentoid() %></p> 					<!-- 닉네임으로 바뀔 수도 -->
+				<p>인원 수 : (현재 인원 수)/<%=group.getMaxperson() %></p>
 			</div>
 		</div>
 	</div>

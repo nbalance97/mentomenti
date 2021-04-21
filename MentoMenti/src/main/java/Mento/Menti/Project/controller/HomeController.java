@@ -155,6 +155,11 @@ public class HomeController {
     	return "/process/processPersonalInfoChange";
     }
     
+    @RequestMapping(value="/processCreateGroup") //그룹 개설 진행
+    public String index26() {
+    	return "/process/processCreateGroup";
+    }
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";

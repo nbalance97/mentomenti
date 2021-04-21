@@ -23,7 +23,42 @@
 
 </head>
 
+<script type="text/javascript">
+	var categorySelect;
+	var categoryText;
+
+	window.onload = function() {
+		categorySelect = document.getElementById('category_select');
+		categoryText = document.getElementById('category_text');
+	}
+
+	function categoryChange() {
+		if (categorySelect.value == "기타") {
+			categoryText.disabled = false;
+		} else {
+			categoryText.disabled = true;
+		}
+	}
+	
+	function chkInput(){
+		var form = document.createGroupForm;
+		var groupName = document.getElementById("name_text").value;
+		if(groupName.length < 5){
+			alert("그룹 명은 5글자 이상으로 작성해주세요");
+			return;
+		}
+		form.submit();
+	}
+</script>
+
+
 <%@include file="menuPart1.jsp"%>
+
+<%
+	if (id == null){	//로그인 안된 상태면 로그인 페이지로 이동
+		response.sendRedirect("loginPage?mode=nidLogin");
+	} else {
+%>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
@@ -31,37 +66,50 @@
 </div>
 
 <div style="text-align: center">
-
-	<table class="table" style="width: 80%; margin: 0 auto;">
-		<tr style="width: 50px">
-			<td>그룹 이름</td>
-			<td><input type="text" id="name_text" style="width: 60%" /></td>
-		</tr>
-		<tr>
-			<td>최대 인원 수</td>
-			<td><input type="text" id="maxperson_text" style="width: 60%" />
-		</tr>
-		<tr>
-			<td>그룹 분류</td>
-			<td><select name="category">
-					<option value=""></option>
-					<option></option>
-			</select></td>
-			<td><input type="password" id="pw_current_text"
-				style="width: 60%" /> <a href="#" onClick="chkPW()"
-				class="btn btn-warning btn-sm" style="margin-left: 10px">확인</a></td>
-		</tr>
-		<tr>
-			<td>소개글</td>
-			<td><textarea id="intro_text" rows="4" style="width: 80%"></textarea></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td style="text-align: right;"><a href="#" onClick="chkInput()"
-				class="btn btn-primary">완료</a></td>
-		</tr>
-	</table>
+	<form action="processCreateGroup" name="createGroupForm" method="post">
+		<table class="table" style="width: 80%; margin: 0 auto;">
+			<tr style="width: 50px">
+				<td>그룹 이름</td>
+				<td><input type="text" name="groupName" id="name_text" style="width: 60%" /></td>
+			</tr>
+			<tr>
+				<td>최대 멘티 수</td> <!-- 멘티 1 ~ 5명 -->
+				<td>
+					<select name="maxPerson" id="max_person">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+					명
+				</td>
+			</tr>
+			<tr>
+				<td>그룹 분류</td>
+				<td><select name="category" id="category_select" onChange="categoryChange()">
+						<option value="C언어">C언어</option>
+						<option value="Java">Java</option>
+						<option value="Python">Python</option>
+						<option value="기타">기타</option>
+				</select> <input type="text" name="categoryText" id="category_text" placeholder="직접 입력"
+					style="width: 40%" disabled />
+			</tr>
+			<tr>
+				<td>소개글</td>
+				<td><textarea name="intro" id="intro_text" rows="4" style="width: 80%"></textarea></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td style="text-align: right;">
+				<input type="button" onclick="chkInput()" class="btn btn-primary" value="완료"/></td>
+			</tr>
+		</table>
+	</form>
 </div>
 
+<%
+	}
+%>
 
 <%@include file="menuPart2.jsp"%>
