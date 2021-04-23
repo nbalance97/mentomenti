@@ -168,6 +168,10 @@ public class HomeController {
     	return "/process/processCreateGroup";
     }
     
+    @RequestMapping(value="/joininggroups") //그룹 개설 진행
+    public String index27() {
+    	return "/joininggroups";
+    }
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
