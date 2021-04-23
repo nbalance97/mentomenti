@@ -1,16 +1,12 @@
 package Mento.Menti.Project.controller;
  
-import java.util.List;
-
+import Mento.Menti.Project.controller.DAOConfiguration;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import Mento.Menti.Project.dto.PostDTO;
-import Mento.Menti.Project.dto.UserDTO;
 
 @Controller
 public class HomeController {
@@ -23,17 +19,10 @@ public class HomeController {
 	private void initDao() {
 		dao = temp;
 	}
-	
-	@GetMapping(value="/pp")
-	public String indeg() {
-		System.out.println("home");
-		return "home";
-	}
-	
+
     @RequestMapping(value="/")
     public String index() {    
-    	System.out.println("home");
-        return "home";
+        return "loginPage";
     }
     
     /*
@@ -168,6 +157,10 @@ public class HomeController {
     	return "/process/processCreateGroup";
     }
     
+    @RequestMapping(value="/joininggroups") //그룹 개설 진행
+    public String index27() {
+    	return "/joininggroups";
+    }
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
