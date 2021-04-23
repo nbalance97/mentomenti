@@ -80,7 +80,8 @@ top:-292;
 
 <!--여기에 원래 <section></section>  -->
 
-<img src="resources/img/test2.png" width=1920 height=720 left=0><br>
+<img src="resources/img/test2.png" width=1920 height=720>
+
 
 <body>
 	<div>

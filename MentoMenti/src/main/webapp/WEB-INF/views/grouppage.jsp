@@ -24,13 +24,14 @@ font-size:30px;
 COLOR : #5F5F5F;
 position : relative;
 left : 100;
-top : -222;
+top : -361;
 text-align: center;
 }
 
 h1.text3{
 font-size:30px;
 COLOR : #5F5F5F;
+
 }
 
 h1.text4{
@@ -40,6 +41,7 @@ position : relative;
 text-align: center;
 left : 100;
 top : -152;
+
 }
 </style>
 
@@ -74,25 +76,25 @@ top : -152;
 	style="width: 40%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 90px;">No.</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 150px;">작성자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 90px;">역할</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 150px;">이름</th>
 		</tr>
 	</thead>
 	<tbody>
 		<%
-			for (int i = 1; i < 3; i++) {
+			for (int i = 1; i < 5; i++) {
 		%>
 		<tr role="row" class="odd">
 			<td><%= i %></TD>
-			<td>이병훈</td>
+			<td></td>
 		</tr>
 		<%
 			}
 		%>
 	</tbody>
 </table>
-	<h1 class="text2">공지사항</h1>
 
+	<h1 class="text2">공지사항</h1>
 	<h1 class="text3">개설수업</h1>
 
 
