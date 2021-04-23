@@ -40,4 +40,11 @@
   	, intro = #{intro}
   	where id = #{id};
   </update>
+  
+  <!-- 관리자인지 아닌지 -->
+  <select id="isAdmin" parameterType="String" resultType="boolean">
+  	select is_admin
+  	from user
+  	where id = #{id};
+  </select>
 </mapper>

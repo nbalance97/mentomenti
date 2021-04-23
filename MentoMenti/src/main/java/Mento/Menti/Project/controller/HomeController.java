@@ -161,6 +161,28 @@ public class HomeController {
     public String index27() {
     	return "/joininggroups";
     }
+    
+    @RequestMapping(value="/writeNoticePage") //공지사항 작성 페이지
+    public String index28() {
+    	return "/writeNoticePage";
+    }
+    
+    @RequestMapping(value="/processWriteNotice") //공지사항 작성 진행
+    public String index29() {
+    	return "/process/processWriteNotice";
+    }
+    
+    @RequestMapping(value="/writePostPage") //자유게시판 게시물 작성 페이지
+    public String index30() {
+    	return "/writePostPage";
+    }
+    
+    @RequestMapping(value="/processWritePost") //자유게시판 게시물 작성 진행
+    public String index31() {
+    	return "/process/processWritePost";
+    }
+    
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";

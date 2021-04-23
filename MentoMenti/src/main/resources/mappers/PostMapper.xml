@@ -50,4 +50,16 @@
   	FROM post
   	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = False;
   </select>
+  
+  <!-- 공지사항 등록 -->
+  <insert id="insertGeneralNotice" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, null, #{userid}, #{title}, #{content}, #{postdate}, 0, True);
+  </insert>
+  
+  <!-- 자유게시판 게시물 등록 -->
+  <insert id="insertGeneralPost" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, null, #{userid}, #{title}, #{content}, #{postdate}, 0, False);
+  </insert>
 </mapper>

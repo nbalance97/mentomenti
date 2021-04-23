@@ -131,11 +131,22 @@
 			>></a>
 	</div>
 
+	<%
+		if (id != null) {	//로그인상태
+			if (HomeController.dao.getUserDAO().isAdmin(id)){	//관리자일때
+	%>
+
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
-			<a href="#" class="btn btn-secondary">작성</a>
+			<a href="writeNoticePage" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
+	
+	<%
+			}
+		}
+	%>
+	
 </div>
 
 <%@include file="menuPart2.jsp"%>
