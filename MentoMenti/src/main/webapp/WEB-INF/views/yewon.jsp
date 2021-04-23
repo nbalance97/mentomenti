@@ -7,6 +7,7 @@
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
+
 <head>
 
 <meta charset="utf-8">
@@ -23,8 +24,11 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
 </head>
+
+
 
 <%@include file="menuPart1.jsp"%>
 
@@ -142,7 +146,7 @@
 								<!-- 기타 그룹 수 -->
 								<%
 									List<GroupDTO> groupsEtc = HomeController.dao.getGroupDAO().selectGroupsEtc();
-								out.println(groupsEtc.size());
+									out.println(groupsEtc.size());
 								%>)
 							</div>
 						</div>
@@ -154,6 +158,8 @@
 </div>
 
 
+
+
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h5 class="h5 mb-0 text-gray-800">그룹 목록</h5>
 </div>
@@ -161,8 +167,52 @@
 <!-- 그룹 목록 -->
 <div class="row" id="groupList">
 
-<!-- 스크롤하면 그룹 추가 로딩 -->
-<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<%
+	List<GroupDTO> groups = HomeController.dao.getGroupDAO().selectGroups();
+	boolean showAll = false;	//DB에 저장된 그룹 전체를 목록에 불러왔는지
+	int cntShowGroupIndex = 0;	//지금까지 출력한 그룹의 인덱스 저장
+	
+	int i = 0;	//for문에서 사용할 변수
+%>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var testFunc = function(){
+			<%
+				for (i = cntShowGroupIndex; i < cntShowGroupIndex + 9; i++) {	//한번에 9개씩 불러옴
+			%>
+				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
+						+'<h5 class="m-0 font-weight-bold text-primary">'+'<%=groups.get(i).getName()%>'
+						+'<a href="#" class="btn btn-warning btn-circle btn-sm" style="float: right"><i class="fas fa-check"></i></a></h5></div>'
+						+'<div class="card-body">'
+						+'<p>과목 : '+'<%=groups.get(i).getCategory()%>'+'</p>'
+						+'<p>설명 : '+'<%=groups.get(i).getIntro()%>'+'</p>'
+						+'<p>멘토 : '+'<%=groups.get(i).getMentoid()%>'+'</p>'
+						+'<p>인원 수 : '+'(현재 인원수)/<%=groups.get(i).getMaxperson()%>'+'</p></div></div>').appendTo('#groupList');
+			<%
+				}
+				cntShowGroupIndex += 9;	//cntShowGroupIndex를 업데이트 하고 싶은데 이게 안되네,,,,
+			%>
+			alert(<%=cntShowGroupIndex%>);
+		};
+		
+		testFunc();
+		
+		
+		//스크롤시 추가 로딩하는 부분
+		$(window).scroll(function(){
+			var scrollHeight = $(window).scrollTop() + $(window).height();
+			var documentHeight = $(document).height();
+			
+			if(scrollHeight == documentHeight){
+				testFunc();
+			}
+		});
+});
+</script>
+
+
+<!--
 <script type="text/javascript">
 	$(document).ready(function(){
 		var appendDocument = function(){
@@ -189,6 +239,8 @@
 		});
 	});
 </script>
+-->
+
 </div>
 
 

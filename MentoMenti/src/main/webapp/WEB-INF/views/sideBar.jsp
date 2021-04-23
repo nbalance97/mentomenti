@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<input type="checkbox" id="check" checked="true">
+	<input type="checkbox" id="check" checked>
 	<!-- 펼쳐진 상태가 디폴트 -->
 	<label for="check"> <i class="fas fa-bars" id="btn"></i> <!-- 펼치는 버튼 -->
 		<i class="fas fa-times" id="cancel"></i> <!-- 접는 버튼 -->
