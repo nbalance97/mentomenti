@@ -78,7 +78,10 @@ top:-292;
 </head>
 <%@include file="menuPart1.jsp"%>
 
-<section></section>
+<!--여기에 원래 <section></section>  -->
+
+<img src="resources/img/test2.png" width=1920 height=720>
+
 
 <body>
 	<div>
@@ -101,6 +104,5 @@ top:-292;
 	</div>
 
 
-<%@include file="menuPart2.jsp"%>
 </body>
 </html>

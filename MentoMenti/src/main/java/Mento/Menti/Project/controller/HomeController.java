@@ -197,4 +197,9 @@ public class HomeController {
     	return "/studyPage/debugStudy_test";
     }
     
+    @RequestMapping(value="/board") //목소리 공유
+    public String index104() {
+    	return "whiteBoard";
+    }
+    
 }

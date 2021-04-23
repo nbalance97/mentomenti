@@ -9,49 +9,11 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
+<!-- chat.css 로 style 분리 -->
+<link rel="stylesheet" href="resources/css/chat.css">
+
 <title>채팅</title>
-<style>
 
-.container {
-	width: 100%;
-	height: 100%;
-}
-
-.chating {
-	background-color: #000;
-	max-height: 90%;
-	overflow: auto;
-}
-
-.chating p {
-	min-width: 50px;
-	width: auto;
-	word-break: break-all;
-	border-radius: 5px 5px 5px 5px;
-}
-
-.chating .me {
-	color: BLACK;
-	display: inline-block;
-	text-align: right;
-	background: #F7E600;
-}
-
-.me-box {
-	text-align: right;
-}
-
-.chating .others {
-	color: #F6F6F6;
-	display: inline-block;
-	text-align: left;
-	background: #292B33;
-}
-
-#yourMsg {
-	display: none;
-}
-</style>
 </head>
 
 <script type="text/javascript">
@@ -89,7 +51,9 @@
 					}
 				} else {
 					console.warn("unknown type!");
-				}
+				}				
+				$('#chating').scrollTop($('#chating')[0].scrollHeight);
+				 //채팅 늘어날 때마다 자동으로 스크롤 내림
 			}
 		}
 
@@ -126,16 +90,12 @@
 	
 	
 </script>
-<script>
-var down = document.getElementById("chating");
 
-$(down).scrollTop($(down).height());
-</script>
 <body>
 	<div id="container" class="container">
 		<!-- 세션값 확인용 변수같이 쓰는 sessionId -->
 		<input type="hidden" id="sessionId" value="">
-		<div id="chating" class="chating"></div>
+		<div id="chating" class="chating" onscroll="chat_on_scroll()"></div>
 
 		<div id="yourName" class="row">
 			<div class="col-md-9">
@@ -160,8 +120,7 @@ $(down).scrollTop($(down).height());
 	</div>
 </body>
 <script type="text/javascript">
-	// Enter 입력 인식
-	
+	// Enter 입력 인식	
 	$(function() {
 		$('#userName').keydown(function(key) {
 			if (key.keyCode == 13) {
