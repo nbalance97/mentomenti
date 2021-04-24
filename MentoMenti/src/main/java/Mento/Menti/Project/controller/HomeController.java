@@ -1,16 +1,12 @@
 package Mento.Menti.Project.controller;
  
-import java.util.List;
-
+import Mento.Menti.Project.controller.DAOConfiguration;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import Mento.Menti.Project.dto.PostDTO;
-import Mento.Menti.Project.dto.UserDTO;
 
 @Controller
 public class HomeController {
@@ -23,17 +19,10 @@ public class HomeController {
 	private void initDao() {
 		dao = temp;
 	}
-	
-	@GetMapping(value="/pp")
-	public String indeg() {
-		System.out.println("home");
-		return "home";
-	}
-	
+
     @RequestMapping(value="/")
     public String index() {    
-    	System.out.println("home");
-        return "home";
+        return "loginPage";
     }
     
     /*
@@ -172,6 +161,28 @@ public class HomeController {
     public String index27() {
     	return "/joininggroups";
     }
+    
+    @RequestMapping(value="/writeNoticePage") //공지사항 작성 페이지
+    public String index28() {
+    	return "/writeNoticePage";
+    }
+    
+    @RequestMapping(value="/processWriteNotice") //공지사항 작성 진행
+    public String index29() {
+    	return "/process/processWriteNotice";
+    }
+    
+    @RequestMapping(value="/writePostPage") //자유게시판 게시물 작성 페이지
+    public String index30() {
+    	return "/writePostPage";
+    }
+    
+    @RequestMapping(value="/processWritePost") //자유게시판 게시물 작성 진행
+    public String index31() {
+    	return "/process/processWritePost";
+    }
+    
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
@@ -197,9 +208,9 @@ public class HomeController {
     	return "/studyPage/debugStudy_test";
     }
     
-    @RequestMapping(value="/board") //목소리 공유
+    @RequestMapping(value="/board")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
     public String index104() {
-    	return "whiteBoard";
+    	return "/whiteBoard";
     }
     
 }
