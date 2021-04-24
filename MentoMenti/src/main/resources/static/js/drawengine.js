@@ -34,15 +34,18 @@ function processCmd(cmd, targetBufctx) {
     drawCmdTable[cmd[0]](cmd, targetBufctx);   
 }
 
+//색상
 function processColor(cmd, targetBufctx) {
     console.log("processColor");
     enginePos.color = cmd[1];
 }
 
+//펜
 function processPencil(cmd, targetBufctx) {
     console.log("processPencil");
 }
 
+// 직선
 function processLine(cmd, targetBufctx) {
     console.log("processLine");
     targetBufctx.beginPath();
@@ -65,6 +68,7 @@ function processLine(cmd, targetBufctx) {
     targetBufctx.closePath();
 }
 
+//원(타원)
 function processEllipse(cmd, targetBufctx) {
     console.log("processEllipse");
 
@@ -91,6 +95,7 @@ function processEllipse(cmd, targetBufctx) {
     targetBufctx.stroke();
 }
 
+//사각형
 function processRect(cmd, targetBufctx) {
     console.log("processRect");
 

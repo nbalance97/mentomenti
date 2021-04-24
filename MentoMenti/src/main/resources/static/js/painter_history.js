@@ -1,5 +1,4 @@
 var textareaList = ["history"];
-
       function clearText(idOfTextArea) {
         document.getElementById(idOfTextArea).value = "";
       }

@@ -180,7 +180,8 @@ function selectColor(choosedColor) {
     yellow: 3,
     green: 4,
     blue: 5,
-    purple: 6
+    purple: 6,
+    deepPink:7
   };
   pos.color = choosedColor;
   pos.colorIdx = colorTableIdx[choosedColor];
@@ -562,6 +563,16 @@ function initPage() {
   initHistory();
 }
 
+function clearPage(){
+	if(confirm("메모를 삭제합니다.")==true){
+		console.log("initPage()");
+
+  		clearCanvas();
+  		initHistory();
+	}
+	else return;
+}
+
 
 function reDrawCanvas() {
   console.log("reDrawCanvas");
@@ -577,6 +588,9 @@ function reDrawCanvas() {
 function onLoadPage() {
   canvas = document.getElementById("canvas");
   cvs = canvas.getContext("2d");
+  
+  cvs.canvas.width  = window.innerWidth*0.85;
+  cvs.canvas.height = window.innerHeight*0.995;
 
   bufCanvas = document.createElement("canvas");
   bufCanvas.width = canvas.width;
