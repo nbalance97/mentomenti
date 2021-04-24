@@ -34,14 +34,14 @@
 	<ul class="navbar-nav ml-auto">
 		<li>
 			<!-- 그룹 검색 기능 구현해야 함 -->
-			<form
-				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+				action="openedGroups" method="GET">
 				<div class="input-group">
-					<input type="text" class="form-control border-0 small"
+					<input type="text" class="form-control border-0 small" name="keyword"
 						placeholder="그룹 명 검색" aria-label="Search"
 						aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
+						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>
@@ -163,10 +163,15 @@
 <div class="row" id="groupList">
 <%
 	List<GroupDTO> groups = null;
+	String kwd = request.getParameter("keyword");
 	String category = request.getParameter("category");
 	
+	//검색했으면 검색 결과 출력
+	if (kwd != null){
+		groups = HomeController.dao.getGroupDAO().searchGroupsByName(kwd);
+	}
 	//선택한 분류에 따라 그룹 목록 다르게 출력
-	if (category == null){
+	else if (category == null){
 		groups = HomeController.dao.getGroupDAO().selectGroups();	//그룹 목록 DB에서 불러오기
 	} else if (category.equals("C")){
 		groups = groupsC;
@@ -207,12 +212,11 @@
 				
 				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
 						+'<h5 class="m-0 font-weight-bold text-primary">'+group[i].name
-						//+'<a href="#" class="btn btn-warning btn-circle btn-sm" style="float: right"><i class="fas fa-check"></i></a></h5></div>'
 						+'<div class="btn btn-warning btn-circle btn-sm" style="float: right;"'
 						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
 						+'<img src="resources/img/right-arrow.png" style="width:100%"></h5></div>'
 						+'<div class="card-body">'
-						+'<p>과목 : '+group[i].name+'</p>'
+						+'<p>과목 : '+group[i].category+'</p>'
 						+'<p>설명 : '+group[i].intro+'</p>'
 						+'<p>멘토 : '+group[i].mentoid+'</p>'
 						+'<p>인원 수 : '+'(현재 인원수)/'+group[i].maxperson+'</p></div></div>').appendTo('#groupList');

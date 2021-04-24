@@ -197,6 +197,11 @@ public class HomeController {
     	return "/postContent";
     }
     
+    @RequestMapping(value="/processAddComment") //댓글 등록 진행
+    public String index35() {
+    	return "/process/processAddComment";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {

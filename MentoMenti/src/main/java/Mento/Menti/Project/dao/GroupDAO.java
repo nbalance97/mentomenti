@@ -15,4 +15,5 @@ public interface GroupDAO {
 	
 	List<GroupDTO> searchMentoGroupsByUserId(String id) throws Exception;
 	List<GroupDTO> searchJoinGroupsByUserId(String id) throws Exception;
+	List<GroupDTO> searchGroupsByName(String kwd) throws Exception;
 }

@@ -55,4 +55,11 @@
   	FROM mmgroup
   	WHERE groupid IN (SELECT groupid from groupmate where id = #{id});
   </select>
+  
+  <!-- 그룹 이름 검색하기 -->
+  <select id="searchGroupsByName" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="String">
+    SELECT *
+    FROM mmgroup
+    WHERE name LIKE '%${kwd}%';
+  </select>
 </mapper>
