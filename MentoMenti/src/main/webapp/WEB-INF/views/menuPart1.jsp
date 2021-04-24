@@ -31,7 +31,7 @@
 							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter">100</span>
+								<span class="badge badge-danger badge-counter">3</span>
 						</a> <!-- Dropdown - Alerts -->
 							<div
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -84,7 +84,7 @@
 							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">
 							<span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
-							<img class="img-profile rounded-circle" src="/resources/img/undraw_profile_1.svg">
+							<img class="img-profile rounded-circle" src="resources/img/user.png">
 							</a>
 							<%
 								}
