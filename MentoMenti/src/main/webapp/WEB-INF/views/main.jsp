@@ -72,7 +72,7 @@ top:-292;
 </style>
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/sidebar.css" rel="stylesheet" type="text/css">
+
 <link href="resources/css/component.css" rel="stylesheet" type="text/css">
 
 </head>
@@ -105,4 +105,10 @@ top:-292;
 
 
 </body>
+
+
+
 </html>
+
+
+<%@include file="menuPart2.jsp"%>
