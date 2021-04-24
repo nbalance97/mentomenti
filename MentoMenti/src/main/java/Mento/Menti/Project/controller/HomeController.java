@@ -187,6 +187,16 @@ public class HomeController {
     	return "/process/processJoinGroup";
     }
     
+    @RequestMapping(value="/postContent") //공지사항 내용 페이지
+    public String index33() {
+    	return "/postContent";
+    }
+    
+    @RequestMapping(value="/postNotice") //자유게시판 게시물 내용 페이지
+    public String index34() {
+    	return "/postNotice";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {
