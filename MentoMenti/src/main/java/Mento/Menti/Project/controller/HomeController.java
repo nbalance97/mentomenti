@@ -187,14 +187,14 @@ public class HomeController {
     	return "/process/processJoinGroup";
     }
     
-    @RequestMapping(value="/postContent") //공지사항 내용 페이지
+    @RequestMapping(value="/noticeContent") //공지사항 내용 페이지
     public String index33() {
-    	return "/postContent";
+    	return "/noticeContent";
     }
     
-    @RequestMapping(value="/postNotice") //자유게시판 게시물 내용 페이지
+    @RequestMapping(value="/postContent") //자유게시판 게시물 내용 페이지
     public String index34() {
-    	return "/postNotice";
+    	return "/postContent";
     }
     
     
