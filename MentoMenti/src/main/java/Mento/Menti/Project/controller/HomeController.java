@@ -228,9 +228,13 @@ public class HomeController {
     	return "/whiteBoard";
     }
     
-    @RequestMapping(value="/confirmId")
+    @RequestMapping(value="/confirmId")//아이디 중복체크
     public String index105() {
     	return "/process/confirmId";
     }
     
+    @RequestMapping(value="/card")
+    public String index90() {
+    	return "/newGroupCard";
+    }
 }
