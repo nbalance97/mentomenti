@@ -59,6 +59,7 @@
 
 	<div class="palette">
 		<div class="column">
+			<div>ddd</div>
 			<div class="row">
 				<div class="p_color col-md-5" style="background-color: black"	onclick="selectColor('black')"></div>
 				<div class="p_color col-md-5" style="background-color: red"	onclick="selectColor('red')"></div>
@@ -112,11 +113,13 @@
 		e.preventDefault();
 		if (e.type == "dragover") {
 			$(e.target).css({
-				"outline-offset" : "-20px" //이미지 끌고 오면 안으로 움직임
+				"outline-offset" : "-20px", //이미지 끌고 오면 안으로 움직임
+				"opacity":"0.5"
 			});
 		} else {
 			$(e.target).css({
-				"outline-offset" : "-10px"
+				"outline-offset" : "-10px",
+				"opacity":"1"
 			});
 		}
 	}
