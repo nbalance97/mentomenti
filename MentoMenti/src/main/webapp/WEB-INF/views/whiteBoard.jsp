@@ -59,7 +59,6 @@
 
 	<div class="palette">
 		<div class="column">
-			<div>이미지 끌어</div>
 			<div class="row">
 				<div class="p_color col-md-5" style="background-color: black"	onclick="selectColor('black')"></div>
 				<div class="p_color col-md-5" style="background-color: red"	onclick="selectColor('red')"></div>
