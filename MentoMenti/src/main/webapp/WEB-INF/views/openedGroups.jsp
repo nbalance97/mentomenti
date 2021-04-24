@@ -4,6 +4,8 @@
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <head>
 
 <meta charset="utf-8">
@@ -20,6 +22,7 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
 </head>
 
@@ -157,41 +160,94 @@
 </div>
 
 
-<div class="row">
+<div class="row" id="groupList">
+<%
+	List<GroupDTO> groups = null;
+	String category = request.getParameter("category");
+	
+	//선택한 분류에 따라 그룹 목록 다르게 출력
+	if (category == null){
+		groups = HomeController.dao.getGroupDAO().selectGroups();	//그룹 목록 DB에서 불러오기
+	} else if (category.equals("C")){
+		groups = groupsC;
+	} else if (category.equals("Java")){
+		groups = groupsJava;
+	} else if (category.equals("Python")){
+		groups = groupsPython;
+	} else {
+		groups = groupsEtc;
+	}
+%>
 
-	<%
-		List<GroupDTO> allGroups = HomeController.dao.getGroupDAO().selectGroups();
-	%>
 
-	<%
-		for (GroupDTO group : allGroups){
-		//for (int i = 0; i < 10; i++) {
-	%>
-	<div class="col-lg-4">
-		<div class="card shadow mb-4">
-			<div class="card-header py-3">
-				<!-- 그룹 이름 및 상세 정보 페이지로 넘어가는 버튼 -->
-				<h5 class="m-0 font-weight-bold text-primary">
-					<%=group.getName() %>
-					<!-- 버튼 모양 수정 예정 -->
-					<a href="#" class="btn btn-warning btn-circle btn-sm"
-						style="float: right"> <i class="fas fa-check"></i></a>
-				</h5>
-			</div>
+<!-- jstl문 활용해서 groups에 실제 group 넣어 줌 -->
+<c:set var="groups" value="<%=groups%>"></c:set>
 
-			<div class="card-body">
-				<!-- 간단한 그룹 정보 -->
-				<p>과목 : <%=group.getCategory() %></p>
-				<p>설명 : <%=group.getIntro() %></p>
-				<p>멘토 : <%=group.getMentoid() %></p> 					<!-- 닉네임으로 바뀔 수도 -->
-				<p>인원 수 : (현재 인원 수)/<%=group.getMaxperson() %></p>
-			</div>
-		</div>
-	</div>
-	<%
+<script type="text/javascript">
+	var cntShowGroupIndex = 0;
+	var group = new Array();
+	
+	/* jstl문 활용해서 group Array에 넣어준 다음에 활용~~*/
+	<c:forEach items="${groups}" var="group">
+		group.push({
+			groupid: "${group.groupid}",
+			name: "${group.name}",
+			category: "${group.category}",
+			intro: "${group.intro}",
+			mentoid: "${group.mentoid}",
+			maxperson: "${group.maxperson}"
+		});
+	</c:forEach>
+	
+	$(document).ready(function(){
+		var showGroups = function(){
+			for (var i = cntShowGroupIndex; i < cntShowGroupIndex+9; i++) {
+				if (i >= group.length) // 읽어들인 크기보다 커지면
+					break;
+				
+				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
+						+'<h5 class="m-0 font-weight-bold text-primary">'+group[i].name
+						//+'<a href="#" class="btn btn-warning btn-circle btn-sm" style="float: right"><i class="fas fa-check"></i></a></h5></div>'
+						+'<div class="btn btn-warning btn-circle btn-sm" style="float: right;"'
+						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
+						+'<img src="resources/img/right-arrow.png" style="width:100%"></h5></div>'
+						+'<div class="card-body">'
+						+'<p>과목 : '+group[i].name+'</p>'
+						+'<p>설명 : '+group[i].intro+'</p>'
+						+'<p>멘토 : '+group[i].mentoid+'</p>'
+						+'<p>인원 수 : '+'(현재 인원수)/'+group[i].maxperson+'</p></div></div>').appendTo('#groupList');
+			}
+			
+			cntShowGroupIndex += 9;
+		};
+		
+		showGroups();
+		
+		
+		//스크롤시 추가 로딩하는 부분
+		$(window).scroll(function(){
+			var scrollHeight = $(window).scrollTop() + $(window).height();
+			var documentHeight = $(document).height();
+			
+			if(scrollHeight == documentHeight){
+				showGroups();
+			}
+		});
+	});
+	
+	function chkAbleToJoin(mentoid, groupid){
+	    if (confirm("그룹에 가입하시겠습니까?")) { // 아니오 버튼 클릭 시 이벤트
+	    	location.href="processJoinGroup";
+	    }
+		/*
+		if (loginId == null){	//로그인이 안된 상태
+			location.href="loginPage?mode=nidLogin";
+		} else if (loginId == mentoid){
+			alert(mentoid);
 		}
-	%>
-
+		*/
+	}
+</script>
 </div>
 
 <!-- 그룹 개설 버튼, 화면 고정 -->

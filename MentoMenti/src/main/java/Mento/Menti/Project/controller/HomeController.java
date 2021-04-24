@@ -182,6 +182,11 @@ public class HomeController {
     	return "/process/processWritePost";
     }
     
+    @RequestMapping(value="/processJoinGroup") //그룹 가입 진행
+    public String index32() {
+    	return "/process/processJoinGroup";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {
