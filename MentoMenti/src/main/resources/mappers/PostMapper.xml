@@ -76,4 +76,11 @@
   	UPDATE post SET viewcount = viewcount + 1
   	WHERE postid = #{postid};
   </update>
+  
+  <!-- 공지인지 자유글인지 리턴 -->
+  <select id="isNotice" resultType="boolean" parameterType="int">
+  	SELECT is_notice
+  	FROM post
+  	WHERE postid = #{postid};
+  </select>
 </mapper>

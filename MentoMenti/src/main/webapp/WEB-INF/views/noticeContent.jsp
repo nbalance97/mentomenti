@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
-<%@ page
-	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="Mento.Menti.Project.dto.CommentDTO, Mento.Menti.Project.dao.CommentDAO"%>
 <%@ page import="java.util.List"%>
 
 <head>
@@ -27,6 +27,10 @@
 <style>
 	b{
 		margin-right:5px
+	}
+	
+	.comment_component{
+		padding:5px 0px;
 	}
 </style>
 
@@ -54,7 +58,7 @@
 
 
 <table class="table table-bordered dataTable" width="100%"
-	aria-describedby="dataTable_info" style="width: 100%; background: white;">
+	aria-describedby="dataTable_info" style="width: 100%; background: white; margin-bottom:50px">
 	<tbody>
 		<tr>
 			<th colspan="3" style="text-align:center;" id="title"><h4 style="padding:5px 0px"><%=post.getTitle()%></h4></th>
@@ -69,8 +73,33 @@
 		</tr>
 	</tbody>
 </table>
-	
-<!-- 게시물 내용 -->
+
+<!-- 댓글 영역 -->
+<div>
+	<h5 style="margin-bottom:20px">댓글</h5>
+	<div style="margin-bottom:20px">
+		<form action="processAddComment?postid=<%=postid%>" method="post">
+			<input type="text" style="width:90%; height:50px" name="comment" placeholder="댓글을 작성해주세요">
+			<input type="submit" value="등록" class="btn btn-primary"/>
+		</form>
+	</div>
+	<%
+		List<CommentDTO> comments = HomeController.dao.getCommentDAO().selectComments(postid);
+		for (CommentDTO c: comments){
+	%>
+	<div>
+		<div class="comment_component">
+			<img src="resources/img/user.png" style="width:20px; height:20px"/>
+			<%=c.getWriterid()%>
+		</div>
+		<div class="comment_component"><%=c.getContent()%></div>
+		<div class="comment_component" style="font-size:0.8em"><%=c.getCommentdate()%></div>
+		<hr>
+	</div>
+	<%
+		}
+	%>
+</div>
 
 
 <%@include file="menuPart2.jsp"%>

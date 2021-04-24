@@ -19,4 +19,6 @@ public interface PostDAO {
 	
 	List<PostDTO> searchByPostId(int postid) throws Exception;
 	void updateViewcount(int postid) throws Exception;
+	
+	boolean isNotice(int postid) throws Exception;
 }

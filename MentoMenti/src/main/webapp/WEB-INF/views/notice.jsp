@@ -33,7 +33,6 @@
 	<h1 class="h3 mb-0 text-gray-800">공지사항</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
-			<!-- 검색 버튼 누르면 processSearchNotice로 이동 -->
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
 				action="notice" method="GET">
 				<div class="input-group">
