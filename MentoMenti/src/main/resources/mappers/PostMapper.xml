@@ -62,4 +62,18 @@
   	INSERT INTO post
   	VALUES (null, null, #{userid}, #{title}, #{content}, #{postdate}, 0, False);
   </insert>
+  
+  
+  <!-- 게시물 번호(PK)로 찾기 -->
+  <select id="searchByPostId" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT *
+  	FROM post
+  	WHERE postid = #{postid};
+  </select>
+  
+  <!-- 게시물 조회수 증가 -->
+  <update id="updateViewcount" parameterType="int">
+  	UPDATE post SET viewcount = viewcount + 1
+  	WHERE postid = #{postid};
+  </update>
 </mapper>

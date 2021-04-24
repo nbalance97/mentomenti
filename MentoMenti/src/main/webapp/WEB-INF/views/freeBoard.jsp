@@ -88,7 +88,7 @@
 		<tr role="row" class="odd">
 			<td>
 				<!-- 제목 -->
-				<a href="#" style="text-decoration: none; color: gray"><%=pl.getTitle() %></a>
+				<a href="postContent?postid=<%=pl.getPostid()%>" style="text-decoration: none; color: gray"><%=pl.getTitle() %></a>
 			</td>
 			<td><%=pl.getUserid() %></td> <!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
 			<td><%=pl.getPostdate() %></td> <!-- 작성일자 -->

@@ -16,4 +16,7 @@ public interface PostDAO {
 	
 	void insertGeneralNotice(PostDTO notice) throws Exception;
 	void insertGeneralPost(PostDTO notice) throws Exception;
+	
+	List<PostDTO> searchByPostId(int postid) throws Exception;
+	void updateViewcount(int postid) throws Exception;
 }

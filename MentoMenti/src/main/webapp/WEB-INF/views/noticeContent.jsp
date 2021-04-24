@@ -4,6 +4,7 @@
 <%@ page
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page import="java.util.List"%>
+
 <head>
 
 <meta charset="utf-8">
@@ -23,33 +24,53 @@
 
 </head>
 
+<style>
+	b{
+		margin-right:5px
+	}
+</style>
+
 <%@include file="menuPart1.jsp"%>
 
-<!-- 공지사항 페이지 -->
+<!-- 공지사항 내용 페이지 -->
+
+<%
+
+	int postid = Integer.parseInt(request.getParameter("postid"));
+	if (id != null){	//로그인 상태에서 게시물 조회 -> 조회수 증가
+		HomeController.dao.getPostDAO().updateViewcount(postid);
+	}
+	List<PostDTO> postList = HomeController.dao.getPostDAO().searchByPostId(postid);	//게시물 번호로 찾은 게시물
+	PostDTO post = postList.get(0);
+
+%>
 
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4"
-	id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800">공지사항</h1>
-	<ul class="navbar-nav ml-auto">
-		<li>
-			<!-- 검색 버튼 누르면 processSearchNotice로 이동 -->
-			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-				action="notice" method="GET">
-				<div class="input-group">
-					<input type="text" class="form-control border-0 small" name="keyword"
-						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2">
-					<div class="input-group-append">
-						<button class="btn btn-primary" type="submit">
-							<i class="fas fa-search fa-sm"></i>
-						</button>
-					</div>
-				</div>
-			</form>
-		</li>
-	</ul>
+<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
+	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
+	> <a href="notice" style="text-decoration : none; color:gray">공지사항</a></p>
 </div>
-<p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>
+
+
+
+<table class="table table-bordered dataTable" width="100%"
+	aria-describedby="dataTable_info" style="width: 100%; background: white;">
+	<tbody>
+		<tr>
+			<th colspan="3" style="text-align:center;" id="title"><h4 style="padding:5px 0px"><%=post.getTitle()%></h4></th>
+		</tr>
+		<tr role="row">
+			<td tabindex="0" rowspan="1" colspan="1" style="width: 35%"><b>작성자</b><%=post.getUserid()%></td>
+			<td tabindex="0" rowspan="1" colspan="1" style="width: 45%;"><b>작성일자</b><%=post.getPostdate()%></td>
+			<td tabindex="0" rowspan="1" colspan="1" style="width: 20%;"><b>조회수</b><%=post.getViewcount()%></td>
+		</tr>
+		<tr>
+			<td colspan="3" style="padding:70px 20px"><%=post.getContent()%></td>
+		</tr>
+	</tbody>
+</table>
+	
+<!-- 게시물 내용 -->
 
 
 <%@include file="menuPart2.jsp"%>
