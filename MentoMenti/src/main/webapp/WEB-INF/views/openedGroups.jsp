@@ -237,15 +237,8 @@
 	
 	function chkAbleToJoin(mentoid, groupid){
 	    if (confirm("그룹에 가입하시겠습니까?")) { // 아니오 버튼 클릭 시 이벤트
-	    	location.href="processJoinGroup";
+	    	location.href = "processJoinGroup?mentoid=" + mentoid + "&groupid=" + groupid;
 	    }
-		/*
-		if (loginId == null){	//로그인이 안된 상태
-			location.href="loginPage?mode=nidLogin";
-		} else if (loginId == mentoid){
-			alert(mentoid);
-		}
-		*/
 	}
 </script>
 </div>
