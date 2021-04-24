@@ -34,7 +34,7 @@
 					<div class="py-2 collapse-inner rounded">
 						<a class="collapse-item" id="colItems" href="openedGroups"> <i
 							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>개설된 그룹
-						</a> <a class="collapse-item" id="colItems" href="#"> <i
+						</a> <a class="collapse-item" id="colItems" href="joininggroups"> <i
 							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>가입한 그룹
 						</a>
 					</div>
