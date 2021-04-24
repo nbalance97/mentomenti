@@ -12,20 +12,28 @@
 </head>
 <body>
 	<%
-		String id = request.getParameter("idInput");	//입력한 아이디
-		String pw = request.getParameter("pwInput");	//입력한 비밀번호
-		String name = request.getParameter("nameInput");
-		String nickname = request.getParameter("nickInput");
-		String birth = request.getParameter("birthInput");
-		String email = request.getParameter("emailInput");
-		String intro = request.getParameter("introInput");
+		String id = request.getParameter("id");	//입력한 아이디
+		String pw = request.getParameter("pw");	//입력한 비밀번호
+		String name = request.getParameter("name");
+		String nickname = request.getParameter("nickname");
+		
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+		String day = request.getParameter("day");
+		String birth = year+"-"+month+"-"+day;
+		
+		String email1 = request.getParameter("email1");
+		String email2 = request.getParameter("email2");
+		String email = email1+"@"+email2;
+		
+		String intro = request.getParameter("intro");
 		
 		//포맷 : 년도-월-일
 		Calendar cal = Calendar.getInstance();
-		int year = cal.get(cal.YEAR);
-		int month = cal.get(cal.MONTH)+1;
-		int date = cal.get(cal.DATE);
-		String joindate = year+"-"+month+"-"+date;
+		int todayYear = cal.get(cal.YEAR);
+		int todayMonth = cal.get(cal.MONTH)+1;
+		int todayDate = cal.get(cal.DATE);
+		String joindate = todayYear+"-"+todayMonth+"-"+todayDate;
 		
 		UserDTO user = new UserDTO(null, null, null, null, null, null, null, false, null);
 		user.setId(id);

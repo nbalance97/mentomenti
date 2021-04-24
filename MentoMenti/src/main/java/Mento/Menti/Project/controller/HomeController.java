@@ -208,4 +208,8 @@ public class HomeController {
     	return "/studyPage/debugStudy_test";
     }
     
+    @RequestMapping(value="/confirmId")
+    public String index104() {
+    	return "/process/confirmId";
+    }
 }
