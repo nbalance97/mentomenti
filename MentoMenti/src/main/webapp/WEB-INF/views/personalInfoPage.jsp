@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
-<%@ page
-	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
 <head>
 
@@ -39,7 +39,7 @@
 </div>
 
 <div style="text-align: center">
-	<img src="resources/img/undraw_profile_1.svg"
+	<img src="resources/img/user.png"
 		style="width: 150px; margin-bottom: 30px">
 
 	<%
@@ -53,11 +53,11 @@
 	%>
 
 	<table class="table" style="width: 60%; margin: 0 auto;">
-		<tr style="width: 50px">
-			<td>이름</td>
+		<tr>
+			<td style="width: 70px">이름</td>
 			<td><%=loginUser.getName() %></td>
 		</tr>
-		<tr style="width: 50px">
+		<tr>
 			<td>아이디</td>
 			<td><%=loginUser.getId() %></td>
 		</tr>
@@ -81,12 +81,37 @@
 			<td>가입 일자</td>
 			<td><%=loginUser.getJoindate() %></td>
 		</tr>
+		
 		<tr>
-			<!-- 나중에 user, group DB 연결해서 가져올 것 -->
-			<td>가입 그룹</td>
+			<td>개설한 그룹</td>
 			<!-- 그룹 이름 클릭하면 해당 그룹 페이지로 이동할 예정 -->
-			<td><a href="#" style="text-decoration: none;">가입 그룹은</a>, <a
-				href="#" style="text-decoration: none;">아직 DB 연결 안함</a></td>
+			<td>
+			<%
+			List<GroupDTO> mentoGroups = HomeController.dao.getGroupDAO().searchMentoGroupsByUserId(id);
+			for(GroupDTO mg: mentoGroups){
+			%>
+				<a href="#" style="text-decoration: none;"><%=mg.getName()%></a><br>
+			<%
+				}
+			%>
+			</td>
+		</tr>
+		<tr>
+		
+		
+		<tr>
+			<td>가입한 그룹</td>
+			<!-- 그룹 이름 클릭하면 해당 그룹 페이지로 이동할 예정 -->
+			<td>
+			<%
+			List<GroupDTO> joinGroups = HomeController.dao.getGroupDAO().searchJoinGroupsByUserId(id);
+			for(GroupDTO jg: joinGroups){
+			%>
+				<a href="#" style="text-decoration: none;"><%=jg.getName()%></a><br>
+			<%
+				}
+			%>
+			</td>
 		</tr>
 		<tr>
 			<td></td>

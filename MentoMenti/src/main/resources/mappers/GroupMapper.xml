@@ -41,4 +41,18 @@
   	INSERT INTO mmgroup
   	VALUES (null, #{name}, #{mentoid}, #{maxperson}, #{category}, #{intro});
   </insert>
+  
+  <!-- 유저 아이디로 개설한 그룹 리스트 찾기 -->
+  <select id="searchMentoGroupsByUserId" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="String">
+  	SELECT *
+  	FROM mmgroup
+  	WHERE mentoid = #{id};
+  </select>
+  
+  <!-- 유저 아이디로 가입한 그룹 리스트 찾기 -->
+  <select id="searchJoinGroupsByUserId" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="String">
+  	SELECT *
+  	FROM mmgroup
+  	WHERE groupid IN (SELECT groupid from groupmate where id = #{id});
+  </select>
 </mapper>

@@ -12,4 +12,7 @@ public interface GroupDAO {
 	List<GroupDTO> selectGroupsEtc() throws Exception;
 	
 	void insertGroup(GroupDTO group) throws Exception;
+	
+	List<GroupDTO> searchMentoGroupsByUserId(String id) throws Exception;
+	List<GroupDTO> searchJoinGroupsByUserId(String id) throws Exception;
 }

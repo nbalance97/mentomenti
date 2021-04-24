@@ -15,5 +15,12 @@
 		INSERT INTO groupmate
 		VALUES (#{id}, #{groupid});
 	</select>
+	
+	<!-- 그룹에 참여한 멘티 수 구하기 -->
+	<select id="cntMenti" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM groupmate
+		WHERE groupid = #{groupid};
+	</select>
 
 </mapper>

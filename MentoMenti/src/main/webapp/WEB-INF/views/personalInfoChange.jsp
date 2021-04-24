@@ -92,7 +92,7 @@
 
 <div style="text-align: center">
 	<p>
-		<img src="resources/img/undraw_profile_1.svg" style="width: 150px;">
+		<img src="resources/img/user.png" style="width: 150px;">
 	</p>
 	<p>
 		<!-- 프로필 사진 업로드 버튼 -->

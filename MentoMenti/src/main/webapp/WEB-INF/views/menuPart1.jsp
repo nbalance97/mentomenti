@@ -96,7 +96,7 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
 							<span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id%></span> <!-- 아이디 -->
-							<img class="img-profile rounded-circle" src="/resources/img/undraw_profile_1.svg">
+							<img class="img-profile rounded-circle" src="resources/img/user.png">
 							</a>
 							
 							<!-- Dropdown - User Information -->
