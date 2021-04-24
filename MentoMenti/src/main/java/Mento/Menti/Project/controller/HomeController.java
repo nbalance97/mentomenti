@@ -182,6 +182,21 @@ public class HomeController {
     	return "/process/processWritePost";
     }
     
+    @RequestMapping(value="/processJoinGroup") //그룹 가입 진행
+    public String index32() {
+    	return "/process/processJoinGroup";
+    }
+    
+    @RequestMapping(value="/noticeContent") //공지사항 내용 페이지
+    public String index33() {
+    	return "/noticeContent";
+    }
+    
+    @RequestMapping(value="/postContent") //자유게시판 게시물 내용 페이지
+    public String index34() {
+    	return "/postContent";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {
@@ -208,8 +223,14 @@ public class HomeController {
     	return "/studyPage/debugStudy_test";
     }
     
-    @RequestMapping(value="/confirmId")
+    @RequestMapping(value="/board")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
     public String index104() {
+    	return "/whiteBoard";
+    }
+    
+    @RequestMapping(value="/confirmId")
+    public String index105() {
     	return "/process/confirmId";
     }
+    
 }

@@ -1,5 +1,3 @@
-<!-- 스크롤 내리면 데이터 추가 로딩하는거 테스트 중 -->
-
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,6 +5,7 @@
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
 
@@ -168,32 +167,44 @@
 <div class="row" id="groupList">
 
 <%
-	List<GroupDTO> groups = HomeController.dao.getGroupDAO().selectGroups();
-	boolean showAll = false;	//DB에 저장된 그룹 전체를 목록에 불러왔는지
-	int cntShowGroupIndex = 0;	//지금까지 출력한 그룹의 인덱스 저장
-	
-	int i = 0;	//for문에서 사용할 변수
+	List<GroupDTO> groups = HomeController.dao.getGroupDAO().selectGroups();	//그룹 목록 DB에서 불러오기
 %>
 
+<!-- jstl문 활용해서 groups에 실제 group 넣어 줌 -->
+<c:set var="groups" value="<%=groups%>"></c:set> 
+
 <script type="text/javascript">
+	var cntShowGroupIndex = 0;
+	var group = new Array();
+	
+	/* jstl문 활용해서 group Array에 넣어준 다음에 활용~~*/
+	<c:forEach items="${groups}" var="group">
+		group.push({
+			name: "${group.name}",
+			category: "${group.category}",
+			intro: "${group.intro}",
+			mentoid: "${group.mentoid}",
+			maxperson: "${group.maxperson}"
+		});
+	</c:forEach>
+	
 	$(document).ready(function(){
 		var testFunc = function(){
-			<%
-				for (i = cntShowGroupIndex; i < cntShowGroupIndex + 9; i++) {	//한번에 9개씩 불러옴
-			%>
+			for (var i = cntShowGroupIndex; i < cntShowGroupIndex+9; i++) {
+				if (i >= group.length) // 읽어들인 크기보다 커지면
+					break;
+				
 				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
-						+'<h5 class="m-0 font-weight-bold text-primary">'+'<%=groups.get(i).getName()%>'
+						+'<h5 class="m-0 font-weight-bold text-primary">'+group[i].name
 						+'<a href="#" class="btn btn-warning btn-circle btn-sm" style="float: right"><i class="fas fa-check"></i></a></h5></div>'
 						+'<div class="card-body">'
-						+'<p>과목 : '+'<%=groups.get(i).getCategory()%>'+'</p>'
-						+'<p>설명 : '+'<%=groups.get(i).getIntro()%>'+'</p>'
-						+'<p>멘토 : '+'<%=groups.get(i).getMentoid()%>'+'</p>'
-						+'<p>인원 수 : '+'(현재 인원수)/<%=groups.get(i).getMaxperson()%>'+'</p></div></div>').appendTo('#groupList');
-			<%
-				}
-				cntShowGroupIndex += 9;	//cntShowGroupIndex를 업데이트 하고 싶은데 이게 안되네,,,,
-			%>
-			alert(<%=cntShowGroupIndex%>);
+						+'<p>과목 : '+group[i].name+'</p>'
+						+'<p>설명 : '+group[i].intro+'</p>'
+						+'<p>멘토 : '+group[i].mentoid+'</p>'
+						+'<p>인원 수 : '+'(현재 인원수)/'+group[i].maxperson+'</p></div></div>').appendTo('#groupList');
+			}
+			
+			cntShowGroupIndex += 9;
 		};
 		
 		testFunc();
@@ -210,36 +221,6 @@
 		});
 });
 </script>
-
-
-<!--
-<script type="text/javascript">
-	$(document).ready(function(){
-		var appendDocument = function(){
-			for(var i=0; i<9; i++){
-				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
-						+'<h5 class="m-0 font-weight-bold text-primary">'+'그룹 이름'
-						+'<a href="#" class="btn btn-warning btn-circle btn-sm" style="float: right"><i class="fas fa-check"></i></a></h5></div>'
-						+'<div class="card-body">'
-						+'<p>과목 : '+'C언어'+'</p>'
-						+'<p>설명 : '+'병훈짱이 캐리하는 그룹입니다'+'</p>'
-						+'<p>멘토 : '+'이병훈'+'</p>'
-						+'<p>인원 수 : '+'5/10'+'</p></div></div>').appendTo('#groupList');
-			}
-		};
-		appendDocument();
-	
-		$(window).scroll(function(){
-			var scrollHeight = $(window).scrollTop() + $(window).height();
-			var documentHeight = $(document).height();
-			
-			if(scrollHeight == documentHeight){
-				appendDocument();
-			}
-		});
-	});
-</script>
--->
 
 </div>
 

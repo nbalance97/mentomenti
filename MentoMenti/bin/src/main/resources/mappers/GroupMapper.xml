@@ -36,4 +36,9 @@
   	FROM mmgroup
   	WHERE category != 'C언어' and category != 'Java' and category != 'Python';
   </select>
+  
+  <insert id="insertGroup" parameterType="Mento.Menti.Project.dto.GroupDTO">
+  	INSERT INTO mmgroup
+  	VALUES (null, #{name}, #{mentoid}, #{maxperson}, #{category}, #{intro});
+  </insert>
 </mapper>

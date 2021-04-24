@@ -31,14 +31,7 @@
               <label for="exampleFormControlInput1">제목</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="title" >
           </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">작성자</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="crea_id">
-          </div>
-		<div class="form-group">
-            <label for="exampleFormControlInput1">비밀번호</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="crea_pw">
-          </div>
+
           <div class="form-group">
             <label for="exampleFormControlTextarea1">내용</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" name="contents" rows="10"></textarea>

@@ -2,6 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Mento.Menti.Project.dao.GroupmateDAO">	
+<mapper namespace="Mento.Menti.Project.dao.GroupmateDAO">
+	<!-- 이미 가입한 그룹인지 확인 -->
+	<select id="alreadyJoined" resultType="Mento.Menti.Project.dto.GroupmateDTO" parameterType="Mento.Menti.Project.dto.GroupmateDTO">
+		SELECT *
+		FROM groupmate
+		where id=#{id} and groupid=#{groupid};
+	</select>
+	
+	<!-- 그룹 가입 -->
+	<select id="insertGroupmate" parameterType="Mento.Menti.Project.dto.GroupmateDTO">
+		INSERT INTO groupmate
+		VALUES (#{id}, #{groupid});
+	</select>
 
 </mapper>
