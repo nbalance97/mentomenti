@@ -123,12 +123,20 @@
 			style="width: 40px; height: 10px; font-size: 15px; padding: 5px; border-radius: 5px; text-decoration: none">
 			>></a>
 	</div>
+	
+	<%
+		if (id != null){	//로그인 상태일 때
+	%>
 
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
-			<a href="#" class="btn btn-secondary">작성</a>
+			<a href="writePostPage" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
+	
+	<%
+		}
+	%>
 </div>
 
 <%@include file="menuPart2.jsp"%>

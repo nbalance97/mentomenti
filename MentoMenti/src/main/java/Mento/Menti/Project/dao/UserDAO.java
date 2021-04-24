@@ -12,4 +12,6 @@ public interface UserDAO {
 	List<UserDTO> searchUserByIdPw(UserDTO user) throws Exception;
 	
 	void updateUserInfo(UserDTO user) throws Exception;
+	
+	boolean isAdmin(String id) throws Exception;
 }

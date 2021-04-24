@@ -13,4 +13,7 @@ public interface PostDAO {
 	
 	List<PostDTO> searchGeneralNotices(String kwd) throws Exception;
 	List<PostDTO> searchGeneralPosts(String kwd) throws Exception;
+	
+	void insertGeneralNotice(PostDTO notice) throws Exception;
+	void insertGeneralPost(PostDTO notice) throws Exception;
 }
