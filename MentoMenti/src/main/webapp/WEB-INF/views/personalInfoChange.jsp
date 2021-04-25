@@ -116,12 +116,12 @@
 			<tr style="width: 50px">
 				<td>이름</td>
 				<td><input type="text" id="name_text"
-					value=<%=loginUser.getName()%> disabled="true" style="width: 60%" /></td>
+					value=<%=loginUser.getName()%> disabled style="width: 60%" /></td>
 			</tr>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" id="id_text" value="askges20"
-					style="width: 60%" disabled="true" />
+				<td><input type="text" id="id_text" value=<%=loginUser.getId() %>
+					style="width: 60%" disabled />
 			</tr>
 			<tr>
 				<td>닉네임</td>
