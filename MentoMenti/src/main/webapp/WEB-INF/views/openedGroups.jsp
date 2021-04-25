@@ -240,7 +240,7 @@
 	});
 	
 	function chkAbleToJoin(mentoid, groupid){
-	    if (confirm("그룹에 가입하시겠습니까?")) { // 아니오 버튼 클릭 시 이벤트
+	    if (confirm("그룹에 가입하시겠습니까?")) {
 	    	location.href = "processJoinGroup?mentoid=" + mentoid + "&groupid=" + groupid;
 	    }
 	}

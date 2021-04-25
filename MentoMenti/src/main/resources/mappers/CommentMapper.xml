@@ -15,4 +15,10 @@
 		INSERT INTO comment
 		VALUES (null, #{postid}, #{writerid}, #{content}, #{commentdate});
 	</insert>
+	
+	<!-- 댓글 삭제하기 -->
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM comment
+		WHERE commentid = #{commentid};
+	</delete>
 </mapper>
