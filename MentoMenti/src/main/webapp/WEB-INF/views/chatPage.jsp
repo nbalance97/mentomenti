@@ -105,7 +105,6 @@
 <body>
 	<div id="main-container">
 		<div id="chat-container">
-			
 		</div>
 		<div id="bottom-container">
 			<input id="inputMessage" type="text">
@@ -114,29 +113,29 @@
 	</div>
 </body>
 <script type="text/javascript">
-	
-
 	var textarea = document.getElementById("messageWindow");
 	
-	var webSocket = new WebSocket("ws://"+location.host+"/chating"); 
+	var webSocket = new WebSocket("wss://localhost:8000/chating"); 
 	var inputMessage = document.getElementById('inputMessage');
+	var btn_submit = document.getElementById("btn-submit");
 	
 	webSocket.onerror = function(e){
-		onError(e);
+		_onError(e);
 	};
 	webSocket.onopen = function(e){
-		onOpen(e);
+		_onOpen(e);
 	};
 	webSocket.onmessage = function(e){
-		onMessage(e);
+		_onMessage(e);
 	};
 	
 	
-	function onMessage(e){
-		var chatMsg = event.data;
+	function _onMessage(e){
+		var chatMsg = e.data;
+		console.log(chatMsg);
 		var date = new Date();
 		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-		if(chatMsg.substring(0,6) == 'server'){
+		if(chatMsg.substring(0,6) === 'server'){
 			var $chat = $("<div class='chat notice'>" + chatMsg + "</div>");
 			$('#chat-container').append($chat);
 		}else{
@@ -148,17 +147,17 @@
 		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
 	}
 	
-	function onOpen(e){
+	function _onOpen(e){
 		
 	}
 	
-	function onError(e){
+	function _onError(e){
 		alert(e.data);
 	}
 	
-	function send(){
+	function _send(){
 		var chatMsg = inputMessage.value;
-		if(chatMsg == ''){
+		if(chatMsg === ''){
 			return;
 		}
 		var date = new Date();
@@ -171,20 +170,9 @@
 		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
 	}
 	
-</script>
-
-<script type="text/javascript">
-	$(function(){
-		$('#inputMessage').keydown(function(key){
-			if(key.keyCode == 13){
-				$('#inputMessage').focus();
-				send();
-			}
-		});
-		$('#btn-submit').click(function(){
-			send();
-		});
-		
-	})
+	btn_submit.onclick = function(e) {
+		_send();
+	};
+	
 </script>
 </html>

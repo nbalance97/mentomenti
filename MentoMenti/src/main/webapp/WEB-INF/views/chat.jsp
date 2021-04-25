@@ -20,7 +20,7 @@
 	var ws;
 
 	function wsOpen() {
-		ws = new WebSocket("ws://" + location.host + "/chating");
+		ws = new WebSocket("wss://" + location.host + "/chating");
 		wsEvt();
 	}
 
@@ -76,7 +76,7 @@
 		}
 	}
 
-	function send() {
+	function _send() {
 		var option = {
 			type : "message",
 			sessionId : $("#sessionId").val(),

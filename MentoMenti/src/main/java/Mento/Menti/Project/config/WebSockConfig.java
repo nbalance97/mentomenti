@@ -12,13 +12,11 @@ import Mento.Menti.Project.handler.SocketHandler;
 @Configuration
 @EnableWebSocket
 public class WebSockConfig implements WebSocketConfigurer {
-	@Autowired
-	SocketHandler socketHandler;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addHandler(socketHandler, "/chating");
+		registry.addHandler(new SocketHandler(), "/chating");
 		registry.addHandler(new ScreenShareSocketHandler(), "/socket").setAllowedOrigins("*");
 	}
 
