@@ -12,28 +12,32 @@
   <select id="selectGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO">
   	SELECT *
   	FROM post
-  	WHERE groupid is null and is_notice = True;
+  	WHERE groupid is null and is_notice = True
+  	ORDER BY postid desc;
   </select>
   
   <!-- 사이트 자유게시판 게시물 -->
   <select id="selectGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO">
   	SELECT *
   	FROM post
-  	WHERE groupid is null and is_notice = False;
+  	WHERE groupid is null and is_notice = False
+  	ORDER BY postid desc;
   </select>
   
   <!-- 그룹 내 공지사항 -->
   <select id="selectGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO">
   	SELECT *
   	FROM post
-  	WHERE groupid = #{groupid} and is_notice = True;
+  	WHERE groupid = #{groupid} and is_notice = True
+  	ORDER BY postid desc;
   </select>
   
   <!-- 그룹 내 게시물 -->
   <select id="selectGroupPosts" resultType="Mento.Menti.Project.dto.PostDTO">
   	SELECT *
   	FROM post
-  	WHERE groupid = #{groupid} and is_notice = False;
+  	WHERE groupid = #{groupid} and is_notice = False
+  	ORDER BY postid desc;
   </select>
   
   
@@ -41,14 +45,16 @@
   <select id="searchGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="String">
   	SELECT *
   	FROM post
-  	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = True;
+  	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = True
+  	ORDER BY postid desc;
   </select>
   
   <!-- 사이트 자유게시판 검색 -->
   <select id="searchGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="String">
   	SELECT *
   	FROM post
-  	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = False;
+  	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = False
+  	ORDER BY postid desc;
   </select>
   
   <!-- 공지사항 등록 -->
@@ -89,4 +95,21 @@
   	DELETE FROM post
   	WHERE postid = #{postid};
   </delete>
+  
+  
+  <!-- 가장 최근 공지사항 5개 -->
+  <select id="curGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT * FROM post
+  	WHERE groupid is null and is_notice = True
+  	ORDER BY postid
+  	LIMIT #{num};
+  </select>
+  	
+  <!-- 가장 최근 자유게시판 글 5개 -->
+  <select id="curGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT * FROM post
+  	WHERE groupid is null and is_notice = False
+  	ORDER BY postid
+  	LIMIT #{num};
+  </select>
 </mapper>

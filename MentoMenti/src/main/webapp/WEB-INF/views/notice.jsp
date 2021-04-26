@@ -86,7 +86,6 @@
 		
 		<%
 			}
-			
 			else {	//결과가 있다면
 				for (PostDTO gn: noticeList){
 		%>
