@@ -207,6 +207,11 @@ public class HomeController {
     	return "/process/processDeleteComment";
     }
     
+    @RequestMapping(value="/processDeletePost") //게시물 삭제 진행
+    public String index37() {
+    	return "/process/processDeletePost";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {

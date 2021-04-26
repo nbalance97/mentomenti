@@ -83,4 +83,10 @@
   	FROM post
   	WHERE postid = #{postid};
   </select>
+  
+  <!-- 게시물 삭제 -->
+  <delete id="deletePost" parameterType="int">
+  	DELETE FROM post
+  	WHERE postid = #{postid};
+  </delete>
 </mapper>

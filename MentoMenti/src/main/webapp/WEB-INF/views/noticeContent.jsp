@@ -75,6 +75,19 @@
 	</tbody>
 </table>
 
+
+<!-- 자신이 작성한 글에는 삭제 버튼 있음 -->
+<%
+	if(post.getUserid().equals(id)){
+%>
+<div style="text-align:right;">
+	<input type="button" class="btn btn-danger deletePost" value="삭제"/>
+</div>
+<%
+	}
+%>
+
+
 <!-- 댓글 영역 -->
 <div>
 	<h5 style="margin-bottom:20px">댓글</h5>
@@ -115,6 +128,13 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$(".deletePost").on('click', function(){
+		    if (confirm("게시물을 삭제하시겠습니까?")) {
+		    	//댓글 번호, 게시물 번호 전달 (삭제 버튼 id가 댓글 번호로 설정되어 있음)
+		    	location.href = "processDeletePost?postid="+<%=post.getPostid()%>;
+		    }
+		});
+		
 		$(".deleteComment").on('click', function(){
 		    if (confirm("댓글을 삭제하시겠습니까?")) {
 		    	//댓글 번호, 게시물 번호 전달 (삭제 버튼 id가 댓글 번호로 설정되어 있음)
