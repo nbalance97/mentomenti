@@ -11,7 +11,8 @@ div[class="sidebar"]{
 	left:-300px;
 	z-index:100;
 	transition:all .35s;
-	opacity: 0.8;
+	opacity: 1.0;
+	box-shadow: 2px 0px 10px rgba(0,0,0,0.5);
 }
 input[id="menuicon"]:checked +label + div{
 	left:0;
@@ -22,7 +23,7 @@ input[id="menuicon"] +label {
 	height:25px;
 	top:20px;
 	position:fixed;
-	left:0;
+	left:20px;
 	transition:all .35s;
 	cursor:pointer;
 }
@@ -67,6 +68,7 @@ input[id="menuicon"]:checked + label span:nth-child(3){
 /*사이드바 내부 컨텐츠 : 멘티리스트 & 채팅*/
 .content{ 
 	color:white;
+	padding-left:10px;
 }
 .list, .chating{
 	overflow:auto;
@@ -83,4 +85,8 @@ input[id="menuicon"]:checked + label span:nth-child(3){
 	z-index:500;
 	color:black;
 	margin-bottom:3%;
+}
+
+th, td{
+	text-align:center;
 }
