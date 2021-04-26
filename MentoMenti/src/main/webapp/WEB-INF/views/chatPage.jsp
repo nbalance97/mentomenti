@@ -177,7 +177,7 @@
 	inputmsg.onkeydown = function(key){
 		if(key.keyCode == 13){
 			inputmsg.focus();
-			send();
+			_send();
 		}
 	};
 </script>
