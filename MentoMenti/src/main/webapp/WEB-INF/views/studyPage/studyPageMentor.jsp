@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
 	<%
   		session.setAttribute("my_id", "user"+Integer.toString((int)(Math.random() * 10000)));
   	%>
+  	
 
 	<!-- 사이드바=채팅 & 멘티리스트 -->
 	<%@include file="studySidebar.jsp"%>
@@ -29,6 +31,16 @@
 		<!-- 화면공유  -->
 		<%@include file="studyPageScreen.jsp"%>
 		<!-- 수업페이지 기능모음 메뉴 -->
+		<%
+			//방만들기 클릭시 class대한 세션설정 필요?
+			//클래스아이디 받아오기
+			//해당 클래스아이디의 그룹아이디 찾기
+			//해당 그룹의 멘토아이디 받아오기
+			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기
+			System.out.println(id);
+			//멘토아이디와 접속한 아이디 비교
+			//True = 멘토, False = 멘티 확인
+		%>
 		<%@include file="studyPageFunction.jsp"%>
 	</div>
 	
