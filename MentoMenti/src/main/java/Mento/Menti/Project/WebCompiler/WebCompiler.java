@@ -92,9 +92,7 @@ public class WebCompiler {
 			cmd.add(doc + "/MentoMenti.c"); 
 		} else if (mode.contentEquals("java")) {
 			cmd.add("javac");
-			cmd.add(doc + "/MentoMenti.java");
-			cmd.add("--release");
-			cmd.add("8");
+			cmd.add("MentoMenti.java");
 		}
 		return cmd;
 	}
