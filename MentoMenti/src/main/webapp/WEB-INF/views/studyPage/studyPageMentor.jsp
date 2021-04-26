@@ -36,7 +36,7 @@
 			//클래스아이디 받아오기
 			//해당 클래스아이디의 그룹아이디 찾기
 			//해당 그룹의 멘토아이디 받아오기
-			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기
+			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
 			System.out.println(id);
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
