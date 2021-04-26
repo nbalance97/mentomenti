@@ -114,6 +114,7 @@
 </body>
 <script type="text/javascript">
 	var textarea = document.getElementById("messageWindow");
+	var inputmsg = document.getElementById("inputMessage");
 	
 	var webSocket = new WebSocket("wss://localhost:8000/chating"); 
 	var inputMessage = document.getElementById('inputMessage');
@@ -173,5 +174,11 @@
 		_send();
 	};
 	
+	inputmsg.onkeydown = function(key){
+		if(key.keyCode == 13){
+			inputmsg.focus();
+			send();
+		}
+	};
 </script>
 </html>

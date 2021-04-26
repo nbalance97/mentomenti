@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class WebCompiler {
 	public static WebCompiler instance = null;
-	public String doc = "~/mentomenti_webcompiler";
+	public String doc = "/home/mentomenti_compiler";
 	// local에서 컴파일할때는 c:/Temp로 수정하면 됨.
 	
 	public static WebCompiler getInstance() {
@@ -37,7 +37,7 @@ public class WebCompiler {
 		 	
 		 	/* 실행 파트 */
 		 	command.clear();
-		 	command.add("~/mentomenti_webcompiler/MentoMenti.exe"); // 리눅스 경로로 수정
+		 	command.add("./MentoMenti.exe"); // 리눅스 경로로 수정
 		 	String temp = executeCMD(command, input);
 		 	File f = new File(doc + "/MentoMenti.exe"); // 파일 삭제
 		 	f.delete();
@@ -103,13 +103,13 @@ public class WebCompiler {
 		/* 컴파일러에 맞추어서 파일 저장 */
 		FileWriter fw = null;
 		if (mode.contentEquals("python")) {
-		 	fw = new FileWriter("~/mentomenti_webcompiler/MentoMenti.py");
+		 	fw = new FileWriter(doc + "/MentoMenti.py");
 		 	fw.write(SRC);
 		} else if (mode.contentEquals("C")) {
-		 	fw = new FileWriter("~/mentomenti_webcompiler/MentoMenti.c");
+		 	fw = new FileWriter(doc + "/MentoMenti.c");
 		 	fw.write(SRC);
 		} else if (mode.contentEquals("java")) {
-		 	fw = new FileWriter("~/mentomenti_webcompiler/MentoMenti.java");
+		 	fw = new FileWriter(doc + "/MentoMenti.java");
 		 	fw.write(SRC);
 		}
 		
