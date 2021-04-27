@@ -22,5 +22,11 @@
 		FROM groupmate
 		WHERE groupid = #{groupid};
 	</select>
-
+	
+	<!-- 그룹에 참여한 멘티 목록 구하기 -->
+	<select id="selectMentiList" resultType="Mento.Menti.Project.dto.GroupmateDTO" parameterType="int">
+		SELECT *
+		FROM groupmate
+		WHERE groupid = #{groupid};
+	</select>
 </mapper>
