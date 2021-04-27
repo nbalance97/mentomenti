@@ -34,7 +34,7 @@ h1.text2{
 font-size:30px;
 COLOR : #000000;
 left : 700;
-top : -439;
+top : -603;
 margin-bottom : 30;
 position : relative;
 }
@@ -66,7 +66,7 @@ position : relative;
 
 <img src="resources/img/mento.png"
 style = "display : block; margin-left : 160px; width : 250px;
-height : 250px; top : -px; position : relative;">
+height : 250px; position : relative;">
 
 <%
 	//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
@@ -79,7 +79,7 @@ height : 250px; top : -px; position : relative;">
 %>
 
 <%
-	//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
+	//세션에 등록된 그룹을 이용해 사용자 정보 가져오기
 		GroupDTO findGroup = new GroupDTO(0, null, null, 0, null, null);
 		findGroup.setMaxperson(0);
 		GroupDTO loginGroup = null;
@@ -90,7 +90,7 @@ height : 250px; top : -px; position : relative;">
 <table class="table table-bordered dataTable" id="dataTable"
 	width="100%" cellspacing="0" role="grid"
 	aria-describedby="dataTable_info"
-	style="width: 350; background: white; position : relative;">
+	style="width: 350; background: white; position : relative; margin-top : 50px; margin-left : 55;text-align : center;">
 	
 		<thead>
 		<tr role="row">
@@ -104,8 +104,18 @@ height : 250px; top : -px; position : relative;">
 	<thead>
 
 		<tr style="width: 200px">
-			<td><%=loginGroup.getName() %></td>
-			<td>현재멤버수 / <%=loginGroup.getMaxperson() %></td>
+			
+			<%
+			List<GroupDTO> mentoGroups = HomeController.dao.getGroupDAO().searchMentoGroupsByUserId(id);
+			for(GroupDTO mg1: mentoGroups){
+			%>
+				<td>
+				<a href="#" style="text-decoration: none;"><%=mg1.getName()%></a><br></td>
+				<td>현재멤버수 / <%=loginGroup.getMaxperson() %></td>
+			<%
+				}
+			%>
+		
 		</tr>
 
 	</thead>
@@ -119,10 +129,41 @@ height : 250px; top : -px; position : relative;">
 </div>
 
 <img src="resources/img/menti.png"
-style = "display : block; margin-left : 700px; width : 250px;
-height : 250px; top : -439px; position : relative;">
+style = "display : block; margin-left :670px; width : 250px;
+height : 250px; top : -600px; position : relative;">
 
+<table class="table table-bordered dataTable" id="dataTable"
+	width="100%" cellspacing="0" role="grid"
+	aria-describedby="dataTable_info"
+	style="width: 350; background: white; position : relative; top : -552; left : 610; text-align : center;">
+	
+		<thead>
+		<tr role="row">
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">그룹이름</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘토 이름</th>
 
+		</tr>
+	</thead>
+	
+	
+	<thead>
+
+		<tr style="width: 200px">
+<%
+			List<GroupDTO> mentoGroups2 = HomeController.dao.getGroupmateDAO().searchMentoGroupsByUserId(id);
+			for(GroupDTO mg2: mentoGroups2){
+			%>
+				<td>
+				<a href="#" style="text-decoration: none;"><%=mg2.getId()%></a><br></td>
+				<td>현재멤버수 / <%=loginGroup.getMaxperson() %></td>
+			<%
+				}
+			%>
+		</tr>
+
+	</thead>
+	
+</table>
 
 
 
