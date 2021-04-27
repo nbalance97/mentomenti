@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 	
 <style>
 	::selection{background:#002266; color:white;}
+	
+	/*기본 폰트 나눔고딕체*/
+	*{
+		font-family: 'Nanum Gothic', sans-serif;
+	}
 </style>
 
 <!-- body 여는 태그부터  본문 여는 태그까지 포함-->

@@ -65,10 +65,6 @@ function isElementUnderBottom(elem, triggerDiff) {
 		margin:120px 0px;
 	}
 	
-	*{
-		font-family: 'Nanum Gothic', sans-serif;
-	}
-	
 	div.container{
 		overflow:hidden;
 	}
