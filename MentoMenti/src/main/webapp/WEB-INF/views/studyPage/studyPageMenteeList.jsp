@@ -17,13 +17,13 @@
 		<tbody>
 			<tr>
 				<td>1</td>
-				<td>홍길동</td>
+				<td>cat5566</td>
 				<td><i class="fas fa-exchange-alt stateIcon fa-2x"></i></td>
 				<td><button type="button" class="btn btn-info">이동</button></td>
 			</tr>
 			<tr>
 				<td >2</td>
-				<td>홍길동</td>
+				<td>user4</td>
 				<td><i class="far fa-question-circle stateIcon fa-2x"></i></td>
 				<td><button type="button" class="btn btn-info">이동</button></td>
 			</tr>

@@ -72,7 +72,7 @@
                                         		<div>&nbsp;</div>
                                         		<select name="year" id="year" title="년도" class="custom-select"></select>
 												<select name="month" id="month" title="월" class="custom-select" onchange="f_dayofmonth()"></select>
-												<select name="day" id="day" title="일" class="custom-select" onclick="setDay()"></select>
+												<select name="day" id="day" title="일" class="custom-select"></select>
                                         	</div>
                                         	<div class="form-group" style="display:flex;">
                                         		<input type="text" style="margin-top:2%;" class="form-control form-control-user" name="email1" id="email1" placeholder="이메일">
