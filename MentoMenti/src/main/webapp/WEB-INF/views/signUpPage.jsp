@@ -38,7 +38,7 @@
                             <div class="col-lg-6" style="max-width: 100%; flex: 0 0 100%;">
                             	<div class="p-4">
                             		<!-- 로고 이미지 -->
-                            		<div class="text-center"><img src="resources/img/logo3.png" style="width:170px"></div>
+                            		<div class="text-center"><a href="/main"><img src="resources/img/logo3.png" style="width:170px"></a></div>
                             	</div>
                             	
                                 <div class="p-3" style="text-align:center;">
@@ -71,8 +71,8 @@
                                         		<div style="margin-top:2%;">일</div>
                                         		<div>&nbsp;</div>
                                         		<select name="year" id="year" title="년도" class="custom-select"></select>
-												<select name="month" id="month" title="월" class="custom-select"></select>
-												<select name="day" id="day" title="일" class="custom-select"></select>
+												<select name="month" id="month" title="월" class="custom-select" onchange="f_dayofmonth()"></select>
+												<select name="day" id="day" title="일" class="custom-select" onclick="setDay()"></select>
                                         	</div>
                                         	<div class="form-group" style="display:flex;">
                                         		<input type="text" style="margin-top:2%;" class="form-control form-control-user" name="email1" id="email1" placeholder="이메일">
@@ -114,9 +114,42 @@
     <script src="js/sb-admin-2.min.js"></script>
 
 	<script>
+		var leapmonth;
+		
   		$(document).ready(function () {
     		setDateBox();
   		});
+  		
+  		function f_leapyear(yy)  //윤달 계산
+  		{
+  		 if (yy%4==0 && yy%100!=0 || yy%400==0)
+  			return 1;
+  		 else
+  			return 0;
+  		}
+  		
+  		// 년과 달을 입력하면, 한달에 몇일이 있는지 확인하는 함수입니다.
+  		function f_dayofmonth()
+  		{
+  			var select_year = document.getElementById("year").value;
+  			var select_month = document.getElementById("month").value;
+  		 	switch (select_month){
+  		  		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+  					leapmonth = 31; break;
+  		  		case 4: case 6: case 9: case 11:
+  					leapmonth = 30; break;
+  		  		case 2:
+  					leapmonth = 28 + f_leapyear(select_year); break;
+  		 	}
+  		}
+  		
+  		function setDay(){
+    		var day;
+    		$("#day").append("<option value=''>일</option>");
+   		    for (var i = 1; i <= leapmonth; i++) {
+      			$("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
+    		}
+  		}
 
   		// select box 연도 , 월 표시
   		function setDateBox() {
@@ -131,7 +164,7 @@
     		for (var y = (com_year - 100); y <= (com_year); y++) {
       			$("#year").append("<option value='" + y + "'>" + y + " 년" + "</option>");
     		}
-
+    		
     		// 월 뿌려주기(1월부터 12월)
     		var month;
     		$("#month").append("<option value=''>월</option>");
@@ -243,7 +276,7 @@
 			}
 			url = "confirmId?id="+form.id.value;
 			open(url,"confirm",
-					"toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
+					"left=500, top=200, toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
 		}
 		
 </script>

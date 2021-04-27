@@ -38,7 +38,7 @@
 								<div class="p-4">
 									<!-- 로고 이미지 -->
 									<div class="text-center">
-										<img src="resources/img/logo3.png" style="width: 170px">
+										<a href="/main"><img src="resources/img/logo3.png" style="width:170px"></a>
 									</div>
 								</div>
 
@@ -111,9 +111,7 @@
 
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
 	<script src="js/sb-admin-2.min.js"></script>
 
 
