@@ -57,10 +57,12 @@ h1.text4 {
 .content1{
 	float:left;
 	width:50%;
+	margin-bottom:20px;
 }
 .content2{
 	float:right;
 	width:50%;
+	margin-bottom:20px;
 }
 </style>
 
@@ -90,17 +92,16 @@ h1.text4 {
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
-	<h1>~그룹</h1>
+	<h1><%=group.getName() %></h1>
 </div>
 
 <div class="wrapContents" style="width: 100%">
 	<!-- 가입멤버 -->
 	<div class="content1">
 		<h1 class="text1">가입멤버</h1>
-		<!-- 리스트1 -->
 		<table class="table table-bordered" id="dataTable"
 			cellspacing="0" role="grid" aria-describedby="dataTable_info"
-			style="width: 80%; background: white; text-align: center;">
+			style="width: 80%; background: white; text-align: center; margin:0 auto;">
 			<thead>
 				<tr role="row">
 					<th tabindex="0" rowspan="1" colspan="1" style="width: 90px;">역할</th>
@@ -109,12 +110,16 @@ h1.text4 {
 			</thead>
 			<tbody>
 				<tr>
+					<td>멘토</td>
+					<td><%=group.getMentoid()%></td>
+				</tr>
+				<tr>
 				<%
 					List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
 					for(GroupmateDTO gl: groupmateList) {
 				%>
-					<td><%="?"%></td>
-					<td></td>
+					<td>멘티</td>
+					<td><%=gl.getId()%></td>
 				<%
 					}
 				%>
@@ -133,6 +138,7 @@ h1.text4 {
 <div style="width: 100%">
 	<div class="content1">
 		<h1 class="text1">개설수업</h1>
+		<div style="text-align:center;">
 		<form>
 			<button type="submit" class="btn btn-primary"
 				style="width: 40%; margin-bottom: 10px; margin-top: 20px">입장</button>
@@ -140,6 +146,7 @@ h1.text4 {
 		<form>
 			<button type="submit" class="btn btn-info" style="width: 40%">개설</button>
 		</form>
+		</div>
 	</div>
 
 	<div class="content2">
