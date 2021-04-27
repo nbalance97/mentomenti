@@ -16,7 +16,7 @@ public class WebSockConfig implements WebSocketConfigurer {
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addHandler(new SocketHandler(), "/chating");
+		registry.addHandler(new SocketHandler(), "/chating").setAllowedOrigins("*");
 		registry.addHandler(new ScreenShareSocketHandler(), "/socket").setAllowedOrigins("*");
 	}
 

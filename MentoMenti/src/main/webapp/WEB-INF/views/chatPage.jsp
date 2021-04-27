@@ -11,32 +11,41 @@
 
 
 <style type="text/css">
+
 	html,body{
 		height: 100%;
 	}
+
 	#messageWindow{
 		background: black;
 		color: greenyellow;
 	}
+	
+	/*채팅 입력창*/
 	#inputMessage{
 		width:80%;
 		height:50%;
 	}
+	
+	/*채팅 전송 버튼*/
 	#btn-submit{
-		background: white;
-		background: #F7E600;
-		width:15%;
+		background: #5587ED;
+		color:white;
+		width:18%;
 		height:50%;
-		color:#607080;
 		border:none;
+		border-radius:3px;
 	}
 	
+	/*채팅 부분 전체 div*/
 	#main-container{
 		width:100%;
 		height:100%;
 		display: inline-block;
 		
 	}
+	
+	/*채팅 내역 부분 전체 div*/
 	#chat-container{
 		vertical-align: bottom;
 		border: 1px solid black;
@@ -44,11 +53,12 @@
 		height:100%;
 		overflow: scroll;
 		overflow-x:hidden;
-		background: #9bbbd4;
+		background: #F7F7F7;
 	}
 	
+	/*받은 채팅 내용 부분*/
 	.chat{
-		font-size: 20px;
+		font-size: 1.0em;
 		color:black;
 		margin: 5px;
 		min-height: 20px;
@@ -57,7 +67,7 @@
 		text-align: left;
         height:auto;
         word-break : break-all;
-        background: #ffffff;
+        background: #D9E5FF;
         width:auto;
         display:inline-block;
         border-radius: 10px 10px 10px 10px;
@@ -72,16 +82,19 @@
 		display: block;
 	}
 
+	/*보낸 채팅 내용 부분*/
 	.my-chat{
-		text-align: right;
-		background: #F7E600;
+		text-align: left;
+		background: #E0E0E0;
 		border-radius: 10px 10px 10px 10px;
 	}
 	
+	/*채팅 메세지 입력 부분 div*/
 	#bottom-container{
 		margin:10px;
 	}
 	
+	/*채팅 시간 감싸는 div*/
 	.chat-info{
 		color:#556677;
 		font-size: 10px;
@@ -91,31 +104,38 @@
 
 	}
 	
+	/*받은 채팅 내용, 시간 포함하는 div*/
 	.chat-box{
 		text-align:left;
+		margin-left:5px;
 	}
+	
+	/*보낸 채팅 내용, 시간 포함하는 div*/
 	.my-chat-box{
 		text-align: right;
+		margin-right:5px;
 	}
-	
-	
 	
 </style>
 </head>
+
+
 <body>
 	<div id="main-container">
-		<div id="chat-container">
-		</div>
+		<div id="chat-container"></div>
 		<div id="bottom-container">
 			<input id="inputMessage" type="text">
 			<input id="btn-submit" type="submit" value="전송" >
 		</div>
 	</div>
 </body>
+
+
 <script type="text/javascript">
 	var textarea = document.getElementById("messageWindow");
+	var inputmsg = document.getElementById("inputMessage");
 	
-	var webSocket = new WebSocket("wss://localhost:8000/chating"); 
+	var webSocket = new WebSocket("wss://kgu.mentomenti.kro.kr:8000/chating"); 
 	var inputMessage = document.getElementById('inputMessage');
 	var btn_submit = document.getElementById("btn-submit");
 	
@@ -164,7 +184,10 @@
 		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 		var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + chatMsg + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
 		$('#chat-container').append($chat);
+<<<<<<< HEAD
 		//$('.chat-box').hide();
+=======
+>>>>>>> branch 'master' of https://github.com/nbalance97/mentomenti.git
 		webSocket.send(chatMsg);
 		inputMessage.value = "";
 		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
@@ -174,5 +197,11 @@
 		_send();
 	};
 	
+	inputmsg.onkeydown = function(key){
+		if(key.keyCode == 13){
+			inputmsg.focus();
+			_send();
+		}
+	};
 </script>
 </html>

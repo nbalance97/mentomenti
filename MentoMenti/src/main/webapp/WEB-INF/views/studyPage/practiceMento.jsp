@@ -68,6 +68,8 @@
 		String input = request.getParameter("InputText");
 		String mode = request.getParameter("mode");
 		String settingFile = null; // 설정된 파일명
+		WebCompiler WC = WebCompiler.getInstance();
+		
 		if (mode == null) 
 			mode = "python";
 		
@@ -86,7 +88,6 @@
 		
 	%>
 	<%@include file="studySidebar.jsp"%>
-	
 	<div class="main">
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
@@ -118,6 +119,9 @@
 								/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
 								if (SRC != null)
 									out.println(SRC);
+								if (SRC == null && mode.equals("java")) {
+									out.println(WC.getJavaDefault());
+								}
 							%></textarea> 
 					</div>
 			
@@ -134,13 +138,15 @@
 				<div class="result shadow img-rounded" style="padding:5px">
 					<textarea style="width:100%; height:100%;" name="ResultText" id="result"><%
 						if (SRC != null) {
-							WebCompiler WC = WebCompiler.getInstance();
 							String temp = null;
 							if (mode.equals("python")) {
 								temp = WC.compilePython(SRC, input);
 							} else if (mode.equals("C")) {
 								temp = WC.compileC(SRC, input);
+							} else if (mode.equals("java")) {
+								temp = WC.compileJava(SRC, input);
 							}
+					
 							if (temp != null) 
 								out.println(temp);
 							else

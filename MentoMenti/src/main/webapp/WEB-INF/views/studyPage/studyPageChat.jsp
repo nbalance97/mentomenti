@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 
 <div class="chating">
-	<h1>채팅</h1>
+	<div><h3>채팅</h3></div>
 	<div class="chatSize">
 		<jsp:include page="../chatPage.jsp" flush="true"/>
 	</div>

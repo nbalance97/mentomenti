@@ -21,4 +21,9 @@ public interface PostDAO {
 	void updateViewcount(int postid) throws Exception;
 	
 	boolean isNotice(int postid) throws Exception;
+	
+	void deletePost(int postid) throws Exception;
+	
+	List<PostDTO> curGeneralNotices(int num) throws Exception;
+	List<PostDTO> curGeneralPosts(int num) throws Exception;
 }

@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.slideSection input[id*="slide"] {
+	display: none;
+}
+
+.slideSection .slidewrap {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.slideSection .slidelist {
+	white-space: nowrap;
+	font-size: 0;
+	overflow: hidden;
+	position: relative;
+}
+
+.slideSection .slidelist>li {
+	display: inline-block;
+	vertical-align: middle;
+	width: 100%;
+	transition: all .5s;
+}
+
+.slideSection .slidelist>li>a {
+	display: block;
+	position: relative;
+}
+
+.slideSection .slidelist>li>a img {
+	width: 100%;
+}
+
+/* input에 체크되면 슬라이드 효과 */
+.slideSection input[id="slide01"]:checked ~ .slidewrap .slidelist>li {
+	transform: translateX(0%);
+}
+
+.slideSection input[id="slide02"]:checked ~ .slidewrap .slidelist>li {
+	transform: translateX(-100%);
+}
+
+.slideSection input[id="slide03"]:checked ~ .slidewrap .slidelist>li {
+	transform: translateX(-200%);
+}
+
+/* 페이징 */
+.slide-pagelist {
+	text-align: center;
+	padding: 10px;
+}
+
+.slide-pagelist>li {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.slide-pagelist>li>label {
+	display: block;
+	padding: 6px 25px;
+	border-radius: 30px;
+	background: #ccc;
+	margin: 20px 8px;
+	cursor: pointer;
+}
+
+.slideSection input[id="slide01"]:checked ~ .slidewrap .slide-pagelist>li:nth-child(1)>label
+	{
+	background: #999;
+}
+
+.slideSection input[id="slide02"]:checked ~ .slidewrap .slide-pagelist>li:nth-child(2)>label
+	{
+	background: #999;
+}
+
+.slideSection input[id="slide03"]:checked ~ .slidewrap .slide-pagelist>li:nth-child(3)>label
+	{
+	background: #999;
+}

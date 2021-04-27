@@ -21,6 +21,7 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
 </head>
 
@@ -74,6 +75,19 @@
 	</tbody>
 </table>
 
+
+<!-- 자신이 작성한 글에는 삭제 버튼 있음 -->
+<%
+	if(post.getUserid().equals(id)){
+%>
+<div style="text-align:right;">
+	<input type="button" class="btn btn-danger deletePost" value="삭제"/>
+</div>
+<%
+	}
+%>
+
+
 <!-- 댓글 영역 -->
 <div>
 	<h5 style="margin-bottom:20px">댓글</h5>
@@ -93,13 +107,42 @@
 			<%=c.getWriterid()%>
 		</div>
 		<div class="comment_component"><%=c.getContent()%></div>
-		<div class="comment_component" style="font-size:0.8em"><%=c.getCommentdate()%></div>
+		<div class="comment_component" style="font-size:0.8em; overflow:hidden;">
+			<div style="float:left;"><%=c.getCommentdate()%></div>
+			<% 
+				if(c.getWriterid().equals(id)){	//자신이 작성한 댓글에는 삭제 버튼 표시
+			%>
+			<div style="text-align:right; float:right;">
+				<input type="button" class="btn btn-danger deleteComment" value="삭제" id=<%=c.getCommentid()%>
+					style="width:40px; height:30px; padding:0px; font-size:0.9em"/>
+			</div>
+			<%} %>
+		</div>
 		<hr>
 	</div>
 	<%
 		}
 	%>
 </div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".deletePost").on('click', function(){
+		    if (confirm("게시물을 삭제하시겠습니까?")) {
+		    	//댓글 번호, 게시물 번호 전달 (삭제 버튼 id가 댓글 번호로 설정되어 있음)
+		    	location.href = "processDeletePost?postid="+<%=post.getPostid()%>;
+		    }
+		});
+		
+		$(".deleteComment").on('click', function(){
+		    if (confirm("댓글을 삭제하시겠습니까?")) {
+		    	//댓글 번호, 게시물 번호 전달 (삭제 버튼 id가 댓글 번호로 설정되어 있음)
+		    	location.href = "processDeleteComment?commentid="+$(this).attr('id')+"&postid="+<%=post.getPostid()%>;
+		    }
+		});
+	});
+</script>
 
 
 <%@include file="menuPart2.jsp"%>
