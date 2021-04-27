@@ -5,12 +5,12 @@
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page import="java.util.List"%>
 <head>
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -18,6 +18,8 @@
 <style>
 .text1 {
 	font-family: 'Nanum Gothic', sans-serif;
+	position: relative;
+	margin-bottom:20px;
 }
 
 .text3 {
@@ -28,27 +30,6 @@
 	font-family: 'Nanum Gothic', sans-serif;
 }
 
-h1.text1 {
-	font-size: 30px;
-	COLOR: #5F5F5F;
-	position: relative;
-}
-
-h1.text3 {
-	font-size: 30px;
-	COLOR: #5F5F5F;
-}
-
-h1.text4 {
-	font-size: 30px;
-	COLOR: #5F5F5F;
-	position: relative;
-	text-align: center;
-	left: 100;
-	top: -152;
-}
-
-
 /*수평 정렬*/
 .wrapContents{
 	overflow:hidden;
@@ -57,12 +38,13 @@ h1.text4 {
 .content1{
 	float:left;
 	width:50%;
-	margin-bottom:20px;
+	margin-bottom:50px;
 }
+
 .content2{
 	float:right;
 	width:50%;
-	margin-bottom:20px;
+	margin-bottom:50px;
 }
 </style>
 
@@ -92,13 +74,14 @@ h1.text4 {
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
-	<h1><%=group.getName() %></h1>
+	<h1 class="h3 mb-0 text-gray-800"><%=group.getName() %></h1>
 </div>
+<hr>
 
 <div class="wrapContents" style="width: 100%">
 	<!-- 가입멤버 -->
 	<div class="content1">
-		<h1 class="text1">가입멤버</h1>
+		<h4 class="text1">가입멤버</h4>
 		<table class="table table-bordered" id="dataTable"
 			cellspacing="0" role="grid" aria-describedby="dataTable_info"
 			style="width: 80%; background: white; text-align: center; margin:0 auto;">
@@ -113,44 +96,110 @@ h1.text4 {
 					<td>멘토</td>
 					<td><%=group.getMentoid()%></td>
 				</tr>
-				<tr>
 				<%
 					List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
 					for(GroupmateDTO gl: groupmateList) {
 				%>
+					<tr>
 					<td>멘티</td>
 					<td><%=gl.getId()%></td>
+					</tr>
 				<%
 					}
 				%>
-				</tr>
 			</tbody>
 		</table>
 	</div>
 
 	<!-- 공지사항 -->
 	<div class="content2">
-		<h1 class="text1">공지사항</h1>
+		<h4 class="text1">공지사항</h4>
+		<table class="table table-bordered" id="dataTable"
+			cellspacing="0" role="grid" aria-describedby="dataTable_info"
+			style="width: 80%; background: white; text-align: center; margin:0 auto;">
+			<thead>
+				<tr role="row">
+					<th tabindex="0" rowspan="1" colspan="1" style="width:50%">제목</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width:50%">작성일자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					List<PostDTO> groupNotices = HomeController.dao.getPostDAO().curGroupNotices(group.getGroupid());
+					if (groupNotices.size() > 0) {
+						for(PostDTO gn: groupNotices) {
+				%>
+					<tr>
+					<td><%=gn.getTitle()%></td>
+					<td><%=gn.getPostdate()%></td>
+					</tr>
+				<%
+						}
+					} else {
+				%>
+					<tr style="height:100px">
+					<td colspan="2">게시물이 아직 없습니다</td>
+					</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
 	</div>
 </div>
 
 
 <div style="width: 100%">
 	<div class="content1">
-		<h1 class="text1">개설수업</h1>
-		<div style="text-align:center;">
+		<h4 class="text1">개설수업</h4>
+		<div style="text-align:center; height:200px;">
+		
 		<form>
-			<button type="submit" class="btn btn-primary"
-				style="width: 40%; margin-bottom: 10px; margin-top: 20px">입장</button>
+			<a href="studyPage/studyPageMentor">
+			<input type="button" class="btn btn-primary"
+				style="width: 40%; margin-bottom: 10px; margin-top: 20px" value="입장">
+			</a>
 		</form>
+		
 		<form>
-			<button type="submit" class="btn btn-info" style="width: 40%">개설</button>
+			<input type="button" class="btn btn-info" style="width: 40%" value="개설">
 		</form>
 		</div>
 	</div>
 
 	<div class="content2">
-		<h1 class="text1">Q & A</h1>
+		<h4 class="text1">Q & A</h4>
+		<table class="table table-bordered" id="dataTable"
+			cellspacing="0" role="grid" aria-describedby="dataTable_info"
+			style="width: 80%; background: white; text-align: center; margin:0 auto;">
+			<thead>
+				<tr role="row">
+					<th tabindex="0" rowspan="1" colspan="1" style="width:50%">제목</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width:50%">작성일자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					List<PostDTO> groupPosts = HomeController.dao.getPostDAO().curGroupPosts(group.getGroupid());
+					if (groupPosts.size() > 0){
+						for(PostDTO gp: groupPosts) {
+				%>
+					<tr>
+					<td><%=gp.getTitle()%></td>
+					<td><%=gp.getPostdate()%></td>
+					</tr>
+				<%
+						}
+					} else {
+				%>
+					<tr style="height:100px">
+					<td colspan="2">게시물이 아직 없습니다</td>
+					</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
 	</div>
 </div>
 

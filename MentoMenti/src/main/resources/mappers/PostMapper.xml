@@ -112,4 +112,21 @@
   	ORDER BY postid
   	LIMIT #{num};
   </select>
+  
+  
+  <!-- 가장 최근 그룹 공지사항 5개 -->
+  <select id="curGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT * FROM post
+  	WHERE groupid = #{groupid} and is_notice = True
+  	ORDER BY postid
+  	LIMIT 5;
+  </select>
+  	
+  <!-- 가장 최근 그룹 자유게시판 글 n개 -->
+  <select id="curGroupPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT * FROM post
+  	WHERE groupid = #{groupid} and is_notice = False
+  	ORDER BY postid
+  	LIMIT 5;
+  </select>
 </mapper>
