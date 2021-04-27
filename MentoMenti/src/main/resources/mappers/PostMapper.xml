@@ -5,6 +5,111 @@
 <mapper namespace="Mento.Menti.Project.dao.PostDAO">
   <select id="selectPosts" resultType="Mento.Menti.Project.dto.PostDTO"> 
   	SELECT * 
-  	FROM Post;
+  	FROM post;
+  </select>
+  
+  <!-- 사이트 전체 공지사항 -->
+  <select id="selectGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid is null and is_notice = True
+  	ORDER BY postid desc;
+  </select>
+  
+  <!-- 사이트 자유게시판 게시물 -->
+  <select id="selectGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid is null and is_notice = False
+  	ORDER BY postid desc;
+  </select>
+  
+  <!-- 그룹 내 공지사항 -->
+  <select id="selectGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid = #{groupid} and is_notice = True
+  	ORDER BY postid desc;
+  </select>
+  
+  <!-- 그룹 내 게시물 -->
+  <select id="selectGroupPosts" resultType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE groupid = #{groupid} and is_notice = False
+  	ORDER BY postid desc;
+  </select>
+  
+  
+  <!-- 사이트 전체 공지사항 검색 -->
+  <select id="searchGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="String">
+  	SELECT *
+  	FROM post
+  	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = True
+  	ORDER BY postid desc;
+  </select>
+  
+  <!-- 사이트 자유게시판 검색 -->
+  <select id="searchGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="String">
+  	SELECT *
+  	FROM post
+  	WHERE title LIKE '%${kwd}%' and groupid is null and is_notice = False
+  	ORDER BY postid desc;
+  </select>
+  
+  <!-- 공지사항 등록 -->
+  <insert id="insertGeneralNotice" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, null, #{userid}, #{title}, #{content}, #{postdate}, 0, True);
+  </insert>
+  
+  <!-- 자유게시판 게시물 등록 -->
+  <insert id="insertGeneralPost" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, null, #{userid}, #{title}, #{content}, #{postdate}, 0, False);
+  </insert>
+  
+  
+  <!-- 게시물 번호(PK)로 찾기 -->
+  <select id="searchByPostId" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT *
+  	FROM post
+  	WHERE postid = #{postid};
+  </select>
+  
+  <!-- 게시물 조회수 증가 -->
+  <update id="updateViewcount" parameterType="int">
+  	UPDATE post SET viewcount = viewcount + 1
+  	WHERE postid = #{postid};
+  </update>
+  
+  <!-- 공지인지 자유글인지 리턴 -->
+  <select id="isNotice" resultType="boolean" parameterType="int">
+  	SELECT is_notice
+  	FROM post
+  	WHERE postid = #{postid};
+  </select>
+  
+  <!-- 게시물 삭제 -->
+  <delete id="deletePost" parameterType="int">
+  	DELETE FROM post
+  	WHERE postid = #{postid};
+  </delete>
+  
+  
+  <!-- 가장 최근 공지사항 5개 -->
+  <select id="curGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT * FROM post
+  	WHERE groupid is null and is_notice = True
+  	ORDER BY postid
+  	LIMIT #{num};
+  </select>
+  	
+  <!-- 가장 최근 자유게시판 글 5개 -->
+  <select id="curGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
+  	SELECT * FROM post
+  	WHERE groupid is null and is_notice = False
+  	ORDER BY postid
+  	LIMIT #{num};
   </select>
 </mapper>

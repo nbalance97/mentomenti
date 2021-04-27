@@ -4,11 +4,12 @@
 <link href="/resources/css/studySidebar.css" rel="stylesheet" type="text/css">
 
 <input type="checkbox" id="menuicon">
-	<label for="menuicon">
-		<span></span>
-		<span></span>
-		<span></span>
-	</label>
+<label for="menuicon">
+	<span></span>
+	<span></span>
+	<span></span>
+</label>
+	
 <div class="sidebar">
 	<div class="content">
 		<!-- 멘티리스트 -->

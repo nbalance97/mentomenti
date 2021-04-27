@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
 <title>MOCO</title>
 
@@ -14,90 +20,196 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/sidebar.css" rel="stylesheet" type="text/css">
-<link href="resources/css/component.css" rel="stylesheet" type="text/css">
+<link href="resources/css/imgSlider.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 </head>
 
+<script type="text/javascript">
+function isElementUnderBottom(elem, triggerDiff) {
+	  const { top } = elem.getBoundingClientRect();
+	  const { innerHeight } = window;
+	  return top > innerHeight + (triggerDiff || 0);
+	}
+
+	function handleScroll() {
+	  const elems = document.querySelectorAll('.up-on-scroll');
+	  elems.forEach(elem => {
+	    if (isElementUnderBottom(elem, -20)) {
+	      elem.style.opacity = "0";
+	      elem.style.transform = 'translateY(150px)';
+	    } else {
+	      elem.style.opacity = "1";
+	      elem.style.transform = 'translateY(0px)';
+	    }
+	  })
+	}
+
+	window.addEventListener('scroll', handleScroll);
+</script>
+
+<style>
+	.list{
+		width:100%;
+	}
+
+	.list .up-on-scroll{
+		transition: transform 1s, opacity 1s;
+	}
+	
+	.up-on-scroll{
+		font-size:1.2em;
+		text-align:center;
+		margin:120px 0px;
+	}
+	
+	*{
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	div.container{
+		overflow:hidden;
+	}
+	
+	div.item{
+		float:left;
+		width:50%;
+		padding:20px;
+	}
+	
+	a, a:hover{
+		text-decoration:none;
+		color:gray;
+	}
+	
+	.seeMore{
+		font-size:0.6em;
+	}
+</style>
+
 <%@include file="menuPart1.jsp"%>
 
-<!-- 공지사항 페이지 -->
-
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800">공지사항</h1>
-	<ul class="navbar-nav ml-auto">
-		<li>
-			<form>
-				<div class="input-group" style="z-index: 0">
-					<input type="text" class="form-control border-0 small"
-						placeholder="검색" aria-label="Search"
-						aria-describedby="basic-addon2">
-					<div class="input-group-append">
-						<button class="btn" type="button" style="background: black; box-shadow: 5px black;">
-							<i class="fas fa-search fa-sm"></i>
-						</button>
-					</div>
-				</div>
-			</form>
-		</li>
-	</ul>
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top:50px">
 </div>
-<p class="mb-4">모두의 코딩교실의 공지사항입니다.</p>
 
-<!-- 리스트 -->
-<table class="table table-bordered" id="dataTable"
-	width="100%" cellspacing="0" role="grid"
-	aria-describedby="dataTable_info"
-	style="width: 100%; background: white; text-align: center;">
-	<thead>
-		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 90px;">No.</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 61px;">제목</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 49px;">작성자</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 31px;">조회수</th>
-		</tr>
-		</thead>
-	<tbody>
-		<%
-			for (int i = 0; i < 10; i++) {
-		%>
-		<tr role="row" class="odd">
-			<td class="">1</td>
-			<td>모코 사이트 이용 방법 안내</td>
-			<td>정예원</td>
-			<td>62</td>
-		</tr>
-		<%
-			}
-		%>
-	</tbody>
-</table>
-
-<!-- 페이지 버튼 -->
-<div class="d-flex align-items-center justify-content-between">
-	<div style="margin: 0 auto;">
-		<a href="#" class="btn-primary pageButton">
-		<<</a>
-		<%
-			for (int j = 1; j <= 10; j++) {
-		%>
-		<a href="#" style="text-decoration: none; color:gray"> <%
- 	out.println(j);
- %>
-		</a>
-		<%
-			}
-		%>
-		<a href="#" class="btn-primary pageButton">
-		>></a>
+<!-- 이미지 슬라이드 -->
+<div class="slideSection" style="margin-bottom:100px;">
+	<input type="radio" name="slide" id="slide01" checked>
+	<input type="radio" name="slide" id="slide02">
+	<input type="radio" name="slide" id="slide03">
+	<div class="slidewrap">
+		<ul class="slidelist" style="margin-bottom:0">
+			<!-- 슬라이드 영역 -->
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/mainimg1_2.png">
+				</a>
+			</li>
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/programmer_img.jpg">
+				</a>
+			</li>
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/programmer_img2.jpg">
+				</a>
+			</li>
+		</ul>
+		
+		<!-- 페이징 -->
+		<ul class="slide-pagelist">
+			<li><label for="slide01"></label></li>
+			<li><label for="slide02"></label></li>
+			<li><label for="slide03"></label></li>
+		</ul>
 	</div>
+</div>
 
-	<div class="d-sm-flex justify-content-between">
-		<div style="margin: 0 auto; float: right">
-			<a href="#" class="btn btn-primary">작성</a>
+
+
+<!-- 사이트 설명 -->
+<div class="list">
+	<div class="up-on-scroll" id="site_intro1">
+		<h3 style="margin:50px">Welcome to MOCO!</h3>
+		<p>누구나 멘토가 될 수 있고</p>
+		<p>누구나 멘티가 될 수 있는</p>
+		<p>모두의 코딩 교실,</p>
+		<p><b>모코(MOCO)</b>에 오신 것을 환영합니다</p>
+	</div>
+	
+	<div class="up-on-scroll" id="site_intro2">
+		<p>개설된 스터디 그룹 목록을 확인해보세요</p>
+		<p>자유게시판에서 다른 사용자들과 소통해보세요</p>
+		<p>그룹 가입 신청을 하세요</p>
+		<p>가입된 그룹 페이지에서 수업에 참여할 수 있습니다</p>
+		<p>...</p>
+		<p>약간 이런 식으로 사이트 튜토리얼도 나쁘지 않을듯</p>
+	</div>
+	
+	
+	<div class="up-on-scroll container">
+	
+		<!-- 가장 최근 공지사항 5개 -->
+		<div class="item">
+			<p><b>공지사항</b></p>
+			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
+				<thead>
+					<tr>
+						<td>제목</td>
+						<td>작성일자</td>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<%
+						List<PostDTO> curNotices = HomeController.dao.getPostDAO().curGeneralNotices(5);
+						for(PostDTO cn: curNotices){
+					%>
+					<tr>
+						<td><a href="noticeContent?postid=<%=cn.getPostid()%>"><%=cn.getTitle()%></a></td>
+						<td><%=cn.getPostdate() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+			<div style="text-align:right"><p class="seeMore"><a href="notice">더보기>></a></p></div>
+		</div>
+		
+		
+		<!-- 가장 최근 자유게시판 글 5개 -->
+		<div class="item">
+			<p><b>자유게시판</b></p>
+			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
+				<thead>
+					<tr>
+						<td>제목</td>
+						<td>작성일자</td>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<%
+						List<PostDTO> curPosts = HomeController.dao.getPostDAO().curGeneralPosts(5);
+						for(PostDTO cp: curPosts){
+					%>
+					<tr>
+						<td><a href="postContent?postid=<%=cp.getPostid()%>"><%=cp.getTitle()%></a></td>
+						<td><%=cp.getPostdate() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+			<div style="text-align:right"><p class="seeMore"><a href="freeBoard">더보기>></a></p></div>
 		</div>
 	</div>
 </div>
+
 <%@include file="menuPart2.jsp"%>
-</html>

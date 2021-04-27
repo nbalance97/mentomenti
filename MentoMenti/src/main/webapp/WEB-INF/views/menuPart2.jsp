@@ -10,7 +10,7 @@
 					<footer class="sticky-footer">
 						<div class="container my-auto">
 							<div class="copyright text-center my-auto">
-								<span>Copyright © Your Website 2020</span>
+								<span>Copyright © KGU capstone design Kaptain 2021</span>
 							</div>
 						</div>
 					</footer>
@@ -30,10 +30,21 @@
 	</div>
 	<!-- End of Page Wrapper -->
 
+
+	<!-- topButton 클릭 시 사이트 맨 위로 이동하는 애니메이션 -->
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){
+			$('#topButton').on("click",function(){
+				$("html, body").animate({scrollTop:0}, '500');
+				return false;
+			});
+		});
+	</script>	
 	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
+	<div class="scroll-to-top rounded" id="topButton"> <i
 		class="fas fa-angle-up"></i>
-	</a>
+	</div>
 
 	<!-- Logout Modal-->
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
@@ -49,9 +60,8 @@
 				</div>
 				<div class="modal-body">로그아웃 하시겠습니까?</div>
 				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">취소</button>
-					<a class="btn btn-primary" href="login.html">로그아웃</a>
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+					<a class="btn btn-primary" href="processLogout">로그아웃</a>
 				</div>
 			</div>
 		</div>

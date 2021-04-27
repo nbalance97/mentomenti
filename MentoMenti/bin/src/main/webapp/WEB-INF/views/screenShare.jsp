@@ -38,271 +38,48 @@
         <script src="https://www.webrtc-experiment.com/Pluginfree-Screen-Sharing/conference.js"> </script>
     </head>
 
-    <body>
-        <article>
-
-            <h2 style="display: block;text-align: center;border:0;margin-bottom:0;">사랑합니다 <a href="https://www.webrtc-experiment.com/">WebRTC</a>!</h2>
-			
+    <body>			
 			<!-- 현재 방 코드 -->
-			<script type="text/javascript">
-				var myPage = location.href.split('#');
-				document.write(myPage[1]);
-			</script>
-			
-            <section id="logs-message" class="experiment" style="display: none;text-align: center;font-size: 1.5em;line-height: 2;color: red;">WebRTC getDisplayMedia API.</section>
-
+		<div>	
+           <!--  <section id="logs-message" class="experiment" style="display: none;text-align: center;font-size: 1.5em;line-height: 2;color: red;">WebRTC getDisplayMedia API.</section> -->
+			<section class="hide-after-join" ">   
+					<!-- 프론트에 삽입 시 버튼 제거해야 제대로 작동함, class에 css 먹혀있어서 안넣는게 좋을듯-->                 
+                    <!-- <button id="share-screen" class="setup">화면공유</button> -->
+            </section>
             <!-- just copy this <section> and next script -->
-            <section class="experiment">
-                <section class="hide-after-join" style="text-align: center;">                    
-                    <input type="text" id="room-name" placeholder="Enter " style="width: 80%; text-align: center; display: none;">
-                    <button id="share-screen" class="setup">Share Your Screen</button>
-                </section>
-
+           
                 <!-- local/remote videos container -->
                 <div id="videos-container"></div>
-
-                <section id="unique-token" style="display: none; text-align: center; padding: 20px;"></section>
-            </section>
-
-            <script>
-                // Muaz Khan     - https://github.com/muaz-khan
-                // MIT License   - https://www.webrtc-experiment.com/licence/
-                // Documentation - https://github.com/muaz-khan/WebRTC-Experiment/tree/master/Pluginfree-Screen-Sharing
-
-                var config = {
-                    // via: https://github.com/muaz-khan/WebRTC-Experiment/tree/master/socketio-over-nodejs
-                    openSocket: function(config) {
-                        var SIGNALING_SERVER = 'https://socketio-over-nodejs2.herokuapp.com:443/';
-
-                        config.channel = config.channel || location.href.replace(/\/|:|#|%|\.|\[|\]/g, '');
-                        var sender = Math.round(Math.random() * 999999999) + 999999999;
-
-                        io.connect(SIGNALING_SERVER).emit('new-channel', {
-                            channel: config.channel,
-                            sender: sender
-                        }); //난수 발생시켜 해당 방의 난수코드 생성
-
-                        var socket = io.connect(SIGNALING_SERVER + config.channel);
-                        socket.channel = config.channel;
-                        socket.on('connect', function () {
-                            if (config.callback) config.callback(socket);
-                        });
-
-                        socket.send = function (message) {
-                            socket.emit('message', {
-                                sender: sender,
-                                data: message
-                            });
-                        };
-
-                        socket.on('message', config.onmessage);
-                    },
-                    onRemoteStream: function(media) {
-                        if(isbroadcaster) return;
-
-                        var video = media.video;
-                        videosContainer.insertBefore(video, videosContainer.firstChild);
-                        //rotateVideo(video);
-
-                        document.querySelector('.hide-after-join').style.display = 'none';
-                    },
-                    onRoomFound: function(room) {
-                        if(isbroadcaster) return;
-
-                        conferenceUI.joinRoom({
-                            roomToken: room.roomToken,
-                            joinUser: room.broadcaster
-                        });
-
-                        document.querySelector('.hide-after-join').innerHTML = '<img src="https://www.webrtc-experiment.com/images/key-press.gif" style="margint-top:10px; width:50%;" />'; //접속자 화면(대기 화면 출력)
-                    },
-                    /*
-                    // 접속 시 출력 내용
-                    onNewParticipant: function(numberOfParticipants) {
-                        var text = numberOfParticipants + ' users are viewing your screen!';
-                        
-                        if(numberOfParticipants <= 0) {
-                            text = '아직 참여자가 없습니다.';
-                        }
-                        else if(numberOfParticipants == 1) {
-                            text = '참여자가 1명입니다.';
-                        }
-
-                        document.title = text;
-                        showErrorMessage(document.title, 'green');
-                    },
-                    oniceconnectionstatechange: function(state) {
-                        var text = '';
-
-                        if(state == 'closed' || state == 'disconnected') {
-                            text = '참가자 중 한명이 퇴장하였습니다.';
-                            document.title = text;
-                            showErrorMessage(document.title);
-                        }
-
-                        if(state == 'failed') {
-                            text = '방화벽 규칙을 우회하지 못했습니다. 대상 사용자가 화면을받지 못한 것 같습니다. 페이지를 새로 고침하고 다시 시도하세요.';
-                            document.title = text;
-                            showErrorMessage(document.title);
-                        }
-
-                        if(state == 'connected' || state == 'completed') {
-                            text = '참여 완료';
-                            document.title = text;
-                            showErrorMessage(document.title, 'green');
-                        }
-
-                        if(state == 'new' || state == 'checking') {
-                            text = '접속 중...';
-                            document.title = text;
-                            showErrorMessage(document.title, 'green');
-                        }
-                    }*/
-                };
-
-                function showErrorMessage(error, color) {
-                    var errorMessage = document.querySelector('#logs-message');
-                    errorMessage.style.color = color || 'red';
-                    errorMessage.innerHTML = error;
-                    errorMessage.style.display = 'block';
-                }
-
-                function getDisplayMediaError(error) {
-                    if (location.protocol === 'http:') {
-                        showErrorMessage('HTTPS 에서만 실행하세요');
-                    } else {
-                        showErrorMessage(error.toString());
-                    }
-                }
-
-                function captureUserMedia(callback) {
-                    var video = document.createElement('video');
-                    video.muted = true;
-                    video.volume = 0;
-                    try {
-                        video.setAttributeNode(document.createAttribute('autoplay'));
-                        video.setAttributeNode(document.createAttribute('playsinline'));
-                        video.setAttributeNode(document.createAttribute('controls'));
-                    } catch (e) {
-                        video.setAttribute('autoplay', true);
-                        video.setAttribute('playsinline', true);
-                        video.setAttribute('controls', true);
-                    }
-
-                    if(navigator.getDisplayMedia || navigator.mediaDevices.getDisplayMedia) {
-                        function onGettingSteam(stream) {
-                            video.srcObject = stream;
-                            videosContainer.insertBefore(video, videosContainer.firstChild);
-
-                            addStreamStopListener(stream, function() {
-                                location.reload();
-                            });
-
-                            config.attachStream = stream;
-                            callback && callback();
-                            //rotateVideo(video);
-
-                            addStreamStopListener(stream, function() {
-                                location.reload();
-                            });
-
-                           // showPrivateLink(); // 화면공유 후 나오는 링크.. 필요 없어 보임
-
-                            document.querySelector('.hide-after-join').style.display = 'none';
-                        }
-
-                        if(navigator.mediaDevices.getDisplayMedia) {
-                            navigator.mediaDevices.getDisplayMedia({video: true}).then(stream => {
-                                onGettingSteam(stream);
-                            }, getDisplayMediaError).catch(getDisplayMediaError);
-                        }
-                        else if(navigator.getDisplayMedia) {
-                            navigator.getDisplayMedia({video: true}).then(stream => {
-                                onGettingSteam(stream);
-                            }, getDisplayMediaError).catch(getDisplayMediaError);
-                        }
-                    }
-                    else {
-                        if (DetectRTC.browser.name === 'Chrome') {
-                            if (DetectRTC.browser.version == 71) {
-                                showErrorMessage('chrome : // flags를 통해 "Experimental WebPlatform"플래그를 활성화하십시오.');
-                            } else if (DetectRTC.browser.version < 71) {
-                                showErrorMessage('chrome의 버전 업그레이드가 필요합니다.');
-                            } else {
-                                showErrorMessage('ios에서 크롬을 사용하고 있진 않으신가요?');
-                            }
-                        }
-
-                        if (DetectRTC.browser.name === 'Firefox') {
-                            showErrorMessage('Firefox의 업그레이드가 필요합니다.');
-                        }
-
-                        if (DetectRTC.browser.name === 'Edge') {
-                            showErrorMessage('Edge의 업그레이드가 필요합니다.');
-                        }
-
-                        if (DetectRTC.browser.name === 'Safari') {
-                            showErrorMessage('Safari에서는 아직 지원하지 않습니다.');
-                        }
-                    }
-                }
-
-                /* on page load: get public rooms */
-                var conferenceUI = conference(config);
-
-                /* UI specific */
-                var videosContainer = document.getElementById("videos-container") || document.body;
-
-                document.getElementById('share-screen').onclick = function() {
-                    var roomName = document.getElementById('room-name') || { };
-                    roomName.disabled = true;
-                    captureUserMedia(function() {
-                        conferenceUI.createRoom({
-                            roomName: (roomName.value || 'Anonymous') + ' shared his screen with you'
-                        });
-                    });
-                    this.disabled = true;
-                };
-
-               /*  화면공유 실행 시 비디오 회전.. 좀 쓸모 없음
-               		function rotateVideo(video) {
-                    video.style[navigator.mozGetUserMedia ? 'transform' : '-webkit-transform'] = 'rotate(0deg)';
-                    setTimeout(function() {
-                        video.style[navigator.mozGetUserMedia ? 'transform' : '-webkit-transform'] = 'rotate(360deg)';
-                    }, 1000);
-                }
-               */
-
-               /* 화면공유 후 나오는 링크..
-               function showPrivateLink() {
-                    var uniqueToken = document.getElementById('unique-token');
-                    uniqueToken.innerHTML = '<a href="' + location.href + '" target="_blank">Copy & Share This Private Room Link</a>';
-                    uniqueToken.style.display = 'block';
-                }
-               */
-
-            </script>
-
-            
-
-            <section class="experiment"><small id="send-message"></small></section>
-
-        </article>
+                <!-- <section id="unique-token" style="display: none; text-align: center; padding: 20px;"></section> -->
+           
+			
+			<!-- 화면공유 기능 js 분리, 프론트에 삽입-->
+			<!-- <script src="resources/js/screenShare.js"></script> -->
+			
+            <!-- <section class="experiment"><small id="send-message"></small></section> -->
 
 
+		</div>
                 <!-- commits.js is useless for you! -->
         <script src="https://www.webrtc-experiment.com/commits.js" async> </script>
     </body>
     <style>
+    		/*#videos-container{
+    			display: inline-block;
+    			text-align:center;
+    		}*/
             video {
-                -moz-transition: all 1s ease;
-                -ms-transition: all 1s ease;
-
-                -o-transition: all 1s ease;
-                -webkit-transition: all 1s ease;
+            	
+                -moz-transition: all 1s ease; /*파이어폭스*/ 
+                -ms-transition: all 1s ease; /*익스플로어*/
+                -o-transition: all 1s ease; /*오페라*/
+                -webkit-transition: all 1s ease; /*모두*/
                 transition: all 1s ease;
                 vertical-align: top;
-                width: 100%;
+                width:100%;
+                height:auto;
+                margin:0 auto;
+                display:block;
             }
 
             input {

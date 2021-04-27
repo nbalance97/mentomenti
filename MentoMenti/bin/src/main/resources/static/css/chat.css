@@ -1,0 +1,70 @@
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+.chating {
+	background-color: #000;
+	max-height: 90%;
+	overflow-y: auto;
+	overflow-x:hidden;
+}
+
+/*스크를바*/
+.chating::-webkit-scrollbar {
+	width: 10px;
+}
+
+/*스크를바 막대*/
+.chating::-webkit-scrollbar-thumb {
+	background-color: white;
+	border-radius:5px;
+}
+
+/*스크를바 트랙*/
+.chating::-webkit-scrollbar-track {
+	background-color: black;
+	border-radius:5px;
+}
+
+/*chat box 좌우 여백*/
+.chating div {
+	padding: 0 5px 0 5px;
+}
+
+/*chat box 내부 글씨 좌우 여백*/
+.chating p {
+	min-width: 50px;
+	width: auto;
+	word-break: break-all;
+	padding: 0 2px 0 2px;
+}
+
+/*내가 보낸 chat box*/
+.chating .me {
+	border-radius: 5px 0px 5px 5px; /*chat box 우측 상단만 각지게, 나머지 5px씩 둥글게 만듦*/
+	color: BLACK;
+	display: inline-block;
+	text-align: right; /*우측*/
+	background: #F7E600;
+}
+
+/*내가 보낸 chat box*/
+.me-box {
+	text-align: right;
+}
+
+/*상대방 chat box*/
+.chating .others {
+	border-radius: 0px 5px 5px 5px; /*chat box 좌측 상단만 각지게, 나머지 5px씩 둥글게 만듦*/
+	color: #F6F6F6;
+	display: inline-block;
+	text-align: left;
+	background: #292B33;
+}
+
+/*메시지 보내는 것 처음에 안보이게*/
+/*db연동하고 수정필요*/
+#yourMsg {
+	display: none;
+}

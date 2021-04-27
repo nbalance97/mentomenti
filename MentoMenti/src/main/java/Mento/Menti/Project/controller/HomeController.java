@@ -1,15 +1,12 @@
 package Mento.Menti.Project.controller;
  
-import java.util.List;
-
+import Mento.Menti.Project.controller.DAOConfiguration;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import Mento.Menti.Project.dto.PostDTO;
-import Mento.Menti.Project.dto.UserDTO;
 
 @Controller
 public class HomeController {
@@ -22,12 +19,13 @@ public class HomeController {
 	private void initDao() {
 		dao = temp;
 	}
-	
+
     @RequestMapping(value="/")
     public String index() {    
-        return "home";
+        return "loginPage";
     }
     
+    /*
     @RequestMapping(value="/insert")
     // select문, insert문 전용 테스트 함수
     public String insert() throws Exception {
@@ -38,7 +36,7 @@ public class HomeController {
      		System.out.println(u.getId() + "//" + u.getPw());
     	return "insert";
     }
-    
+    */
     /*  User 리스트중 첫번쨰 user의 데이터를 수정 후 insert
      *  List<UserDTO> temp = dao.getUserDAO().selectUsers();
     	UserDTO user = temp.get(0);
@@ -49,6 +47,11 @@ public class HomeController {
     @RequestMapping(value="/compiler")
     public String index2() throws Exception{
     	return "CompileTestView";
+    }
+    
+    @RequestMapping(value="/BH")
+    public String bhidx() throws Exception {
+    	return "BH_screenshare";
     }
     
     @RequestMapping(value="/yewon")
@@ -81,6 +84,15 @@ public class HomeController {
     	return "/studyPage/practiceMentee";
     }
     
+    @RequestMapping(value="/signup")//회원가입
+    public String index9() {
+    	return "/signUpPage";
+    }
+    @RequestMapping(value="/processSignUp") //회원가입
+    public String index10() {
+    	return "/process/processSignUp";
+    }
+    
     @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
     public String index11() {
     	return "/studyPage/practiceMento";
@@ -95,17 +107,17 @@ public class HomeController {
     public String index13() {
     	return "freeBoard";
     }
-    @RequestMapping(value="/personalInfoPage") //회원 정보 확인
+    @RequestMapping(value="/personalInfoPage") //회원 정보 확인 페이지
     public String index14() {
     	return "personalInfoPage";
     }
     
-    @RequestMapping(value="/personalInfoChange") //회원 정보 수정
+    @RequestMapping(value="/personalInfoChange") //회원 정보 수정 페이지
     public String index15() {
     	return "personalInfoChange";
     }
     
-    @RequestMapping(value="/writepage") //회원 정보 수정
+    @RequestMapping(value="/writepage") //게시물 작성 페이지
     public String index16() {
     	return "writepage";
     }
@@ -115,9 +127,100 @@ public class HomeController {
     	return "tmp";
     }
     
+    @RequestMapping(value="/processLogin") //로그인 진행
+    public String index21() {
+    	return "/process/processLogin";
+    }
+    
+    @RequestMapping(value="/createGroupPage") //그룹 개설 페이지
+    public String index22() {
+    	return "createGroupPage";
+    }
+    
+    @RequestMapping(value="/processLogout") //로그아웃 진행
+    public String index23() {
+    	return "/process/processLogout";
+    }
+    
+    @RequestMapping(value="/group") //그룹 페이지
+    public String index24() {
+    	return "/grouppage";
+    }
+    
+    @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
+    public String index25() {
+    	return "/process/processPersonalInfoChange";
+    }
+    
+    @RequestMapping(value="/processCreateGroup") //그룹 개설 진행
+    public String index26() {
+    	return "/process/processCreateGroup";
+    }
+    
+    @RequestMapping(value="/joininggroups") //그룹 개설 진행
+    public String index27() {
+    	return "/joininggroups";
+    }
+    
+    @RequestMapping(value="/writeNoticePage") //공지사항 작성 페이지
+    public String index28() {
+    	return "/writeNoticePage";
+    }
+    
+    @RequestMapping(value="/processWriteNotice") //공지사항 작성 진행
+    public String index29() {
+    	return "/process/processWriteNotice";
+    }
+    
+    @RequestMapping(value="/writePostPage") //자유게시판 게시물 작성 페이지
+    public String index30() {
+    	return "/writePostPage";
+    }
+    
+    @RequestMapping(value="/processWritePost") //자유게시판 게시물 작성 진행
+    public String index31() {
+    	return "/process/processWritePost";
+    }
+    
+    @RequestMapping(value="/processJoinGroup") //그룹 가입 진행
+    public String index32() {
+    	return "/process/processJoinGroup";
+    }
+    
+    @RequestMapping(value="/noticeContent") //공지사항 내용 페이지
+    public String index33() {
+    	return "/noticeContent";
+    }
+    
+    @RequestMapping(value="/postContent") //자유게시판 게시물 내용 페이지
+    public String index34() {
+    	return "/postContent";
+    }
+    
+    @RequestMapping(value="/processAddComment") //댓글 등록 진행
+    public String index35() {
+    	return "/process/processAddComment";
+    }
+    
+    @RequestMapping(value="/processDeleteComment") //댓글 삭제 진행
+    public String index36() {
+    	return "/process/processDeleteComment";
+    }
+    
+    @RequestMapping(value="/processDeletePost") //게시물 삭제 진행
+    public String index37() {
+    	return "/process/processDeletePost";
+    }
+    
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
+    }
+    
+    @RequestMapping(value="/chat2") //채팅2
+    public String index1001() {
+    	return "chat";
     }
     
     @RequestMapping(value="/screenShare") //화면공유
@@ -133,5 +236,20 @@ public class HomeController {
     @RequestMapping(value="/testPage")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
     public String index103() {
     	return "/studyPage/debugStudy_test";
+    }
+    
+    @RequestMapping(value="/board")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
+    public String index104() {
+    	return "/whiteBoard";
+    }
+    
+    @RequestMapping(value="/confirmId")//아이디 중복체크
+    public String index105() {
+    	return "/process/confirmId";
+    }
+    
+    @RequestMapping(value="/card")
+    public String index90() {
+    	return "/newGroupCard";
     }
 }

@@ -9,13 +9,24 @@ import java.util.ArrayList;
 
 public class WebCompiler {
 	public static WebCompiler instance = null;
+	public String doc = "/home/mentomenti_compiler";
+	// local에서 컴파일할때는 c:/Temp로 수정하면 됨.
 	
 	public static WebCompiler getInstance() {
 		if (instance == null)
 			instance = new WebCompiler();
 		return instance;
 	}
-
+	
+	public String getJavaDefault() {
+		String java_default = 
+				"public class MentoMenti {\n\t"+
+				"public static void main(String args[]) {\n\n\t"+
+		    	"}\n"+
+				"}";
+		return java_default;
+	}
+	
 	public String compileC(String SRC, String input) {
 		/* C언어 컴파일 실행 함수 */
 		try {
@@ -26,9 +37,9 @@ public class WebCompiler {
 		 	
 		 	/* 실행 파트 */
 		 	command.clear();
-		 	command.add("c:/Temp/MentoMenti.exe");
+		 	command.add("./MentoMenti.exe"); // 리눅스 경로로 수정
 		 	String temp = executeCMD(command, input);
-		 	File f = new File("C:/Temp/MentoMenti.exe"); // 파일 삭제
+		 	File f = new File(doc + "/MentoMenti.exe"); // 파일 삭제
 		 	f.delete();
 		 	
 		 	return temp;
@@ -73,17 +84,15 @@ public class WebCompiler {
 		ArrayList<String> cmd = new ArrayList<String>();
 		if (mode.contentEquals("python")){
 		 	cmd.add("python"); 
-		 	cmd.add("C:/Temp/MentoMenti.py");
+		 	cmd.add(doc + "/MentoMenti.py");
 		} else if (mode.contentEquals("C")) {
 			cmd.add("gcc");
 			cmd.add("-o");
-			cmd.add("C:/Temp/MentoMenti.exe");
-			cmd.add("C:/Temp/MentoMenti.c"); 
+			cmd.add(doc + "/MentoMenti.exe");
+			cmd.add(doc + "/MentoMenti.c"); 
 		} else if (mode.contentEquals("java")) {
 			cmd.add("javac");
-			cmd.add("C:/Temp/MentoMenti.java");
-			cmd.add("--release");
-			cmd.add("8");
+			cmd.add("MentoMenti.java");
 		}
 		return cmd;
 	}
@@ -92,13 +101,13 @@ public class WebCompiler {
 		/* 컴파일러에 맞추어서 파일 저장 */
 		FileWriter fw = null;
 		if (mode.contentEquals("python")) {
-		 	fw = new FileWriter("C:/Temp/MentoMenti.py");
+		 	fw = new FileWriter(doc + "/MentoMenti.py");
 		 	fw.write(SRC);
 		} else if (mode.contentEquals("C")) {
-		 	fw = new FileWriter("C:/Temp/MentoMenti.c");
+		 	fw = new FileWriter(doc + "/MentoMenti.c");
 		 	fw.write(SRC);
 		} else if (mode.contentEquals("java")) {
-		 	fw = new FileWriter("C:/Temp/MentoMenti.java");
+		 	fw = new FileWriter(doc + "/MentoMenti.java");
 		 	fw.write(SRC);
 		}
 		
@@ -112,7 +121,7 @@ public class WebCompiler {
 	public String executeCMD(ArrayList<String> cmd, String input) throws Exception {
 		System.out.println(cmd);
 		ProcessBuilder processbuilder = new ProcessBuilder(cmd);
-		processbuilder = processbuilder.directory(new File("c:/Temp")); // 현재 실행폴더를 c:/Temp로 전환
+		processbuilder = processbuilder.directory(new File(doc)); // 현재 실행폴더를 c:/Temp로 전환
 		Process process = processbuilder.start();
 	 	
 	 	/* 입력 값 받고 적용하기 위한 writer 설정 */
