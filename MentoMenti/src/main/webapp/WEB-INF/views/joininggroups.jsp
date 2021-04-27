@@ -22,27 +22,9 @@
 
 <style>
 .text1 {
-	font-family: 'Source Code Pro', monospace;
-}
-
-.text2 {
-	font-family: 'Source Code Pro', monospace;
-}
-
-
-h1.text1 {
 	font-family: 'Nanum Gothic', sans-serif;
 	position: relative;
 	margin-bottom:20px;
-}
-
-h1.text2 {
-	font-size: 30px;
-	COLOR: #000000;
-	left: 700;
-	top: -603;
-	margin-bottom: 30;
-	position: relative;
 }
 
 .wrapContents {
@@ -63,6 +45,7 @@ h1.text2 {
 }
 </style>
 
+
 <title>MOCO</title>
 
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
@@ -78,14 +61,15 @@ h1.text2 {
 
 <%@include file="menuPart1.jsp"%>
 
-		<div class="d-sm-flex align-items-center justify-content-between mb-4"
-			id="pageHeading">
-		</div>
-<div class="wrapContents">
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4"
+	id="pageHeading"></div>
+	
+<div class="wrapContents" style="width:100%">
 	<div class="content1">
-		<h1 class="text1">Mento Groups</h1>
+		<h4 class="text1">Mento Groups</h4>
 		<img src="resources/img/mento.png"
-			style="display: block; margin-left: 160px; width: 250px; height: 250px; position: relative;">
+			style="display: block; width: 250px; height: 250px; position: relative; margin:0 auto">
 
 		<%
 			//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
@@ -106,10 +90,10 @@ h1.text2 {
 			loginGroup = HomeController.dao.getGroupDAO().selectGroups().get(0);
 		}
 		%>
-		<table class="table table-bordered dataTable" id="dataTable"
-			width="100%" cellspacing="0" role="grid"
+		
+		<table class="table table-bordered dataTable" id="dataTable"  cellspacing="0" role="grid"
 			aria-describedby="dataTable_info"
-			style="width: 350; background: white; position: relative; margin-top: 50px; margin-left: 55; text-align: center;">
+			style="width:90%; background: white; position: relative; text-align: center; margin-top:30px">
 
 			<thead>
 				<tr role="row">
@@ -119,11 +103,7 @@ h1.text2 {
 
 				</tr>
 			</thead>
-
-
 			<thead>
-
-
 				<%
 					List<GroupDTO> mentoGroups = HomeController.dao.getGroupDAO().searchMentoGroupsByUserId(id);
 				for (GroupDTO mg1 : mentoGroups) {
@@ -144,15 +124,13 @@ h1.text2 {
 
 
 	<div class="content2">
-		<h1 class="text1">Menti Groups</h1>
-
+		<h4 class="text1">Menti Groups</h4>
 		<img src="resources/img/menti.png"
-			style="display: block; margin-left: 670px; width: 250px; height: 250px; top: -600px; position: relative;">
+			style="display: block; width: 250px; height: 250px; position: relative; margin:0 auto">
 
-		<table class="table table-bordered dataTable" id="dataTable"
-			width="100%" cellspacing="0" role="grid"
+		<table class="table table-bordered dataTable" id="dataTable" cellspacing="0" role="grid"
 			aria-describedby="dataTable_info"
-			style="width: 350; background: white; position: relative; top: -552; left: 610; text-align: center;">
+			style="width:90%; background: white; position: relative; text-align: center; margin-top:30px">
 
 			<thead>
 				<tr role="row">
@@ -182,7 +160,6 @@ h1.text2 {
 			</thead>
 
 		</table>
-
 	</div>
 </div>
 
