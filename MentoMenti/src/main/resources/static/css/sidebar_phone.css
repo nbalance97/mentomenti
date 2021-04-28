@@ -1,14 +1,22 @@
-/*PC 환경 사이드바*/
+@charset "UTF-8";
+
+/* 모바일/태블릿 환경 사이드바 관련 요소 */
+
+
+/*.sidebar이 부트스트랩 css와 충돌나서 다시 지정*/
+.sidebar{
+	width:100%;
+	min-height:200px;
+	text-align:center;
+}
+
 .sidebar2{
 	z-index:10000;
 	position : fixed;
-	left : -250px;
-	top: 0px;
-	width : 250px;
-	height : 100%;
+	width : 100%;
 	background : rgba(0,0,0);
-	transition: all .5s ease;
 }
+
 .sidebar2 header{
 	font-size : 22px;
 	color : white;
@@ -17,14 +25,14 @@
 	background : rgba(0,0,0,0.8);
 	user-select : none;
 }
+
 .sidebar2 ul a{
 	display : block;
 	height : 50px;
 	width : 100%;
-	line-height : 65px;
+	line-height : 55px;
 	font-size : 15px;
 	color : white;
-	padding-left : 40px;
 	box-sizing : border-box;
 	border-top : 1px solid rgba(255,255,255,.1);
 	text-decoration: none;
@@ -32,17 +40,14 @@
 }
 
 .sidebar2 ul li:hover a{
-	padding-left: 50px;
+	padding-left: 20px;
 
 }
 
 .sidebar2 ul a i{
-	margin-right : 16px;
+	
 }
 
-
-
-/* PC 환경 사이드바 버튼 */
 #check{
 	display:none;
 }
@@ -56,27 +61,23 @@ label #btn, label #cancel{
 
 label #btn{
 	z-index : 10001;
-	left: 40px;
+	left: 30px;
 	top : 15px;
 	font-size : 35px;
 	color: white;
 	padding : 4px 9px;
-	transition : all .5s;
 }
 
 label #cancel{
 	z-index : 10001;
 	left : -195px;
 	top : 15px;
-	font-size : 30px;
+	font-size : 35px;
 	color : #0a5275;
 	padding : 4px 9px;
-	transition : all .5s ease;
 }
 
-#check:checked ~ .sidebar2{
-	left:0px;
-}
+
 
 #check:checked ~ label #btn{
 	left:250px;
@@ -85,14 +86,24 @@ label #cancel{
 }
 
 #check:checked ~ label #cancel{
-	left:195px;
+	left:30px;
 }
 
-#check:checked ~ section{
-	margin-left:250px;
+#contentSection{
+	transition:all 0s;
 }
 
+.sidebar2{
+	display:none;
+}
+
+
+#check:checked ~ .sidebar2{
+	display:block;
+}
+
+/*메뉴로 본문 내용이 가리지 않게 임시로*/
 #check:checked ~ #contentSection{
-	margin-left:250px;
-	width:80%;
+	margin-top:250px;
+	
 }
