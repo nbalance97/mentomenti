@@ -7,7 +7,7 @@
 	width : 250px;
 	height : 100%;
 	background : rgba(0,0,0);
-	transition: all .5s ease;
+	transition: all .6s ease;
 }
 .sidebar2 header{
 	font-size : 22px;
@@ -28,7 +28,7 @@
 	box-sizing : border-box;
 	border-top : 1px solid rgba(255,255,255,.1);
 	text-decoration: none;
-	transition : .4s;
+	transition : .5s;
 }
 
 .sidebar2 ul li:hover a{
@@ -74,6 +74,8 @@ label #cancel{
 	transition : all .5s ease;
 }
 
+
+/*버튼 클릭 시 변화*/
 #check:checked ~ .sidebar2{
 	left:0px;
 }

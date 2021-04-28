@@ -41,3 +41,17 @@ section{
     padding:0 5%;
 	transition:all .5s;
 }
+
+
+@media screen and (min-width:768px){
+	/*검색창*/
+	#searchText{
+		width:200px;
+	}
+}
+
+@media screen and (max-width:767px){
+	#searchText{
+		width:150px;
+	}
+}

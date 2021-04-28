@@ -37,7 +37,7 @@
 				action="notice" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small" name="keyword"
-						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2">
+						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
