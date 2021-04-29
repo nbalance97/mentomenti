@@ -56,7 +56,7 @@
                                     		
                                         	<div class="form-group">
                                         	<!-- 비밀번호 입력 -->
-                                            	<input type="text" class="form-control form-control-user" name="pw" id="pw" placeholder="비밀번호">
+                                            	<input type="password" class="form-control form-control-user" name="pw" id="pw" placeholder="비밀번호">
                                         	</div>
                                         	<div class="form-group">
                                         		<input type="text" class="form-control form-control-user" name="name" id="name" placeholder="이름">
@@ -70,17 +70,17 @@
                                         		<div style="margin-top:2%;">생</div>
                                         		<div style="margin-top:2%;">일</div>
                                         		<div>&nbsp;</div>
-                                        		<select name="year" id="year" title="년도" class="custom-select"></select>
-												<select name="month" id="month" title="월" class="custom-select" onchange="f_dayofmonth()"></select>
+                                        		<select name="year" id="year" title="년도" class="custom-select" onChange=setMonthBox()></select>
+												<select name="month" id="month" title="월" class="custom-select" onclick="setDay()"></select>
 												<select name="day" id="day" title="일" class="custom-select"></select>
                                         	</div>
                                         	<div class="form-group" style="display:flex;">
-                                        		<input type="text" style="margin-top:2%;" class="form-control form-control-user" name="email1" id="email1" placeholder="이메일">
+                                        		<input type="text" style="margin-top:2%; border-radius:50px; height:50px; font-size:12px;" class="form-control " name="email1" id="email1" placeholder="이메일">
                                         		<div>&nbsp;</div>
                                         		<h5 style="margin-top:5%;">@</h5>
                                         		<div>&nbsp;</div>
-                                        		<input type="text" style="margin-top:2%;" class="form-control form-control-user" name="email2" id="email2">
-                                        		<select class="form-control form-control-user" style="margin-top:2%;"  name="email_select" id="email_select" onChange="checkemailaddy();">
+                                        		<input type="text" style="margin-top:2%; border-radius:50px; height:50px; font-size:12px;" class="form-control " name="email2" id="email2">
+                                        		<select class="form-control" style="margin-top:2%; border-radius:50px; height:50px; font-size:12px;"  name="email_select" id="email_select" onChange="checkemailaddy();">
                                         			<option value="1" selected>직접입력</option>
     												<option value="naver.com">naver.com</option>
     												<option value="hotmail.com">hotmail.com</option>
@@ -114,8 +114,6 @@
     <script src="js/sb-admin-2.min.js"></script>
 
 	<script>
-		var leapmonth;
-		
   		$(document).ready(function () {
     		setDateBox();
   		});
@@ -127,27 +125,33 @@
   		 else
   			return 0;
   		}
-  		
-  		// 년과 달을 입력하면, 한달에 몇일이 있는지 확인하는 함수입니다.
-  		function f_dayofmonth()
-  		{
-  			var select_year = document.getElementById("year").value;
+  		function setDay(){
+  			var day;
+  			var leafday;
+    		var select_year = document.getElementById("year").value;
   			var select_month = document.getElementById("month").value;
-  		 	switch (select_month){
-  		  		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-  					leapmonth = 31; break;
-  		  		case 4: case 6: case 9: case 11:
-  					leapmonth = 30; break;
-  		  		case 2:
-  					leapmonth = 28 + f_leapyear(select_year); break;
-  		 	}
+  			var leafplus = f_leapyear(select_year);
+  			
+  			if(select_month == 1 || select_month == 3 || select_month == 5 || select_month == 7 ||
+  					select_month == 8 || select_month == 10 || select_month == 12){
+  				leafday = 31;
+  			}else if(select_month == 4 || select_month == 6 || select_month == 9 || select_month == 11){
+  				leafday = 30;
+  			}else if(select_month == 2){
+  				leafday = 28 + leafplus;
+  			}
+  			
+  			$('#day').children('option:not(:first)').remove();
+  		 	for (var i = 1; i <= leafday; i++) {
+      			$("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
+    		}
+    		
   		}
   		
-  		function setDay(){
-    		var day;
-    		$("#day").append("<option value=''>일</option>");
-   		    for (var i = 1; i <= leapmonth; i++) {
-      			$("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
+  		function setMonthBox(){
+  			$('#month').children('option:not(:first)').remove();
+  			for (var i = 1; i <= 12; i++) {
+      			$("#month").append("<option value='" + i + "'>" + i + " 월" + "</option>");
     		}
   		}
 
@@ -168,16 +172,16 @@
     		// 월 뿌려주기(1월부터 12월)
     		var month;
     		$("#month").append("<option value=''>월</option>");
-    		for (var i = 1; i <= 12; i++) {
-      			$("#month").append("<option value='" + i + "'>" + i + " 월" + "</option>");
-    		}
+    		//for (var i = 1; i <= 12; i++) {
+      		//	$("#month").append("<option value='" + i + "'>" + i + " 월" + "</option>");
+    		//}
 
     		// 일 뿌려주기(1일부터 31일)
     		var day;
     		$("#day").append("<option value=''>일</option>");
-   		    for (var i = 1; i <= 31; i++) {
-      			$("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
-    		}
+   		    //for (var i = 1; i <= 31; i++) {
+      		//	$("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
+    		//}
 
   		}
   		
