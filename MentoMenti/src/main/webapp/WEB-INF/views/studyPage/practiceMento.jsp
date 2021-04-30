@@ -156,7 +156,7 @@
 				</div>
 			</div>
 		</div>
-		<%@include file="studyPageFunction.jsp"%>
+		<%@include file="practiceBottomMentor.jsp"%>
 	</div>
 	
 	<!-- Library textarea에 적용하는 과정 -->
@@ -186,9 +186,9 @@
 			value: textarea3.value
 		});
 		
-		editor.setSize("100%", 150);
-		editor2.setSize("100%", 100);
-		editor3.setSize("100%", 40);
+		editor.setSize("100%", "100%");
+		editor2.setSize("100%", "100%");
+		editor3.setSize("100%", "100%");
 	</script>
 </body>
 </html>

@@ -41,7 +41,7 @@
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
 		%>
-		<%@include file="studyPageFunction.jsp"%>
+		<%@include file="studyBottomMentor.jsp"%>
 	</div>
 	
 	  <script>

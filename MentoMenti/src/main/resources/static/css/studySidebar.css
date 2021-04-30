@@ -39,9 +39,10 @@ input[id="menuicon"]+label span{
 	display:block;
 	position:absolute;
 	width:100%;
-	height:5px;
+	height:7px;
 	border-radius:30px;
 	background:#fff;
+	border:1px solid black;
 	transition:all .35s;
 }
 input[id="menuicon"] + label span:nth-child(1){
@@ -86,7 +87,6 @@ input[id="menuicon"]:checked + label span:nth-child(3){
 	color:black;
 	margin-bottom:3%;
 }
-
 th, td{
 	text-align:center;
 }
