@@ -54,9 +54,10 @@
                                         			</div>
                                         		</div>
                                     		
-                                        	<div class="form-group">
+                                        	<div class="form-group" style="display:flex;">
                                         	<!-- 비밀번호 입력 -->
                                             	<input type="password" class="form-control form-control-user" name="pw" id="pw" placeholder="비밀번호">
+                                            	<input type="password" class="form-control form-control-user" name="pw_check" id="pw_check" placeholder="비밀번호확인">
                                         	</div>
                                         	<div class="form-group">
                                         		<input type="text" class="form-control form-control-user" name="name" id="name" placeholder="이름">
@@ -221,6 +222,11 @@
 			}
 			else if(!regPw.test(form.pw.value)){
 				alert("비밀번호는 영문, 숫자, 특수문자의 조합이여야합니다.");
+				form.pw.focus();
+				return false;
+			}
+			if(form.pw.value!=form.pw_check.value){
+				alert("비밀번호를 확인해주세요");
 				form.pw.focus();
 				return false;
 			}
