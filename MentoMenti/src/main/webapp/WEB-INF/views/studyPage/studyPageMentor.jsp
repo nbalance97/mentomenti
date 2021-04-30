@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <!DOCTYPE html>
 <html>
@@ -34,12 +36,23 @@
 		<%
 			//방만들기 클릭시 class대한 세션설정 필요?
 			//클래스아이디 받아오기
-			//해당 클래스아이디의 그룹아이디 찾기
+			
+			//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
+			int groupid = Integer.parseInt(request.getParameter("groupid"));
+			GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
 			//해당 그룹의 멘토아이디 받아오기
+			String mentoid = group.getMentoid();
+			
 			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
 			System.out.println(id);
+			
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
+			if (mentoid.equals(id)){
+				//멘토
+			} else {
+				//멘티인지 확인
+			}
 		%>
 		<%@include file="studyBottomMentor.jsp"%>
 	</div>

@@ -55,6 +55,9 @@
 						</a> <a class="collapse-item" id="colItems" href="joininggroups"> <i
 							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>가입한 그룹
 						</a>
+						<a class="collapse-item" id="colItems" href="createGroupPage"> <i
+							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>그룹 개설
+						</a>
 					</div>
 				</div></li>
 

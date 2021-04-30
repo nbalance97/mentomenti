@@ -160,7 +160,7 @@
 		<div style="text-align:center; height:200px;">
 		
 		<form>
-			<a href="studyPage/studyPageMentor">
+			<a href="studyPage/studyPageMentor?groupid=<%=group.getGroupid()%>">
 			<input type="button" class="btn btn-primary"
 				style="width: 40%; margin-bottom: 10px; margin-top: 20px" value="입장">
 			</a>

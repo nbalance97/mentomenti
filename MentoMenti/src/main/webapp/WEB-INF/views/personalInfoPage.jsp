@@ -90,7 +90,7 @@
 			List<GroupDTO> mentoGroups = HomeController.dao.getGroupDAO().searchMentoGroupsByUserId(id);
 			for(GroupDTO mg: mentoGroups){
 			%>
-				<a href="#" style="text-decoration: none;"><%=mg.getName()%></a><br>
+				<a href="group?groupid=<%=mg.getGroupid()%>" style="text-decoration: none;"><%=mg.getName()%></a><br>
 			<%
 				}
 			%>
@@ -107,7 +107,7 @@
 			List<GroupDTO> joinGroups = HomeController.dao.getGroupDAO().searchJoinGroupsByUserId(id);
 			for(GroupDTO jg: joinGroups){
 			%>
-				<a href="#" style="text-decoration: none;"><%=jg.getName()%></a><br>
+				<a href="group?groupid=<%=jg.getGroupid()%>" style="text-decoration: none;"><%=jg.getName()%></a><br>
 			<%
 				}
 			%>
