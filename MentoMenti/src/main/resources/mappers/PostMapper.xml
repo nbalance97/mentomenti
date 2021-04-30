@@ -129,4 +129,11 @@
   	ORDER BY postid
   	LIMIT 5;
   </select>
+  
+  
+  <!-- 게시물 수정 반영 -->
+  <update id="updatePost" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	UPDATE post SET title=#{title}, content=#{content}
+  	WHERE postid = #{postid};
+  </update>
 </mapper>

@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
-	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -20,7 +21,6 @@
 	rel="stylesheet">
 
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
 
@@ -47,38 +47,44 @@
 <%@include file="menuPart1.jsp"%>
 
 <%
+	int postid = Integer.parseInt(request.getParameter("postid"));
+	List<PostDTO> findPost = HomeController.dao.getPostDAO().searchByPostId(postid);
+	String title = findPost.get(0).getTitle(); //기존에 작성한 제목
+	String content = findPost.get(0).getContent(); //기존에 작성한 내용
+	
+	String backToList = "";
+	if (HomeController.dao.getPostDAO().isNotice(postid)){
+		backToList = "notice";
+	} else {
+		backToList = "freeBoard";
+	}
+	
+
 	if (id == null) { //로그인 안된 상태면 로그인 페이지로 이동
 	response.sendRedirect("loginPage?mode=nidLogin");
 }
 	else {
 %>
 
-<!-- 
-<style>
-form {
-	margin-top: 100px;
-}
-</style>
--->
-
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading"> <!-- 여기에 margin-top 포함되어있음 -->
-	<h1 class="h3 mb-0 text-gray-800">게시물 작성</h1>
 </div>
 
-<form action="processWritePost" name="writePostForm">
+<form action="processModifyPost" name="writePostForm" method="post">
+	<input type="text" name="postid" value="<%=postid%>" style="display:none;">
+
 	<div class="form-group">
 		<label for="title_text">제목</label>
-		<input type="text" class="form-control" id="title_text" name="title">
+		<input type="text" class="form-control" id="title_text" name="title" value="<%=title%>"></input>
 	</div>
 
 	<div class="form-group">
 		<label for="content_text">내용</label>
-		<textarea class="form-control" id="content_text" name="content" rows="10"></textarea>
+		<textarea class="form-control" id="content_text" name="content" rows="10"><%=content%></textarea>
 	</div>
 	
 	<div style="text-align:center;">
-		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="freeBoard"><button type="button" class="btn btn-secondary">목록으로</button></a>
+		<button type="button" class="btn btn-info" onclick="chkForm()">수정 완료</button>
+		<a href=<%=backToList%>><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
 

@@ -29,4 +29,6 @@ public interface PostDAO {
 	
 	List<PostDTO> curGroupNotices(int groupid) throws Exception;
 	List<PostDTO> curGroupPosts(int groupid) throws Exception;
+	
+	void updatePost(PostDTO post) throws Exception;
 }

@@ -212,6 +212,16 @@ public class HomeController {
     	return "/process/processDeletePost";
     }
     
+    @RequestMapping(value="/modifyPostPage") //게시물 수정 페이지
+    public String index38() {
+    	return "/modifyPostPage";
+    }
+    
+    @RequestMapping(value="/processModifyPost") //게시물 수정 진행
+    public String index39() {
+    	return "/process/processModifyPost";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {

@@ -81,6 +81,7 @@
 	if(post.getUserid().equals(id)){
 %>
 <div style="text-align:right;">
+	<input type="button" class="btn btn-success modifyPost" value="수정"/>
 	<input type="button" class="btn btn-danger deletePost" value="삭제"/>
 </div>
 <%
@@ -141,6 +142,10 @@
 		    	//댓글 번호, 게시물 번호 전달 (삭제 버튼 id가 댓글 번호로 설정되어 있음)
 		    	location.href = "processDeleteComment?commentid="+$(this).attr('id')+"&postid="+<%=post.getPostid()%>;
 		    }
+		});
+		
+		$(".modifyPost").on('click', function(){
+		    location.href = "modifyPostPage?postid="+<%=post.getPostid()%>;
 		});
 	});
 </script>

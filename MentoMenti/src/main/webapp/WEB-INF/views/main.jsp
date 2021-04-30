@@ -27,6 +27,7 @@
 
 </head>
 
+<!-- 스크롤 액션 -->
 <script type="text/javascript">
 function isElementUnderBottom(elem, triggerDiff) {
 	  const { top } = elem.getBoundingClientRect();
@@ -147,7 +148,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 	</div>
 	
 	
-	<div class="up-on-scroll container">
+	<div class="up-on-scroll">
 	
 		<!-- 가장 최근 공지사항 5개 -->
 		<div class="item">
