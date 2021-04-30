@@ -66,6 +66,8 @@
 </div>
 	
 <div class="wrapContents">
+
+	<!-- 자신이 멘토인 그룹 목록 -->
 	<div class="content1">
 		<h4 class="text1">Mento Groups</h4>
 		<img src="resources/img/mento.png"
@@ -81,16 +83,6 @@
 		}
 		%>
 
-		<%
-			//세션에 등록된 그룹을 이용해 사용자 정보 가져오기
-		GroupDTO findGroup = new GroupDTO(0, null, null, 0, null, null);
-		findGroup.setMaxperson(0);
-		GroupDTO loginGroup = null;
-		if (HomeController.dao.getGroupDAO().selectGroups().size() > 0) {
-			loginGroup = HomeController.dao.getGroupDAO().selectGroups().get(0);
-		}
-		%>
-		
 		<table class="table table-bordered dataTable" id="dataTable"  cellspacing="0" role="grid"
 			aria-describedby="dataTable_info"
 			style="width:90%; background: white; position: relative; text-align: center; margin-top:30px">
@@ -98,8 +90,7 @@
 			<thead>
 				<tr role="row">
 					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">그룹이름</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멤버
-						수</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘티 수</th>
 
 				</tr>
 			</thead>
@@ -109,8 +100,8 @@
 				for (GroupDTO mg1 : mentoGroups) {
 				%>
 				<tr style="width: 200px">
-					<td><a href="#" style="text-decoration: none;"><%=mg1.getName()%></a><br></td>
-					<td>현재멤버수 / <%=loginGroup.getMaxperson()%></td>
+					<td><a href="group?groupid=<%=mg1.getGroupid()%>" style="text-decoration: none;"><%=mg1.getName()%></a><br></td>
+					<td>현재멤버수 / <%=mg1.getMaxperson()%></td>
 				</tr>
 				<%
 					}
@@ -123,6 +114,7 @@
 	</div>
 
 
+	<!-- 멘티로 참여한 그룹 목록 -->
 	<div class="content2">
 		<h4 class="text1">Menti Groups</h4>
 		<img src="resources/img/menti.png"
@@ -134,10 +126,8 @@
 
 			<thead>
 				<tr role="row">
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">그룹이름</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘토
-						이름</th>
-
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">그룹 이름</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘토 이름</th>
 				</tr>
 			</thead>
 
@@ -150,8 +140,8 @@
 				for (GroupDTO mg2 : mentoGroups2) {
 				%>
 				<tr style="width: 200px">
-					<td><a href="group" style="text-decoration: none;"><%=mg2.getName()%></a><br></td>
-					<td>현재멤버수 / <%=loginGroup.getMaxperson()%></td>
+					<td><a href="group?groupid=<%=mg2.getGroupid()%>" style="text-decoration: none;"><%=mg2.getName()%></a><br></td>
+					<td><%=mg2.getMentoid()%></td>
 				</tr>
 				<%
 					}

@@ -222,6 +222,11 @@ public class HomeController {
     	return "/process/processModifyPost";
     }
     
+    @RequestMapping(value="/rejectedAccess") //접근 권한 없음 알림 페이지
+    public String index40() {
+    	return "/process/rejectedAccess";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {

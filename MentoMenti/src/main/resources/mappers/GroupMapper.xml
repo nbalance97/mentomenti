@@ -37,6 +37,7 @@
   	WHERE category != 'C언어' and category != 'Java' and category != 'Python';
   </select>
   
+  <!-- 그룹 생성 -->
   <insert id="insertGroup" parameterType="Mento.Menti.Project.dto.GroupDTO">
   	INSERT INTO mmgroup
   	VALUES (null, #{name}, #{mentoid}, #{maxperson}, #{category}, #{intro});
@@ -61,5 +62,12 @@
     SELECT *
     FROM mmgroup
     WHERE name LIKE '%${kwd}%';
+  </select>
+  
+  <!-- 그룹 아이디로 그룹 찾기 -->
+  <select id="searchGroupByGroupid" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="int">
+    SELECT *
+    FROM mmgroup
+    WHERE groupid = #{groupid};
   </select>
 </mapper>

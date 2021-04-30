@@ -22,13 +22,6 @@
 	margin-bottom:20px;
 }
 
-.text3 {
-	font-family: 'Nanum Gothic', sans-serif;
-}
-
-.text4 {
-	font-family: 'Nanum Gothic', sans-serif;
-}
 
 /*수평 정렬*/
 .wrapContents{
@@ -65,12 +58,25 @@
 
 <%@include file="menuPart1.jsp"%>
 
-
 <%
-	//나중에 특정 그룹 정보 불러오는 것으로 바꿀 것
-	List<GroupDTO> groupList = HomeController.dao.getGroupDAO().selectGroups();
-	GroupDTO group = groupList.get(0);	//임시로 첫번째 그룹으로 해둠
+	int groupid = Integer.parseInt(request.getParameter("groupid"));
+	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+	List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());	//그룹에 참여한 멘티 목록
+	
+	//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+	boolean isMember = false;
+	if (group.getMentoid().equals((String)session.getAttribute("userID")))	//개설한 그룹인 경우
+		isMember = true;
+	for (GroupmateDTO gl: groupmateList){	//가입한 그룹인 경우
+		if (gl.getId().equals((String)session.getAttribute("userID")))
+			isMember = true;
+	}
+	if (!isMember){	//해당 그룹의 멤버가 아니라면 접근 거부
+		response.sendRedirect("rejectedAccess?type=notMember");
+	}
 %>
+
+
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
@@ -97,7 +103,6 @@
 					<td><%=group.getMentoid()%></td>
 				</tr>
 				<%
-					List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
 					for(GroupmateDTO gl: groupmateList) {
 				%>
 					<tr>
