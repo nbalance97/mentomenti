@@ -227,6 +227,11 @@ public class HomeController {
     	return "/process/rejectedAccess";
     }
     
+    @RequestMapping(value="/notifications") //알림 목록 페이지
+    public String index41() {
+    	return "/notificationListPage";
+    }
+    
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {

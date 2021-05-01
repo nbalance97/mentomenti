@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page
+	import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO"%>
+<%@ page import="java.util.List"%>
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 	
@@ -16,6 +21,10 @@
 
 <body id="page-top">
 
+	<%
+	String id = (String)session.getAttribute("userID");	//세션에서 아이디 받아오기
+	%>
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -30,59 +39,13 @@
 					class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow sticky-top"
 					style="position: fixed; width: 100%; background: #002266">
 
-					<!-- Topbar Navbar -->
-					<ul class="navbar-nav ml-auto">
-
-						<!-- Nav Item - Alerts -->
-						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
-								<span class="badge badge-danger badge-counter">3</span>
-						</a> <!-- Dropdown - Alerts -->
-							<div
-								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="alertsDropdown">
-								<h6 class="dropdown-header" style="background:black; border: 1px solid black;">알림</h6>
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-primary">
-											<i class="fas fa-file-alt text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">2021/03/30 15:19</div>
-										<span>"자바를 자바" 그룹의 수업이 시작되었습니다.</span>
-									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-success">
-											<i class="fas fa-donate text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">2021/03/27 08:40</div>
-										<span>"C언어 초보" 그룹에 새로운 공지가 올라왔습니다.</span>
-									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="mr-3">
-										<div class="icon-circle bg-warning">
-											<i class="fas fa-exclamation-triangle text-white"></i>
-										</div>
-									</div>
-									<div>
-										<div class="small text-gray-500">2021/03/25 11:30</div>
-										"웹 개발 스터디" 그룹의 인원이 마감되었습니다.
-									</div>
-								</a> <a class="dropdown-item text-center small text-gray-500"
-									href="#">모든 알림 보기</a>
-							</div></li>
+						<!-- 알림 아이콘 -->
+						<%@include file="topbarNotification.jsp"%>
 
 						<!-- 쪽지 아이콘 삭제 -->
 
 						<div class="topbar-divider d-none d-sm-block"></div>
 						<%
-							String id = (String)session.getAttribute("userID");	//세션에서 아이디 받아오기
 							
 							if (id == null){	//로그인 하지 않은 상태
 						%>
