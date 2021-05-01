@@ -54,7 +54,7 @@
 				//멘티인지 확인
 			}
 		%>
-		<%@include file="studyBottomMentor.jsp"%>
+		<%@include file="studyBottomMentee.jsp"%>
 	</div>
 	
 	  <script>

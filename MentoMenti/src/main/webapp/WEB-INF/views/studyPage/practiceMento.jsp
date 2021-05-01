@@ -37,6 +37,7 @@
 		height:82vh;
 		float:left;
 		width:48%;
+		border-style:dotted;
 	}
 	.codingFunc{
 		width:48%;
@@ -92,7 +93,7 @@
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
 			<div class="problemImg shadow img-rounded">
-				<h1>problem</h1>
+				<h1>문제를 게시해주세요</h1>
 			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
@@ -112,7 +113,7 @@
 					</select>
 				</div>
 				<form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?mode=<%=mode%>">
-					<div class="compiler shadow img-rounded" style="padding:5px">
+					<div class="compiler img-rounded" style="padding:5px">
 							<label>Code Input</label>
 							<input type="submit" value="Execute">
 							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"><%
@@ -125,7 +126,7 @@
 							%></textarea> 
 					</div>
 			
-					<div class="input shadow img-rounded" style="padding:5px">
+					<div class="input img-rounded" style="padding:5px">
 						<label>stdin : </label>
 						<textarea style="width:100%; height:100%;" name="InputText" id="input"><%
 								if (input != null) {
@@ -135,7 +136,8 @@
 					</div>
 				</form>
 			
-				<div class="result shadow img-rounded" style="padding:5px">
+				<div class="result img-rounded" style="padding:5px">
+					<label>result : </label>
 					<textarea style="width:100%; height:100%;" name="ResultText" id="result"><%
 						if (SRC != null) {
 							String temp = null;
@@ -156,7 +158,7 @@
 				</div>
 			</div>
 		</div>
-		<%@include file="practiceBottomMentor.jsp"%>
+		<%@include file="practiceBottomMentee.jsp"%>
 	</div>
 	
 	<!-- Library textarea에 적용하는 과정 -->
