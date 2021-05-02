@@ -28,6 +28,7 @@
 			
 		}
 	}
+	
 	const muter = document.querySelector("#muter");
 	muter.addEventListener("click", (e) => {
 	  ["fa-microphone", "fa-microphone-slash"].forEach(
