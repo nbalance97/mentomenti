@@ -51,7 +51,11 @@
 		<tr><td>
 			<div style="overflow:hidden;">
 				<div style="float:left; width:100px; text-align:center;">
+				
+				
 					<img src="resources/img/icon_comment.png" style="width:80px"/>
+				
+				
 				</div>
 				<div style="float:left; width:85%; padding:15px; text-align:left;">
 					<div style="margin-bottom:10px"><%=n.getContent()%></div>

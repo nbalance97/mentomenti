@@ -57,7 +57,7 @@
   	WHERE groupid IN (SELECT groupid from groupmate where id = #{id});
   </select>
   
-  <!-- 그룹 이름 검색하기 -->
+  <!-- 그룹 이름으로 검색하기 -->
   <select id="searchGroupsByName" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="String">
     SELECT *
     FROM mmgroup
@@ -70,4 +70,10 @@
     FROM mmgroup
     WHERE groupid = #{groupid};
   </select>
+  
+  <!-- 그룹 해체 -->
+  <delete id="deleteGroup" parameterType="int">
+  	delete FROM mmgroup
+  	WHERE groupid = #{groupid};
+  </delete>
 </mapper>

@@ -42,7 +42,6 @@
 </style>
 
 
-
 <title>MOCO</title>
 
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
@@ -50,9 +49,9 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/sidebar.css" rel="stylesheet" type="text/css">
 <link href="resources/css/component.css" rel="stylesheet"
 	type="text/css">
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
 </head>
 
@@ -77,10 +76,15 @@
 %>
 
 
-
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800"><%=group.getName() %></h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="overflow:hidden;" id="pageHeading">
+	<h1 class="h3 mb-0 text-gray-800" style="float:left"><%=group.getName() %></h1>
+	<%
+		if (group.getMentoid().equals(id)){	//자신이 개설한 그룹은 해체 버튼 있음
+	%>
+	<input type="button" class="btn btn-warning deleteGroup" value="그룹 해체하기"
+		style="float:right; font-size:14px; padding:3px; background:#BDBDBD; border:1px solid #BDBDBD"/>
+	<%}%>
 </div>
 <hr>
 
@@ -207,6 +211,17 @@
 		</table>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".deleteGroup").on('click', function(){
+		    if (confirm("그룹을 해체하시겠습니까? (해체한 그룹은 되돌릴 수 없습니다.)")) {
+		    	//그룹 번호 전달
+		    	location.href = "processDeleteGroup?groupid="+<%=group.getGroupid()%>;
+		    }
+		});
+	});
+</script>
 
 <%@include file="menuPart2.jsp"%>
 </html>

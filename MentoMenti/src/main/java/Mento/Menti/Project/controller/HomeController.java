@@ -232,6 +232,10 @@ public class HomeController {
     	return "/notificationListPage";
     }
     
+    @RequestMapping(value="/processDeleteGroup") //그룹 해체 진행
+    public String index42() {
+    	return "/process/processDeleteGroup";
+    }
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {
