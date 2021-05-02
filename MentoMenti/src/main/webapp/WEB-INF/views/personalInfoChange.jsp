@@ -24,12 +24,7 @@
 
 <script type="text/javascript">
 	var isPwChecked = false;
-
-	function changeImage() {
-		alert("프로필 이미지 변경");
-		//이미지 불러오기
-	}
-
+	
 	//비밀번호 확인
 	function chkPw() {
 		var pw1 = document.getElementById("new_pw_text").value;
@@ -92,12 +87,35 @@
 
 <div style="text-align: center">
 	<p>
-		<img src="resources/img/user.png" style="width: 150px;">
+		<%
+			//프로필 사진 존재 여부에 따라 다르게 출력
+			File pngImg = new File("resources/img/user/"+id+".png");
+			File jpgImg = new File("resources/img/user/"+id+".jpg");
+			
+			if (pngImg.exists()) {
+		%>
+			<img src=<%=pngImg %> style="width: 150px;">
+		<%
+			} else if (jpgImg.exists()){
+		%>
+			<img src=<%=jpgImg %> style="width: 150px;">
+		<%
+			} else {
+		%>
+			<img src="resources/img/user/user.png" style="width: 150px;">
+		<%
+			}
+		%>
+		
 	</p>
+	
+	
+	<form action="processPersonalInfoChange" method="post" enctype="multipart/form-data" name="changeForm">
 	<p>
 		<!-- 프로필 사진 업로드 버튼 -->
-		<a href="#" onClick="changeImage()" class="btn btn-success"
-			style="margin-bottom: 20px;">프로필 수정</a>
+		<!-- <a href="#" onClick="changeImage()" class="btn btn-success" style="margin-bottom: 20px;">프로필 수정</a> -->
+		<label for="file" class="btn btn-success" style="margin-bottom:20px;">프로필 등록</label>
+		<input type="file" name="filename" id="file" style="display:none;">
 	</p>
 
 
@@ -110,8 +128,8 @@
 		loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
 	}
 	%>
-
-	<form action="processPersonalInfoChange" method="post" name="changeForm">
+	
+	
 		<table class="table" style="width: 80%; margin: 0 auto;">
 			<tr style="width: 50px">
 				<td>이름</td>

@@ -4,6 +4,7 @@
 <%@ page
 	import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.io.*"%>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
@@ -66,7 +67,25 @@
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
 							<span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id%></span> <!-- 아이디 -->
-							<img class="img-profile rounded-circle" src="resources/img/user.png">
+								<%
+									//프로필 사진 존재 여부에 따라 다르게 출력
+									File pngImg = new File("resources/img/user/"+id+".png");
+									File jpgImg = new File("resources/img/user/"+id+".jpg");
+									
+									if (pngImg.exists()) {
+								%>
+									<img src=<%=pngImg %> class="img-profile rounded-circle">
+								<%
+									} else if (jpgImg.exists()){
+								%>
+									<img src=<%=jpgImg %> class="img-profile rounded-circle">
+								<%
+									} else {
+								%>
+									<img src="resources/img/user/user.png" class="img-profile rounded-circle">
+								<%
+									}
+								%>							
 							</a>
 							
 							<!-- Dropdown - User Information -->
