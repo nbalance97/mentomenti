@@ -40,13 +40,30 @@
 				//최근 알림 (최대 3개) 보여줌
 			List<NotificationDTO> curNoti = HomeController.dao.getNotificationDAO().selectCurNotifications((String) session.getAttribute("userID"));
 			for (NotificationDTO n : curNoti) {
-				HomeController.dao.getNotificationDAO().updateRead(n.getNotificationid());
 			%>
 			<a class="dropdown-item d-flex align-items-center" href="notifications">
 				<div class="mr-3">
 					<!-- 아이콘 나중에 바꿀지 고민 -->
 					<div class="icon-circle">
-						<img src="resources/img/icon_comment.png" width="100%" />
+										<%
+						if (n.getContent().contains("수업")) {
+					%>
+					<img src="resources/img/icon_class.png" style="width:100%"/>
+					<%
+						} else if (n.getContent().contains("그룹")) {
+					%>
+					<img src="resources/img/icon_group.png" style="width:100%"/>
+					<%
+						} else if (n.getContent().contains("축하")) {
+					%>
+					<img src="resources/img/icon_congratulations.png" style="width:100%"/>
+					<%
+						} else {
+					%>
+					<img src="resources/img/icon_comment.png" style="width:100%"/>
+					<%
+						}
+					%>
 					</div>
 				</div>
 				<div>

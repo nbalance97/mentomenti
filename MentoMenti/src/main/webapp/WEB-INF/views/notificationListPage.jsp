@@ -46,15 +46,30 @@
 			//세션 아이디에 따라 알림 가져오기
 			List<NotificationDTO> notifications = HomeController.dao.getNotificationDAO().selectNotifications(id);
 			for(NotificationDTO n: notifications) {
-				n.setIsread(true);	//읽음으로 DB 반영
+				HomeController.dao.getNotificationDAO().updateRead(n.getNotificationid());	//읽음으로 DB 반영
 		%>
 		<tr><td>
 			<div style="overflow:hidden;">
 				<div style="float:left; width:100px; text-align:center;">
-				
-				
+					<%
+						if (n.getContent().contains("수업")) {
+					%>
+					<img src="resources/img/icon_class.png" style="width:80px"/>
+					<%
+						} else if (n.getContent().contains("그룹")) {
+					%>
+					<img src="resources/img/icon_group.png" style="width:80px"/>
+					<%
+						} else if (n.getContent().contains("축하")) {
+					%>
+					<img src="resources/img/icon_congratulations.png" style="width:80px"/>
+					<%
+						} else {
+					%>
 					<img src="resources/img/icon_comment.png" style="width:80px"/>
-				
+					<%
+						}
+					%>
 				
 				</div>
 				<div style="float:left; width:85%; padding:15px; text-align:left;">
