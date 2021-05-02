@@ -272,4 +272,9 @@ public class HomeController {
     public String index90() {
     	return "/newGroupCard";
     }
+    
+    @RequestMapping(value="/bh2")
+    public String index93() {
+    	return "/BH_whiteboard";
+    }
 }
