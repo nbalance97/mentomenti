@@ -86,29 +86,25 @@
 </div>
 
 <div style="text-align: center">
-	<p>
-		<%
-			//프로필 사진 존재 여부에 따라 다르게 출력
-			File pngImg = new File("resources/img/user/"+id+".png");
-			File jpgImg = new File("resources/img/user/"+id+".jpg");
-			
-			if (pngImg.exists()) {
-		%>
-			<img src=<%=pngImg %> style="width: 150px;">
-		<%
-			} else if (jpgImg.exists()){
-		%>
-			<img src=<%=jpgImg %> style="width: 150px;">
-		<%
-			} else {
-		%>
-			<img src="resources/img/user/user.png" style="width: 150px;">
-		<%
-			}
-		%>
+	<!-- 프로필 이미지 -->
+	<%
+		File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+		File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
 		
-	</p>
-	
+		if (pngImg.exists()) {
+	%>
+		<div class="pngProfile profileImg rounded-circle" style="width: 200px; height:200px; margin-bottom: 30px"></div>
+	<%
+		} else if (jpgImg.exists()){
+	%>
+		<div class="jpgProfile profileImg rounded-circle" style="width: 200px; height:200px; margin-bottom: 30px"></div>
+	<%
+		} else {
+	%>
+		<div class="defaultProfile profileImg rounded-circle" style="width: 200px; height:200px; margin-bottom: 30px"></div>
+	<%
+		}
+	%>
 	
 	<form action="processPersonalInfoChange?userid=<%=id%>" method="post" enctype="multipart/form-data" name="changeForm">
 	<p>

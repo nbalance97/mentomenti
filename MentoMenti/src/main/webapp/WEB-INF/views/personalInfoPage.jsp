@@ -20,6 +20,7 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
 </head>
 
@@ -40,23 +41,22 @@
 </div>
 
 <div style="text-align: center">
-
+	<!-- 프로필 이미지 -->
 	<%
-		//프로필 사진 존재 여부에 따라 다르게 출력
 		File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
 		File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
 		
 		if (pngImg.exists()) {
 	%>
-		<img src="resources/img/user/<%=id%>.png" style="width: 200px; margin-bottom: 30px">
+		<div class="pngProfile profileImg rounded-circle" style="width: 200px; height:200px; margin-bottom: 30px"></div>
 	<%
 		} else if (jpgImg.exists()){
 	%>
-		<img src="resources/img/user/<%=id%>.jpg" style="width: 200px; margin-bottom: 30px">
+		<div class="jpgProfile profileImg rounded-circle" style="width: 200px; height:200px; margin-bottom: 30px"></div>
 	<%
 		} else {
 	%>
-		<img src="resources/img/user/user.png" style="width: 200px; margin-bottom: 30px">
+		<div class="defaultProfile profileImg rounded-circle" style="width: 200px; height:200px; margin-bottom: 30px"></div>
 	<%
 		}
 	%>
