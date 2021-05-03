@@ -18,4 +18,6 @@ public interface GroupDAO {
 	List<GroupDTO> searchGroupsByName(String kwd) throws Exception;
 	
 	GroupDTO searchGroupByGroupid(int groupid) throws Exception;
+	
+	void deleteGroup(int groupid) throws Exception;
 }

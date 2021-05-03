@@ -77,3 +77,13 @@ create table comment(
 	constraint t1 foreign key(postid) references post(postid) on delete cascade,
 	constraint t2 foreign key(writerid) references user(id) on delete cascade
 );
+
+create table notification(
+    notificationid int primary key auto_increment,
+    receiverid varchar(20) not null,
+    sendtime datetime not null,
+    content text not null,
+    isread boolean not null,
+    constraint notification_fk
+	foreign key(receiverid) references user(id) on delete cascade
+);

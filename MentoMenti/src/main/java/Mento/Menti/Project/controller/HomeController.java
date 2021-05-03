@@ -1,11 +1,17 @@
 package Mento.Menti.Project.controller;
  
 import Mento.Menti.Project.controller.DAOConfiguration;
+
+import java.io.File;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -23,6 +29,23 @@ public class HomeController {
     @RequestMapping(value="/")
     public String index() {    
         return "loginPage";
+    }
+    
+    
+    @RequestMapping(value="/bh3")
+    public String indexxx() {
+    	return "BH_fileupload";
+    }
+    
+    @PostMapping("/upload")
+    public String fileUpload_example(@RequestParam("files") MultipartFile file) throws Exception {
+    	String root = System.getProperty("user.dir"); // Project의 root directory
+    	String uploadPath = "src/main/resources/uploaded";
+    	String filePath = root + "/" + uploadPath + "/" + file.getOriginalFilename();
+    	File dest = new File(filePath);
+    	file.transferTo(dest);
+    	
+    	return "BH_fileupload";
     }
     
     /*
@@ -227,6 +250,15 @@ public class HomeController {
     	return "/process/rejectedAccess";
     }
     
+    @RequestMapping(value="/notifications") //알림 목록 페이지
+    public String index41() {
+    	return "/notificationListPage";
+    }
+    
+    @RequestMapping(value="/processDeleteGroup") //그룹 해체 진행
+    public String index42() {
+    	return "/process/processDeleteGroup";
+    }
     
     @RequestMapping(value="/chat") //채팅
     public String index100() {
@@ -266,5 +298,10 @@ public class HomeController {
     @RequestMapping(value="/card")
     public String index90() {
     	return "/newGroupCard";
+    }
+    
+    @RequestMapping(value="/bh2")
+    public String index93() {
+    	return "/BH_whiteboard";
     }
 }

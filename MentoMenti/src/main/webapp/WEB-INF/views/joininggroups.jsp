@@ -61,6 +61,13 @@
 
 <%@include file="menuPart1.jsp"%>
 
+<%
+	if (id == null){	//로그인 안된 상태면 로그인 페이지로 이동
+		response.sendRedirect("loginPage?mode=nidLogin");
+	} else {
+%>
+
+
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 </div>
@@ -152,6 +159,10 @@
 		</table>
 	</div>
 </div>
+
+<%
+	}
+%>
 
 <%@include file="menuPart2.jsp"%>
 </html>

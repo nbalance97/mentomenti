@@ -185,7 +185,7 @@
 		var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + chatMsg + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
 		$('#chat-container').append($chat);
 		//$('.chat-box').hide();
-		webSocket.send(chatMsg);
+		webSocket.send(myName + ":" + chatMsg);
 		inputMessage.value = "";
 		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
 	}

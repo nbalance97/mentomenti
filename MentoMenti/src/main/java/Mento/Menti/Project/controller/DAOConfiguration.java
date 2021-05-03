@@ -31,4 +31,7 @@ public class DAOConfiguration {
     
     @Autowired
     private PostDAO postDAO;  
+    
+    @Autowired
+    private NotificationDAO notificationDAO;
 }

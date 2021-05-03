@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Mento.Menti.Project.dao.NotificationDAO">
+	<!-- 알림 추가 -->
+	<insert id="insertNotification" parameterType="Mento.Menti.Project.dto.NotificationDTO">
+ 		INSERT INTO notification
+ 		VALUES (null, #{receiverid}, #{sendtime}, #{content}, #{isread});
+ 	</insert>
+ 	
+ 	<!-- 세션 아이디에 따라 알림 불러오기 -->
+ 	<select id="selectNotifications" resultType="Mento.Menti.Project.dto.NotificationDTO" parameterType="String">
+ 		SELECT *
+ 		FROM notification
+ 		WHERE receiverid = #{receiverid}
+ 		ORDER BY notificationid DESC;
+ 	</select>
+ 	
+ 	<!-- 세션 아이디에 따라 알림 최대 3개 불러오기 -->
+ 	<select id="selectCurNotifications" resultType="Mento.Menti.Project.dto.NotificationDTO" parameterType="String">
+ 		SELECT *
+ 		FROM notification
+ 		WHERE receiverid = #{receiverid}
+ 		ORDER BY notificationid DESC
+ 		LIMIT 3;
+ 	</select>
+ 	
+ 	<update id="updateRead" parameterType="int">
+ 		UPDATE notification
+ 		SET isread = true
+ 		WHERE notificationid = #{notificationid};
+ 	</update>
+ 	
+ 	<!-- 읽지 않은 알림 개수 -->
+ 	<select id="countNotRead" resultType="int" parameterType="String">
+ 		SELECT COUNT(*)
+ 		FROM notification
+ 		WHERE receiverid = #{receiverid} and isread = false;
+ 	</select>
+</mapper>

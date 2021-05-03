@@ -7,6 +7,7 @@ var bufCtx;
 var commandHistory = [];
 var redoHistory = [];
 
+
 var paintMode = [
   "point",
   "line",
@@ -22,14 +23,15 @@ var toolTable = {
   rect: 2,
   ellipse: 3
 };
-
+/*
 var pointShape = {
   mouseDown: pointMouseDown,
   mouseMove: pointMouseMove,
   mouseUp: pointMouseUp
 };
 
-var shapeList = [pointShape];
+var shapeList = [pointShape]; 
+*/
 
 var paintMouseDownAction = {
   point: pointMouseDown,
@@ -207,6 +209,7 @@ function pointMouseDown(event) {
   if (pos.isDraw) {
     return;
   }
+
   pos.isDraw = true;
   cvs.beginPath();
   cvs.strokeStyle = pos.color;
@@ -222,10 +225,11 @@ function pointMouseDown(event) {
   addHistory(newPoint.toCommand());
 }
 
-function pointMouseMove(event) {
+function pointMouseMove(event) { // 이부분 좀 수정함
   var currentPos = getMousePosition(event);
-
   cvs.lineTo(currentPos.X, currentPos.Y);
+  cvs.lineWidth = 3;
+  cvs.lineCap = 'round';
   cvs.stroke();
 
   var newPoint = drwaCommand();
@@ -234,7 +238,17 @@ function pointMouseMove(event) {
   newPoint.X2 = { X: currentPos.X, Y: currentPos.Y };
   commandHistory.push(newPoint.toCommand());
   addHistory(newPoint.toCommand());
-
+  
+  send({
+	  event: "recv_paint",
+	  x1: pos.X,
+	  y1: pos.Y,
+	  x2: currentPos.X,
+	  y2: currentPos.Y,
+	  force: cvs.lineWidth,
+	  color: pos.color
+  });
+  
   pos.X = currentPos.X;
   pos.Y = currentPos.Y;
 }

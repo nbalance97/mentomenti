@@ -36,7 +36,7 @@
 		<%
 			//방만들기 클릭시 class대한 세션설정 필요?
 			//클래스아이디 받아오기
-			
+			/*
 			//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
 			int groupid = Integer.parseInt(request.getParameter("groupid"));
 			GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
@@ -44,6 +44,11 @@
 			String mentoid = group.getMentoid();
 			
 			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
+			
+			if (id == null) { // id null값이면 튕겨나가도록
+				//response.sendRedirect("https://kgu.mentomenti.kro.kr");
+			}
+			
 			System.out.println(id);
 			
 			//멘토아이디와 접속한 아이디 비교
@@ -53,6 +58,7 @@
 			} else {
 				//멘티인지 확인
 			}
+			*/
 		%>
 		<%@include file="studyBottomMentee.jsp"%>
 	</div>
@@ -62,16 +68,38 @@
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
 		var dataChannel;
 	    var myoffer;
-		//var input = document.getElementById("messageInput");
-		var v1 = document.getElementById("v1");
-		var share = document.getElementById("share");
 		var pc = {};
 		var dc = {};
 		var share = {};
 		var renegotiationflg = false;
+		var v1 = document.getElementById("v1");
+		var refreshTimer = setInterval("checkConnection()", 5000); // 5초간격으로 유저 확인
 		
-		function play() {
-			v1.play();
+		function addMemberToList(id, idx) {
+			$('<tr>'+
+			'<td>'+idx+'</td>'+
+			'<td>'+id+'</td>'+
+			'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
+			'<td><button type="button" class="btn btn-info">이동</button></td>'+
+			'</tr>').appendTo('#MemberTable');
+		}
+		
+		function checkConnection() {
+			var idx = 1;
+			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
+			addMemberToList(myName, idx++);
+			for (var key in pc) {
+				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
+						|| pc[key].connectionState === "closed") {
+					delete(pc[key]);
+					delete(dc[key]);
+					delete(share[key]);
+				} else {
+					addMemberToList(key, idx++);
+				}
+			}
+			
+			
 		}
 		
 		conn.onopen = function() { // 소켓 열었을때
@@ -115,6 +143,10 @@
 		    }
 		}
 		
+		function checkMember() {
+			
+		}
+		
 		function isOpen(ws) { 
 			return ws.readyState === ws.OPEN; 
 		}
@@ -128,14 +160,14 @@
 		function createPeerConnection(target) {
 			var configuration = {
 				    "iceServers" : [ {
-				        "url" : "stun:stun2.1.google.com:19302"
-				    },
-				    {
-				 	"url" : "turn:kgu.mentomenti.kro.kr?transport=tcp",
-				 	"username":"root",
-				 	"credential":"1234"
-				 }
-				 ]
+				        	"url" : "stun:stun2.1.google.com:19302"
+				   		 },
+					    {
+						 	"url" : "turn:kgu.mentomenti.kro.kr?transport=tcp",
+						 	"username":"root",
+						 	"credential":"1234"
+					 	}
+				 	]
 				};
 			var peerConnection = new RTCPeerConnection(configuration);
 			peerConnection.onicecandidate = function(event) { // Handler 등록
@@ -266,11 +298,11 @@
 					screenStream.addTrack(audioStream.getAudioTracks()[0]);
 					v1.srcObject = screenStream;
 					var obj_keys = Object.keys(pc);
+					
 					for (var i = 0; i<obj_keys.length; i++) {
 						renegotiationflg = true;
 						(function (i){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
-							console.log(i);
-						    pc[obj_keys[i]].onnegotiationneeded = function() {
+							pc[obj_keys[i]].onnegotiationneeded = function() {
 						    	pc[obj_keys[i]].createOffer(async function(offer) { // offer 상대 peer에 전송
 									await send({
 										event : "rngt_offer",
@@ -285,11 +317,11 @@
 								});	
 						    };
 							
-						    if (obj_keys[i] in share)
+						    if (obj_keys[i] in share) // 이미 공유중인 상황이라면 replace
 						    	screenStream.getTracks().forEach((track) =>{
 						    		share[obj_keys[i]].replaceTrack(track);
-						    	});
-						    else {
+						    	}); 
+						    else { // 공유중이지 않다면 새로 addTrack
 								screenStream.getTracks().forEach((track) => {
 									share[obj_keys[i]] = pc[obj_keys[i]].addTrack(track, screenStream);
 								});
@@ -304,7 +336,7 @@
 				//error;
 			}); 
 		}
-
+		
 	</script>
 </body>
 </html>

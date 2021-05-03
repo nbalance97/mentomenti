@@ -33,7 +33,7 @@
 		if (isNotice) { //공지사항
 			pw.print("<script>window.location=\"noticeContent?postid="+postid+"\"</script>;");
 		} else{	//자유게시판
-			pw.print("<script>window.location=\"freeBoardContent?postid="+postid+"\"</script>;");
+			pw.print("<script>window.location=\"postContent?postid="+postid+"\"</script>;");
 		}
 	%>
 </body>

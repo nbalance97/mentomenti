@@ -14,8 +14,8 @@
 				<th>1:1</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
+		<tbody id="MemberTable">
+			<!--  <tr>
 				<td>1</td>
 				<td>cat5566</td>
 				<td><i class="fas fa-exchange-alt stateIcon fa-2x"></i></td>
@@ -27,6 +27,7 @@
 				<td><i class="far fa-question-circle stateIcon fa-2x"></i></td>
 				<td><button type="button" class="btn btn-info">이동</button></td>
 			</tr>
+			-->
 		</tbody>
 	</table>
 </div>

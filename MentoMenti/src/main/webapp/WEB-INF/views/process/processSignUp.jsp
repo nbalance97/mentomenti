@@ -4,6 +4,9 @@
 <%@ page import="Mento.Menti.Project.dto.*, Mento.Menti.Project.dao.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.text.NumberFormat" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,8 +48,23 @@
 		user.setIntro(intro);
 		user.setJoindate(joindate);
 		
-		
+		//user에 계정 추가
 		HomeController.dao.getUserDAO().insertUsers(user);
+		
+		//notification에 회원가입 축하 알림 추가
+		int curHour = cal.get(cal.HOUR_OF_DAY);
+		int curMin = cal.get(cal.MINUTE);
+		int curSec = cal.get(cal.SECOND);
+		DecimalFormat df = new DecimalFormat("00");	//두 자리로 형식 맞춤
+		String joinDatetime = joindate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
+		NotificationDTO notification = new NotificationDTO();
+		notification.setReceiverid(id);
+		notification.setSendtime(joinDatetime);
+		notification.setContent("MOCO 회원가입을 축하합니다!");
+		notification.setIsread(false);
+		HomeController.dao.getNotificationDAO().insertNotification(notification);
+		
+		//로그인 페이지로 이동
 		response.sendRedirect("loginPage");
 	    /*
 	    @RequestMapping(value="/insert")
