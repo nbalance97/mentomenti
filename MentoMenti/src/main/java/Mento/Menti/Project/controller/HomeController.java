@@ -102,7 +102,7 @@ public class HomeController {
     	return "main";
     }
     
-    @RequestMapping(value="/practice")//실습화면
+    @RequestMapping(value="/practice")//실습화면-레이아웃 연습용
     public String index8() {
     	return "/studyPage/practicePage";
     }
@@ -116,7 +116,7 @@ public class HomeController {
     	return "/process/processSignUp";
     }
     
-    @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
+    @RequestMapping(value="/practiceMento")//실습화면-현재쓰는거
     public String index11() {
     	return "/studyPage/practiceMento";
     }
@@ -295,9 +295,13 @@ public class HomeController {
     	return "/process/confirmId";
     }
     
-    @RequestMapping(value="/card")
+    @RequestMapping(value="/card")//그룹 레이아웃 새로한거
     public String index90() {
     	return "/newGroupCard";
+    }
+    @RequestMapping(value="/activity")//나의 활동 = 내댓글, 게시글,,,
+    public String index91() {
+    	return "/myActivity";
     }
     
     @RequestMapping(value="/bh2")

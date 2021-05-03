@@ -136,4 +136,12 @@
   	UPDATE post SET title=#{title}, content=#{content}
   	WHERE postid = #{postid};
   </update>
+
+  <!-- 내 게시글 찾기 -->
+  <select id="searchMyPostsByUserId" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="String">
+	SELECT *
+	FROM post
+	WHERE userid = #{id};
+  </select>
+  
 </mapper>
