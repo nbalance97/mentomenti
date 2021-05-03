@@ -79,9 +79,9 @@ public class HomeController {
     	return "main";
     }
     
-    @RequestMapping(value="/practiceMentee")//실습화면-멘티레이아웃1
+    @RequestMapping(value="/practice")//실습화면
     public String index8() {
-    	return "/studyPage/practiceMentee";
+    	return "/studyPage/practicePage";
     }
     
     @RequestMapping(value="/signup")//회원가입

@@ -25,7 +25,7 @@
 		border-radius:30%;
 	}
 /*기능 추가시마다 해당 기능 클래스 이름 추가필요*/
-	.pen, .monitor, .change, .exit, .upload,.emotion,.emotionSelect{
+	.pen, .monitor, .change, .exit, .upload,.emotion{
 		padding:5px;
 	}
 	.mic{
