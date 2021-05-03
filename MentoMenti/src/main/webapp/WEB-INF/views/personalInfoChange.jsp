@@ -110,12 +110,11 @@
 	</p>
 	
 	
-	<form action="processPersonalInfoChange" method="post" enctype="multipart/form-data" name="changeForm">
+	<form action="processPersonalInfoChange?userid=<%=id%>" method="post" enctype="multipart/form-data" name="changeForm">
 	<p>
 		<!-- 프로필 사진 업로드 버튼 -->
-		<!-- <a href="#" onClick="changeImage()" class="btn btn-success" style="margin-bottom: 20px;">프로필 수정</a> -->
 		<label for="file" class="btn btn-success" style="margin-bottom:20px;">프로필 등록</label>
-		<input type="file" name="filename" id="file" style="display:none;">
+		<input type="file" id="file" name="profileImg" style="display:none;">
 	</p>
 
 
