@@ -3,6 +3,7 @@ package Mento.Menti.Project.controller;
 import Mento.Menti.Project.controller.DAOConfiguration;
 
 import java.io.File;
+import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
 
@@ -102,7 +103,7 @@ public class HomeController {
     	return "main";
     }
     
-    @RequestMapping(value="/practice")//실습화면
+    @RequestMapping(value="/practice")//실습화면-레이아웃 연습용
     public String index8() {
     	return "/studyPage/practicePage";
     }
@@ -116,7 +117,7 @@ public class HomeController {
     	return "/process/processSignUp";
     }
     
-    @RequestMapping(value="/practiceMento")//실습화면-멘티레이아웃2
+    @RequestMapping(value="/practiceMento")//실습화면-현재쓰는거
     public String index11() {
     	return "/studyPage/practiceMento";
     }
@@ -171,7 +172,32 @@ public class HomeController {
     }
     
     @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
-    public String index25() {
+    public String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
+    	//업로드 경로
+    	String root = System.getProperty("user.dir");
+    	String uploadPath = "src/main/resources/static/img/user";
+    	
+    	//기존에 있던 프로필 이미지 삭제
+    	File existsPng = new File(root + "/" + uploadPath + "/" + id + ".png");
+    	File existsJpg = new File(root + "/" + uploadPath + "/" + id + ".jpg");
+    	if(existsPng.exists()) {
+    		existsPng.delete();
+    	}
+    	if (existsJpg.exists()) {
+    		existsJpg.delete();
+    	}
+    	
+    	//업로드 이미지 확장자
+    	StringTokenizer st = new StringTokenizer(img.getOriginalFilename(), ".");
+    	String extension = null;
+    	while(st.hasMoreTokens())
+    		extension = st.nextToken();
+    	String filePath = root + "/" + uploadPath + "/" + id + "." + extension.toLowerCase();
+    	
+    	//이미지 파일 저장
+    	File dest = new File(filePath);
+    	img.transferTo(dest);
+
     	return "/process/processPersonalInfoChange";
     }
     
@@ -295,9 +321,13 @@ public class HomeController {
     	return "/process/confirmId";
     }
     
-    @RequestMapping(value="/card")
+    @RequestMapping(value="/card")//그룹 레이아웃 새로한거
     public String index90() {
     	return "/newGroupCard";
+    }
+    @RequestMapping(value="/activity")//나의 활동 = 내댓글, 게시글,,,
+    public String index91() {
+    	return "/myActivity";
     }
     
     @RequestMapping(value="/bh2")

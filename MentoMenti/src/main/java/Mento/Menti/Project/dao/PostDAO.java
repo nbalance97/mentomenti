@@ -2,6 +2,7 @@ package Mento.Menti.Project.dao;
 
 import java.util.List;
 
+import Mento.Menti.Project.dto.GroupDTO;
 import Mento.Menti.Project.dto.PostDTO;
 
 public interface PostDAO {
@@ -31,4 +32,6 @@ public interface PostDAO {
 	List<PostDTO> curGroupPosts(int groupid) throws Exception;
 	
 	void updatePost(PostDTO post) throws Exception;
+	
+	List<PostDTO> searchMyPostsByUserId(String id) throws Exception;
 }

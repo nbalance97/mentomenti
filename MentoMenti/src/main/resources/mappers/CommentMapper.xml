@@ -21,4 +21,11 @@
 		DELETE FROM comment
 		WHERE commentid = #{commentid};
 	</delete>
+	
+	<!-- 내 댓글 찾기 -->
+	<select id="searchMyCommentsByUserId" resultType="Mento.Menti.Project.dto.CommentDTO" parameterType="String">
+		SELECT *
+		FROM comment
+		WHERE writerid = #{id};
+	</select>
 </mapper>
