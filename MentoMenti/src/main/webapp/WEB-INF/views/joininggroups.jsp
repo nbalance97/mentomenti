@@ -115,7 +115,7 @@
 				%>
 
 
-			</thead>
+			</tbody>
 
 		</table>
 	</div>
@@ -139,7 +139,7 @@
 			</thead>
 
 
-			<thead>
+			<tbody>
 
 
 				<%
@@ -154,7 +154,7 @@
 					}
 				%>
 
-			</thead>
+			</tbody>
 
 		</table>
 	</div>
