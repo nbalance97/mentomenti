@@ -36,7 +36,6 @@
 		<%
 			//방만들기 클릭시 class대한 세션설정 필요?
 			//클래스아이디 받아오기
-			/*
 			//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
 			int groupid = Integer.parseInt(request.getParameter("groupid"));
 			GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
@@ -46,7 +45,7 @@
 			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
 			
 			if (id == null) { // id null값이면 튕겨나가도록
-				//response.sendRedirect("https://kgu.mentomenti.kro.kr");
+				response.sendRedirect("https://kgu.mentomenti.kro.kr");
 			}
 			
 			System.out.println(id);
@@ -58,14 +57,15 @@
 			} else {
 				//멘티인지 확인
 			}
-			*/
+			
 		%>
 		<%@include file="studyBottomMentor.jsp"%>
 	</div>
 	
 	  <script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
-	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
+	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
+	    var myGroup = <%=groupid%>;
 		var dataChannel;
 	    var myoffer;
 		var pc = {};
@@ -73,7 +73,7 @@
 		var share = {};
 		var renegotiationflg = false;
 		var v1 = document.getElementById("v1");
-		var refreshTimer = setInterval("checkConnection()", 5000); // 5초간격으로 유저 확인
+		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
 		
 		function addMemberToList(id, idx) {
 			$('<tr>'+
@@ -98,8 +98,6 @@
 					addMemberToList(key, idx++);
 				}
 			}
-			
-			
 		}
 		
 		conn.onopen = function() { // 소켓 열었을때
@@ -107,7 +105,8 @@
 			console.log("Current User:" + myName);
 			send({ // name을 server에 알려서 broadcast
 				event: "namecall",
-				data: myName 
+				data: myName,
+				group: myGroup
 			});
 			//initialize();
 		}
@@ -119,7 +118,8 @@
 		    var data = content.data;
 		    var to = content.to;
 		    
-		    if (content.event === "namecall" | content.to === myName) { 
+		    // 그룹의 새멤버 or 자신에게 향하는 패킷만 처리
+		    if ((content.event === "namecall" && content.group === myGroup) | content.to === myName) { 
 			    switch (content.event) {
 			    case "offer":
 			        handleOffer(from, to, data);
@@ -169,6 +169,7 @@
 					 	}
 				 	]
 				};
+			
 			var peerConnection = new RTCPeerConnection(configuration);
 			peerConnection.onicecandidate = function(event) { // Handler 등록
 				if (renegotiationflg)
@@ -186,7 +187,6 @@
 			setDataChannel(peerConnection, target);
 			
 			peerConnection.ontrack = function(e) {
-				console.log("Track 추적");
 				v1.srcObject = e.streams[0];
 			}
 

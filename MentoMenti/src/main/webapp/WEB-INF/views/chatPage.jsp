@@ -155,11 +155,20 @@
 		console.log(chatMsg);
 		var date = new Date();
 		var dateInfo = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+		var idx = chatMsg.indexOf("/");
+		var groupid = chatMsg.substring(0, idx); // groupid
+		var nextidx = chatMsg.indexOf("/", idx+1);
+		var senderid = chatMsg.substring(idx+1, nextidx); // 보낸 상대방 id
+		var Msg = chatMsg.substring(nextidx+1); // 실제 메세지
+		
+		if (groupid != myGroup)
+			return;
+		
 		if(chatMsg.substring(0,6) === 'server'){
 			var $chat = $("<div class='chat notice'>" + chatMsg + "</div>");
 			$('#chat-container').append($chat);
 		}else{
-			var $chat = $("<div id='other' class='chat-box'><div class='chat'>" + chatMsg + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
+			var $chat = $("<div id='other' class='chat-box'><div class='chat'>" + Msg + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
 			$('#chat-container').append($chat);
 		}
 		
@@ -185,7 +194,7 @@
 		var $chat = $("<div class='my-chat-box'><div class='chat my-chat'>" + chatMsg + "</div><div class='chat-info'>"+ dateInfo +"</div></div>");
 		$('#chat-container').append($chat);
 		//$('.chat-box').hide();
-		webSocket.send(myName + ":" + chatMsg);
+		webSocket.send(myGroup + "/" + myName + "/" + chatMsg);
 		inputMessage.value = "";
 		$('#chat-container').scrollTop($('#chat-container')[0].scrollHeight+20);
 	}
