@@ -60,7 +60,7 @@
 			}
 			*/
 		%>
-		<%@include file="studyBottomMentee.jsp"%>
+		<%@include file="studyBottomMentor.jsp"%>
 	</div>
 	
 	  <script>

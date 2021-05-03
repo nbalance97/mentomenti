@@ -9,7 +9,7 @@
 		<span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span>
 		<span class="icon"><a id="muter" href="#"><i class="fas fa-microphone fa-3x mic"></i></a></span>
 		<span class="icon"><a href="#"><i class="fas fa-upload fa-3x upload" aria-hidden="true"></i></a></span>
-		<span class="icon"><a href="https://kgu.mentomenti.kro.kr/studyPage/studyPageMentor"><i class="fas fa-exchange-alt fa-3x change"></i></a></span>
+		<span class="icon"><a onclick="moveStudy()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a></span>
 	</div>
 </div>
 <span class="exit-box"><a id="exitBtn" onclick="exit()" href="#"><i class="fas fa-sign-out-alt fa-2x exit"></i></a></span>
@@ -18,6 +18,13 @@
 	function exit(){
 		if(confirm("스터디방에서 나가시겠습니까?")){
 			location.replace("https://kgu.mentomenti.kro.kr/main");
+		}else{
+			
+		}
+	}
+	function moveStudy(){
+		if(confirm("수업페이지로 이동하시겠습니까?")){
+			location.replace("/studyPage/studyPageMentor");
 		}else{
 			
 		}
