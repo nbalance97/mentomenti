@@ -38,14 +38,21 @@
 
 	<div class="sidebar2" style="background: #002266">
 		<!-- 사이드바 메뉴 -->
-		<a href="main" style="text-decoration:none;"><header style="background: #002266">MOCO</header></a>
+		<a href="main" style="text-decoration:none;">
+			<header class="font-weight-700" style="background: #002266">MOCO</header>
+		</a>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
-			<li><a href="notice"><i class="fas fa-check-circle"></i>공지사항</a></li>
-			<li><a href="freeBoard"><i class="fas fa-clipboard-list"></i>자유게시판</a></li>
+			<li><a href="notice">
+				<i class="fas fa-check-circle"></i>
+				<span class="sidebar-component">공지사항</span>
+			</a></li>
+			<li><a href="freeBoard"><i class="fas fa-clipboard-list"></i>
+				<span class="sidebar-component">자유게시판</span>
+			</a></li>
 
 			<li><a class="collapsed" href="#" data-toggle="collapse"
 				data-target="#collapseOne" aria-expanded="true"
-				aria-controls="collapseOne"> <i class="fas fa-users"></i><span>그룹</span>
+				aria-controls="collapseOne"> <i class="fas fa-users"></i><span class="sidebar-component">그룹</span>
 			</a>
 				<div id="collapseOne" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
@@ -63,8 +70,7 @@
 
 			<li><a class="collapsed" href="#" data-toggle="collapse"
 				data-target="#collapseTwo" aria-expanded="true"
-				aria-controls="collapseTwo"> <i class="fas fa-user"></i><span>마이페이지</span>
-			</a>
+				aria-controls="collapseTwo"> <i class="fas fa-user"></i><span class="sidebar-component">마이페이지</span></a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
@@ -76,7 +82,16 @@
 							수정
 						</a>
 					</div>
-				</div></li>
+				</div>
+			</li>
+			
+			<!-- 임시로 넣은 사이드바 하단 요소 -->
+			<li id="sidebar-bottom">
+				<div>
+					<img src="resources/img/logo3.png" style="width:70%">
+					<p class="font-weight-500">모두의 코딩교실</p>
+				</div>
+			</li>
 		</ul>
 	</div>
 </body>

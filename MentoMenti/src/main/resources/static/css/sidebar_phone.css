@@ -99,6 +99,11 @@ label #cancel{
 }
 
 
+#sidebar-bottom{
+	display:none;
+}
+
+
 /*메뉴로 본문 내용이 가리지 않게 임시로 margin-top 지정
 #check:checked ~ #contentSection{
 	margin-top:250px;	

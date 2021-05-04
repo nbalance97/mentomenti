@@ -33,8 +33,7 @@
 		<div
 			class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 			aria-labelledby="alertsDropdown">
-			<h6 class="dropdown-header"
-				style="background: black; border: 1px solid black;">알림</h6>
+			<h4 class="font-weight-300" style="font-size:15px; background: black; border: 1px solid black; padding:10px; color:white;">알림</h4>
 
 			<%
 				//최근 알림 (최대 3개) 보여줌

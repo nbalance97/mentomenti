@@ -30,8 +30,32 @@ section{
 	font-weight:500;
 }
 
+.mb-4{
+	font-size:17px;
+}
+
 thead > tr > th{
 	font-weight:500;
+}
+
+/*사이드바 각 요소*/
+.sidebar-component{
+	font-size:16px;
+}
+
+#sidebar-bottom{
+	width:100%;
+	position:absolute;
+	bottom:0;
+	margin:30px 0px;
+	
+	text-align:center;
+	color:white;
+	font-size:18px;
+}
+
+@media screen and (max-height:600px){
+	#sidebar-bottom{display:none;}
 }
 
 #colItems{
@@ -49,9 +73,33 @@ thead > tr > th{
 	transition:all .5s;
 }
 
+
+/*Noto Sans font weight 100,300,400,500,700,900*/
+.font-weight-100{
+	font-weight:100;
+}
+
+.font-weight-300{
+	font-weight:300;
+}
+
+.font-weight-400{
+	font-weight:400;
+}
+
 .font-weight-500{
 	font-weight:500;
 }
+
+.font-weight-700{
+	font-weight:700;
+}
+
+.font-weight-900{
+	font-weight:900;
+}
+
+
 
 @media screen and (min-width:768px){
 	/*검색창*/
