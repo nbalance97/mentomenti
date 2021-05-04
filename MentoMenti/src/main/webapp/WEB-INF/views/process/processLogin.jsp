@@ -24,7 +24,7 @@
 			
 			//세션에 아이디, 닉네임 설정
 			session.setAttribute("userID", id);
-			String nickname = HomeController.dao.getUserDAO().selectIdByNickname(id);
+			String nickname = HomeController.dao.getUserDAO().selectNicknameById(id);
 			session.setAttribute("nickname", nickname);
 			
 			//session.setMaxInactiveInterval(60 * 60 * 3); //세션 유효 시간 설정 얼마로 할지?
