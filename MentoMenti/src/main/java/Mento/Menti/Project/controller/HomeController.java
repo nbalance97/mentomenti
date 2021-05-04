@@ -334,4 +334,9 @@ public class HomeController {
     public String index93() {
     	return "/BH_whiteboard";
     }
+    
+    @RequestMapping(value="/canvas")
+    public String index94() {
+    	return "/studyPage/canvas";
+    }
 }
