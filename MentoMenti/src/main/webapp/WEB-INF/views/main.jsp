@@ -16,14 +16,8 @@
 <title>MOCO</title>
 
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="resources/css/imgSlider.css" rel="stylesheet">
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 </head>
 
@@ -131,11 +125,11 @@ function isElementUnderBottom(elem, triggerDiff) {
 <!-- 사이트 설명 -->
 <div class="list">
 	<div class="up-on-scroll" id="site_intro1">
-		<h3 style="margin:50px">Welcome to MOCO!</h3>
+		<h3 class="font-weight-700" style="margin:50px">Welcome to MOCO!</h3>
 		<p>누구나 멘토가 될 수 있고</p>
 		<p>누구나 멘티가 될 수 있는</p>
 		<p>모두의 코딩 교실,</p>
-		<p><b>모코(MOCO)</b>에 오신 것을 환영합니다</p>
+		<p><b class="font-weight-500">모코(MOCO)</b>에 오신 것을 환영합니다!</p>
 	</div>
 	
 	<div class="up-on-scroll" id="site_intro2">
@@ -152,12 +146,12 @@ function isElementUnderBottom(elem, triggerDiff) {
 	
 		<!-- 가장 최근 공지사항 5개 -->
 		<div class="item">
-			<p><b>공지사항</b></p>
+			<p class="font-weight-500"><b>공지사항</b></p>
 			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
 				<thead>
 					<tr>
-						<td>제목</td>
-						<td>작성일자</td>
+						<th>제목</th>
+						<th>작성일자</th>
 					</tr>
 				</thead>
 				
@@ -181,12 +175,12 @@ function isElementUnderBottom(elem, triggerDiff) {
 		
 		<!-- 가장 최근 자유게시판 글 5개 -->
 		<div class="item">
-			<p><b>자유게시판</b></p>
+			<p class="font-weight-500"><b>자유게시판</b></p>
 			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
 				<thead>
 					<tr>
-						<td>제목</td>
-						<td>작성일자</td>
+						<th>제목</th>
+						<th>작성일자</th>
 					</tr>
 				</thead>
 				

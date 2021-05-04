@@ -56,7 +56,7 @@
 							<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
+							<span class="mr-2 d-none d-lg-inline small">로그인</span>
 							<img class="img-profile rounded-circle" src="resources/img/user.png">
 							</a>
 							<%
@@ -69,7 +69,7 @@
 							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id%></span> <!-- 아이디 -->
+							<span class="mr-2 d-none d-lg-inline small" ><%=id%></span> <!-- 아이디 -->
 							
 							
 							<!-- 프로필 이미지 -->
@@ -103,7 +103,7 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="personalInfoPage"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 프로필
-								</a> <a class="dropdown-item" href="#"> <i
+								</a> <a class="dropdown-item" href="personalInfoChange"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 개인 정보
 									수정
 								</a> <a class="dropdown-item" href="activity"> <i
