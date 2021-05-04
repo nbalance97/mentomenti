@@ -6,7 +6,6 @@
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -105,10 +104,13 @@
 				<%
 					List<GroupDTO> mentoGroups = HomeController.dao.getGroupDAO().searchMentoGroupsByUserId(id);
 				for (GroupDTO mg1 : mentoGroups) {
+					//현재 멘티 수와 최대 멘티 수 (정원)
+					int mentiCnt = HomeController.dao.getGroupmateDAO().cntMenti(mg1.getGroupid());
+					int maxPerson = mg1.getMaxperson();
 				%>
 				<tr style="width: 200px">
 					<td><a href="group?groupid=<%=mg1.getGroupid()%>" style="text-decoration: none;"><%=mg1.getName()%></a><br></td>
-					<td>현재멤버수 / <%=mg1.getMaxperson()%></td>
+					<td><%=mentiCnt%> / <%=maxPerson%></td>
 				</tr>
 				<%
 					}

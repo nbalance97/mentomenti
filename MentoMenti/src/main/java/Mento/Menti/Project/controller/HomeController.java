@@ -286,6 +286,11 @@ public class HomeController {
     	return "/process/processDeleteGroup";
     }
     
+    @RequestMapping(value="/processLeaveGroup") //그룹 탈퇴 진행
+    public String processLeaveGroup() {
+    	return "/process/processLeaveGroup";
+    }
+    
     
     @RequestMapping(value="/groupQnA") // 그룹 내 공지사항
     public String index43() {

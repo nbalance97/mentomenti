@@ -25,6 +25,10 @@
 		String mentoid = request.getParameter("mentoid");	//가입할 그룹 멘토 아이디
 		int groupid = Integer.parseInt(request.getParameter("groupid"));	//가입할 그룹 아이디 (int)
 		
+		//현재 그룹 멘티 수와 최대 멘티 수
+		int mentiCnt = HomeController.dao.getGroupmateDAO().cntMenti(groupid);
+		int maxPerson = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getMaxperson();
+		
 		GroupmateDTO groupmate = new GroupmateDTO(loginid, groupid);
 		
 		
@@ -44,6 +48,10 @@
 			pw.print("<script>window.location=\"openedGroups\"</script>;");
 		}
 		
+		else if (mentiCnt >= maxPerson){
+			pw.print("<script>alert('그룹 인원이 마감되어 가입할 수 없습니다.');</script>");
+			pw.print("<script>window.location=\"openedGroups\"</script>");
+		}
 		
 		else { //그룹 가입 진행, DB insert
 			HomeController.dao.getGroupmateDAO().insertGroupmate(groupmate);

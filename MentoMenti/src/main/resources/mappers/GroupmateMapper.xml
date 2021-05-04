@@ -29,4 +29,10 @@
 		FROM groupmate
 		WHERE groupid = #{groupid};
 	</select>
+	
+	<!-- 그룹 탈퇴하기 -->
+	<delete id="leaveGroup" parameterType="Mento.Menti.Project.dto.GroupmateDTO">
+		DELETE FROM groupmate
+		WHERE id = #{id} and groupid = #{groupid};
+	</delete>
 </mapper>

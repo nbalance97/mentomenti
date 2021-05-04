@@ -80,11 +80,18 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4" style="overflow:hidden;" id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800" style="float:left"><%=group.getName() %></h1>
 	<%
-		if (group.getMentoid().equals(id)){	//자신이 개설한 그룹은 해체 버튼 있음
+		if (group.getMentoid().equals(id)){	//멘토는 자신의 그룹을 해체할 수 있음
 	%>
 	<input type="button" class="btn btn-warning deleteGroup" value="그룹 해체하기"
 		style="float:right; font-size:14px; padding:3px; background:#BDBDBD; border:1px solid #BDBDBD"/>
-	<%}%>
+	<%
+		} else { //멘티는 그룹에서 탈퇴할 수 있음
+	%>
+	<input type="button" class="btn btn-warning leaveGroup" value="그룹 탈퇴하기"
+		style="float:right; font-size:14px; padding:3px; background:#BDBDBD; border:1px solid #BDBDBD"/>
+	<%
+		}
+	%>
 </div>
 <hr>
 
@@ -218,6 +225,13 @@
 		    if (confirm("그룹을 해체하시겠습니까? (해체한 그룹은 되돌릴 수 없습니다.)")) {
 		    	//그룹 번호 전달
 		    	location.href = "processDeleteGroup?groupid="+<%=group.getGroupid()%>;
+		    }
+		});
+		
+		$(".leaveGroup").on('click', function(){
+		    if (confirm("그룹에서 탈퇴하시겠습니까?")) {
+		    	//그룹 번호 전달
+		    	location.href = "processLeaveGroup?groupid="+<%=group.getGroupid()%>;
 		    }
 		});
 	});

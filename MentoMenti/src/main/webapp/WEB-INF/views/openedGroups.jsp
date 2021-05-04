@@ -163,8 +163,8 @@
 <div class="row" id="groupList">
 <%
 	List<GroupDTO> groups = null;
-	String kwd = request.getParameter("keyword");
-	String category = request.getParameter("category");
+	String kwd = request.getParameter("keyword");	//검색 키워드
+	String category = request.getParameter("category");	//분류
 	
 	//검색했으면 검색 결과 출력
 	if (kwd != null){
@@ -182,17 +182,28 @@
 	} else {
 		groups = groupsEtc;
 	}
+	//groups에 출력할 그룹 목록 담김
+	
+	//각 그룹에 대한 멘티 수를 저장할 배열
+	int[] mentiCnts = new int[groups.size()];
+	//멘티 수 구하기
+	for (int i=0; i<groups.size(); i++){
+		int groupId = groups.get(i).getGroupid();
+		mentiCnts[i] = HomeController.dao.getGroupmateDAO().cntMenti(groupId);
+	}
 %>
 
 
-<!-- jstl문 활용해서 groups에 실제 group 넣어 줌 -->
+<!-- jstl문 활용해서 groups에 실제 group, 멘티 수 넣어 줌 -->
 <c:set var="groups" value="<%=groups%>"></c:set>
+<c:set var="mentiCnts" value="<%=mentiCnts%>"></c:set>
 
 <script type="text/javascript">
 	var cntShowGroupIndex = 0;
 	var group = new Array();
+	var mentiCnt = new Array();
 	
-	/* jstl문 활용해서 group Array에 넣어준 다음에 활용~~*/
+	/*group Array에 그룹 정보 저장*/
 	<c:forEach items="${groups}" var="group">
 		group.push({
 			groupid: "${group.groupid}",
@@ -201,6 +212,13 @@
 			intro: "${group.intro}",
 			mentoid: "${group.mentoid}",
 			maxperson: "${group.maxperson}"
+		});
+	</c:forEach>
+	
+	//mentiCnt Array에 멘티 수 저장
+	<c:forEach items="${mentiCnts}" var="mentiCnt">
+		mentiCnt.push({
+			cnt: "${mentiCnt}"
 		});
 	</c:forEach>
 	
@@ -219,7 +237,7 @@
 						+'<p>과목 : '+group[i].category+'</p>'
 						+'<p>설명 : '+group[i].intro+'</p>'
 						+'<p>멘토 : '+group[i].mentoid+'</p>'
-						+'<p>인원 수 : '+'(현재 인원수)/'+group[i].maxperson+'</p></div></div>').appendTo('#groupList');
+						+'<p>인원 수 : '+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p></div></div>').appendTo('#groupList');
 			}
 			
 			cntShowGroupIndex += 9;

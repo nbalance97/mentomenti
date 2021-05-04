@@ -9,4 +9,5 @@ public interface GroupmateDAO {
 	void insertGroupmate(GroupmateDTO groupmate) throws Exception;
 	int cntMenti(int groupid) throws Exception;
 	List<GroupmateDTO> selectMentiList(int groupid) throws Exception;
+	void leaveGroup(GroupmateDTO groupmate) throws Exception;
 }
