@@ -32,7 +32,7 @@
 	<div id="wrapper">
 
 		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
+		<div id="content-wrapper" class="d-flex flex-column" style="overflow:hidden">
 
 			<!-- Main Content -->
 			<div id="content">
