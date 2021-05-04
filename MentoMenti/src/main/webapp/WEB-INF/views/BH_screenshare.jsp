@@ -34,8 +34,6 @@ html, body{
   <video id="v1" autoplay="true" width="800px"></video> 
   
   <script>
-
-  
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
 		var dataChannel;
@@ -225,10 +223,7 @@ html, body{
 			input.value = "";
 		}
 		
-		function negotiatefunc() {
-			
-		}
-		
+
 		async function share_monitor() { 
 			/*
 			 최대 난제. 화면공유 시 renegotiation 해주어야 하는 문제

@@ -107,6 +107,7 @@
   <script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
+	    var yourName = null;
 	    var myCanvas = document.getElementById("canvas");
 		var pc = {};
 		var dc = {};
@@ -133,9 +134,8 @@
 		    var from = content.from;
 		    var data = content.data;
 		    var to = content.to;
-		
-		    
-	    	if (content.event === "recv_paint"){
+
+	    	if (content.event === "recv_paint" && content.to === myName){
 		    	var x1 = content.x1;
 		    	var x2 = content.x2;
 		    	var y1 = content.y1;
@@ -160,10 +160,6 @@
 			    case "namecall":
 			    	renegotiationflg = false;
 			    	createOffer(data);
-			    	break;
-			    case "rngt_offer":
-			    	renegotiationflg = true;
-			    	handleOffer(from, to, data);
 			    	break;
 			    default:
 			        break;
@@ -219,12 +215,6 @@
 			}
 			
 			setDataChannel(peerConnection, target);
-			
-			peerConnection.ontrack = function(e) {
-				console.log("Track 추적");
-				v1.srcObject = e.streams[0];
-			}
-
 			return peerConnection;
 		}
 		
@@ -314,41 +304,6 @@
 			}
 			input.value = "";
 		}
-		
-		async function shareBoard() {
-			var canvasStream = myCanvas.captureStream(25); // 25프레임 단위 캡처
-			var obj_keys = Object.keys(pc)
-			for (var i = 0; i<obj_keys.length; i++) {
-				renegotiationflg = true;
-				(function (i){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
-				    pc[obj_keys[i]].onnegotiationneeded = function() {
-				    	pc[obj_keys[i]].createOffer(async function(offer) { // offer 상대 peer에 전송
-							await send({
-								event : "rngt_offer",
-								data : offer,
-								from : myName,
-								to : obj_keys[i]
-							});	
-							pc[obj_keys[i]].setLocalDescription(offer); 
-							// LocalDescription 설정 -> icecandidate 유발시킴, 즉, candidate도 전송
-						}, function(error) {
-							
-						});	
-				    };
-					
-				    if (obj_keys[i] in share)
-				    	canvasStream.getTracks().forEach((track) =>{
-				    		share[obj_keys[i]].replaceTrack(track);
-				    	});
-				    else {
-						canvasStream.getTracks().forEach((track) => {
-							share[obj_keys[i]] = pc[obj_keys[i]].addTrack(track, canvasStream);
-						});
-				    }
-				})(i);
-			}
-		}
-		
 		
 	</script>
 </body>

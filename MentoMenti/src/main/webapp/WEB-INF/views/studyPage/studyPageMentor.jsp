@@ -143,10 +143,6 @@
 		    }
 		}
 		
-		function checkMember() {
-			
-		}
-		
 		function isOpen(ws) { 
 			return ws.readyState === ws.OPEN; 
 		}
