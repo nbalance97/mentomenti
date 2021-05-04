@@ -33,7 +33,7 @@
 }
 
 .content1 {
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 }
 
 .dataTable{
@@ -96,26 +96,40 @@
 
 			<thead>
 				<tr role="row">
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 85%">게시글 제목</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">이동</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 65%">게시글</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">날짜</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 20%">게시판</th>
 				</tr>
 			</thead>
-			<thead>
+			<tbody>
 				<%
 					List<PostDTO> posts = HomeController.dao.getPostDAO().searchMyPostsByUserId(id);
 				for (PostDTO post : posts) {
 				%>
 				<tr style="width: 200px">
-					<td><%=post.getTitle()%></td>
 					<td>
 					<%
 						if(!(post.getGroupid()>0) && post.is_notice()){
 							%>
-							<a href="noticeContent?postid=<%=post.getPostid()%>">이동</a>
+							<a href="noticeContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
 							<%
 						}else if(!(post.getGroupid()>0) && !post.is_notice()){
 							%>
-							<a href="postContent?postid=<%=post.getPostid()%>">이동</a>
+							<a href="postContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
+							<%
+						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+					%>
+					</td>
+					<td><%=post.getPostdate()%></td>
+					<td>
+					<%
+						if(!(post.getGroupid()>0) && post.is_notice()){
+							%>
+							<a href="/notice">공지사항</a>
+							<%
+						}else if(!(post.getGroupid()>0) && !post.is_notice()){
+							%>
+							<a href="/freeBoard">자유게시판</a>
 							<%
 						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
 					%>
@@ -126,9 +140,30 @@
 				%>
 
 
-			</thead>
+			</tbody>
 
 		</table>
+		<nav aria-label="Page navigation example">
+			<!--js이용필요
+  			<ul class="pagination justify-content-center">
+   			 	<li class="page-item disabled">
+      				<a class="page-link" href="#" aria-label="Next">
+        				<span aria-hidden="true">&laquo;</span>
+      				</a>
+    		 	</li>
+    		 	
+    			<li class="page-item"><a class="page-link" href="#">1</a></li>
+    			<li class="page-item"><a class="page-link" href="#">2</a></li>
+    			<li class="page-item"><a class="page-link" href="#">3</a></li>
+    			
+    			<li class="page-item">
+     			    <a class="page-link" href="#" aria-label="Next">
+        				<span aria-hidden="true">&raquo;</span>
+      				</a>
+    			</li>
+ 			</ul>
+ 			-->
+		</nav>
 	</div>
 
 	<hr>
@@ -140,13 +175,14 @@
 
 			<thead>
 				<tr role="row">
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 85%">댓글 내용</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">이동</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 65%">댓글</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">날짜</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 20%">게시판</th>
 				</tr>
 			</thead>
 
 
-			<thead>
+			<tbody>
 
 
 				<%
@@ -154,19 +190,35 @@
 				for (CommentDTO comment : comments) {
 				%>
 				<tr style="width: 200px">
-					<td><%=comment.getContent()%><br></td>
 					<td>
 						<%
 						PostDTO commentpost = null;
-						List<PostDTO> commentposts = HomeController.dao.getPostDAO().searchByPostId(comment.getPostid());
-						commentpost=commentposts.get(0);
+						
+						if (HomeController.dao.getPostDAO().searchByPostId(comment.getPostid()).size() > 0) {
+							commentpost=HomeController.dao.getPostDAO().searchByPostId(comment.getPostid()).get(0);
+						}
+						
 						if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
 							%>
-							<a href="noticeContent?postid=<%=commentpost.getPostid()%>">이동</a>
+							<a href="noticeContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
 							<%
 						}else if(!(commentpost.getGroupid()>0) && !commentpost.is_notice()){
 							%>
-							<a href="postContent?postid=<%=commentpost.getPostid()%>">이동</a>
+							<a href="postContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
+							<%
+						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						%>
+					</td>
+					<td><%=comment.getCommentdate() %></td>
+					<td>
+						<%
+						if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
+							%>
+							<a href="/notice">공지사항</a>
+							<%
+						}else if(!(commentpost.getGroupid()>0) && !commentpost.is_notice()){
+							%>
+							<a href="/freeBoard">자유게시판</a>
 							<%
 						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
 						%>
@@ -176,9 +228,8 @@
 					}
 				%>
 
-			</thead>
+			</tbody>
 		</table>
-
 	</div>
 </div>
 
@@ -187,4 +238,26 @@
 %>
 
 <%@include file="menuPart2.jsp"%>
+<script>
+	function paging(totalData, currentPage){
+		
+		var dataPerPage = 3;
+		var countPage = 5;
+		
+		//총페이지수
+		var totalPage = totalData/dataPerPage;
+		if(totalData%dataPerPage>0){
+			totalPage++;
+		}
+		
+		//보여지는 페이지번호
+		var startPage = ((currentPage-1)/5)*5+1;
+		var endPage = startPage + countPage-1;
+		if(endPage>totalPage){
+			endPage = totalPage;
+		}
+		
+	}
+</script>
+
 </html>

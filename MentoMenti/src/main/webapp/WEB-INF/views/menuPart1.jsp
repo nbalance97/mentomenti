@@ -61,31 +61,38 @@
 								}
 								else{	//로그인 한 상태
 							%>
+							
 							<!-- 클릭 시 드롭다운 메뉴 나옴 -->
 							<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
 							<span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=id%></span> <!-- 아이디 -->
-								<%
-									//프로필 사진 존재 여부에 따라 다르게 출력
-									File pngImg = new File("resources/img/user/"+id+".png");
-									File jpgImg = new File("resources/img/user/"+id+".jpg");
-									
-									if (pngImg.exists()) {
-								%>
-									<img src=<%=pngImg %> class="img-profile rounded-circle">
-								<%
-									} else if (jpgImg.exists()){
-								%>
-									<img src=<%=jpgImg %> class="img-profile rounded-circle">
-								<%
-									} else {
-								%>
-									<img src="resources/img/user/user.png" class="img-profile rounded-circle">
-								<%
-									}
-								%>							
+							
+							
+							<!-- 프로필 이미지 -->
+							<img id="originalPngImg" src="resources/img/user/<%=id%>.png" style="display:none;"/>
+							<img id="originalJpgImg" src="resources/img/user/<%=id%>.jpg" style="display:none;"/>
+							
+							<%
+								File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+								File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+								
+								if (pngImg.exists()) {
+							%>
+								<div class="pngProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+							<%
+								} else if (jpgImg.exists()){
+							%>
+								<div class="jpgProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+							<%
+								} else {
+							%>
+								<div class="defaultProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+							<%
+								}
+							%>
+							
 							</a>
 							
 							<!-- Dropdown - User Information -->

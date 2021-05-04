@@ -286,6 +286,21 @@ public class HomeController {
     	return "/process/processDeleteGroup";
     }
     
+    
+    @RequestMapping(value="/groupQnA") // 그룹 내 공지사항
+    public String index43() {
+    	return "/groupQnA";
+    }
+    @RequestMapping(value="/groupnotice") //그룹 내 게시판
+    public String index44() {
+    	return "/groupnotice";
+    }
+    
+    
+    
+    
+    
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
@@ -333,5 +348,10 @@ public class HomeController {
     @RequestMapping(value="/bh2")
     public String index93() {
     	return "/BH_whiteboard";
+    }
+    
+    @RequestMapping(value="/canvas")
+    public String index94() {
+    	return "/studyPage/canvas";
     }
 }
