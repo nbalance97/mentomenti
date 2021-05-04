@@ -144,7 +144,6 @@
 
 		</table>
 		<nav aria-label="Page navigation example">
-			<!--js이용필요
   			<ul class="pagination justify-content-center">
    			 	<li class="page-item disabled">
       				<a class="page-link" href="#" aria-label="Next">
@@ -162,7 +161,6 @@
       				</a>
     			</li>
  			</ul>
- 			-->
 		</nav>
 	</div>
 
@@ -239,6 +237,10 @@
 
 <%@include file="menuPart2.jsp"%>
 <script>
+	$(document).ready(function () {
+		paging(4,1);
+	});
+
 	function paging(totalData, currentPage){
 		
 		var dataPerPage = 3;
