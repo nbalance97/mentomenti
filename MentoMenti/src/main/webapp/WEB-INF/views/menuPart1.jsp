@@ -7,14 +7,16 @@
 <%@ page import="java.io.*"%>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-	
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+
 <style>
 	::selection{background:#002266; color:white;}
 	
-	/*기본 폰트 나눔고딕체*/
+	/*기본 폰트 Noto Sans, font-weight:300, 부분마다 font-weight 바꿔서 사용하면 됨*/
 	*{
-		font-family: 'Nanum Gothic', sans-serif;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-weight: 300;
 	}
 </style>
 

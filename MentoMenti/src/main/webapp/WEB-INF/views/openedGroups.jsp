@@ -62,10 +62,10 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">C언어 그룹</div>
+							<div class="h5 mb-0 font-weight-500 text-gray-800">C언어 그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
+							<div class="font-weight-500 text-primary mb-1">
 								(
 								<!-- C언어 그룹 수 -->
 								<%
@@ -86,10 +86,10 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">Java 그룹</div>
+							<div class="h5 mb-0 font-weight-500 text-gray-800">Java 그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
+							<div class="font-weight-500 text-primary mb-1">
 								(
 								<!-- Java 그룹 수 -->
 								<%
@@ -110,11 +110,11 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Python
+							<div class="h5 mb-0 mr-3 font-weight-500 text-gray-800">Python
 								그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
+							<div class="font-weight-500 text-primary mb-1">
 								(
 								<!-- Python 그룹 수 -->
 								<%
@@ -135,10 +135,10 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">기타 그룹</div>
+							<div class="h5 mb-0 font-weight-500 text-gray-800">기타 그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-warning mb-1">
+							<div class="font-weight-500 text-warning mb-1">
 								(
 								<!-- 기타 그룹 수 -->
 								<%
@@ -229,7 +229,7 @@
 					break;
 				
 				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
-						+'<h5 class="m-0 font-weight-bold text-primary">'+group[i].name
+						+'<h5 class="m-0 font-weight-500 text-primary">'+group[i].name
 						+'<div class="btn btn-warning btn-circle btn-sm" style="float: right;"'
 						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
 						+'<img src="resources/img/right-arrow.png" style="width:100%"></h5></div>'

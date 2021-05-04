@@ -46,7 +46,7 @@
 			DecimalFormat df = new DecimalFormat("00");	//두 자리로 형식 맞춤
 			String joinDatetime = todaydate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
 			
-			//그룹 가입 완료 알림 DB 추가
+			//그룹 탈퇴 완료 알림 DB 추가
 			NotificationDTO notification = new NotificationDTO();
 			notification.setReceiverid(loginid);
 			notification.setSendtime(joinDatetime);
