@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.WebCompiler.WebCompiler" %>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,6 +68,35 @@
 	}
 </script>
 <body>
+			<%
+			//방만들기 클릭시 class대한 세션설정 필요?
+			//클래스아이디 받아오기
+			//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
+			int groupid = Integer.parseInt(request.getParameter("groupid"));
+			GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+			//해당 그룹의 멘토아이디 받아오기
+			String mentoid = group.getMentoid();
+			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
+			//그룹에 참여한 멘티 목록
+			List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+
+			//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+			
+			boolean isMember = false;
+			if(mentoid.equals(id)){
+				isMember = true;
+			}
+			for(GroupmateDTO mentee:groupmateList){
+				if(mentee.getId().equals(id)){
+					isMember=true;
+				}
+			}
+			if(!isMember || id == null){
+				response.sendRedirect("rejectedAccess?type=notMember");
+			}
+			
+			%>
+
 	<% 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8"); 
@@ -158,7 +193,20 @@
 				</div>
 			</div>
 		</div>
-		<%@include file="practiceBottomMentee.jsp"%>
+		<% 
+			//멘토아이디와 접속한 아이디 비교
+			//True = 멘토, False = 멘티 확인
+			if (mentoid.equals(id)){//멘토
+				%>
+				<%@include file="practiceBottomMentor.jsp"%>
+				<% 
+			} else {//멘티인지 확인
+				%>
+				<%@include file="practiceBottomMentee.jsp"%>
+				<%
+			}
+			
+		%>
 	</div>
 	
 	<!-- Library textarea에 적용하는 과정 -->

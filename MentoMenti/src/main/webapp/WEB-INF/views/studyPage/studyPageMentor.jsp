@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,25 +44,40 @@
 			GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
 			//해당 그룹의 멘토아이디 받아오기
 			String mentoid = group.getMentoid();
-			
 			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
-			
-			if (id == null) { // id null값이면 튕겨나가도록
-				response.sendRedirect("https://kgu.mentomenti.kro.kr");
+			//그룹에 참여한 멘티 목록
+			List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+
+			//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+			boolean isMember = false;
+			if(mentoid.equals(id)){
+				isMember = true;
 			}
-			
-			System.out.println(id);
+			for(GroupmateDTO mentee:groupmateList){
+				if(mentee.getId().equals(id)){
+					isMember=true;
+				}
+			}
+			if(!isMember || id==null){//서버연결 뭐시기 땜에 sendRedirect가 안먹힘,,,
+				//response.sendRedirect("rejectedAccess?type=notMember");
+				%>
+				<div>잘못된접근인데 sendRedirect가 안됨 오류나ㅏㅁㅁㅇㅁㄴㅇ.</div>
+				<%
+			}
 			
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
-			if (mentoid.equals(id)){
-				//멘토
-			} else {
-				//멘티인지 확인
+			if (mentoid.equals(id)){//멘토
+				%>
+				<%@include file="studyBottomMentor.jsp"%>
+				<% 
+			} else {//멘티인지 확인
+				%>
+				<%@include file="studyBottomMentee.jsp"%>
+				<%
 			}
 			
 		%>
-		<%@include file="studyBottomMentor.jsp"%>
 	</div>
 	
 	  <script>
@@ -80,8 +98,19 @@
 			'<td>'+idx+'</td>'+
 			'<td>'+id+'</td>'+
 			'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
-			'<td><button type="button" class="btn btn-info">이동</button></td>'+
+			'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
 			'</tr>').appendTo('#MemberTable');
+		}
+		
+		function canvas(){
+			var url = "/canvas";
+			var name = "canvas";
+			var popupWidth = 1200;
+			var popupHeight = 700;
+			var popupX = (window.screen.width / 2) - (popupWidth / 2);
+			var popupY= (window.screen.height / 2) - (popupHeight / 2);
+			var option = "toolbar=no, location=no, status=no"
+			window.open(url,name,option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 		}
 		
 		function checkConnection() {

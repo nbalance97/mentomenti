@@ -27,7 +27,7 @@
 <script>
 	function exit(){
 		if(confirm("스터디방에서 나가시겠습니까?")){
-			location.replace("https://kgu.mentomenti.kro.kr/main");
+			location.replace("/main");
 		}else{
 			
 		}
