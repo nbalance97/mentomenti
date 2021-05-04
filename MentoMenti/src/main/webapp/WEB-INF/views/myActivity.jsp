@@ -140,22 +140,8 @@
 
 		</table>
 		<nav aria-label="Page navigation example">
-  			<ul class="pagination justify-content-center">
-   			 	<li class="page-item disabled">
-      				<a class="page-link" href="#" aria-label="Next">
-        				<span aria-hidden="true">&laquo;</span>
-      				</a>
-    		 	</li>
-    		 	
-    			<li class="page-item"><a class="page-link" href="#">1</a></li>
-    			<li class="page-item"><a class="page-link" href="#">2</a></li>
-    			<li class="page-item"><a class="page-link" href="#">3</a></li>
-    			
-    			<li class="page-item">
-     			    <a class="page-link" href="#" aria-label="Next">
-        				<span aria-hidden="true">&raquo;</span>
-      				</a>
-    			</li>
+  			<ul class="pagination justify-content-center" id="list-body">
+    			<!-- 페이징 생성 -->
  			</ul>
 		</nav>
 	</div>
@@ -234,7 +220,7 @@
 <%@include file="menuPart2.jsp"%>
 <script>
 	$(document).ready(function () {
-		paging(4,1);
+		paging(10,1);
 	});
 
 	function paging(totalData, currentPage){
@@ -255,7 +241,12 @@
 			endPage = totalPage;
 		}
 		
-	}
+		$("#list-body").append("<li class='page-item'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");
+		for(var j=startPage ; j<endPage ; j++){
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='#'>"+j+"</a></li>");
+		}
+		$("#list-body").append("<li class='page-item'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+	} 
 </script>
 
 </html>
