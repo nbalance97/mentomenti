@@ -286,6 +286,21 @@ public class HomeController {
     	return "/process/processDeleteGroup";
     }
     
+    
+    @RequestMapping(value="/groupQnA") // 그룹 내 공지사항
+    public String index43() {
+    	return "/groupQnA";
+    }
+    @RequestMapping(value="/groupnotice") //그룹 내 게시판
+    public String index44() {
+    	return "/groupnotice";
+    }
+    
+    
+    
+    
+    
+    
     @RequestMapping(value="/chat") //채팅
     public String index100() {
     	return "chatPage";
