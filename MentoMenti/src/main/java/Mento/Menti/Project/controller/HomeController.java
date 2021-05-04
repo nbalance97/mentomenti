@@ -173,7 +173,7 @@ public class HomeController {
     
     @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
     public String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
-    	if (img != null) {	//프로필 이미지를 새로 업로드 했을 때만 실행
+    	if (!img.isEmpty()) {	//프로필 이미지를 새로 업로드 했을 때만 실행
 	    	//업로드 경로
 	    	String root = System.getProperty("user.dir");
 	    	String uploadPath = "src/main/resources/static/img/user";
