@@ -49,7 +49,7 @@
   </select>
   
   <!-- 아이디로 닉네임 찾기 -->
-  <select id="selectIdByNickname" parameterType="String" resultType="String">
+  <select id="selectNicknameById" parameterType="String" resultType="String">
   	SELECT nickname
   	FROM user
   	WHERE id = #{id};

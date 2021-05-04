@@ -101,11 +101,16 @@
 	<%
 		List<CommentDTO> comments = HomeController.dao.getCommentDAO().selectComments(postid);
 		for (CommentDTO c: comments){
+			String commentId = c.getWriterid();
+			String commentNick = HomeController.dao.getUserDAO().selectNicknameById(c.getWriterid());
 	%>
 	<div>
 		<div class="comment_component">
-			<img src="resources/img/user.png" style="width:20px; height:20px"/>
-			<%=c.getWriterid()%>
+				<!-- 댓글 프로필 이미지 -->
+				<img src="resources/img/user.png" style="width:20px; height:20px"/>
+				
+				<!-- 작성자 아이디 -->
+				<%=commentNick%>
 		</div>
 		<div class="comment_component"><%=c.getContent()%></div>
 		<div class="comment_component" style="font-size:0.8em; overflow:hidden;">
