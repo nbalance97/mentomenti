@@ -9,43 +9,50 @@
   </select>
   
   <insert id="insertUsers" parameterType="Mento.Menti.Project.dto.UserDTO">
-  	insert into user 
-  	values (#{id}, #{pw}, #{birth}, #{joindate}, #{email}, #{name}, #{nickname}, #{is_admin}, #{intro});
+  	INSERT INTO user 
+  	VALUES (#{id}, #{pw}, #{birth}, #{joindate}, #{email}, #{name}, #{nickname}, #{is_admin}, #{intro});
   </insert>
   
   <select id="searchUser" resultType="Mento.Menti.Project.dto.UserDTO" parameterType="Mento.Menti.Project.dto.UserDTO">
-  	select *
-  	from user
-  	where email = #{email};
+  	SELECT *
+  	FROM user
+  	WHERE email = #{email};
   </select>
   
   <select id="searchUserById" resultType="Mento.Menti.Project.dto.UserDTO">
-  	select *
-  	from user
-  	where id = #{id};
+  	SELECT *
+  	FROM user
+  	WHERE id = #{id};
   </select>
   
   <select id="searchUserByIdPw" resultType="Mento.Menti.Project.dto.UserDTO">
-  	select *
-  	from user
-  	where id = #{id} and pw = #{pw};
+  	SELECT *
+  	FROM user
+  	WHERE id = #{id} and pw = #{pw};
   </select>
   
   <!-- 회원 정보 수정 -->
   <update id="updateUserInfo" parameterType="Mento.Menti.Project.dto.UserDTO">
-  	update user
-  	set nickname = #{nickname}
+  	UPDATE user
+  	SET nickname = #{nickname}
   	, pw = #{pw}
   	, email = #{email}
   	, intro = #{intro}
-  	where id = #{id};
+  	WHERE id = #{id};
   </update>
   
   <!-- 관리자인지 아닌지 -->
   <select id="isAdmin" parameterType="String" resultType="boolean">
-  	select is_admin
-  	from user
-  	where id = #{id};
+  	SELECT is_admin
+  	FROM user
+  	WHERE id = #{id};
+  </select>
+  
+  <!-- 아이디로 닉네임 찾기 -->
+  <select id="selectIdByNickname" parameterType="String" resultType="String">
+  	SELECT nickname
+  	FROM user
+  	WHERE id = #{id};
   </select>
   
 </mapper>

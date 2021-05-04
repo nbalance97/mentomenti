@@ -76,7 +76,12 @@ function isElementUnderBottom(elem, triggerDiff) {
 	}
 	
 	.seeMore{
-		font-size:0.6em;
+		font-size:0.7em;
+	}
+	
+	/*메인 화면 이중 스크롤바 해결*/
+	#content-wrapper{
+		overflow:hidden;
 	}
 </style>
 

@@ -14,4 +14,6 @@ public interface UserDAO {
 	void updateUserInfo(UserDTO user) throws Exception;
 	
 	boolean isAdmin(String id) throws Exception;
+	
+	String selectIdByNickname(String id) throws Exception;
 }

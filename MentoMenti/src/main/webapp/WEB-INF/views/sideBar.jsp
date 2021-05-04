@@ -88,7 +88,7 @@
 			<!-- 임시로 넣은 사이드바 하단 요소 -->
 			<li id="sidebar-bottom">
 				<div>
-					<img src="resources/img/logo3.png" style="width:70%">
+					<img src="resources/img/logo3.png" style="width:200px">
 					<p class="font-weight-500">모두의 코딩교실</p>
 				</div>
 			</li>

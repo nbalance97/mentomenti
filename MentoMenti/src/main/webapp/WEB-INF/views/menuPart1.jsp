@@ -25,7 +25,9 @@
 <body id="page-top">
 
 	<%
-	String id = (String)session.getAttribute("userID");	//세션에서 아이디 받아오기
+	//세션에서 아이디, 닉네임 받아오기
+	String id = (String)session.getAttribute("userID");
+	String nickname = (String)session.getAttribute("nickname");
 	%>
 
 	<!-- Page Wrapper -->
@@ -69,7 +71,7 @@
 							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline small" ><%=id%></span> <!-- 아이디 -->
+							<span class="mr-2 d-none d-lg-inline small" ><%=nickname%>님</span>
 							
 							
 							<!-- 프로필 이미지 -->
