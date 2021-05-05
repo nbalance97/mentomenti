@@ -16,13 +16,6 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
-.text1 {
-	font-family: 'Nanum Gothic', sans-serif;
-	position: relative;
-	margin-bottom:20px;
-}
-
-
 /*수평 정렬*/
 .wrapContents{
 	overflow:hidden;
@@ -39,6 +32,12 @@
 	width:50%;
 	margin-bottom:50px;
 }
+
+.text1{
+	font-weight:300;
+	margin-bottom:30px;
+}
+
 </style>
 
 
@@ -149,7 +148,7 @@
 						for(PostDTO gn: groupNotices) {
 				%>
 					<tr>
-					<td><%=gn.getTitle()%></td>
+					<td><a href="groupNoticeContent?postid=<%=gn.getPostid()%>" style="text-decoration:none;"><%=gn.getTitle()%></a></td>
 					<td><%=gn.getPostdate()%></td>
 					</tr>
 				<%
@@ -207,7 +206,7 @@
 						for(PostDTO gp: groupPosts) {
 				%>
 					<tr>
-					<td><%=gp.getTitle()%></td>
+					<td><a href="groupPostContent?postid=<%=gp.getPostid()%>" style="text-decoration:none;"><%=gp.getTitle()%></a></td>
 					<td><%=gp.getPostdate()%></td>
 					</tr>
 				<%

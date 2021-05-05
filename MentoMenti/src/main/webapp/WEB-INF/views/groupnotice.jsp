@@ -3,6 +3,11 @@
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
+	
 <%@ page import="java.util.List"%>
 <head>
 
@@ -25,12 +30,31 @@
 
 <%@include file="menuPart1.jsp"%>
 
+<%
+	int groupid = Integer.parseInt(request.getParameter("groupid"));
+GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+
+//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+boolean isMember = false;
+if (group.getMentoid().equals((String) session.getAttribute("userID")))
+	isMember = true;
+for (GroupmateDTO gl : groupmateList) { //가입한 그룹인 경우
+	if (gl.getId().equals((String) session.getAttribute("userID")))
+		isMember = true;
+}
+if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
+	response.sendRedirect("rejectedAccess?type=notMember");
+}
+%>
+
+
 <!-- 공지사항 페이지 -->
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800">공지사항</h1>
+	<h1 class="h3 mb-0 text-gray-800">그룹 공지사항</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
@@ -44,11 +68,15 @@
 						</button>
 					</div>
 				</div>
+				<!-- 그룹 아이디 넘기기 -->
+				<input type="text" name="groupid" value=<%=groupid%> style="display:none;"/>
 			</form>
 		</li>
 	</ul>
 </div>
-
+<p class="mb-4"><%=group.getName()%>
+	그룹의 공지사항입니다.
+</p>
 
 
 <!-- 리스트 -->
@@ -68,43 +96,36 @@
 	<tbody>
 		<%
 			String kwd = request.getParameter("keyword");	//검색 키워드
-			List<PostDTO> noticeList = null;
+			List<PostDTO> groupNotices = null;
 			if (kwd == null) {	//검색x, 전체 공지
-				noticeList = HomeController.dao.getPostDAO().selectGeneralNotices();
+				groupNotices = HomeController.dao.getPostDAO().selectGroupNotices(group.getGroupid());
 			} else{	//검색o
-				noticeList = HomeController.dao.getPostDAO().searchGeneralNotices(kwd);
+				//검색 기능 추가해야
 			}
 			
-			
-			if (noticeList.size() == 0){	//결과가 없다면
-		%>
-	</tbody>
-</table>
-	<div style="height:200px; text-align:center; line-height:200px">
-		결과가 없습니다.		
-	</div>
-		
-		<%
-			}
-			else {	//결과가 있다면
-				for (PostDTO gn: noticeList){
+			if(groupNotices.size() > 0) {	//결과 있음
+				for (PostDTO gn: groupNotices) {
 		%>
 		<tr role="row" class="odd">
 			<td>
 				<!-- 제목 -->
-				<a href="noticeContent?postid=<%=gn.getPostid()%>" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
+				<a href="groupNoticeContent?postid=<%=gn.getPostid()%>" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
 			</td>
-			<td><%=gn.getUserid() %></td> <!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=gn.getUserid() %></td> <!-- 작성자 -->
 			<td><%=gn.getPostdate()%></td> <!-- 작성일자 -->
 			<td><%=gn.getViewcount() %></td> <!-- 조회수 -->
 		</tr>
 		<%
 				}
+			} else {	//결과 없음
 		%>
-	</tbody>
+		<tr style="height: 200px; line-height:200px;">
+			<td colspan="4">게시물이 아직 없습니다</td>
+		</tr>
 		<%
 			}
 		%>
+	</tbody>
 </table>
 
 
@@ -130,10 +151,12 @@
 	</div>
 
 
-
+	<%
+		if (group.getMentoid().equals(id))	//멘토인 경우에만 작성 버튼
+	%>
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
-			<a href="writeNoticePage" class="btn btn-secondary">작성</a>
+			<a href="writeGroupNoticePage?groupid=<%=groupid%>" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
 	

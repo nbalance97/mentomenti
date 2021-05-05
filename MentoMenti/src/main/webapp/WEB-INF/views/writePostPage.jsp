@@ -25,11 +25,11 @@
 
 
 <script type="text/javascript">
-	function chkForm(){
+	function chkForm() {
 		var form = document.writePostForm;
 		var title = document.getElementById("title_text").value; //제목
 		var content = document.getElementById("content_text").value; //내용
-		
+
 		if (title.length < 6) {
 			alert("제목은 6글자 이상 입력해주세요");
 			return;
@@ -49,9 +49,8 @@
 <%
 	if (id == null) { //로그인 안된 상태면 로그인 페이지로 이동
 	response.sendRedirect("loginPage?mode=nidLogin");
-}
-	else {
-		String strGroupid = request.getParameter("groupid");
+} else {
+	String strGroupid = request.getParameter("groupid");
 %>
 
 <!-- 
@@ -62,13 +61,15 @@ form {
 </style>
 -->
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading"> <!-- 여기에 margin-top 포함되어있음 -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4"
+	id="pageHeading">
+	<!-- 여기에 margin-top 포함되어있음 -->
 	<%
-		if(strGroupid == null){		//자유게시판
+		if (strGroupid == null) { //자유게시판
 	%>
 	<h1 class="h3 mb-0 text-gray-800">게시물 작성</h1>
 	<%
-		} else {	//그룹 Q&A
+		} else { //그룹 Q&A
 	%>
 	<h1 class="h3 mb-0 text-gray-800">Q&A 작성</h1>
 	<%
@@ -77,32 +78,53 @@ form {
 </div>
 
 <%
-	if (strGroupid == null){	//자유게시판
+	if (strGroupid == null) { //자유게시판
 %>
 <form action="processWritePost" name="writePostForm">
-<%
-	} else {	//그룹 Q&A
-		int groupid = Integer.parseInt(strGroupid);
-%>
-<form action="processWritePost?groupid=<%=groupid%>" name="writePostForm">
-<%
-	}
-%>
 	<div class="form-group">
-		<label for="title_text">제목</label>
-		<input type="text" class="form-control" id="title_text" name="title">
+		<label for="title_text">제목</label> <input type="text"
+			class="form-control" id="title_text" name="title">
 	</div>
 
 	<div class="form-group">
 		<label for="content_text">내용</label>
-		<textarea class="form-control" id="content_text" name="content" rows="10"></textarea>
+		<textarea class="form-control" id="content_text" name="content"
+			rows="10"></textarea>
+	</div>
+
+	<div style="text-align: center;">
+		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
+		<a href="freeBoard"><button type="button"
+				class="btn btn-secondary">목록으로</button></a>
+	</div>
+</form>
+<%
+	} else { //그룹 Q&A
+int groupid = Integer.parseInt(strGroupid);
+%>
+<form action="processWritePost" name="writePostForm">
+	<div class="form-group">
+		<label for="title_text">제목</label> <input type="text"
+			class="form-control" id="title_text" name="title">
+	</div>
+
+	<div class="form-group">
+		<label for="content_text">내용</label>
+		<textarea class="form-control" id="content_text" name="content"
+			rows="10"></textarea>
 	</div>
 	
-	<div style="text-align:center;">
+	<!-- 그룹 아이디 넘기기 -->
+	<input type="text" style="display:none" name="groupid" value=<%=groupid%> style="display:none;">
+
+	<div style="text-align: center;">
 		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
 		<a href="freeBoard"><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
+<%
+	}
+%>
 
 <%
 	}

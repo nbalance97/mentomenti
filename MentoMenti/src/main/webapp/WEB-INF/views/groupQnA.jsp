@@ -47,7 +47,7 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 %>
 
 
-<!-- 자유게시판 -->
+<!-- 그룹 Q&A 게시판 -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800">그룹 Q&A</h1>
@@ -55,7 +55,7 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		<li>
 			<form
 				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-				action="freeBoard" method="GET">
+				action="groupQnA" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small"
 						name="keyword" placeholder="검색" aria-label="Search"
@@ -66,6 +66,9 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 						</button>
 					</div>
 				</div>
+				
+				<!-- 그룹 아이디 넘기기 -->
+				<input type="text" name="groupid" value=<%=groupid%> style="display:none;"/>
 			</form>
 		</li>
 	</ul>
@@ -75,6 +78,7 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 </p>
 
 
+<!-- 리스트 -->
 <table class="table table-bordered" id="dataTable" cellspacing="0"
 	role="grid" aria-describedby="dataTable_info"
 	style="width: 100%; background: white; text-align: center;">
@@ -88,13 +92,19 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 	</thead>
 	<tbody>
 		<%
-			List<PostDTO> groupPosts = HomeController.dao.getPostDAO().curGroupPosts(group.getGroupid());
-		if (groupPosts.size() > 0) {
-			for (PostDTO gp : groupPosts) {
+			String kwd = request.getParameter("keyword");	//검색 키워드
+			List<PostDTO> groupPosts = null;
+			if (kwd == null){
+				groupPosts = HomeController.dao.getPostDAO().selectGroupPosts(group.getGroupid());
+			} else {
+				//검색 기능 추가해야함
+			}
+			if (groupPosts.size() > 0) {
+				for (PostDTO gp : groupPosts) {
 		%>
 		<tr>
 			<td>
-				<!-- 제목 --> <a href="postContent?postid=<%=gp.getPostid()%>"
+				<!-- 제목 --> <a href="groupPostContent?postid=<%=gp.getPostid()%>"
 				style="text-decoration: none; color: gray"><%=gp.getTitle()%></a>
 			</td>
 			<td><%=gp.getUserid()%></td>
@@ -103,10 +113,10 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 			<!-- 조회수 -->
 		</tr>
 		<%
-			}
-		} else {
+				}
+			} else {
 		%>
-		<tr style="height: 100px">
+		<tr style="height: 200px; line-height:200px;">
 			<td colspan="4">게시물이 아직 없습니다</td>
 		</tr>
 		<%
@@ -144,7 +154,7 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
-			<a href="writePostPage?groupid=<%=groupid%>" class="btn btn-secondary">작성</a>
+			<a href="writeGroupPostPage?groupid=<%=groupid%>" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
 

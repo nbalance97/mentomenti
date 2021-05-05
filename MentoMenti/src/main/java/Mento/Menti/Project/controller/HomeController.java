@@ -303,8 +303,30 @@ public class HomeController {
     	return "/groupnotice";
     }
     
+    @RequestMapping(value="/writeGroupPostPage")	//그룹 Q&A 작성 페이지
+    public String index45() {
+    	return "/writeGroupPostPage";
+    }
     
+    @RequestMapping(value="/groupPostContent")	//그룹 Q&A 게시물 내용 페이지
+    public String index46() {
+    	return "/groupPostContent";
+    }    
     
+    @RequestMapping(value="/modifyGroupPostPage")	//그룹 게시물 수정 페이지
+    public String index47() {
+    	return "/modifyGroupPostPage";
+    }  
+    
+    @RequestMapping(value="/writeGroupNoticePage")	//그룹 공지사항 작성 페이지
+    public String index48() {
+    	return "/writeGroupNoticePage";
+    }
+    
+    @RequestMapping(value="/groupNoticeContent")	//그룹 공지사항 내용 페이지
+    public String index49() {
+    	return "/groupNoticeContent";
+    } 
     
     
     

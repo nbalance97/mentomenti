@@ -28,8 +28,17 @@
 		notice.setContent(content);
 		notice.setPostdate(postdate);
 		
-		HomeController.dao.getPostDAO().insertGeneralNotice(notice);
-		response.sendRedirect("notice");	//공지사항 페이지로 이동
+		//그룹 Q&A면 groupid 있음
+		String groupid = request.getParameter("groupid");
+		
+		if (groupid == null) { //일반 공지사항
+			HomeController.dao.getPostDAO().insertGeneralNotice(notice);
+			response.sendRedirect("notice");	//공지사항 페이지로 이동
+		} else {
+			notice.setGroupid(Integer.parseInt(groupid));
+			HomeController.dao.getPostDAO().insertGroupNotice(notice);
+			response.sendRedirect("groupnotice?groupid="+groupid);
+		}
 	%>
 </body>
 </html>
