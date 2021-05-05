@@ -333,9 +333,9 @@ public class HomeController {
     	return "/studyPage/debugStudy_test";
     }
     
-    @RequestMapping(value="/board")//수업화면-멘토 다시 레이아웃 채팅 넣어봄
+    @RequestMapping(value="/board")//화이트보드
     public String index104() {
-    	return "/whiteBoard";
+    	return "/whiteBoard2";
     }
     
     @RequestMapping(value="/confirmId")//아이디 중복체크
