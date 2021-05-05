@@ -36,7 +36,7 @@
 	}
 </style>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <!-- 공지사항 내용 페이지 -->
 
@@ -58,7 +58,7 @@
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
 	> <a href="joininggroups" style="text-decoration : none; color:gray">가입한 그룹</a>
 	> <a href="group?groupid=<%=groupid%>" style="text-decoration : none; color:gray"><%=groupname%></a>
-	> <a href="groupQnA?groupid=<%=groupid%>" style="text-decoration : none; color:gray">그룹 Q&A</a></p>
+	> <a href="groupnotice?groupid=<%=groupid%>" style="text-decoration : none; color:gray">그룹 공지사항</a></p>
 </div>
 
 
@@ -150,10 +150,10 @@
 		});
 		
 		$(".modifyPost").on('click', function(){
-		    location.href = "modifyGroupPostPage?postid="+<%=post.getPostid()%>;
+		    location.href = "modifyPostPage?postid="+<%=post.getPostid()%>;
 		});
 	});
 </script>
 
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>

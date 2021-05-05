@@ -122,11 +122,6 @@ public class HomeController {
     	return "/studyPage/practiceMento";
     }
     
-    @RequestMapping(value="/openedGroups") //개설된 그룹
-    public String index12() {
-    	return "openedGroups";
-    }
-    
     @RequestMapping(value="/freeBoard") //자유게시판
     public String index13() {
     	return "freeBoard";
@@ -156,20 +151,11 @@ public class HomeController {
     	return "/process/processLogin";
     }
     
-    @RequestMapping(value="/createGroupPage") //그룹 개설 페이지
-    public String index22() {
-    	return "createGroupPage";
-    }
-    
     @RequestMapping(value="/processLogout") //로그아웃 진행
     public String index23() {
     	return "/process/processLogout";
     }
     
-    @RequestMapping(value="/group") //그룹 페이지
-    public String index24() {
-    	return "/grouppage";
-    }
     
     @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
     public String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
@@ -203,16 +189,6 @@ public class HomeController {
     	return "/process/processPersonalInfoChange";
     }
     
-    @RequestMapping(value="/processCreateGroup") //그룹 개설 진행
-    public String index26() {
-    	return "/process/processCreateGroup";
-    }
-    
-    @RequestMapping(value="/joininggroups") //그룹 개설 진행
-    public String index27() {
-    	return "/joininggroups";
-    }
-    
     @RequestMapping(value="/writeNoticePage") //공지사항 작성 페이지
     public String index28() {
     	return "/writeNoticePage";
@@ -231,11 +207,6 @@ public class HomeController {
     @RequestMapping(value="/processWritePost") //자유게시판 게시물 작성 진행
     public String index31() {
     	return "/process/processWritePost";
-    }
-    
-    @RequestMapping(value="/processJoinGroup") //그룹 가입 진행
-    public String index32() {
-    	return "/process/processJoinGroup";
     }
     
     @RequestMapping(value="/noticeContent") //공지사항 내용 페이지
@@ -283,8 +254,44 @@ public class HomeController {
     	return "/notificationListPage";
     }
     
+
+
+    
+    
+    
+    /*그룹 관련 페이지 정리함*/
+    @RequestMapping(value="/openedGroups") //개설된 그룹
+    public String openedGroups() {
+    	return "/group/openedGroups";
+    }
+    
+    @RequestMapping(value="/createGroupPage") //그룹 개설 페이지
+    public String createGroupPage() {
+    	return "/group/createGroupPage";
+    }
+    
+    @RequestMapping(value="/processCreateGroup") //그룹 개설 진행
+    public String creatingGroup() {
+    	return "/process/processCreateGroup";
+    }
+    
+    @RequestMapping(value="/processJoinGroup") //그룹 가입 진행
+    public String processJoinGroup() {
+    	return "/process/processJoinGroup";
+    }
+    
+    @RequestMapping(value="/joininggroups") //가입한 그룹 목록 페이지
+    public String joiningGroups() {
+    	return "/group/joininggroups";
+    }
+    
+    @RequestMapping(value="/group") //그룹 별 페이지
+    public String grouppage() {
+    	return "/group/grouppage";
+    }
+    
     @RequestMapping(value="/processDeleteGroup") //그룹 해체 진행
-    public String index42() {
+    public String deleteGroup() {
     	return "/process/processDeleteGroup";
     }
     
@@ -293,40 +300,44 @@ public class HomeController {
     	return "/process/processLeaveGroup";
     }
     
-    
-    @RequestMapping(value="/groupQnA") // 그룹 내 공지사항
-    public String index43() {
-    	return "/groupQnA";
-    }
-    @RequestMapping(value="/groupnotice") //그룹 내 게시판
-    public String index44() {
-    	return "/groupnotice";
-    }
-    
-    @RequestMapping(value="/writeGroupPostPage")	//그룹 Q&A 작성 페이지
-    public String index45() {
-    	return "/writeGroupPostPage";
-    }
-    
-    @RequestMapping(value="/groupPostContent")	//그룹 Q&A 게시물 내용 페이지
-    public String index46() {
-    	return "/groupPostContent";
-    }    
-    
-    @RequestMapping(value="/modifyGroupPostPage")	//그룹 게시물 수정 페이지
-    public String index47() {
-    	return "/modifyGroupPostPage";
-    }  
-    
-    @RequestMapping(value="/writeGroupNoticePage")	//그룹 공지사항 작성 페이지
-    public String index48() {
-    	return "/writeGroupNoticePage";
+    @RequestMapping(value="/groupnotice") //그룹 내 공지사항
+    public String groupNotice() {
+    	return "/group/groupnotice";
     }
     
     @RequestMapping(value="/groupNoticeContent")	//그룹 공지사항 내용 페이지
-    public String index49() {
-    	return "/groupNoticeContent";
+    public String groupNoticeContent() {
+    	return "/group/groupNoticeContent";
     } 
+    
+    @RequestMapping(value="/writeGroupNoticePage")	//그룹 공지사항 작성 페이지
+    public String writeGroupNoticePage() {
+    	return "/group/writeGroupNoticePage";
+    }
+    
+    @RequestMapping(value="/groupQnA") // 그룹 QnA 목록 페이지
+    public String groupQnAList() {
+    	return "/group/groupQnA";
+    }
+    
+    @RequestMapping(value="/groupPostContent")	//그룹 Q&A 게시물 내용 페이지
+    public String groupQnAContent() {
+    	return "/group/groupPostContent";
+    } 
+   
+    @RequestMapping(value="/writeGroupPostPage")	//그룹 Q&A 작성 페이지
+    public String writeGroupQnAPage() {
+    	return "/group/writeGroupPostPage";
+    }
+       
+    @RequestMapping(value="/modifyGroupPostPage")	//그룹 게시물 수정 페이지
+    public String modifyGroupPostPage() {
+    	return "/group/modifyGroupPostPage";
+    }  
+   
+    
+    
+    
     
     
     

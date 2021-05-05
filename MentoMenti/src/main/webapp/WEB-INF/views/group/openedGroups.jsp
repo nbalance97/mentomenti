@@ -26,7 +26,7 @@
 
 </head>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
@@ -271,4 +271,4 @@
 	<h1>+</h1>
 </a>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>

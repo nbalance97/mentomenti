@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
-	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="java.util.List"%>
 <head>
 
 <meta charset="utf-8">
@@ -20,13 +21,12 @@
 	rel="stylesheet">
 
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
 
 <script type="text/javascript">
 	function chkForm(){
-		var form = document.writeNoticeForm;
+		var form = document.writePostForm;
 		var title = document.getElementById("title_text").value; //제목
 		var content = document.getElementById("content_text").value; //내용
 		
@@ -44,45 +44,47 @@
 	}
 </script>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <%
-	String strGroupid = request.getParameter("groupid");
-	int groupid = Integer.parseInt(strGroupid);
-	String mentoid = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getMentoid();
+	int postid = Integer.parseInt(request.getParameter("postid"));
+	List<PostDTO> findPost = HomeController.dao.getPostDAO().searchByPostId(postid);
+	String title = findPost.get(0).getTitle(); //기존에 작성한 제목
+	String content = findPost.get(0).getContent(); //기존에 작성한 내용
+	
+	String backToList = "";
+	if (HomeController.dao.getPostDAO().isNotice(postid)){
+		backToList = "notice";
+	} else {
+		backToList = "freeBoard";
+	}
+	
 
 	if (id == null) { //로그인 안된 상태면 로그인 페이지로 이동
 	response.sendRedirect("loginPage?mode=nidLogin");
-	}
-	
-	else if (!mentoid.equals(id)){	//멘토가 아니면 아웃
-	response.sendRedirect("joininggroups");
-	}
-	
+}
 	else {
 %>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading"> <!-- 여기에 margin-top 포함되어있음 -->
-	<h1 class="h3 mb-0 text-gray-800">그룹 공지사항 작성</h1>
 </div>
 
-<form action="processWriteNotice" name="writeNoticeForm">
+<form action="processModifyPost" name="writePostForm" method="post">
+	<input type="text" name="postid" value="<%=postid%>" style="display:none;">
+
 	<div class="form-group">
 		<label for="title_text">제목</label>
-		<input type="text" class="form-control" id="title_text" name="title">
+		<input type="text" class="form-control" id="title_text" name="title" value="<%=title%>"></input>
 	</div>
 
 	<div class="form-group">
 		<label for="content_text">내용</label>
-		<textarea class="form-control" id="content_text" name="content" rows="10"></textarea>
+		<textarea class="form-control" id="content_text" name="content" rows="10"><%=content%></textarea>
 	</div>
 	
-	<!-- 그룹 아이디 넘기기 -->
-	<input type="text" style="display:none" name="groupid" value=<%=groupid%> style="display:none;">
-	
 	<div style="text-align:center;">
-		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="notice"><button type="button" class="btn btn-secondary">목록으로</button></a>
+		<button type="button" class="btn btn-info" onclick="chkForm()">수정 완료</button>
+		<a href=<%=backToList%>><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
 
@@ -90,4 +92,4 @@
 	}
 %>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>
