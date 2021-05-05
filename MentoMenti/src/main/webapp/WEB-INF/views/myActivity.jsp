@@ -241,6 +241,7 @@
 			endPage = totalPage;
 		}
 		
+		$('#list-body').empty();
 		$("#list-body").append("<li class='page-item'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");
 		for(var j=startPage ; j<endPage ; j++){
 			$("#list-body").append("<li class='page-item'><a class='page-link' href='#'>"+j+"</a></li>");
