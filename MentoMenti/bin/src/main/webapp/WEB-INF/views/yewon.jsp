@@ -1,11 +1,8 @@
-<!-- 스크롤 내리면 데이터 추가 로딩하는거 테스트 중 -->
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
-	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
+	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page import="java.util.List"%>
 <head>
 
@@ -23,180 +20,196 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="resources/css/imgSlider.css" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
 </head>
 
+<script type="text/javascript">
+function isElementUnderBottom(elem, triggerDiff) {
+	  const { top } = elem.getBoundingClientRect();
+	  const { innerHeight } = window;
+	  return top > innerHeight + (triggerDiff || 0);
+	}
+
+	function handleScroll() {
+	  const elems = document.querySelectorAll('.up-on-scroll');
+	  elems.forEach(elem => {
+	    if (isElementUnderBottom(elem, -20)) {
+	      elem.style.opacity = "0";
+	      elem.style.transform = 'translateY(150px)';
+	    } else {
+	      elem.style.opacity = "1";
+	      elem.style.transform = 'translateY(0px)';
+	    }
+	  })
+	}
+
+	window.addEventListener('scroll', handleScroll);
+</script>
+
+<style>
+	.list{
+		width:100%;
+	}
+
+	.list .up-on-scroll{
+		transition: transform 1s, opacity 1s;
+	}
+	
+	.up-on-scroll{
+		font-size:1.2em;
+		text-align:center;
+		margin:120px 0px;
+	}
+	
+	*{
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+	
+	div.container{
+		overflow:hidden;
+	}
+	
+	div.item{
+		float:left;
+		width:50%;
+		padding:20px;
+	}
+	
+	a, a:hover{
+		text-decoration:none;
+		color:gray;
+	}
+	
+	.seeMore{
+		font-size:0.6em;
+	}
+</style>
+
 <%@include file="menuPart1.jsp"%>
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4"
-	id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800">개설된 그룹</h1>
-	<ul class="navbar-nav ml-auto">
-		<li>
-			<form
-				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-				<div class="input-group">
-					<input type="text" class="form-control border-0 small"
-						placeholder="검색" aria-label="Search"
-						aria-describedby="basic-addon2">
-					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
-							<i class="fas fa-search fa-sm"></i>
-						</button>
-					</div>
-				</div>
-			</form>
-		</li>
-	</ul>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="margin-top:50px">
 </div>
-<p class="mb-4">스터디에 참여할 그룹을 찾아보세요.</p>
 
-
-<!-- 컴파일러가 C언어, 자바, 파이썬을 지원하므로 해당 언어들과 기타 그룹으로 분류해서 보여줌 (추후 수정 가능성) -->
-
-<div class="row">
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-primary shadow h-100 py-2">
-			<a href="openedGroups?category=C" style="text-decoration: none;">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">C언어 그룹</div>
-						</div>
-						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
-								(
-								<!-- C언어 그룹 수 -->
-								<%
-									List<GroupDTO> groupsC = HomeController.dao.getGroupDAO().selectGroupsC();
-								out.println(groupsC.size());
-								%>)
-							</div>
-						</div>
-					</div>
-				</div>
-			</a>
-		</div>
-	</div>
-
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-success shadow h-100 py-2">
-			<a href="openedGroups?category=Java" style="text-decoration: none;">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">Java 그룹</div>
-						</div>
-						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
-								(
-								<!-- Java 그룹 수 -->
-								<%
-									List<GroupDTO> groupsJava = HomeController.dao.getGroupDAO().selectGroupsJava();
-								out.println(groupsJava.size());
-								%>)
-							</div>
-						</div>
-					</div>
-				</div>
-			</a>
-		</div>
-	</div>
-
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-info shadow h-100 py-2">
-			<a href="openedGroups?category=Python" style="text-decoration: none;">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Python
-								그룹</div>
-						</div>
-						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
-								(
-								<!-- Python 그룹 수 -->
-								<%
-									List<GroupDTO> groupsPython = HomeController.dao.getGroupDAO().selectGroupsPython();
-								out.println(groupsPython.size());
-								%>)
-							</div>
-						</div>
-					</div>
-				</div>
-			</a>
-		</div>
-	</div>
-
-	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-warning shadow h-100 py-2">
-			<a href="openedGroups?category=Etc" style="text-decoration: none;">
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">기타 그룹</div>
-						</div>
-						<div class="col-auto">
-							<div class="font-weight-bold text-warning mb-1">
-								(
-								<!-- 기타 그룹 수 -->
-								<%
-									List<GroupDTO> groupsEtc = HomeController.dao.getGroupDAO().selectGroupsEtc();
-								out.println(groupsEtc.size());
-								%>)
-							</div>
-						</div>
-					</div>
-				</div>
-			</a>
-		</div>
+<!-- 이미지 슬라이드 -->
+<div class="slideSection" style="margin-bottom:100px;">
+	<input type="radio" name="slide" id="slide01" checked>
+	<input type="radio" name="slide" id="slide02">
+	<input type="radio" name="slide" id="slide03">
+	<div class="slidewrap">
+		<ul class="slidelist" style="margin-bottom:0">
+			<!-- 슬라이드 영역 -->
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/mainimg1_2.png">
+				</a>
+			</li>
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/programmer_img.jpg">
+				</a>
+			</li>
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/programmer_img2.jpg">
+				</a>
+			</li>
+		</ul>
+		
+		<!-- 페이징 -->
+		<ul class="slide-pagelist">
+			<li><label for="slide01"></label></li>
+			<li><label for="slide02"></label></li>
+			<li><label for="slide03"></label></li>
+		</ul>
 	</div>
 </div>
 
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h5 class="h5 mb-0 text-gray-800">그룹 목록</h5>
-</div>
 
-<!-- 그룹 목록 -->
-<div class="row" id="groupList">
-
-<!-- 스크롤하면 그룹 추가 로딩 -->
-<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		var appendDocument = function(){
-			for(var i=0; i<9; i++){
-				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
-						+'<h5 class="m-0 font-weight-bold text-primary">'+'그룹 이름'
-						+'<a href="#" class="btn btn-warning btn-circle btn-sm" style="float: right"><i class="fas fa-check"></i></a></h5></div>'
-						+'<div class="card-body">'
-						+'<p>과목 : '+'C언어'+'</p>'
-						+'<p>설명 : '+'병훈짱이 캐리하는 그룹입니다'+'</p>'
-						+'<p>멘토 : '+'이병훈'+'</p>'
-						+'<p>인원 수 : '+'5/10'+'</p></div></div>').appendTo('#groupList');
-			}
-		};
-		appendDocument();
+<!-- 사이트 설명 -->
+<div class="list">
+	<div class="up-on-scroll" id="site_intro1">
+		<h3 style="margin:50px">Welcome to MOCO!</h3>
+		<p>누구나 멘토가 될 수 있고</p>
+		<p>누구나 멘티가 될 수 있는</p>
+		<p>모두의 코딩 교실,</p>
+		<p><b>모코(MOCO)</b>에 오신 것을 환영합니다</p>
+	</div>
 	
-		$(window).scroll(function(){
-			var scrollHeight = $(window).scrollTop() + $(window).height();
-			var documentHeight = $(document).height();
-			
-			if(scrollHeight == documentHeight){
-				appendDocument();
-			}
-		});
-	});
-</script>
+	<div class="up-on-scroll" id="site_intro2">
+		<p>개설된 스터디 그룹 목록을 확인해보세요</p>
+		<p>자유게시판에서 다른 사용자들과 소통해보세요</p>
+		<p>그룹 가입 신청을 하세요</p>
+		<p>가입된 그룹 페이지에서 수업에 참여할 수 있습니다</p>
+		<p>...</p>
+		<p>약간 이런 식으로 사이트 튜토리얼도 나쁘지 않을듯</p>
+	</div>
+	
+	
+	<div class="up-on-scroll container">
+	
+		<!-- 가장 최근 공지사항 5개 -->
+		<div class="item">
+			<p><b>공지사항</b></p>
+			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
+				<thead>
+					<tr>
+						<td>제목</td>
+						<td>작성일자</td>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<%
+						List<PostDTO> curNotices = HomeController.dao.getPostDAO().curGeneralNotices(5);
+						for(PostDTO cn: curNotices){
+					%>
+					<tr>
+						<td><a href="noticeContent?postid=<%=cn.getPostid()%>"><%=cn.getTitle()%></a></td>
+						<td><%=cn.getPostdate() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+			<div style="text-align:right"><p class="seeMore"><a href="notice">더보기>></a></p></div>
+		</div>
+		
+		
+		<!-- 가장 최근 자유게시판 글 5개 -->
+		<div class="item">
+			<p><b>자유게시판</b></p>
+			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
+				<thead>
+					<tr>
+						<td>제목</td>
+						<td>작성일자</td>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<%
+						List<PostDTO> curPosts = HomeController.dao.getPostDAO().curGeneralPosts(5);
+						for(PostDTO cp: curPosts){
+					%>
+					<tr>
+						<td><a href="postContent?postid=<%=cp.getPostid()%>"><%=cp.getTitle()%></a></td>
+						<td><%=cp.getPostdate() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+			<div style="text-align:right"><p class="seeMore"><a href="freeBoard">더보기>></a></p></div>
+		</div>
+	</div>
 </div>
-
-
-
-<!-- 그룹 개설 버튼, 화면 고정 -->
-<a href="createGroupPage" class="btn btn-success btn-circle"
-	style="position: fixed; right: 70px; bottom: 20px; width: 70px; height: 70px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)">
-	<h1>+</h1>
-</a>
 
 <%@include file="menuPart2.jsp"%>

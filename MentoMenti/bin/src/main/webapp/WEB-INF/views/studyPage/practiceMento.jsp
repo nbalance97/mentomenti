@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.WebCompiler.WebCompiler" %>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
+<%@ page import="Mento.Menti.Project.controller.HomeController"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +43,7 @@
 		height:82vh;
 		float:left;
 		width:48%;
+		border-style:dotted;
 	}
 	.codingFunc{
 		width:48%;
@@ -61,6 +68,35 @@
 	}
 </script>
 <body>
+			<%
+			//방만들기 클릭시 class대한 세션설정 필요?
+			//클래스아이디 받아오기
+			//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
+			int groupid = Integer.parseInt(request.getParameter("groupid"));
+			GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+			//해당 그룹의 멘토아이디 받아오기
+			String mentoid = group.getMentoid();
+			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
+			//그룹에 참여한 멘티 목록
+			List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+
+			//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+			
+			boolean isMember = false;
+			if(mentoid.equals(id)){
+				isMember = true;
+			}
+			for(GroupmateDTO mentee:groupmateList){
+				if(mentee.getId().equals(id)){
+					isMember=true;
+				}
+			}
+			if(!isMember || id == null){
+				response.sendRedirect("rejectedAccess?type=notMember");
+			}
+			
+			%>
+
 	<% 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8"); 
@@ -68,6 +104,8 @@
 		String input = request.getParameter("InputText");
 		String mode = request.getParameter("mode");
 		String settingFile = null; // 설정된 파일명
+		WebCompiler WC = WebCompiler.getInstance();
+		
 		if (mode == null) 
 			mode = "python";
 		
@@ -86,12 +124,11 @@
 		
 	%>
 	<%@include file="studySidebar.jsp"%>
-	
 	<div class="main">
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
 			<div class="problemImg shadow img-rounded">
-				<h1>problem</h1>
+				<h1>문제를 게시해주세요</h1>
 			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
@@ -111,17 +148,20 @@
 					</select>
 				</div>
 				<form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?mode=<%=mode%>">
-					<div class="compiler shadow img-rounded" style="padding:5px">
+					<div class="compiler img-rounded" style="padding:5px">
 							<label>Code Input</label>
 							<input type="submit" value="Execute">
 							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"><%
 								/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
 								if (SRC != null)
 									out.println(SRC);
+								if (SRC == null && mode.equals("java")) {
+									out.println(WC.getJavaDefault());
+								}
 							%></textarea> 
 					</div>
 			
-					<div class="input shadow img-rounded" style="padding:5px">
+					<div class="input img-rounded" style="padding:5px">
 						<label>stdin : </label>
 						<textarea style="width:100%; height:100%;" name="InputText" id="input"><%
 								if (input != null) {
@@ -131,16 +171,19 @@
 					</div>
 				</form>
 			
-				<div class="result shadow img-rounded" style="padding:5px">
+				<div class="result img-rounded" style="padding:5px">
+					<label>result : </label>
 					<textarea style="width:100%; height:100%;" name="ResultText" id="result"><%
 						if (SRC != null) {
-							WebCompiler WC = WebCompiler.getInstance();
 							String temp = null;
 							if (mode.equals("python")) {
 								temp = WC.compilePython(SRC, input);
 							} else if (mode.equals("C")) {
 								temp = WC.compileC(SRC, input);
+							} else if (mode.equals("java")) {
+								temp = WC.compileJava(SRC, input);
 							}
+					
 							if (temp != null) 
 								out.println(temp);
 							else
@@ -150,7 +193,20 @@
 				</div>
 			</div>
 		</div>
-		<%@include file="studyPageFunction.jsp"%>
+		<% 
+			//멘토아이디와 접속한 아이디 비교
+			//True = 멘토, False = 멘티 확인
+			if (mentoid.equals(id)){//멘토
+				%>
+				<%@include file="practiceBottomMentor.jsp"%>
+				<% 
+			} else {//멘티인지 확인
+				%>
+				<%@include file="practiceBottomMentee.jsp"%>
+				<%
+			}
+			
+		%>
 	</div>
 	
 	<!-- Library textarea에 적용하는 과정 -->
@@ -180,9 +236,9 @@
 			value: textarea3.value
 		});
 		
-		editor.setSize("100%", 150);
-		editor2.setSize("100%", 100);
-		editor3.setSize("100%", 40);
+		editor.setSize("100%", "100%");
+		editor2.setSize("100%", "100%");
+		editor3.setSize("100%", "100%");
 	</script>
 </body>
 </html>

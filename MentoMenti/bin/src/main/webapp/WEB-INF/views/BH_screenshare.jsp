@@ -34,9 +34,7 @@ html, body{
   <video id="v1" autoplay="true" width="800px"></video> 
   
   <script>
-
-  
-		var conn = new WebSocket('ws://localhost:8000/socket');
+		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
 		var dataChannel;
 	    var myoffer;
@@ -106,7 +104,13 @@ html, body{
 			var configuration = {
 				    "iceServers" : [ {
 				        "url" : "stun:stun2.1.google.com:19302"
-				    } ]
+				    },
+				    {
+				 	"url" : "turn:kgu.mentomenti.kro.kr?transport=tcp",
+				 	"username":"root",
+				 	"credential":"1234"
+				 }
+				 ]
 				};
 			var peerConnection = new RTCPeerConnection(configuration);
 			peerConnection.onicecandidate = function(event) { // Handler 등록
@@ -219,10 +223,7 @@ html, body{
 			input.value = "";
 		}
 		
-		function negotiatefunc() {
-			
-		}
-		
+
 		async function share_monitor() { 
 			/*
 			 최대 난제. 화면공유 시 renegotiation 해주어야 하는 문제

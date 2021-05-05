@@ -3,4 +3,29 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Mento.Menti.Project.dao.CommentDAO">	
+	<!-- 게시물 댓글 불러오기 -->
+	<select id="selectComments" resultType="Mento.Menti.Project.dto.CommentDTO" parameterType="int">
+		SELECT *
+		FROM comment
+		WHERE postid = #{postid};
+	</select>
+	
+	<!-- 댓글 등록하기 -->
+	<insert id="insertComment" parameterType="Mento.Menti.Project.dto.CommentDTO">
+		INSERT INTO comment
+		VALUES (null, #{postid}, #{writerid}, #{content}, #{commentdate});
+	</insert>
+	
+	<!-- 댓글 삭제하기 -->
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM comment
+		WHERE commentid = #{commentid};
+	</delete>
+	
+	<!-- 내 댓글 찾기 -->
+	<select id="searchMyCommentsByUserId" resultType="Mento.Menti.Project.dto.CommentDTO" parameterType="String">
+		SELECT *
+		FROM comment
+		WHERE writerid = #{id};
+	</select>
 </mapper>

@@ -33,6 +33,7 @@
 		user.setIntro(intro);
 		
 		HomeController.dao.getUserDAO().updateUserInfo(user);	//DB update
+		session.setAttribute("nickname", nickname);
 		
 		response.sendRedirect("personalInfoPage");
 	%>

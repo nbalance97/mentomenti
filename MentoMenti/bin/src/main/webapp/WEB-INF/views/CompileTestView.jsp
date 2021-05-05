@@ -29,12 +29,6 @@
 </script>
 <body>
 	<% 
-		UserDTO insUser = new UserDTO(null, null, null, null, null, null, null, false, null);
-		insUser.setEmail("a@naver.com");
- 		List<UserDTO> temp55 = HomeController.dao.getUserDAO().searchUser(insUser);
- 		for (UserDTO u: temp55)
- 			System.out.println(u.getId() + "//" + u.getPw());
- 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8"); 
 		String SRC = request.getParameter("CodeText"); // 코드와 입력값 받음

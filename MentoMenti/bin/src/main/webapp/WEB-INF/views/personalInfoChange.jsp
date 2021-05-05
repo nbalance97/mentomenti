@@ -24,12 +24,7 @@
 
 <script type="text/javascript">
 	var isPwChecked = false;
-
-	function changeImage() {
-		alert("프로필 이미지 변경");
-		//이미지 불러오기
-	}
-
+	
 	//비밀번호 확인
 	function chkPw() {
 		var pw1 = document.getElementById("new_pw_text").value;
@@ -91,13 +86,31 @@
 </div>
 
 <div style="text-align: center">
-	<p>
-		<img src="resources/img/undraw_profile_1.svg" style="width: 150px;">
-	</p>
+	<!-- 프로필 이미지 -->
+	<%
+		File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+		File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+		
+		if (pngImg.exists()) {
+	%>
+		<div class="pngProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;"></div>
+	<%
+		} else if (jpgImg.exists()){
+	%>
+		<div class="jpgProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+	<%
+		} else {
+	%>
+		<div class="defaultProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+	<%
+		}
+	%>
+	
+	<form action="processPersonalInfoChange?userid=<%=id%>" method="post" enctype="multipart/form-data" name="changeForm">
 	<p>
 		<!-- 프로필 사진 업로드 버튼 -->
-		<a href="#" onClick="changeImage()" class="btn btn-success"
-			style="margin-bottom: 20px;">프로필 수정</a>
+		<label for="file" class="btn btn-success" style="margin-bottom:20px;">프로필 등록</label>
+		<input type="file" id="file" name="profileImg" style="display:none;">
 	</p>
 
 
@@ -110,18 +123,18 @@
 		loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
 	}
 	%>
-
-	<form action="processPersonalInfoChange" method="post" name="changeForm">
+	
+	
 		<table class="table" style="width: 80%; margin: 0 auto;">
 			<tr style="width: 50px">
 				<td>이름</td>
 				<td><input type="text" id="name_text"
-					value=<%=loginUser.getName()%> disabled="true" style="width: 60%" /></td>
+					value=<%=loginUser.getName()%> disabled style="width: 60%" /></td>
 			</tr>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" id="id_text" value="askges20"
-					style="width: 60%" disabled="true" />
+				<td><input type="text" id="id_text" value=<%=loginUser.getId() %>
+					style="width: 60%" disabled />
 			</tr>
 			<tr>
 				<td>닉네임</td>

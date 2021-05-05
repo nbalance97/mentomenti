@@ -9,8 +9,8 @@
 					<!-- Footer -->
 					<footer class="sticky-footer">
 						<div class="container my-auto">
-							<div class="copyright text-center my-auto">
-								<span>Copyright © Your Website 2020</span>
+							<div class="copyright text-center my-auto" style="line-height:2">
+								<span>Copyright © KGU capstone design Kaptain 2021</span>
 							</div>
 						</div>
 					</footer>
@@ -66,6 +66,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 프로필 이미지 크기 조절 -->
+	<%@include file="process/imgResizing.jsp" %>
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="resources/vendor/jquery/jquery.min.js"></script>

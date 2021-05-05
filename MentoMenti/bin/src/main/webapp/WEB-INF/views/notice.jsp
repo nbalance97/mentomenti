@@ -16,9 +16,6 @@
 <title>MOCO</title>
 
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
@@ -33,12 +30,11 @@
 	<h1 class="h3 mb-0 text-gray-800">공지사항</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
-			<!-- 검색 버튼 누르면 processSearchNotice로 이동 -->
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
 				action="notice" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small" name="keyword"
-						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2">
+						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
@@ -87,14 +83,14 @@
 		
 		<%
 			}
-			
 			else {	//결과가 있다면
 				for (PostDTO gn: noticeList){
 		%>
 		<tr role="row" class="odd">
 			<td>
 				<!-- 제목 -->
-				<a href="#" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
+				<a href="noticeContent?postid=<%=gn.getPostid()%>" style="text-decoration: none; color: gray">
+					<%=gn.getTitle() %></a>
 			</td>
 			<td><%=gn.getUserid() %></td> <!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
 			<td><%=gn.getPostdate()%></td> <!-- 작성일자 -->
@@ -131,11 +127,22 @@
 			>></a>
 	</div>
 
+	<%
+		if (id != null) {	//로그인상태
+			if (HomeController.dao.getUserDAO().isAdmin(id)){	//관리자일때
+	%>
+
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
-			<a href="#" class="btn btn-secondary">작성</a>
+			<a href="writeNoticePage" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
+	
+	<%
+			}
+		}
+	%>
+	
 </div>
 
 <%@include file="menuPart2.jsp"%>

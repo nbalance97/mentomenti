@@ -1,14 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
-body{
-	font-family : 'Roboto', sans-serif;
-}
-*{
-	margin : 0;
-	padding: 0;
-	list-style :none;
-	text-decoration : none;
-}
-
+/*PC 환경 사이드바*/
 .sidebar2{
 	z-index:10000;
 	position : fixed;
@@ -38,7 +28,7 @@ body{
 	box-sizing : border-box;
 	border-top : 1px solid rgba(255,255,255,.1);
 	text-decoration: none;
-	transition : .4s;
+	transition : .5s;
 }
 
 .sidebar2 ul li:hover a{
@@ -50,6 +40,9 @@ body{
 	margin-right : 16px;
 }
 
+
+
+/* PC 환경 사이드바 버튼 */
 #check{
 	display:none;
 }
@@ -81,6 +74,8 @@ label #cancel{
 	transition : all .5s ease;
 }
 
+
+/*버튼 클릭 시 변화*/
 #check:checked ~ .sidebar2{
 	left:0px;
 }
@@ -99,40 +94,7 @@ label #cancel{
 	margin-left:250px;
 }
 
-section{
-	background : url("../img/test2.png") no-repeat;
-	background-position: absolute;
-
-	left: 0;
-    top: 0;
-    max-width: 100%;
-	width : 1920px;
-	height : 700px;
-	transition:all .5s;
-}
-
-
-
 #check:checked ~ #contentSection{
 	margin-left:250px;
 	width:80%;
-}
- 
-#contentSection{
-	background-position: absolute;
-	background-size : cover;
-	left: 0;
-    top: 0;
-    width:100%;
-    padding:0 5%;
-	transition:all .5s;
-}
-
-#pageHeading{
-	padding-top:100px;
-}
-
-#colItems{
-	line-height:30px;
-	height:30px
 }

@@ -37,8 +37,43 @@
   	WHERE category != 'C언어' and category != 'Java' and category != 'Python';
   </select>
   
+  <!-- 그룹 생성 -->
   <insert id="insertGroup" parameterType="Mento.Menti.Project.dto.GroupDTO">
   	INSERT INTO mmgroup
   	VALUES (null, #{name}, #{mentoid}, #{maxperson}, #{category}, #{intro});
   </insert>
+  
+  <!-- 유저 아이디로 개설한 그룹 리스트 찾기 -->
+  <select id="searchMentoGroupsByUserId" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="String">
+  	SELECT *
+  	FROM mmgroup
+  	WHERE mentoid = #{id};
+  </select>
+  
+  <!-- 유저 아이디로 가입한 그룹 리스트 찾기 -->
+  <select id="searchJoinGroupsByUserId" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="String">
+  	SELECT *
+  	FROM mmgroup
+  	WHERE groupid IN (SELECT groupid from groupmate where id = #{id});
+  </select>
+  
+  <!-- 그룹 이름으로 검색하기 -->
+  <select id="searchGroupsByName" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="String">
+    SELECT *
+    FROM mmgroup
+    WHERE name LIKE '%${kwd}%';
+  </select>
+  
+  <!-- 그룹 아이디로 그룹 찾기 -->
+  <select id="searchGroupByGroupid" resultType="Mento.Menti.Project.dto.GroupDTO" parameterType="int">
+    SELECT *
+    FROM mmgroup
+    WHERE groupid = #{groupid};
+  </select>
+  
+  <!-- 그룹 해체 -->
+  <delete id="deleteGroup" parameterType="int">
+  	delete FROM mmgroup
+  	WHERE groupid = #{groupid};
+  </delete>
 </mapper>

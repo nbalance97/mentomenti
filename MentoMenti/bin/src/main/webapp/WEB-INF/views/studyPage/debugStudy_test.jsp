@@ -177,7 +177,7 @@
 	<div class="main">
 		<!-- 화면공유  -->
 		<div class="screen">
-		<div class="screen-share"><jsp:include page="../screenShare.jsp" flush="true"/></div>
+		<div class="screen-share"><jsp:include page="../whiteBoard.jsp" flush="true"/></div>
 		</div>
 		<!-- 수업페이지 기능모음 메뉴 -->
 		<div class="function">

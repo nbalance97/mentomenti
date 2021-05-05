@@ -4,6 +4,8 @@
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <head>
 
 <meta charset="utf-8">
@@ -20,6 +22,7 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
 </head>
 
@@ -31,14 +34,14 @@
 	<ul class="navbar-nav ml-auto">
 		<li>
 			<!-- 그룹 검색 기능 구현해야 함 -->
-			<form
-				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+				action="openedGroups" method="GET">
 				<div class="input-group">
-					<input type="text" class="form-control border-0 small"
+					<input type="text" class="form-control border-0 small" name="keyword"
 						placeholder="그룹 명 검색" aria-label="Search"
 						aria-describedby="basic-addon2">
 					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
+						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>
@@ -59,10 +62,10 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">C언어 그룹</div>
+							<div class="h5 mb-0 font-weight-500 text-gray-800">C언어 그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
+							<div class="font-weight-500 text-primary mb-1">
 								(
 								<!-- C언어 그룹 수 -->
 								<%
@@ -83,10 +86,10 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">Java 그룹</div>
+							<div class="h5 mb-0 font-weight-500 text-gray-800">Java 그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
+							<div class="font-weight-500 text-primary mb-1">
 								(
 								<!-- Java 그룹 수 -->
 								<%
@@ -107,11 +110,11 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Python
+							<div class="h5 mb-0 mr-3 font-weight-500 text-gray-800">Python
 								그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-primary mb-1">
+							<div class="font-weight-500 text-primary mb-1">
 								(
 								<!-- Python 그룹 수 -->
 								<%
@@ -132,10 +135,10 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-bold text-gray-800">기타 그룹</div>
+							<div class="h5 mb-0 font-weight-500 text-gray-800">기타 그룹</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-bold text-warning mb-1">
+							<div class="font-weight-500 text-warning mb-1">
 								(
 								<!-- 기타 그룹 수 -->
 								<%
@@ -157,46 +160,114 @@
 </div>
 
 
-<div class="row">
+<div class="row" id="groupList">
+<%
+	List<GroupDTO> groups = null;
+	String kwd = request.getParameter("keyword");	//검색 키워드
+	String category = request.getParameter("category");	//분류
+	
+	//검색했으면 검색 결과 출력
+	if (kwd != null){
+		groups = HomeController.dao.getGroupDAO().searchGroupsByName(kwd);
+	}
+	//선택한 분류에 따라 그룹 목록 다르게 출력
+	else if (category == null){
+		groups = HomeController.dao.getGroupDAO().selectGroups();	//그룹 목록 DB에서 불러오기
+	} else if (category.equals("C")){
+		groups = groupsC;
+	} else if (category.equals("Java")){
+		groups = groupsJava;
+	} else if (category.equals("Python")){
+		groups = groupsPython;
+	} else {
+		groups = groupsEtc;
+	}
+	//groups에 출력할 그룹 목록 담김
+	
+	//각 그룹에 대한 멘티 수를 저장할 배열
+	int[] mentiCnts = new int[groups.size()];
+	//멘티 수 구하기
+	for (int i=0; i<groups.size(); i++){
+		int groupId = groups.get(i).getGroupid();
+		mentiCnts[i] = HomeController.dao.getGroupmateDAO().cntMenti(groupId);
+	}
+%>
 
-	<%
-		List<GroupDTO> allGroups = HomeController.dao.getGroupDAO().selectGroups();
-	%>
 
-	<%
-		for (GroupDTO group : allGroups){
-		//for (int i = 0; i < 10; i++) {
-	%>
-	<div class="col-lg-4">
-		<div class="card shadow mb-4">
-			<div class="card-header py-3">
-				<!-- 그룹 이름 및 상세 정보 페이지로 넘어가는 버튼 -->
-				<h5 class="m-0 font-weight-bold text-primary">
-					<%=group.getName() %>
-					<!-- 버튼 모양 수정 예정 -->
-					<a href="#" class="btn btn-warning btn-circle btn-sm"
-						style="float: right"> <i class="fas fa-check"></i></a>
-				</h5>
-			</div>
+<!-- jstl문 활용해서 groups에 실제 group, 멘티 수 넣어 줌 -->
+<c:set var="groups" value="<%=groups%>"></c:set>
+<c:set var="mentiCnts" value="<%=mentiCnts%>"></c:set>
 
-			<div class="card-body">
-				<!-- 간단한 그룹 정보 -->
-				<p>과목 : <%=group.getCategory() %></p>
-				<p>설명 : <%=group.getIntro() %></p>
-				<p>멘토 : <%=group.getMentoid() %></p> 					<!-- 닉네임으로 바뀔 수도 -->
-				<p>인원 수 : (현재 인원 수)/<%=group.getMaxperson() %></p>
-			</div>
-		</div>
-	</div>
-	<%
-		}
-	%>
-
+<script type="text/javascript">
+	var cntShowGroupIndex = 0;
+	var group = new Array();
+	var mentiCnt = new Array();
+	
+	/*group Array에 그룹 정보 저장*/
+	<c:forEach items="${groups}" var="group">
+		group.push({
+			groupid: "${group.groupid}",
+			name: "${group.name}",
+			category: "${group.category}",
+			intro: "${group.intro}",
+			mentoid: "${group.mentoid}",
+			maxperson: "${group.maxperson}"
+		});
+	</c:forEach>
+	
+	//mentiCnt Array에 멘티 수 저장
+	<c:forEach items="${mentiCnts}" var="mentiCnt">
+		mentiCnt.push({
+			cnt: "${mentiCnt}"
+		});
+	</c:forEach>
+	
+	$(document).ready(function(){
+		var showGroups = function(){
+			for (var i = cntShowGroupIndex; i < cntShowGroupIndex+9; i++) {
+				if (i >= group.length) // 읽어들인 크기보다 커지면
+					break;
+				
+				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
+						+'<h5 class="m-0 font-weight-500 text-primary">'+group[i].name
+						+'<div class="btn btn-warning btn-circle btn-sm" style="float: right;"'
+						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
+						+'<img src="resources/img/right-arrow.png" style="width:100%"></h5></div>'
+						+'<div class="card-body">'
+						+'<p>과목 : '+group[i].category+'</p>'
+						+'<p>설명 : '+group[i].intro+'</p>'
+						+'<p>멘토 : '+group[i].mentoid+'</p>'
+						+'<p>인원 수 : '+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p></div></div>').appendTo('#groupList');
+			}
+			
+			cntShowGroupIndex += 9;
+		};
+		
+		showGroups();
+		
+		
+		//스크롤시 추가 로딩하는 부분
+		$(window).scroll(function(){
+			var scrollHeight = $(window).scrollTop() + $(window).height();
+			var documentHeight = $(document).height();
+			
+			if(scrollHeight == documentHeight){
+				showGroups();
+			}
+		});
+	});
+	
+	function chkAbleToJoin(mentoid, groupid){
+	    if (confirm("그룹에 가입하시겠습니까?")) {
+	    	location.href = "processJoinGroup?mentoid=" + mentoid + "&groupid=" + groupid;
+	    }
+	}
+</script>
 </div>
 
 <!-- 그룹 개설 버튼, 화면 고정 -->
 <a href="createGroupPage" class="btn btn-success btn-circle"
-	style="position: fixed; right: 70px; bottom: 20px; width: 70px; height: 70px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)">
+	style="position: fixed; right: 70px; bottom: 20px; width: 80px; height: 80px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)">
 	<h1>+</h1>
 </a>
 

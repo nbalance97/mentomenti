@@ -1,11 +1,12 @@
 
+
 drop database mentomenti;
 create database mentomenti;
 use mentomenti;
 
 create table user(
-	id 		varchar(20) primary key,
-	pw 		varchar(20) not null,
+	id 			varchar(20) primary key,
+	pw 			varchar(20) not null,
 	birth 		date not null,
 	joindate 	date not null,
 	email 		varchar(20) not null,
@@ -22,7 +23,7 @@ create table mmgroup(
 	maxperson 		int not null, 
 	category 		varchar(20) not null,
 	intro text not null,
-	constraint group_fk foreign key(mentoid) references user(id)
+	constraint group_fk foreign key(mentoid) references user(id) on delete cascade
 );
 
 create table class(
@@ -31,7 +32,7 @@ create table class(
 	starttime 	datetime not null,
 	endtime 	datetime not null,
 	constraint class_fk 
-		foreign key(groupid) references mmgroup(groupid) 
+		foreign key(groupid) references mmgroup(groupid) on delete cascade
 );
 
 create table classmate(
@@ -40,9 +41,9 @@ create table classmate(
 	constraint classmate_pk 
 		primary key(id, classid),
 	constraint classmate_fk 
-		foreign key(id) references user(id),
+		foreign key(id) references user(id) on delete cascade,
 	constraint classmate_fk2 
-		foreign key(classid) references class(classid)
+		foreign key(classid) references class(classid) on delete cascade
 );
 
 create table groupmate(
@@ -51,7 +52,7 @@ create table groupmate(
 	constraint groupmate_pk 
 		primary key(id, groupid),
 	constraint groupmate_fk 
-		foreign key(groupid) references mmgroup(groupid)
+		foreign key(groupid) references mmgroup(groupid) on delete cascade
 );
 
 create table post(
@@ -63,8 +64,8 @@ create table post(
 	postdate date not null,
 	viewcount int not null,
 	is_notice boolean not null,
-	constraint post_fk foreign key(userid) references user(id),
-	constraint post_fk2 foreign key(groupid) references mmgroup(groupid)
+	constraint post_fk foreign key(userid) references user(id) on delete cascade,
+	constraint post_fk2 foreign key(groupid) references mmgroup(groupid) on delete cascade
 );
 
 create table comment(
@@ -73,6 +74,16 @@ create table comment(
 	writerid varchar(20) not null,
 	content text not null,
 	commentdate date not null,
-	constraint t1 foreign key(postid) references post(postid),
-	constraint t2 foreign key(writerid) references user(id)
+	constraint t1 foreign key(postid) references post(postid) on delete cascade,
+	constraint t2 foreign key(writerid) references user(id) on delete cascade
+);
+
+create table notification(
+    notificationid int primary key auto_increment,
+    receiverid varchar(20) not null,
+    sendtime datetime not null,
+    content text not null,
+    isread boolean not null,
+    constraint notification_fk
+	foreign key(receiverid) references user(id) on delete cascade
 );
