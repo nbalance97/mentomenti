@@ -3,6 +3,10 @@
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+	<%@ page
+	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
 <%@ page import="java.util.List"%>
 <head>
 
@@ -23,6 +27,25 @@
 </head>
 
 <%@include file="menuPart1.jsp"%>
+
+<%
+	int groupid = Integer.parseInt(request.getParameter("groupid"));
+	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+	List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+	
+	//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+	boolean isMember = false;
+	if (group.getMentoid().equals((String)session.getAttribute("userID")))	
+		isMember = true;
+	for (GroupmateDTO gl: groupmateList){	//가입한 그룹인 경우
+		if (gl.getId().equals((String)session.getAttribute("userID")))
+			isMember = true;
+	}
+	if (!isMember){	//해당 그룹의 멤버가 아니라면 접근 거부
+		response.sendRedirect("rejectedAccess?type=notMember");
+	}
+%>
+
 
 <!-- 자유게시판 -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -45,12 +68,50 @@
 		</li>
 	</ul>
 </div>
-<p class="mb-4">자유롭게 글을 작성할 수 있는 게시판입니다.</p>
-
-<!-- 리스트 -->
 
 
 
+	<div class="content2">
+		<h4 class="text1">Q & A</h4>
+		<table class="table table-bordered" id="dataTable"
+			cellspacing="0" role="grid" aria-describedby="dataTable_info"
+			style="width: 80%; background: white; text-align: center; margin:0 auto;">
+			<thead>
+				<tr role="row">
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 65%">제목</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">작성자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성일자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					List<PostDTO> groupPosts = HomeController.dao.getPostDAO().curGroupPosts(group.getGroupid());
+					if (groupPosts.size() > 0){
+						for(PostDTO gp: groupPosts) {
+				%>
+					<tr>
+							<td>
+				<!-- 제목 -->
+				<a href="postContent?postid=<%=gp.getPostid()%>" style="text-decoration: none; color: gray"><%=gp.getTitle() %></a>
+			</td>
+					<td><%=gp.getUserid()%></td>
+					<td><%=gp.getPostdate()%></td>
+					<td><%=gp.getViewcount() %></td> <!-- 조회수 -->
+					</tr>
+				<%
+						}
+					} else {
+				%>
+					<tr style="height:100px">
+					<td colspan="2">게시물이 아직 없습니다</td>
+					</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
+	</div>
 
 
 
