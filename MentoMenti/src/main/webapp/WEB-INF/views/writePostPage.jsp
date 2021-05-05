@@ -51,6 +51,7 @@
 	response.sendRedirect("loginPage?mode=nidLogin");
 }
 	else {
+		String strGroupid = request.getParameter("groupid");
 %>
 
 <!-- 
@@ -62,10 +63,31 @@ form {
 -->
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading"> <!-- 여기에 margin-top 포함되어있음 -->
+	<%
+		if(strGroupid == null){		//자유게시판
+	%>
 	<h1 class="h3 mb-0 text-gray-800">게시물 작성</h1>
+	<%
+		} else {	//그룹 Q&A
+	%>
+	<h1 class="h3 mb-0 text-gray-800">Q&A 작성</h1>
+	<%
+		}
+	%>
 </div>
 
+<%
+	if (strGroupid == null){	//자유게시판
+%>
 <form action="processWritePost" name="writePostForm">
+<%
+	} else {	//그룹 Q&A
+		int groupid = Integer.parseInt(strGroupid);
+%>
+<form action="processWritePost?groupid=<%=groupid%>" name="writePostForm">
+<%
+	}
+%>
 	<div class="form-group">
 		<label for="title_text">제목</label>
 		<input type="text" class="form-control" id="title_text" name="title">

@@ -16,7 +16,7 @@ public interface PostDAO {
 	List<PostDTO> searchGeneralPosts(String kwd) throws Exception;
 	
 	void insertGeneralNotice(PostDTO notice) throws Exception;
-	void insertGeneralPost(PostDTO notice) throws Exception;
+	void insertGeneralPost(PostDTO post) throws Exception;
 	
 	List<PostDTO> searchByPostId(int postid) throws Exception;
 	void updateViewcount(int postid) throws Exception;
@@ -34,4 +34,7 @@ public interface PostDAO {
 	void updatePost(PostDTO post) throws Exception;
 	
 	List<PostDTO> searchMyPostsByUserId(String id) throws Exception;
+	
+	void insertGroupNotice(PostDTO notice) throws Exception;
+	void insertGroupPost(PostDTO post) throws Exception;
 }

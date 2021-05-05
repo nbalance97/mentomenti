@@ -3,7 +3,7 @@
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
-	<%@ page
+<%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
@@ -30,34 +30,36 @@
 
 <%
 	int groupid = Integer.parseInt(request.getParameter("groupid"));
-	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
-	List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
-	
-	//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
-	boolean isMember = false;
-	if (group.getMentoid().equals((String)session.getAttribute("userID")))	
+GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+
+//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+boolean isMember = false;
+if (group.getMentoid().equals((String) session.getAttribute("userID")))
+	isMember = true;
+for (GroupmateDTO gl : groupmateList) { //가입한 그룹인 경우
+	if (gl.getId().equals((String) session.getAttribute("userID")))
 		isMember = true;
-	for (GroupmateDTO gl: groupmateList){	//가입한 그룹인 경우
-		if (gl.getId().equals((String)session.getAttribute("userID")))
-			isMember = true;
-	}
-	if (!isMember){	//해당 그룹의 멤버가 아니라면 접근 거부
-		response.sendRedirect("rejectedAccess?type=notMember");
-	}
+}
+if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
+	response.sendRedirect("rejectedAccess?type=notMember");
+}
 %>
 
 
 <!-- 자유게시판 -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800">게시판</h1>
+	<h1 class="h3 mb-0 text-gray-800">그룹 Q&A</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
-			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+			<form
+				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
 				action="freeBoard" method="GET">
 				<div class="input-group">
-					<input type="text" class="form-control border-0 small" name="keyword"
-						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2">
+					<input type="text" class="form-control border-0 small"
+						name="keyword" placeholder="검색" aria-label="Search"
+						aria-describedby="basic-addon2">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
@@ -68,58 +70,50 @@
 		</li>
 	</ul>
 </div>
+<p class="mb-4"><%=group.getName()%>
+	그룹의 Q&A 게시판입니다.
+</p>
 
 
-
-	<div class="content2">
-		<h4 class="text1">Q & A</h4>
-		<table class="table table-bordered" id="dataTable"
-			cellspacing="0" role="grid" aria-describedby="dataTable_info"
-			style="width: 80%; background: white; text-align: center; margin:0 auto;">
-			<thead>
-				<tr role="row">
+<table class="table table-bordered" id="dataTable" cellspacing="0"
+	role="grid" aria-describedby="dataTable_info"
+	style="width: 100%; background: white; text-align: center;">
+	<thead>
+		<tr role="row">
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 65%">제목</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">작성자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성일자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<%
-					List<PostDTO> groupPosts = HomeController.dao.getPostDAO().curGroupPosts(group.getGroupid());
-					if (groupPosts.size() > 0){
-						for(PostDTO gp: groupPosts) {
-				%>
-					<tr>
-							<td>
-				<!-- 제목 -->
-				<a href="postContent?postid=<%=gp.getPostid()%>" style="text-decoration: none; color: gray"><%=gp.getTitle() %></a>
+		</tr>
+	</thead>
+	<tbody>
+		<%
+			List<PostDTO> groupPosts = HomeController.dao.getPostDAO().curGroupPosts(group.getGroupid());
+		if (groupPosts.size() > 0) {
+			for (PostDTO gp : groupPosts) {
+		%>
+		<tr>
+			<td>
+				<!-- 제목 --> <a href="postContent?postid=<%=gp.getPostid()%>"
+				style="text-decoration: none; color: gray"><%=gp.getTitle()%></a>
 			</td>
-					<td><%=gp.getUserid()%></td>
-					<td><%=gp.getPostdate()%></td>
-					<td><%=gp.getViewcount() %></td> <!-- 조회수 -->
-					</tr>
-				<%
-						}
-					} else {
-				%>
-					<tr style="height:100px">
-					<td colspan="2">게시물이 아직 없습니다</td>
-					</tr>
-				<%
-					}
-				%>
-			</tbody>
-		</table>
-	</div>
-
-
-
-
-
-
-
-
+			<td><%=gp.getUserid()%></td>
+			<td><%=gp.getPostdate()%></td>
+			<td><%=gp.getViewcount()%></td>
+			<!-- 조회수 -->
+		</tr>
+		<%
+			}
+		} else {
+		%>
+		<tr style="height: 100px">
+			<td colspan="4">게시물이 아직 없습니다</td>
+		</tr>
+		<%
+			}
+		%>
+	</tbody>
+</table>
 
 
 
@@ -143,17 +137,17 @@
 			style="width: 40px; height: 10px; font-size: 15px; padding: 5px; border-radius: 5px; text-decoration: none">
 			>></a>
 	</div>
-	
+
 	<%
-		if (id != null){	//로그인 상태일 때
+		if (id != null) { //로그인 상태일 때
 	%>
 
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
-			<a href="writePostPage" class="btn btn-secondary">작성</a>
+			<a href="writePostPage?groupid=<%=groupid%>" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
-	
+
 	<%
 		}
 	%>

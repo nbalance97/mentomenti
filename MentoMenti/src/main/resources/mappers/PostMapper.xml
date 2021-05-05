@@ -144,4 +144,17 @@
 	WHERE userid = #{id};
   </select>
   
+  
+    <!-- 그룹 공지사항 등록 -->
+  <insert id="insertGroupNotice" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, #{groupid}, #{userid}, #{title}, #{content}, #{postdate}, 0, True);
+  </insert>
+  
+  <!-- 그룹 Q&A 등록 -->
+  <insert id="insertGroupPost" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, #{groupid}, #{userid}, #{title}, #{content}, #{postdate}, 0, False);
+  </insert>
+  
 </mapper>
