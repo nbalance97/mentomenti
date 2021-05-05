@@ -25,7 +25,18 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"></script>
-    
+<style>
+	@media screen and (max-width:995px){
+		.leftSigninfo{
+			width:100% !important;
+			float:auto;
+		}
+		.rightSigninfo{
+			width:100% !important;
+			float:auto;
+		}
+	}
+</style>
 </head>
 <body class="sidebar-toggled" style="background:#002266;">
 	
@@ -44,7 +55,7 @@
                                 <div class="p-3" style="text-align:center;">
                                     <!-- 회원가입 폼 태그 -->
                                     <form class="user" name="signupForm" action="processSignUp" method="post" style="width:100%;">
-                                    	<div style="float:left; width:45%;">
+                                    	<div class="leftSigninfo" style="float:left; width:45%;">
                                     			<div class="form-group" style="display:flex;">
                                         	<!-- 아이디 입력 -->
                                             		<input type="text" class="form-control form-control-user" name="id" id="id" onkeydown="inputIdCheck()" placeholder="아이디">
@@ -66,13 +77,13 @@
                                         		<input type="text" class="form-control form-control-user" name="nickname" id="nickname" placeholder="닉네임">
                                         	</div>                                        
                                     	</div>
-                                    	<div style="float:right; width:45%;">
+                                    	<div class="rightSigninfo" style="float:right; width:45%;">
                                         	<div class="form-group" style="margin-top:1%; display:flex;">
                                         		<div style="margin-top:2%;">생</div>
                                         		<div style="margin-top:2%;">일</div>
                                         		<div>&nbsp;</div>
                                         		<select name="year" id="year" title="년도" class="custom-select" onChange=setMonthBox()></select>
-												<select name="month" id="month" title="월" class="custom-select" onclick="setDay()"></select>
+												<select name="month" id="month" title="월" class="custom-select" onChange="setDay()"></select>
 												<select name="day" id="day" title="일" class="custom-select"></select>
                                         	</div>
                                         	<div class="form-group" style="display:flex;">
