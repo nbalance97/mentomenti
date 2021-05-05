@@ -101,7 +101,7 @@
   <select id="curGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT * FROM post
   	WHERE groupid is null and is_notice = True
-  	ORDER BY postid
+  	ORDER BY postid desc
   	LIMIT #{num};
   </select>
   	
@@ -109,7 +109,7 @@
   <select id="curGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT * FROM post
   	WHERE groupid is null and is_notice = False
-  	ORDER BY postid
+  	ORDER BY postid desc
   	LIMIT #{num};
   </select>
   
