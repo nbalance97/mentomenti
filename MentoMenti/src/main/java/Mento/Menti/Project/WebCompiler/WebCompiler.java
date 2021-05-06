@@ -40,43 +40,47 @@ public class WebCompiler {
 		return null;
 	}
 	
+	public String compile(String SRC, String input, String mode) throws Exception {
+		for (int i = 0; i<docker_status.length; i++) { // 현재 이용가능한 도커 검색
+			if (docker_status[i] == false) {
+				docker_status[i] = true;
+				String docker_name = getDockerName(i); // 도커명 가져옴
+				setFile(docker_name, "C", SRC);
+				
+				/* 컴파일 파트 */
+			 	ArrayList<String> dockercmd = setCommand(docker_name, mode);
+			 	executeCMD(dockercmd, docker_name, null);
+			 	
+			 	/* 가져오는 파트 */
+			 	File result = new File(shared_document + "/" + docker_name + "/compileResult.txt"); 
+			 	File err = new File(shared_document + "/" + docker_name + "/compileErr.txt");
+			 	
+			 	FileReader fr = new FileReader(result);
+			 	FileReader errfr = new FileReader(err);
+			 	StringBuffer temp = new StringBuffer("");
+			 	StringBuffer errtemp = new StringBuffer("");
+			 	int ch = 0;
+			 	while ((ch = fr.read()) != -1)
+			 		temp.append((char)ch);
+			 	while ((ch = errfr.read()) != -1)
+			 		errtemp.append((char)ch);
+			 	
+			 	docker_status[i] = false;
+			 	
+			 	if (errtemp.length() > 0) // 에러 존재시 에러 리턴
+			 		return errtemp.toString();
+			 	else
+			 		return temp.toString();
+			}
+		}
+		System.out.println("이용 가능한 도커가 없습니다.");
+		return null; // 
+	}
+	
 	public String compileC(String SRC, String input) {
 		/* C언어 컴파일 실행 함수 */
 		try {
-			for (int i = 0; i<docker_status.length; i++) { // 현재 이용가능한 도커 검색
-				if (docker_status[i] == false) {
-					docker_status[i] = true;
-					String docker_name = getDockerName(i);
-					setFile(docker_name, "C", SRC);
-					
-					/* 컴파일 파트 */
-				 	ArrayList<String> dockercmd = setCommand(docker_name, "C");
-				 	executeCMD(dockercmd, null);
-				 	
-				 	/* 가져오는 파트 */
-				 	File result = new File(shared_document + "/" + docker_name + "/compileResult.txt"); 
-				 	File err = new File(shared_document + "/" + docker_name + "/compileErr.txt");
-				 	
-				 	FileReader fr = new FileReader(result);
-				 	FileReader errfr = new FileReader(err);
-				 	StringBuffer temp = new StringBuffer("");
-				 	StringBuffer errtemp = new StringBuffer("");
-				 	int ch = 0;
-				 	while ((ch = fr.read()) != -1)
-				 		temp.append(ch);
-				 	while ((ch = errfr.read()) != -1)
-				 		errtemp.append(ch);
-				 	
-				 	docker_status[i] = false;
-				 	
-				 	if (errtemp.length() > 0) // 에러 존재시 에러 리턴
-				 		return errtemp.toString();
-				 	else
-				 		return temp.toString();
-				}
-			}
-			System.out.println("이용 가능한 도커가 없습니다.");
-			return null; // 
+			return compile(SRC, input, "C");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -87,11 +91,7 @@ public class WebCompiler {
 	public String compilePython(String SRC, String input) { 
 		/* 파이썬 컴파일 실행 함수 */
 		try {
-			return null;
-			/* 파이썬 같은 경우는 인터프리터라서 컴파일->실행 필요 X */
-			//setFile("python", SRC);
-		 	//ArrayList<String> command = setCommand("python");
-		 	//return executeCMD(command, input);
+			return compile(SRC, input, "python");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -101,15 +101,7 @@ public class WebCompiler {
 	
 	public String compileJava(String SRC, String input) {
 		try {
-			return null;
-			//setFile("java", SRC);
-			//ArrayList<String> command = setCommand("java");
-			//executeCMD(command, null);
-			
-			//command.clear();
-			//command.add("java");
-			//command.add("MentoMenti");
-			//return executeCMD(command, input);
+			return compile(SRC, input, "java");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -153,29 +145,18 @@ public class WebCompiler {
 	}
 	
 	
-	public String executeCMD(ArrayList<String> cmd, String input) throws Exception {
+	public boolean executeCMD(ArrayList<String> cmd, String docker, String input) throws Exception {
 		ProcessBuilder processbuilder = new ProcessBuilder(cmd);
-		//processbuilder = processbuilder.directory(new File(doc)); // 현재 실행폴더를 c:/Temp로 전환
+		
+		/* input file creation */
+	 	FileWriter fw = new FileWriter(shared_document + "/" + docker + "/input.txt");
+	 	fw.write(input);
+	 	fw.flush();
+	 	fw.close();
+	 	
 		Process process = processbuilder.start();
-	 	
-	 	/* 입력 값 받고 적용하기 위한 writer 설정 */
-		if (input != null) {
-		 	PrintWriter writer = new PrintWriter(process.getOutputStream());
-		 	writer.write(input + "\n"); // 맨 마지막에 enter 눌른거 표시하기 위해 \n 추가
-		 	writer.flush();
-		}
-	 	
-	 	/* 실행 결과 가져오는 파트 */
-	 	BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-	 	String line;
-	 	StringBuffer result = new StringBuffer();
-	 	while ((line = br.readLine()) != null) {
-	 		result.append(line);
-	 		result.append("\n");
-	 	}
-	 	
 	 	process.waitFor();
-	 	return result.toString().trim(); // 공백 모두 제거한 실행결과 반환
+	 	return true;
 	}
 	
 }
