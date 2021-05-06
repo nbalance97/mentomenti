@@ -29,12 +29,15 @@
 	function chkPw() {
 		var pw1 = document.getElementById("new_pw_text").value;
 		var pw2 = document.getElementById("new_pw_chk_text").value;
+		var regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{7,20}$/;
 
 		//나중에 유효성 검사 추가할 것 (영어, 숫자, 특수기호);
-		if (pw1.length < 7)
-			alert("비밀번호는 7글자 이상 작성해주세요");
-
-		if (pw1 != pw2)
+		if (pw1.length < 7 || pw1.length > 20)
+			alert("비밀번호는 7~20글자 이내로 입력해주세요");
+		else if(!regPw.test(pw1)){
+			alert("비밀번호는 영문, 숫자, 특수문자의 조합이여야합니다.");
+		}
+		else if (pw1 != pw2)
 			alert("비밀번호를 다시 확인해주세요");
 		else {
 			alert("비밀번호 확인 완료");
@@ -55,8 +58,8 @@
 		}
 
 		// var regExpNickname 닉네임 유효성 검사 추가할 것 (한글, 영어, 숫자 섞어서 2글자 이상)
-		if (nickname.length < 2) {
-			alert("닉네임은 2글자 이상 입력해주세요");
+		if (nickname.length < 2 || nickname.length>20) {
+			alert("닉네임은 2~20글자 이내로 입력해주세요");
 			return;
 		}
 

@@ -236,6 +236,7 @@
 				form.pw.focus();
 				return false;
 			}
+			//return false 존재 -> else if 필요x
 			if(form.pw.value!=form.pw_check.value){
 				alert("비밀번호를 확인해주세요");
 				form.pw.focus();
