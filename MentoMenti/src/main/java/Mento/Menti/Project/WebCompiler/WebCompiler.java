@@ -49,7 +49,7 @@ public class WebCompiler {
 				
 				/* 컴파일 파트 */
 			 	ArrayList<String> dockercmd = setCommand(docker_name, mode);
-			 	executeCMD(dockercmd, docker_name, null);
+			 	executeCMD(dockercmd, docker_name, input);
 			 	
 			 	/* 가져오는 파트 */
 			 	File result = new File(shared_document + "/" + docker_name + "/compileResult.txt"); 
