@@ -63,7 +63,7 @@
 		margin: 5px;
 		min-height: 20px;
 		padding: 5px;
-		min-width: 50px;
+		/*min-width: 50px;*/
 		text-align: left;
         height:auto;
         word-break : break-all;
@@ -114,6 +114,10 @@
 	.my-chat-box{
 		text-align: right;
 		margin-right:5px;
+	}
+	/*받은 채팅 유저 아이디div*/
+	.userId{
+		margin-left:8px;
 	}
 	
 </style>
@@ -168,7 +172,7 @@
 			var $chat = $("<div class='chat notice'>" + chatMsg + "</div>");
 			$('#chat-container').append($chat);
 		}else{
-			var $chat = $("<div id='other' class='chat-box'><div class='chat'>" + Msg + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
+			var $chat = $("<div id='other' class='chat-box'><div class='userId'>"+senderid+"</div><div class='chat'>" + Msg + "</div><div class='chat-info chat-box'>"+ dateInfo +"</div></div>");
 			$('#chat-container').append($chat);
 		}
 		
