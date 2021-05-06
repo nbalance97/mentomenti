@@ -58,11 +58,14 @@
 </head>
 <script>
 	function change_opt(e) {
+		var groupid = document.getElementById("groupidValue").value;
 		if (e.value == 'python') {
 			window.location.href = 'practiceMento?mode=python';
+			//window.location.href = 'practiceMento?groupid='+groupid+'?mode=python';
 		} else if (e.value == 'C') {
 			window.location.href = 'practiceMento?mode=C';
 		} else if (e.value == 'java') {
+			var groupid_ = Integer.parseInt(request.getParameter("groupid"));
 			window.location.href = 'practiceMento?mode=java';
 		}
 	}
@@ -147,6 +150,10 @@
 						%>>java</option>
 					</select>
 				</div>
+				<select id="groupidValue" name="groupidValue">
+					<option value=<%=groupid%> selected><%=groupid%></option>
+				</select>
+				<!-- <form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?groupid=<%=groupid%>?mode=<%=mode%>"> -->
 				<form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?mode=<%=mode%>">
 					<div class="compiler img-rounded" style="padding:5px">
 							<label>Code Input</label>
