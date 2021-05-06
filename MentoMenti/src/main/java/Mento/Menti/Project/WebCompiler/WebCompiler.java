@@ -45,7 +45,7 @@ public class WebCompiler {
 			if (docker_status[i] == false) {
 				docker_status[i] = true;
 				String docker_name = getDockerName(i); // 도커명 가져옴
-				setFile(docker_name, "C", SRC);
+				setFile(docker_name, mode, SRC);
 				
 				/* 컴파일 파트 */
 			 	ArrayList<String> dockercmd = setCommand(docker_name, mode);
