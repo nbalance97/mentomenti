@@ -37,9 +37,9 @@
 
 	<div class="sidebar2" style="background: #002266">
 		<!-- 사이드바 메뉴 -->
-		<a href="main" style="text-decoration:none;">
-			<header class="font-weight-700" style="background: #002266">MOCO</header>
-		</a>
+		<header class="font-weight-700" style="background: #002266">
+			<a href="main" class="sideLogo" style="text-decoration:none;">MOCO</a>
+		</header>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
 			<li><a href="notice">
 				<i class="fas fa-check-circle"></i>
