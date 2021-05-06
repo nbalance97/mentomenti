@@ -7,6 +7,7 @@
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.CommentDTO, Mento.Menti.Project.dao.CommentDAO"%>
+<%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -42,6 +43,15 @@
 
 #wrapper{
 	height:100%;
+}
+
+.content1 a{
+	text-decoration:none !important;
+	color:gray !important;
+}
+.content2 a{
+	text-decoration:none !important;
+	color:gray !important;
 }
 
 </style>
@@ -88,7 +98,7 @@
 		}
 		%>
 
-		<table class="table table-bordered dataTable" id="dataTable" role="grid">
+		<table class="table table-bordered dataTable table-hover" id="dataTable" role="grid">
 
 			<thead>
 				<tr role="row">
@@ -101,6 +111,7 @@
 				<%
 					List<PostDTO> posts = HomeController.dao.getPostDAO().searchMyPostsByUserId(id);
 				for (PostDTO post : posts) {
+					GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(post.getGroupid());
 				%>
 				<tr style="width: 200px">
 					<td>
@@ -113,7 +124,15 @@
 							%>
 							<a href="postContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((post.getGroupid()>0) && post.is_notice()){
+							%>
+							<a href="groupNoticeContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
+							<%
+						}else if((post.getGroupid()>0) && !post.is_notice()){
+							%>
+							<a href="groupPostContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
+							<%
+						}
 					%>
 					</td>
 					<td><%=post.getPostdate()%></td>
@@ -127,7 +146,16 @@
 							%>
 							<a href="/freeBoard">자유게시판</a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((post.getGroupid()>0) && post.is_notice()){
+							%>
+							<a href="groupnotice?groupid=<%=post.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
+							<%
+						}else if((post.getGroupid()>0) && !post.is_notice()){
+							%>
+							<a href="groupQnA?groupid=<%=post.getGroupid()%>"><%=group.getName()%> - QnA</a>
+							<%
+						}
+					
 					%>
 					</td>
 				</tr>
@@ -151,7 +179,7 @@
 	<!-- 나의 댓글 -->
 	<div class="content2">
 		<h4 class="text1">My comments</h4>
-				<table class="table table-bordered dataTable" id="dataTable" role="grid">
+				<table class="table table-bordered dataTable table-hover" id="dataTable" role="grid">
 
 			<thead>
 				<tr role="row">
@@ -177,6 +205,7 @@
 						if (HomeController.dao.getPostDAO().searchByPostId(comment.getPostid()).size() > 0) {
 							commentpost=HomeController.dao.getPostDAO().searchByPostId(comment.getPostid()).get(0);
 						}
+						GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(commentpost.getGroupid());
 						
 						if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
 							%>
@@ -186,7 +215,15 @@
 							%>
 							<a href="postContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((commentpost.getGroupid()>0) && commentpost.is_notice()){
+							%>
+							<a href="groupNoticeContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
+							<%
+						}else if((commentpost.getGroupid()>0) && !commentpost.is_notice()){
+							%>
+							<a href="groupPostContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
+							<%
+						}
 						%>
 					</td>
 					<td><%=comment.getCommentdate() %></td>
@@ -200,7 +237,15 @@
 							%>
 							<a href="/freeBoard">자유게시판</a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((commentpost.getGroupid()>0) && commentpost.is_notice()){
+							%>
+							<a href="groupnotice?groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
+							<%
+						}else if((commentpost.getGroupid()>0) && !commentpost.is_notice()){
+							%>
+							<a href="groupQnA?groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - QnA</a>
+							<%
+						}
 						%>
 					</td>
 				</tr>
