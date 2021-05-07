@@ -4,6 +4,8 @@
 <%@ page
 	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.awt.image.BufferedImage" %>
+<%@ page import="javax.imageio.ImageIO" %>
 <head>
 
 <meta charset="utf-8">
@@ -89,24 +91,27 @@
 </div>
 
 <div style="text-align: center">
+
+
 	<!-- 프로필 이미지 -->
 	<%
-		File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-		File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
-		
-		if (pngImg.exists()) {
+	
+	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+	
+	if (pngImg.exists()) {
 	%>
 		<div class="profileImg rounded-circle"
 		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
 		background-image:url('resources/img/user/<%=id%>.png')"></div>
 	<%
-		} else if (jpgImg.exists()){
+	} else if (jpgImg.exists()){
 	%>
 		<div class="profileImg rounded-circle"
 		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
 		background-image:url('resources/img/user/<%=id%>.jpg')"></div>
 	<%
-		} else {
+	} else {	//기본 이미지
 	%>
 		<div class="profileImg rounded-circle"
 		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
@@ -115,12 +120,15 @@
 		}
 	%>
 	
+	
+	
 	<form action="processPersonalInfoChange?userid=<%=id%>" method="post" enctype="multipart/form-data" name="changeForm">
-	<p>
+	<div style="margin-bottom:20px;">
 		<!-- 프로필 사진 업로드 버튼 -->
-		<label for="file" class="btn btn-success" style="margin-bottom:20px;">프로필 등록</label>
+		<label for="file" class="btn btn-success">프로필 등록</label>
 		<input type="file" id="file" name="profileImg" style="display:none;">
-	</p>
+		<p style="font-size:14px">※정사각형 이미지 권장
+	</div>
 
 
 	<%

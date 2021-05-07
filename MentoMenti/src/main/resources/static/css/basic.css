@@ -74,6 +74,18 @@ thead > tr > th{
 }
 
 
+/*프로필 이미지*/
+.profileImg{
+	display:block;
+	overflow:hidden;
+	margin:0 auto;
+	
+	background-position: center center;
+	background-repeat:no-repeat;
+	background-size:100% 100%;
+}
+
+
 /*Noto Sans font weight 100,300,400,500,700,900*/
 .font-weight-100{
 	font-weight:100;
