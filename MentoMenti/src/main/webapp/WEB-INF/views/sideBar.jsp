@@ -76,9 +76,9 @@
 						<a class="collapse-item" id="colItems" href="personalInfoPage">
 							<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보
 							확인
-						</a> <a class="collapse-item" id="colItems" href="personalInfoChange">
-							<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보
-							수정
+						</a>
+						<a class="collapse-item" id="colItems" href="activity"> <i
+							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>나의 활동
 						</a>
 					</div>
 				</div>
