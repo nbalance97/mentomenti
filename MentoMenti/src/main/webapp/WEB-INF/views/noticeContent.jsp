@@ -107,10 +107,29 @@
 	<div>
 		<div class="comment_component">
 				<!-- 댓글 프로필 이미지 -->
-				<img src="resources/img/user.png" style="width:20px; height:20px"/>
-				
-				<!-- 작성자 아이디 -->
-				<%=commentNick%>
+					<%
+						File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
+						File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
+						
+						if (pngImg.exists()) {
+					%>
+						<img src="resources/img/user/<%=commentId%>.png" class="rounded-circle"
+							style="width:30px; height:30px"/>
+					<%
+						} else if (jpgImg.exists()){
+					%>
+						<img src="resources/img/user/<%=commentId%>.jpg" class="rounded-circle"
+							style="width:30px; height:30px"/>
+					<%
+						} else {
+					%>
+						<img src="resources/img/user/user.png" class="rounded-circle"
+							style="width:30px; height:30px"/>
+					<%
+						}
+					%>
+				<!-- 댓글 작성자 아이디 -->
+				<b><%=commentNick%></b>
 		</div>
 		<div class="comment_component"><%=c.getContent()%></div>
 		<div class="comment_component" style="font-size:0.8em; overflow:hidden;">

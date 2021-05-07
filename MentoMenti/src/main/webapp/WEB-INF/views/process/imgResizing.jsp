@@ -11,6 +11,7 @@
 		
 		background-position: center center;
 		background-repeat:no-repeat;
+		background-size: 100% 100%;
 	}
 </style>
 
@@ -21,6 +22,7 @@
 <c:set var="userid" value="<%=userId%>"></c:set>
 
 <script type="text/javascript">
+	/*
 	window.onload = function(){
 		var pngImg = new Image();
 		pngImg.src = ''.concat('resources/img/user/', "${userid}",".png");
@@ -65,4 +67,5 @@
 			defaultProfiles[c].style.backgroundSize = "100% 100%";
 		}
 	}
+	*/
 </script>

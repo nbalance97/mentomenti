@@ -48,15 +48,21 @@
 		
 		if (pngImg.exists()) {
 	%>
-		<div class="pngProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/<%=id%>.png')"></div>
 	<%
 		} else if (jpgImg.exists()){
 	%>
-		<div class="jpgProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/<%=id%>.jpg')"></div>
 	<%
 		} else {
 	%>
-		<div class="defaultProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/user.png')"></div>
 	<%
 		}
 	%>

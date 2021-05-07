@@ -74,25 +74,25 @@
 							<span class="mr-2 d-none d-lg-inline small" ><%=nickname%>님</span>
 							
 							
-							<!-- 프로필 이미지 -->
-							<img id="originalPngImg" src="resources/img/user/<%=id%>.png" style="display:none;"/>
-							<img id="originalJpgImg" src="resources/img/user/<%=id%>.jpg" style="display:none;"/>
-							
+							<!-- 프로필 이미지 -->							
 							<%
 								File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
 								File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
 								
 								if (pngImg.exists()) {
 							%>
-								<div class="pngProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+								<div class="pngProfile profileImg rounded-circle"
+									style="width: 40px; height:40px; background-image:url('resources/img/user/<%=id%>.png')"></div>
 							<%
 								} else if (jpgImg.exists()){
 							%>
-								<div class="jpgProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+								<div class="jpgProfile profileImg rounded-circle"
+									style="width: 40px; height:40px; background-image:url('resources/img/user/<%=id%>.jpg')"></div>
 							<%
 								} else {
 							%>
-								<div class="defaultProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+								<div class="defaultProfile profileImg rounded-circle"
+									style="width: 40px; height:40px; background-image:url('resources/img/user/user.png')"></div>
 							<%
 								}
 							%>
