@@ -403,4 +403,9 @@ public class HomeController {
     public String index96() {
     	return "/process/confirmNick_ch";
     }
+    
+    @RequestMapping(value="/caro")//메인  - 자동화
+    public String index97() {
+    	return "/mainCaro";
+    }
 }
