@@ -394,4 +394,13 @@ public class HomeController {
     public String index94() {
     	return "/studyPage/canvas";
     }
+    
+    @RequestMapping(value="/confirmNick")//닉네임 중복체크
+    public String index95() {
+    	return "/process/confirmNick";
+    }
+    @RequestMapping(value="/confirmNick_ch")//닉네임 중복체크-개인정보변경
+    public String index96() {
+    	return "/process/confirmNick_ch";
+    }
 }

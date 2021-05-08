@@ -17,26 +17,28 @@
 <body>
 <script>
 	function sendCheck(){
-		opener.document.signupForm.idDuplication.value = "idCheck";
+		opener.document.changeForm.NickDuplication.value = "NickCheck";
 		self.close();
 	}
 </script>
 	<%
-		String id = request.getParameter("id");
+		String nickname = request.getParameter("nickname");
+		String origin = request.getParameter("origin");
 		UserDTO user = new UserDTO(null, null, null, null, null, null, null, false, null);
-		user.setId(id);
+		user.setNickname(nickname);
 		
-		List<UserDTO> userAccount = HomeController.dao.getUserDAO().searchUserById(user);
-		if (userAccount.size() > 0){%>
+		List<UserDTO> userAccount = HomeController.dao.getUserDAO().searchUserByNick(user);
+		if (userAccount.size() > 0 && !nickname.equals(origin)){%><!-- 내가쓰고 있는거 제외 -->
 			<div id="wrap">
 				<br/>
-				<h4>이미 사용중인 아이디입니다.</h4>
+				<h4>이미 사용중인 닉네임입니다.</h4>
 				<input type="button" value="확인" onclick="window.close()">
 			</div>
-		<%}else{%>
+		<%}
+		else{%>
 			<div id="wrap">
 				<br/>
-				<h4>사용가능한 아이디입니다.</h4>
+				<h4>사용가능한 닉네임입니다.</h4>
 				<input type="button" value="확인" onclick="sendCheck()">
 			</div>
 		<% }%>
