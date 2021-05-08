@@ -375,11 +375,6 @@ public class HomeController {
     public String index105() {
     	return "/process/confirmId";
     }
-    
-    @RequestMapping(value="/card")//그룹 레이아웃 새로한거
-    public String index90() {
-    	return "/newGroupCard";
-    }
     @RequestMapping(value="/activity")//나의 활동 = 내댓글, 게시글,,,
     public String index91() {
     	return "/myActivity";

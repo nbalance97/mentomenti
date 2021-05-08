@@ -22,6 +22,7 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="resources/css/groupCard.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
 </head>
@@ -54,18 +55,25 @@
 
 
 <!-- 컴파일러가 C언어, 자바, 파이썬을 지원하므로 해당 언어들과 기타 그룹으로 분류해서 보여줌 (추후 수정 가능성) -->
-
+<hr>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h5 class="h5 mb-0 text-gray-800">그룹 분류</h5>
+</div>
 <div class="row">
 	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-primary shadow h-100 py-2">
-			<a href="openedGroups?category=C" style="text-decoration: none;">
-				<div class="card-body">
+		<div class="card shadow border-left-primary">
+			<a id="sortAction" href="openedGroups?category=C" style="text-decoration: none;">
+				<div class="card-body sortscreen">
+					<span style="background:#4e73df;"></span>
+					<span style="background:#4e73df;"></span>
+					<span style="background:#4e73df;"></span>
+					<span style="background:#4e73df;"></span>
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-500 text-gray-800">C언어 그룹</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">C언어</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-500 text-primary mb-1">
+							<div class="font-weight-bold text-primary mb-1">
 								(
 								<!-- C언어 그룹 수 -->
 								<%
@@ -81,15 +89,19 @@
 	</div>
 
 	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-success shadow h-100 py-2">
-			<a href="openedGroups?category=Java" style="text-decoration: none;">
-				<div class="card-body">
+		<div class="card shadow border-left-success">
+			<a id="sortAction" href="openedGroups?category=Java" style="text-decoration: none;">
+				<div class="card-body sortscreen">
+					<span style="background:#1cc88a;"></span>
+					<span style="background:#1cc88a;"></span>
+					<span style="background:#1cc88a;"></span>
+					<span style="background:#1cc88a;"></span>
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-500 text-gray-800">Java 그룹</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">Java</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-500 text-primary mb-1">
+							<div class="font-weight-bold text-primary mb-1">
 								(
 								<!-- Java 그룹 수 -->
 								<%
@@ -105,16 +117,19 @@
 	</div>
 
 	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-info shadow h-100 py-2">
-			<a href="openedGroups?category=Python" style="text-decoration: none;">
-				<div class="card-body">
+		<div class="card shadow border-left-info">
+			<a id="sortAction" href="openedGroups?category=Python" style="text-decoration: none;">
+				<div class="card-body sortscreen">
+					<span style="background:#36b9cc;"></span>
+					<span style="background:#36b9cc;"></span>
+					<span style="background:#36b9cc;"></span>
+					<span style="background:#36b9cc;"></span>
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 mr-3 font-weight-500 text-gray-800">Python
-								그룹</div>
+							<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Python</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-500 text-primary mb-1">
+							<div class="font-weight-bold text-primary mb-1">
 								(
 								<!-- Python 그룹 수 -->
 								<%
@@ -130,15 +145,19 @@
 	</div>
 
 	<div class="col-xl-3 col-md-6 mb-4">
-		<div class="card border-left-warning shadow h-100 py-2">
-			<a href="openedGroups?category=Etc" style="text-decoration: none;">
-				<div class="card-body">
+		<div class="card shadow border-left-warning">
+			<a id="sortAction" href="openedGroups?category=Etc" style="text-decoration: none;">
+				<div class="card-body sortscreen">
+					<span style="background:#f6c23e;"></span>
+					<span style="background:#f6c23e;"></span>
+					<span style="background:#f6c23e;"></span>
+					<span style="background:#f6c23e;"></span>
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="h5 mb-0 font-weight-500 text-gray-800">기타 그룹</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800">기타</div>
 						</div>
 						<div class="col-auto">
-							<div class="font-weight-500 text-warning mb-1">
+							<div class="font-weight-bold text-warning mb-1">
 								(
 								<!-- 기타 그룹 수 -->
 								<%
@@ -154,7 +173,7 @@
 	</div>
 </div>
 
-
+<hr>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h5 class="h5 mb-0 text-gray-800">그룹 목록</h5>
 </div>
@@ -228,16 +247,20 @@
 				if (i >= group.length) // 읽어들인 크기보다 커지면
 					break;
 				
-				$('<div class="col-lg-4"><div class="card shadow mb-4"><div class="card-header py-3">'
-						+'<h5 class="m-0 font-weight-500 text-primary">'+group[i].name
+				$('<div class="col-lg-4"><a id="cardAction"><div class="card shadow mb-4"><div class="card-header py-3">'
+						+'<h5 class="m-0 font-weight-500 text-primary">'
+						+'<span>'+group[i].name+'</span>'
 						+'<div class="btn btn-warning btn-circle btn-sm" style="float: right;"'
 						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
 						+'<img src="resources/img/right-arrow.png" style="width:100%"></h5></div>'
-						+'<div class="card-body">'
+						+'<div class="card-body cardscreen">'
+						+'<div class="introbottom">'
+						+'<p class="introheader"><스터디 소개><p>'
+						+'<p class="introheader">'+group[i].intro+'</p>'+'</div>'
+						
 						+'<p>과목 : '+group[i].category+'</p>'
-						+'<p>설명 : '+group[i].intro+'</p>'
 						+'<p>멘토 : '+group[i].mentoid+'</p>'
-						+'<p>인원 수 : '+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p></div></div>').appendTo('#groupList');
+						+'<p>인원 수 : '+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p></div></a></div>').appendTo('#groupList');
 			}
 			
 			cntShowGroupIndex += 9;
