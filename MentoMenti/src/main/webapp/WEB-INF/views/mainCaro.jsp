@@ -99,6 +99,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 	<input type="radio" name="slide" id="slide03">
 	<input type="radio" name="slide" id="slide04">
 	<ul class="slidelist">
+		<!-- 그림크기 resources/img/mainimg1_2.png크기랑 같게 ~> 안그러면 밀리는느낌잇 -->
 		<li class="slideitem">
 			<div>
 				<label for="slide04" class="left"></label>
@@ -129,11 +130,11 @@ function isElementUnderBottom(elem, triggerDiff) {
 		</li>		
 	</ul>
 	<ul class="slide-pagelist">
-	<li><label for="slide01"></label></li>
-	<li><label for="slide02"></label></li>
-	<li><label for="slide03"></label></li>
-	<li><label for="slide04"></label></li>
-</ul>
+		<li><label for="slide01"></label></li>
+		<li><label for="slide02"></label></li>
+		<li><label for="slide03"></label></li>
+		<li><label for="slide04"></label></li>
+	</ul>
 </div>
 
 <!-- 사이트 설명 -->

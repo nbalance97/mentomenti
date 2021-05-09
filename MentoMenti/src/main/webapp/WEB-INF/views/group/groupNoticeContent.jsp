@@ -23,6 +23,8 @@
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 </head>
 
@@ -37,6 +39,11 @@
 </style>
 
 <%@include file="/WEB-INF/views/menuPart1.jsp"%>
+
+<% 
+	pageContext.setAttribute("br", "<br/>");
+	pageContext.setAttribute("cn", "\n");
+%>
 
 <!-- 공지사항 내용 페이지 -->
 
@@ -75,7 +82,10 @@
 			<td tabindex="0" rowspan="1" colspan="1" style="width: 20%;"><b>조회수</b><%=post.getViewcount()%></td>
 		</tr>
 		<tr>
-			<td colspan="3" style="padding:70px 20px"><%=post.getContent()%></td>
+			<td colspan="3" style="padding:70px 20px">
+				<c:set var="content" value="<%=post.getContent()%>"/>
+				${fn:replace(content, cn, br)}
+			</td>
 		</tr>
 	</tbody>
 </table>
