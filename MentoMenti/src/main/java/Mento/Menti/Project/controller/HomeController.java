@@ -254,7 +254,11 @@ public class HomeController {
     	return "/notificationListPage";
     }
     
-
+    @RequestMapping(value="/errorpage") //알림 목록 페이지
+    public String index42() {
+    	return "/errorpage";
+    }
+    
 
     
     
