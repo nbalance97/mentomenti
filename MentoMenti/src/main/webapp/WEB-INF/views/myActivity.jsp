@@ -47,11 +47,9 @@
 
 .content1 a{
 	text-decoration:none !important;
-	color:gray !important;
 }
 .content2 a{
 	text-decoration:none !important;
-	color:gray !important;
 }
 
 </style>
@@ -121,7 +119,7 @@
 					PostDTO post = posts.get(i);
 					GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(post.getGroupid());
 				%>
-				<tr style="width: 200px">
+				<tr style="width: 200px;" >
 					<td>
 					<%
 						if(!(post.getGroupid()>0) && post.is_notice()){
