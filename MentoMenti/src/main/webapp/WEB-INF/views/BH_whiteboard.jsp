@@ -54,7 +54,7 @@
   <%
   	session.setAttribute("my_id", "user"+Integer.toString((int)(Math.random() * 10000)));
   %>
-  	<button onclick="shareBoard()">보드 공유하기</button>
+  	<input type="file" onchange="uploadFile(this)"/>
   	<div class="canvas_div">
 		<!-- 캔버스 태그 특성상 동적으로 만들면 그림그린거 다 깨짐. 따라서 window.innerWidth, height 사용  -->
 		<!-- painter.js 맨 아래 onLoadPage 함수  -->
@@ -105,17 +105,33 @@
 	<script src="resources/js/drawengine.js"></script>
   
   <script>
-		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
+		var conn = new WebSocket('wss://localhost:8000/WBsocket');
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
-	    var yourName = null;
 	    var myCanvas = document.getElementById("canvas");
-		var pc = {};
-		var dc = {};
-		var share = {};
-		var renegotiationflg = false;
+	    var myCtx = myCanvas.getContext("2d");
+	    var image = new Image();
+		
+	    image.onload = function() {
+			myCtx.drawImage(image, 0, 0);
+		}
 		
 		function play() {
 			v1.play();
+		}
+		
+		function uploadFile(inputElement) {
+			var file = inputElement.files[0];
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				//Data : reader.result
+				send({
+					event: "shareImage",
+					data: reader.result
+				});
+				console.log(reader.result);
+				image.src = reader.result;
+			}
+			reader.readAsDataURL(file);
 		}
 		
 		conn.onopen = function() { // 소켓 열었을때
@@ -134,8 +150,9 @@
 		    var from = content.from;
 		    var data = content.data;
 		    var to = content.to;
-
-	    	if (content.event === "recv_paint" && content.to === myName){
+			// 어차피 나중가면 from, to는 자동으로 정해지는 거니깐..
+		    //  && content.to === myName
+	    	if (content.event === "recv_paint"){
 		    	var x1 = content.x1;
 		    	var x2 = content.x2;
 		    	var y1 = content.y1;
@@ -145,26 +162,10 @@
 		    	handlePaint(x1, y1, x2, y2, color, force);
 		    	return;
 	    	}
-		    
-		    if (content.event === "namecall" | content.to === myName) { 
-			    switch (content.event) {
-			    case "offer":
-			        handleOffer(from, to, data);
-			        break;
-			    case "answer":
-			        handleAnswer(from, to, data); 
-			        break;
-			    case "candidate":
-			        handleCandidate(from, to, data); // candidate 저장
-			        break;
-			    case "namecall":
-			    	renegotiationflg = false;
-			    	createOffer(data);
-			    	break;
-			    default:
-			        break;
-			    }
-		    }
+			
+			if (content.event === "shareImage") {
+				image.src = data;
+			}
 		}
 		
 		async function handlePaint(x1, y1, x2, y2, color, force) { // painter.js와 연동되는 부분임
@@ -185,124 +186,6 @@
 		function send(message) {
 			if (!isOpen(conn)) return;
 			conn.send(JSON.stringify(message));
-		}
-		
-		
-		function createPeerConnection(target) {
-			var configuration = {
-				    "iceServers" : [ {
-				        "url" : "stun:stun2.1.google.com:19302"
-				    },
-				    {
-				 	"url" : "turn:kgu.mentomenti.kro.kr?transport=tcp",
-				 	"username":"root",
-				 	"credential":"1234"
-				 }
-				 ]
-				};
-			var peerConnection = new RTCPeerConnection(configuration);
-			peerConnection.onicecandidate = function(event) { // Handler 등록
-				if (renegotiationflg)
-					return;
-				if (event.candidate) {
-					send({
-						event : "candidate",
-						data : event.candidate,
-						from : myName,
-						to : target
-					});
-				}
-			}
-			
-			setDataChannel(peerConnection, target);
-			return peerConnection;
-		}
-		
-		function setDataChannel(peerConnection, target) {
-			var dataChannel = peerConnection.createDataChannel("dataChannel", {
-				reliable: true
-			});
-			
-			dataChannel.onopen = function(event) {
-				console.log("dataChannel successfully opened!");
-				dataChannel.send("data");
-			};
-			
-			dataChannel.onerror = function(error) {
-				console.log("Error:", error);
-			};
-			
-			dataChannel.onclose = function() {
-				console.log("Data Channel is closed");
-				delete(dc[target]);
-			};
-			
-			dataChannel.onmessage = function(event) {
-				console.log("Message:", event.data);
-			};
-			
-			peerConnection.ondatachannel = function(event) {
-				dc[target] = event.channel; 
-			};
-		}
-		
-		function createOffer(name) { // 상대방의 name으로 connection 생성
-			var peerConnection = createPeerConnection(name);
-			
-			peerConnection.createOffer(async function(offer) { // offer 상대 peer에 전송
-				await send({
-					event : "offer",
-					data : offer,
-					from : myName,
-					to : name
-				});	
-				peerConnection.setLocalDescription(offer); 
-				// LocalDescription 설정 -> icecandidate 유발시킴, 즉, candidate도 전송
-			}, function(error) {
-				
-			});	
-			
-			if (!renegotiationflg)
-				pc[name] = peerConnection; // pc 객체에 저장
-		}
-		
-		
-		function handleOffer(from, target, offer) { 
-			if (!renegotiationflg) {
-				pc[from] = createPeerConnection(from);
-			}
-			var peerConnection = pc[from];
-			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
-			peerConnection.createAnswer(function(answer) { // answer 만들어서 전송
-				peerConnection.setLocalDescription(answer);
-				send({
-					event : "answer",
-					data : answer,
-					from : myName,
-					to : from
-				});
-			}, function(error) {
-				
-			});	
-		}
-		
-		function handleCandidate(from, to, candidate) {
-			if (renegotiationflg)
-				return;
-			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
-		}
-		
-		function handleAnswer(from, to, answer){
-		    pc[from].setRemoteDescription(new RTCSessionDescription(answer));
-			console.log("Connection.");
-		}
-		
-		function sendMessage() {
-			var obj_keys = Object.keys(dc);
-			for (var i = 0; i<obj_keys.length; i++) {
-				dc[obj_keys[i]].send(input.value);
-			}
-			input.value = "";
 		}
 		
 	</script>

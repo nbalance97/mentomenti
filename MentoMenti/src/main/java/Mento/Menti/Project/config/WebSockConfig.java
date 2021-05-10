@@ -8,6 +8,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 import Mento.Menti.Project.handler.ScreenShareSocketHandler;
 import Mento.Menti.Project.handler.SocketHandler;
+import Mento.Menti.Project.handler.WhiteBoardSocketHandler;
 
 @Configuration
 @EnableWebSocket
@@ -18,6 +19,7 @@ public class WebSockConfig implements WebSocketConfigurer {
 		// TODO Auto-generated method stub
 		registry.addHandler(new SocketHandler(), "/chating").setAllowedOrigins("*");
 		registry.addHandler(new ScreenShareSocketHandler(), "/socket").setAllowedOrigins("*");
+		registry.addHandler(new WhiteBoardSocketHandler(), "/WBsocket").setAllowedOrigins("*");
 	}
 
 }
