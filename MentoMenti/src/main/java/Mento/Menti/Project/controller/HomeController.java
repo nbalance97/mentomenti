@@ -254,7 +254,11 @@ public class HomeController {
     	return "/notificationListPage";
     }
     
-
+    @RequestMapping(value="/errorpage") //알림 목록 페이지
+    public String index42() {
+    	return "/errorpage";
+    }
+    
 
     
     
@@ -375,11 +379,6 @@ public class HomeController {
     public String index105() {
     	return "/process/confirmId";
     }
-    
-    @RequestMapping(value="/card")//그룹 레이아웃 새로한거
-    public String index90() {
-    	return "/newGroupCard";
-    }
     @RequestMapping(value="/activity")//나의 활동 = 내댓글, 게시글,,,
     public String index91() {
     	return "/myActivity";
@@ -393,5 +392,19 @@ public class HomeController {
     @RequestMapping(value="/canvas")
     public String index94() {
     	return "/studyPage/canvas";
+    }
+    
+    @RequestMapping(value="/confirmNick")//닉네임 중복체크
+    public String index95() {
+    	return "/process/confirmNick";
+    }
+    @RequestMapping(value="/confirmNick_ch")//닉네임 중복체크-개인정보변경
+    public String index96() {
+    	return "/process/confirmNick_ch";
+    }
+    
+    @RequestMapping(value="/caro")//메인  - 자동화
+    public String index97() {
+    	return "/mainCaro";
     }
 }

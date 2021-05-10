@@ -16,4 +16,5 @@ public interface UserDAO {
 	boolean isAdmin(String id) throws Exception;
 	
 	String selectNicknameById(String id) throws Exception;
+	List<UserDTO> searchUserByNick(UserDTO user) throws Exception;
 }

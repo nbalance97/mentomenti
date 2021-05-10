@@ -4,6 +4,8 @@
 <%@ page
 	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.awt.image.BufferedImage" %>
+<%@ page import="javax.imageio.ImageIO" %>
 <head>
 
 <meta charset="utf-8">
@@ -26,15 +28,22 @@
 	var isPwChecked = false;
 	
 	//비밀번호 확인
+	function inputPwCheck(){
+		isPwChecked=false;
+	}
+	
 	function chkPw() {
 		var pw1 = document.getElementById("new_pw_text").value;
 		var pw2 = document.getElementById("new_pw_chk_text").value;
+		var regPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{7,20}$/;
 
 		//나중에 유효성 검사 추가할 것 (영어, 숫자, 특수기호);
-		if (pw1.length < 7)
-			alert("비밀번호는 7글자 이상 작성해주세요");
-
-		if (pw1 != pw2)
+		if (pw1.length < 7 || pw1.length > 20)
+			alert("비밀번호는 7~20글자 이내로 입력해주세요");
+		else if(!regPw.test(pw1)){
+			alert("비밀번호는 영문, 숫자, 특수문자의 조합이여야합니다.");
+		}
+		else if (pw1 != pw2)
 			alert("비밀번호를 다시 확인해주세요");
 		else {
 			alert("비밀번호 확인 완료");
@@ -48,17 +57,20 @@
 		var form = document.changeForm;
 		var nickname = document.getElementById("nickname_text").value; //닉네임
 		var email = document.getElementById("email_text").value; //이메일
+		var origin = document.getElementById("originNickUser").value;
 
+		if(nickname!=origin){
+			if(form.NickDuplication.value != "NickCheck"){
+				alert("닉네임 중복체크를 해주세요.");
+				return false;
+			}
+		}
+		
 		if (isPwChecked == false) {
 			alert("비밀번호 확인을 해주세요");
 			return;
 		}
-
 		// var regExpNickname 닉네임 유효성 검사 추가할 것 (한글, 영어, 숫자 섞어서 2글자 이상)
-		if (nickname.length < 2) {
-			alert("닉네임은 2글자 이상 입력해주세요");
-			return;
-		}
 
 		var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 		if (!regExpEmail.test(email)) {
@@ -67,6 +79,26 @@
 		}
 
 		form.submit();
+	}
+	function inputNickCheck(){
+		var nickChk = document.getElementById('NickDuplication');
+		nickChk.value = "NickUncheck";
+	}
+	
+	function confirmNick(){
+		var nick = document.getElementById('nickname_text');
+		var originNick = document.getElementById('originNickUser');
+		if(nick.value==""){
+			alert("닉네임을 입력해주세요.");
+			return false;
+		}
+		else if(nick.value.length>20 || nick.value.length < 2){
+			alert("닉네임은 2~20글자 이내로 입력해주세요.");
+			return false;
+		}
+		url = "confirmNick_ch?nickname="+nick.value+"&origin="+originNick.value;
+		open(url,"confirm",
+		"left=500, top=200, toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
 	}
 </script>
 
@@ -86,32 +118,44 @@
 </div>
 
 <div style="text-align: center">
+
+
 	<!-- 프로필 이미지 -->
 	<%
-		File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-		File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
-		
-		if (pngImg.exists()) {
+	
+	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+	
+	if (pngImg.exists()) {
 	%>
-		<div class="pngProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/<%=id%>.png')"></div>
 	<%
-		} else if (jpgImg.exists()){
+	} else if (jpgImg.exists()){
 	%>
-		<div class="jpgProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/<%=id%>.jpg')"></div>
 	<%
-		} else {
+	} else {	//기본 이미지
 	%>
-		<div class="defaultProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/user.png')"></div>
 	<%
 		}
 	%>
 	
+	
+	
 	<form action="processPersonalInfoChange?userid=<%=id%>" method="post" enctype="multipart/form-data" name="changeForm">
-	<p>
+	<div style="margin-bottom:20px;">
 		<!-- 프로필 사진 업로드 버튼 -->
-		<label for="file" class="btn btn-success" style="margin-bottom:20px;">프로필 등록</label>
+		<label for="file" class="btn btn-success">프로필 등록</label>
 		<input type="file" id="file" name="profileImg" style="display:none;">
-	</p>
+		<p style="font-size:14px">※정사각형 이미지 권장
+	</div>
 
 
 	<%
@@ -138,24 +182,37 @@
 			</tr>
 			<tr>
 				<td>닉네임</td>
-				<td><input type="text" id="nickname_text" name="new_nickname"
-					value=<%=loginUser.getNickname()%> style="width: 60%" /></td>
+				<td><input type="text" id="nickname_text" name="new_nickname" onkeydown="inputNickCheck()"
+					value=<%=loginUser.getNickname()%> style="width: 60%" />
+					<input type="button" onclick="confirmNick()"
+					value="확인" class="btn btn-warning btn-sm" style="margin-left: 10px">
+					<input type="hidden" id="NickDuplication" name="NickDuplication" value="NickUncheck">
+					<%
+						String searchNick = loginUser.getId();
+						UserDTO user = new UserDTO(null, null, null, null, null, null, null, false, null);
+						user.setId(searchNick);
+						List<UserDTO> userAccount = HomeController.dao.getUserDAO().searchUserById(user);
+						String originNick = userAccount.get(0).getNickname();
+					%>
+					<input type="hidden" id="originNickUser" name="originNickUser" value=<%=originNick%>>
+					</td>
 			</tr>
 			<tr>
 				<td>변경할 비밀번호</td>
-				<td><input type="password" id="new_pw_text" name="new_pw"
+				<td><input type="password" id="new_pw_text" name="new_pw" onkeydown="inputPwCheck()"
 					style="width: 60%" /></td>
 			</tr>
 			<tr>
 				<td>비밀번호 확인</td>
-				<td><input type="password" id="new_pw_chk_text"
+				<td><input type="password" id="new_pw_chk_text" onkeydown="inputPwCheck()"
 					style="width: 60%" /> <input type="button" onClick="chkPw()"
-					value="확인" class="btn btn-warning btn-sm" style="margin-left: 10px"></td>
+					value="확인" class="btn btn-warning btn-sm" style="margin-left: 10px">
+				</td>
 			</tr>
 			<tr>
 				<td>이메일</td>
 				<td><input type="text" id="email_text" name="new_email"
-					value=<%=loginUser.getEmail()%> style="width: 60%" />
+					value=<%=loginUser.getEmail()%> style="width: 60%" /></td>
 			</tr>
 			<tr>
 				<td>소개글</td>

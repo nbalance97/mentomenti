@@ -24,19 +24,11 @@
 </head>
 
 <script type="text/javascript">
-	var categorySelect;
-	var categoryText;
-
-	window.onload = function() {
-		categorySelect = document.getElementById('category_select');
-		categoryText = document.getElementById('category_text');
-	}
-
 	function categoryChange() {
-		if (categorySelect.value == "기타") {
-			categoryText.disabled = false;
+		if (document.getElementById('categorySelect').value == "기타") {
+			document.getElementById('categoryText').disabled = false;
 		} else {
-			categoryText.disabled = true;
+			document.getElementById('categoryText').disabled = true;
 		}
 	}
 	
@@ -87,12 +79,12 @@
 			</tr>
 			<tr>
 				<td>그룹 분류</td>
-				<td><select name="category" id="category_select" onChange="categoryChange()">
+				<td><select name="category" id="categorySelect" onChange="categoryChange()">
 						<option value="C언어">C언어</option>
 						<option value="Java">Java</option>
 						<option value="Python">Python</option>
 						<option value="기타">기타</option>
-				</select> <input type="text" name="categoryText" id="category_text" placeholder="직접 입력"
+				</select> <input type="text" name="categoryText" id="categoryText" placeholder="직접 입력"
 					style="width: 40%" disabled />
 			</tr>
 			<tr>

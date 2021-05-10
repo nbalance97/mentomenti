@@ -70,12 +70,18 @@
                                             	<input type="password" class="form-control form-control-user" name="pw" id="pw" placeholder="비밀번호">
                                             	<input type="password" class="form-control form-control-user" name="pw_check" id="pw_check" placeholder="비밀번호확인">
                                         	</div>
+                                        	<!-- 이름 입력 -->
                                         	<div class="form-group">
                                         		<input type="text" class="form-control form-control-user" name="name" id="name" placeholder="이름">
                                         	</div>
-                                        	<div class="form-group">
-                                        		<input type="text" class="form-control form-control-user" name="nickname" id="nickname" placeholder="닉네임">
-                                        	</div>                                        
+                                        	<!-- 닉네임 입력 -->
+                                        	<div class="form-group" style="display:flex;">
+                                        		<input type="text" class="form-control form-control-user" name="nickname" id="nickname" onkeydown="inputNickCheck()" placeholder="닉네임">
+                                        		<div style="float:right; width:20%; margin-left:3%; margin-top:1%; text-align:center;">
+                                        			<input type="button" class="btn btn-primary" value="확인" onclick="confirmNick(this.form)">
+                                        			<input type="hidden" name="NickDuplication" value="NickUncheck">
+                                        		</div>
+                                        	</div>                                     
                                     	</div>
                                     	<div class="rightSigninfo" style="float:right; width:45%;">
                                         	<div class="form-group" style="margin-top:1%; display:flex;">
@@ -95,9 +101,9 @@
                                         		<select class="form-control" style="margin-top:2%; border-radius:50px; height:50px; font-size:12px;"  name="email_select" id="email_select" onChange="checkemailaddy();">
                                         			<option value="1" selected>직접입력</option>
     												<option value="naver.com">naver.com</option>
-    												<option value="hotmail.com">hotmail.com</option>
+    												<option value="kyonggi.ac.kr">kyonggi.ac.kr</option>
     												<option value="hanmail.com">hanmail.com</option>
-    												<option value="yahoo.co.kr">yahoo.co.kr</option>
+    												<option value="gmail.com">gmail.com</option>
                                         		</select>
                                         	</div>
                                         	<div class="form-group">
@@ -236,6 +242,7 @@
 				form.pw.focus();
 				return false;
 			}
+			//return false 존재 -> else if 필요x
 			if(form.pw.value!=form.pw_check.value){
 				alert("비밀번호를 확인해주세요");
 				form.pw.focus();
@@ -253,14 +260,8 @@
 				return false;
 			}
 			//닉네임
-			if(form.nickname.value==""){
-				alert("닉네임을 입력해주세요.");
-				form.nickname.focus();
-				return false;
-			}
-			else if(form.nickname.value.length>20){
-				alert("닉네임은 20글자 이내로 입력가능합니다.");
-				form.nickname.focus();
+			if(form.NickDuplication.value != "NickCheck"){
+				alert("닉네임 중복체크를 해주세요.");
 				return false;
 			}
 			//생년월일
@@ -301,6 +302,27 @@
 			url = "confirmId?id="+form.id.value;
 			open(url,"confirm",
 					"left=500, top=200, toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
+		}
+		
+		function inputNickCheck(){
+			document.signupForm.NickDuplication.value="NickUncheck";
+		}
+		
+		function confirmNick(){
+			var form = document.signupForm;
+			if(form.nickname.value==""){
+				alert("닉네임을 입력해주세요.");
+				form.nickname.focus();
+				return false;
+			}
+			else if(form.nickname.value.length>20 || form.nickname.value.length<2){
+				alert("닉네임은 2~20글자 이내로 입력가능합니다.");
+				form.nickname.focus();
+				return false;
+			}
+			url = "confirmNick?nickname="+form.nickname.value;
+			open(url,"confirm",
+			"left=500, top=200, toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
 		}
 		
 </script>
