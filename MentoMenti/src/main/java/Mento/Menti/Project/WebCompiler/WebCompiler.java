@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class WebCompiler {
 	public static WebCompiler instance = null;
-	public String shared_document = "/docshare/";
+	public String shared_document = "/docshare";
 	// local에서 컴파일할때는 c:/Temp로 수정하면 됨.
 	
 	public boolean[] docker_status = {false, false, false};
