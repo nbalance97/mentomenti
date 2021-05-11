@@ -61,4 +61,10 @@
   	WHERE nickname = #{nickname};
   </select>
   
+  <select id="selectIntroById" parameterType="String" resultType="String">
+  	SELECT intro
+  	FROM user
+  	WHERE id = #{id};
+  </select>
+  
 </mapper>
