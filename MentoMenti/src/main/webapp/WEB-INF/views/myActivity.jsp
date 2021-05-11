@@ -41,10 +41,6 @@
 	margin-top:20px;
 }
 
-#wrapper{
-	height:100%;
-}
-
 .content1 a{
 	text-decoration:none !important;
 }

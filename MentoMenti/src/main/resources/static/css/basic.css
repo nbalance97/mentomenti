@@ -111,7 +111,9 @@ thead > tr > th{
 	font-weight:900;
 }
 
-
+#wrapper{
+	height:100%;
+}
 
 @media screen and (min-width:768px){
 	/*검색창*/
