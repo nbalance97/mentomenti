@@ -54,7 +54,7 @@
   <%
   	session.setAttribute("my_id", "user"+Integer.toString((int)(Math.random() * 10000)));
   %>
-  	<input type="file" onchange="uploadFile(this)"/>
+  	<!--  <input type="file" onchange="uploadFile(this)"/> -->
   	<div class="canvas_div">
 		<!-- 캔버스 태그 특성상 동적으로 만들면 그림그린거 다 깨짐. 따라서 window.innerWidth, height 사용  -->
 		<!-- painter.js 맨 아래 onLoadPage 함수  -->
