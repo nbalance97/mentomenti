@@ -24,6 +24,7 @@
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 </head>
 
 <style>
@@ -36,7 +37,7 @@
 	}
 </style>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <% 
 	pageContext.setAttribute("br", "<br/>");
@@ -59,11 +60,13 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
-	> <a href="freeBoard" style="text-decoration : none; color:gray">자유게시판</a></p>
+	> <a href="notice" style="text-decoration : none; color:gray">공지사항</a></p>
 </div>
 
+
+
 <table class="table table-bordered dataTable" width="100%"
-	aria-describedby="dataTable_info" style="width: 100%; background: white;">
+	aria-describedby="dataTable_info" style="width: 100%; background: white; margin-bottom:50px">
 	<tbody>
 		<tr>
 			<th colspan="3" style="text-align:center;" id="title"><h4 style="padding:5px 0px"><%=post.getTitle()%></h4></th>
@@ -75,10 +78,9 @@
 		</tr>
 		<tr>
 			<td colspan="3" style="padding:70px 20px">
-			<c:set var="content" value="<%=post.getContent()%>"/>
-			${fn:replace(content, cn, br)}
+				<c:set var="content" value="<%=post.getContent()%>"/>
+				${fn:replace(content, cn, br)}
 			</td>
-			
 		</tr>
 	</tbody>
 </table>
@@ -96,7 +98,7 @@
 	}
 %>
 
-	
+
 <!-- 댓글 영역 -->
 <div>
 	<h5 style="margin-bottom:20px">댓글</h5>
@@ -161,7 +163,6 @@
 </div>
 
 
-
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".deletePost").on('click', function(){
@@ -185,4 +186,4 @@
 </script>
 
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>

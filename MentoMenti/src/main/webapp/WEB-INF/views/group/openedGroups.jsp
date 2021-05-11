@@ -271,10 +271,11 @@
 		
 		//스크롤시 추가 로딩하는 부분
 		$(window).scroll(function(){
-			var scrollHeight = $(window).scrollTop() + $(window).height();
 			var documentHeight = $(document).height();
+			var scrollHeight = $(window).scrollTop() + $(window).height();
 			
-			if(scrollHeight == documentHeight){
+			//if(scrollHeight == documentHeight){
+			if(documentHeight <= scrollHeight){
 				showGroups();
 			}
 		});

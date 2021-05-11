@@ -32,7 +32,6 @@ public class HomeController {
         return "loginPage";
     }
     
-    
     @RequestMapping(value="/bh3")
     public String indexxx() {
     	return "BH_fileupload";
@@ -49,25 +48,6 @@ public class HomeController {
     	return "BH_fileupload";
     }
     
-    /*
-    @RequestMapping(value="/insert")
-    // select문, insert문 전용 테스트 함수
-    public String insert() throws Exception {
-    	UserDTO insUser = new UserDTO(null, null, null, null, null, null, null, false, null);
-    	insUser.setEmail("a@naver.com");
-     	List<UserDTO> temp = dao.getUserDAO().searchUser(insUser);
-     	for (UserDTO u: temp)
-     		System.out.println(u.getId() + "//" + u.getPw());
-    	return "insert";
-    }
-    */
-    /*  User 리스트중 첫번쨰 user의 데이터를 수정 후 insert
-     *  List<UserDTO> temp = dao.getUserDAO().selectUsers();
-    	UserDTO user = temp.get(0);
-    	user.setId("user4"); 
-    	dao.getUserDAO().insertUsers(user);
-     */
-
     @RequestMapping(value="/compiler")
     public String index2() throws Exception{
     	return "CompileTestView";
@@ -91,11 +71,6 @@ public class HomeController {
     @RequestMapping(value="/loginPage") //로그인 화면
     public String index5() {
     	return "loginPage";
-    }
-    
-    @RequestMapping(value="/notice") //공지사항
-    public String index6() {
-    	return "notice";
     }
     
     @RequestMapping(value="/main") //로그인 화면
@@ -122,10 +97,6 @@ public class HomeController {
     	return "/studyPage/practiceMento";
     }
     
-    @RequestMapping(value="/freeBoard") //자유게시판
-    public String index13() {
-    	return "freeBoard";
-    }
     @RequestMapping(value="/personalInfoPage") //회원 정보 확인 페이지
     public String index14() {
     	return "personalInfoPage";
@@ -155,7 +126,6 @@ public class HomeController {
     public String index23() {
     	return "/process/processLogout";
     }
-    
     
     @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
     public String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
@@ -189,61 +159,6 @@ public class HomeController {
     	return "/process/processPersonalInfoChange";
     }
     
-    @RequestMapping(value="/writeNoticePage") //공지사항 작성 페이지
-    public String index28() {
-    	return "/writeNoticePage";
-    }
-    
-    @RequestMapping(value="/processWriteNotice") //공지사항 작성 진행
-    public String index29() {
-    	return "/process/processWriteNotice";
-    }
-    
-    @RequestMapping(value="/writePostPage") //자유게시판 게시물 작성 페이지
-    public String index30() {
-    	return "/writePostPage";
-    }
-    
-    @RequestMapping(value="/processWritePost") //자유게시판 게시물 작성 진행
-    public String index31() {
-    	return "/process/processWritePost";
-    }
-    
-    @RequestMapping(value="/noticeContent") //공지사항 내용 페이지
-    public String index33() {
-    	return "/noticeContent";
-    }
-    
-    @RequestMapping(value="/postContent") //자유게시판 게시물 내용 페이지
-    public String index34() {
-    	return "/postContent";
-    }
-    
-    @RequestMapping(value="/processAddComment") //댓글 등록 진행
-    public String index35() {
-    	return "/process/processAddComment";
-    }
-    
-    @RequestMapping(value="/processDeleteComment") //댓글 삭제 진행
-    public String index36() {
-    	return "/process/processDeleteComment";
-    }
-    
-    @RequestMapping(value="/processDeletePost") //게시물 삭제 진행
-    public String index37() {
-    	return "/process/processDeletePost";
-    }
-    
-    @RequestMapping(value="/modifyPostPage") //게시물 수정 페이지
-    public String index38() {
-    	return "/modifyPostPage";
-    }
-    
-    @RequestMapping(value="/processModifyPost") //게시물 수정 진행
-    public String index39() {
-    	return "/process/processModifyPost";
-    }
-    
     @RequestMapping(value="/rejectedAccess") //접근 권한 없음 알림 페이지
     public String index40() {
     	return "/process/rejectedAccess";
@@ -259,11 +174,79 @@ public class HomeController {
     	return "/errorpage";
     }
     
+    
+    
+    
+    /*공지사항, 자유게시판 관련 페이지*/
+    @RequestMapping(value="/notice") //공지사항
+    public String noticeList() {
+    	return "/post/notice";
+    }
+    
+    @RequestMapping(value="/writeNoticePage") //공지사항 작성 페이지
+    public String writeNoticePage() {
+    	return "/post/writeNoticePage";
+    }
+    
+    @RequestMapping(value="/noticeContent") //공지사항 내용 페이지
+    public String noticeContent() {
+    	return "/post/noticeContent";
+    }
+    
+    @RequestMapping(value="/freeBoard") //자유게시판
+    public String freeBoard() {
+    	return "/post/freeBoard";
+    }
+    
+    @RequestMapping(value="/writePostPage") //자유게시판 게시물 작성 페이지
+    public String writePostPage() {
+    	return "/post/writePostPage";
+    }
+    
+    @RequestMapping(value="/postContent") //자유게시판 게시물 내용 페이지
+    public String postContent() {
+    	return "/post/postContent";
+    }
+    
+    @RequestMapping(value="/modifyPostPage") //게시물 수정 페이지
+    public String modifyPostPage() {
+    	return "/post/modifyPostPage";
+    }
+    
+    
+    /*게시물 관련 process*/
+    @RequestMapping(value="/processWriteNotice") //공지사항 작성 진행
+    public String processWriteNotice() {
+    	return "/process/processWriteNotice";
+    }
+    
+    @RequestMapping(value="/processWritePost") //자유게시판 게시물 작성 진행
+    public String processWritePost() {
+    	return "/process/processWritePost";
+    }
+    
+    @RequestMapping(value="/processAddComment") //댓글 등록 진행
+    public String processAddComment() {
+    	return "/process/processAddComment";
+    }
+    
+    @RequestMapping(value="/processDeleteComment") //댓글 삭제 진행
+    public String processDeleteComment() {
+    	return "/process/processDeleteComment";
+    }
+    
+    @RequestMapping(value="/processDeletePost") //게시물 삭제 진행
+    public String processDeletePost() {
+    	return "/process/processDeletePost";
+    }
+    
+    @RequestMapping(value="/processModifyPost") //게시물 수정 진행
+    public String processModifyPost() {
+    	return "/process/processModifyPost";
+    }
 
     
-    
-    
-    /*그룹 관련 페이지 정리함*/
+    /*그룹 관련 페이지*/
     @RequestMapping(value="/openedGroups") //개설된 그룹
     public String openedGroups() {
     	return "/group/openedGroups";
