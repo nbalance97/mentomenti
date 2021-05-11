@@ -101,28 +101,28 @@ function isElementUnderBottom(elem, triggerDiff) {
 	<ul class="slidelist">
 		<!-- 그림크기 resources/img/mainimg1_2.png크기랑 같게 ~> 안그러면 밀리는느낌잇 -->
 		<li class="slideitem">
-			<div>
+			<div class="slide_snapper">
 				<label for="slide04" class="left"></label>
 				<label for="slide02" class="right"></label>
 				<a><img src="resources/img/mainimg1_2.png"></a>
 			</div>
 		</li>
 		<li class="slideitem">
-			<div>
+			<div class="slide_snapper">
 				<label for="slide01" class="left"></label>
 				<label for="slide03" class="right"></label>
 				<a><img src="resources/img/two_side.png"></a>
 			</div>
 		</li>
 		<li class="slideitem">
-			<div>
+			<div class="slide_snapper">
 				<label for="slide02" class="left"></label>
 				<label for="slide04" class="right"></label>
 				<a><img src="resources/img/three_side.png"></a>
 			</div>
 		</li>
 		<li class="slideitem">
-			<div>
+			<div class="slide_snapper">
 				<label for="slide03" class="left"></label>
 				<label for="slide01" class="right"></label>
 				<a><img src="resources/img/four_side.png"></a>

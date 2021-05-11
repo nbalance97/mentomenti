@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <title>MOCO</title>
 <link href="resources/css/basic.css" rel="stylesheet" type="text/css">	<!-- 기본 css -->
+<link href="resources/css/profile-tooltip.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sidebar.css" rel="stylesheet" type="text/css" media="screen and (min-width:768px)"> <!-- PC 환경 사이드바 css -->
 <link href="resources/css/sidebar_phone.css" rel="stylesheet" type="text/css" media="screen and (max-width:767px)">	<!-- 모바일 환경 사이드바 CSS -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -77,7 +78,7 @@
 							<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보
 							확인
 						</a>
-						<a class="collapse-item" id="colItems" href="activity"> <i
+						<a class="collapse-item" id="colItems" href="activity?page=1"> <i
 							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>나의 활동
 						</a>
 					</div>

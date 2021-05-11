@@ -44,7 +44,7 @@
 	}
 </script>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <%
 	int postid = Integer.parseInt(request.getParameter("postid"));
@@ -92,4 +92,4 @@
 	}
 %>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>

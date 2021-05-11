@@ -77,15 +77,6 @@
 											<input type="password" class="form-control form-control-user"
 												name="pwInput" placeholder="비밀번호">
 										</div>
-										<div class="form-group">
-											<!-- 아이디 저장 기능은 삭제할 수도 있음 -->
-											<div class="custom-control custom-checkbox small">
-												<input type="checkbox" class="custom-control-input">
-												<label class="custom-control-label" for="customCheck">아이디
-													저장하기</label>
-											</div>
-										</div>
-
 
 										<input type="submit" class="btn btn-user btn-block"
 											value="로그인" style="background: #002266; color: white">
@@ -93,8 +84,8 @@
 										<hr>
 									</form>
 									<div class="text-center">
-										<a class="small" href="#">아이디 찾기</a> <a class="small" href="#">비밀번호
-											찾기</a> <a class="small" href="signup">회원가입</a>
+										<a class="small" href="#">비밀번호 찾기</a>
+										<a class="small" href="signup">회원가입</a>
 									</div>
 								</div>
 							</div>

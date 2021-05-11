@@ -20,7 +20,7 @@
 
 </head>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <!-- 공지사항 페이지 -->
 
@@ -145,4 +145,4 @@
 	
 </div>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>

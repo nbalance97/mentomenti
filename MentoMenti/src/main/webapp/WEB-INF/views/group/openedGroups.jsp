@@ -212,6 +212,27 @@
 	}
 %>
 
+<div class="col-lg-4">
+	<a id="cardAction">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+				<h5 class="m-0 text-primary">
+				<span class="font-weight-500">데이터베이스 기초</span>
+			<div class="btn btn-warning btn-circle btn-sm" style="float: right;" onclick="chkAbleToJoin(group[i].mentoid, group[i].groupid)">
+			<img src="resources/img/right-arrow.png" style="width:100%"></h5>
+		</div>
+		<div class="card-body cardscreen">
+			<div class="introbottom">
+				<p class="introheader"><em>스터디 소개</em><p>
+				<p class="introheader">스터디는 이러하다</p>
+			</div>
+			<p><span class="font-weight-700" style="color:gray">과목</span> 데이터베이스</p>
+			<p><span class="font-weight-700" style="color:gray">멘토</span> 멘토이름</p>
+			<p><span class="font-weight-700" style="color:gray">현재 인원 수</span> 3/4</p>
+		</div>
+	</a>
+</div>
+
 
 <!-- jstl문 활용해서 groups에 실제 group, 멘티 수 넣어 줌 -->
 <c:set var="groups" value="<%=groups%>"></c:set>
@@ -248,14 +269,14 @@
 					break;
 				
 				$('<div class="col-lg-4"><a id="cardAction"><div class="card shadow mb-4"><div class="card-header py-3">'
-						+'<h5 class="m-0 font-weight-500 text-primary">'
-						+'<span>'+group[i].name+'</span>'
+						+'<h5 class="m-0 text-primary">'
+						+'<span class="font-weight-500">'+group[i].name+'</span>'
 						+'<div class="btn btn-warning btn-circle btn-sm" style="float: right;"'
 						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
 						+'<img src="resources/img/right-arrow.png" style="width:100%"></h5></div>'
 						+'<div class="card-body cardscreen">'
 						+'<div class="introbottom">'
-						+'<p class="introheader"><스터디 소개><p>'
+						+'<p class="introheader"><em>스터디 소개</em><p>'
 						+'<p class="introheader">'+group[i].intro+'</p>'+'</div>'
 						
 						+'<p>과목 : '+group[i].category+'</p>'
@@ -271,10 +292,11 @@
 		
 		//스크롤시 추가 로딩하는 부분
 		$(window).scroll(function(){
-			var scrollHeight = $(window).scrollTop() + $(window).height();
 			var documentHeight = $(document).height();
+			var scrollHeight = $(window).scrollTop() + $(window).height();
 			
-			if(scrollHeight == documentHeight){
+			//if(scrollHeight == documentHeight){
+			if(documentHeight <= scrollHeight){
 				showGroups();
 			}
 		});
@@ -290,7 +312,8 @@
 
 <!-- 그룹 개설 버튼, 화면 고정 -->
 <a href="createGroupPage" class="btn btn-success btn-circle"
-	style="position: fixed; right: 70px; bottom: 20px; width: 80px; height: 80px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)">
+	style="position: fixed; right: 70px; bottom: 20px; width: 80px; height: 80px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); z-index:2">
 	<h1>+</h1>
 </a>
 

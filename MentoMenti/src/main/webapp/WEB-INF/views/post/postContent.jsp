@@ -36,7 +36,7 @@
 	}
 </style>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <% 
 	pageContext.setAttribute("br", "<br/>");
@@ -111,9 +111,10 @@
 		for (CommentDTO c: comments){
 			String commentId = c.getWriterid();
 			String commentNick = HomeController.dao.getUserDAO().selectNicknameById(c.getWriterid());
+			String userIntro = HomeController.dao.getUserDAO().selectIntroById(commentId);
 	%>
 	<div>
-		<div class="comment_component">
+		<div class="comment_component nickname-tooltip">
 				<!-- 댓글 프로필 이미지 -->
 					<%
 						File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
@@ -140,6 +141,34 @@
 					
 				<!-- 댓글 작성자 아이디 -->
 				<b><%=commentNick%></b>
+				
+								<!-- 댓글 작성자 프로필 (마우스 hover시 보임) -->
+				<div class="tooltip-content">
+					<div style="float:left;">
+					<%
+						if (pngImg.exists()) {
+					%>
+						<img src="resources/img/user/<%=commentId%>.png" class="rounded-circle"
+							style="width:120px; height:120px"/>
+					<%
+						} else if (jpgImg.exists()){
+					%>
+						<img src="resources/img/user/<%=commentId%>.jpg" class="rounded-circle"
+							style="width:120px; height:120px"/>
+					<%
+						} else {
+					%>
+						<img src="resources/img/user/user.png" class="rounded-circle"
+							style="width:120px; height:120px"/>
+					<%
+						}
+					%>
+					</div>
+					<div style="float:right; padding-top:10px">
+					<p><b><%=commentNick%></b> (<%=commentId%>)</p>
+					<p style="width:200px;"><%=userIntro%></p>
+					</div>
+				</div>
 		</div>
 		<div class="comment_component"><%=c.getContent()%></div>
 		<div class="comment_component" style="font-size:0.8em; overflow:hidden;">
@@ -185,4 +214,4 @@
 </script>
 
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>

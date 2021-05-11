@@ -44,7 +44,7 @@
 	}
 </script>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <%
 	if (id == null) { //로그인 안된 상태면 로그인 페이지로 이동
@@ -130,4 +130,4 @@ int groupid = Integer.parseInt(strGroupid);
 	}
 %>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>

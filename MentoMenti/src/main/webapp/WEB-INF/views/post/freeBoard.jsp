@@ -19,7 +19,7 @@
 
 </head>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <!-- 자유게시판 -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -136,4 +136,4 @@
 	%>
 </div>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>
