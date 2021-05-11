@@ -6,56 +6,57 @@
 <html>
 <head>
 <title>WhiteBoard</title>
-
-<script src="resources/js/painter_history.js"></script>
 </head>
 <style>
-	.canvas_div {
-		width: 85%;
-		height: 100%;
-		float: left;
-		
-	}
+.canvas_div {
+	width: 85%;
+	height: 100%;
+	float: left;
+}
 
-	.canvas {
-		border:1px solid gray;
-		outline: 2px dashed #92b0b3;
-		outline-offset: -10px;
-		text-align: center;
-		transition: all .15s ease-in-out;
-		background-color: aliceblue;
-	}
+.canvas {
+	border:1px solid gray;
+	outline: 2px dashed #92b0b3;
+	outline-offset: -10px;
+	text-align: center;
+	transition: all .15s ease-in-out;
+	background-color: aliceblue;
+}
 
-	.palette {
-		width: 15%;
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		float: right;
-	}
+.palette {
+	width: 15%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	float: right;
+}
 
-	.row .btn {
-		margin: 3px;
-		font-size: small;
-	}
+.row .btn {
+	margin: 3px;
+	font-size: small;
+}
 
-	.p_color {
-		width: 30px;
-		height: 30px;
-		margin: 3px;
-		border-radius: 30px;
-		cursor: pointer;
-		box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px
-			rgba(0, 0, 0, 0.08);
-	}
+.p_color {
+	width: 30px;
+	height: 30px;
+	margin: 3px;
+	border-radius: 30px;
+	cursor: pointer;
+	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px
+		rgba(0, 0, 0, 0.08);
+}
+
+input[type=range] { 
+	width:90%;
+	background: transparent; 
+}
 </style>
 <body>
   <%
   	session.setAttribute("my_id", "user"+Integer.toString((int)(Math.random() * 10000)));
   %>
-  	<!--  <input type="file" onchange="uploadFile(this)"/> -->
-  	<div class="canvas_div">
+	<div class="canvas_div">
 		<!-- 캔버스 태그 특성상 동적으로 만들면 그림그린거 다 깨짐. 따라서 window.innerWidth, height 사용  -->
 		<!-- painter.js 맨 아래 onLoadPage 함수  -->
 		<canvas id="canvas" class="canvas"></canvas>
@@ -82,16 +83,13 @@
 		
 			<div class="row">
 				<button class="btn btn-sm btn-outline-dark col-md-5" onclick="selectTool('pencil')">🖊︎</button>
-				<button class="btn btn-sm btn-outline-dark col-md-5" onclick="selectTool('line')">/</button>
+				<button id="erase" class="btn btn-sm btn-outline-dark col-md-5">e</button>
 			</div>
+			
 			<div class="row">
-				<button class="btn btn-sm btn-outline-dark col-md-5" onclick="selectTool('ellipse')">◯</button>
-				<button class="btn btn-sm btn-outline-dark col-md-5" onclick="selectTool('rect')">▯</button>
+				<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
 			</div>
-			<div class="row">
-				<button class="btn btn-sm btn-outline-dark col-md-5" onclick="undo()">↶</button>
-				<button class="btn btn-sm btn-outline-dark col-md-5" onclick="redo()">↷</button>
-			</div>
+			
 			<div class="row">
 				<button class="btn btn-sm btn-outline-success col-md-10"  onclick="clearPage()">메모🗑️</button>
 			</div>
@@ -100,10 +98,7 @@
 			</div>
 	</div>
 
-	<textarea id="history" cols="40" rows="37" style="display: none;"></textarea>
-	<script src="resources/js/painter.js"></script>
-	<script src="resources/js/drawengine.js"></script>
-  
+	<script src="resources/js/painter2.js"></script>
   <script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/WBsocket');
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장

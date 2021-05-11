@@ -156,8 +156,6 @@ function selectColor(choosedColor) {
   var newColor = drwaCommand();
   newColor.mode = "color";
   newColor.color = choosedColor;
-  commandHistory.push(newColor.toCommand());
-  addHistory(newColor.toCommand());
 }
 
 function selectTool(choosedTool) {
@@ -185,8 +183,6 @@ function pointMouseDown(event) {
 
   var newPoint = drwaCommand();
   newPoint.mode = "pencil_begin";
-  commandHistory.push(newPoint.toCommand());
-  addHistory(newPoint.toCommand());
 }
 
 
@@ -203,8 +199,6 @@ function pointMouseMove(event) { // 이부분 좀 수정함
   newPoint.mode = "line";
   newPoint.X1 = { X: pos.X, Y: pos.Y };
   newPoint.X2 = { X: currentPos.X, Y: currentPos.Y };
-  commandHistory.push(newPoint.toCommand());
-  addHistory(newPoint.toCommand());
   
   send({ //여기에 drawingMode 추가하면 될듯
 	  event: "recv_paint",
@@ -230,8 +224,77 @@ function pointMouseUp(event) {
 
   var newPoint = drwaCommand();
   newPoint.mode = "pencil_end";
-  commandHistory.push(newPoint.toCommand());
-  addHistory(newPoint.toCommand());
+}
+
+function handleStart(event) {
+	if (pos.isDraw) {
+		return;
+	}
+
+	pos.isDraw = true;
+	// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
+	// << 이 페이지 참조
+	cvs.globalCompositeOperation = drawingMode === "draw" ? "source-over"
+			: "destination-out"; // draw일 때 원래 있던 것 위에 계속 쌓음, eraser일 때 새로운
+									// 것과 겹치지 않게 유지(투명하게). 즉 지우는 것처럼 '보임'
+
+	var touches = event.touches;
+
+	for (var i = 0; i < touches.length; i++) {
+		cvs.beginPath();
+		cvs.strokeStyle = pos.color;
+
+		cvs.moveTo(touches[i].clientX, touches[i].clientY);
+		cvs.stroke();
+		pos.X = touches[i].clientX;
+		pos.Y = touches[i].clientY;
+	}
+
+	var newPoint = drwaCommand();
+	newPoint.mode = "pencil_begin";
+}
+
+
+function handleMove(event) { // 이부분 좀 수정함
+	  var currentPos = getMousePosition(event);
+	  var lWidth=document.getElementById('slider1'); //slider의 value 가져와서 펜 굵기로 사용
+	  var touches = event.touches;
+	  for (var i = 0; i < event.touches.length; i++) {
+		  cvs.lineTo(touches[i].clientX, touches[i].clientY);
+		  cvs.lineWidth = lWidth.value;
+		  cvs.lineCap = 'round';
+		  cvs.stroke();
+	
+		  var newPoint = drwaCommand();
+		  newPoint.mode = "line";
+		  newPoint.X1 = { X: pos.X, Y: pos.Y };
+		  newPoint.X2 = { X: touches[i].clientX, Y: touches[i].clientY };
+		  
+		  send({ //여기에 drawingMode 추가하면 될듯
+			  event: "recv_paint",
+			  x1: pos.X,
+			  y1: pos.Y,
+			  x2: touches[i].clientX,
+			  y2: touches[i].clientY,
+			  force: cvs.lineWidth,
+			  color: pos.color
+		  });
+		  
+		  pos.X = touches[i].clientX;
+		  pos.Y = touches[i].clientY;
+	  }
+}
+
+function handleEnd(event) {
+	  if (!pos.isDraw) {
+	    return;
+	  }
+
+	  pos.isDraw = false;
+	  cvs.closePath();
+
+	  var newPoint = drwaCommand();
+	  newPoint.mode = "pencil_end";
 }
 
 function clearCanvas() {
@@ -270,6 +333,10 @@ function onLoadPage() {
   canvas.addEventListener("mousemove", mouseListener);
   canvas.addEventListener("mouseout", mouseListener);
   canvas.addEventListener("mouseup", mouseListener);
+  
+  canvas.addEventListener("touchstart", handleStart);
+  canvas.addEventListener("touchend", handleEnd);
+  canvas.addEventListener("touchmove", handleMove);
 
   initPage();
 }
