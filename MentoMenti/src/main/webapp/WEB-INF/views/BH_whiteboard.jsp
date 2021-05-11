@@ -105,7 +105,7 @@
 	<script src="resources/js/drawengine.js"></script>
   
   <script>
-		var conn = new WebSocket('wss://localhost:8000/WBsocket');
+		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/WBsocket');
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
 	    var myCanvas = document.getElementById("canvas");
 	    var myCtx = myCanvas.getContext("2d");
@@ -115,20 +115,15 @@
 			myCtx.drawImage(image, 0, 0);
 		}
 		
-		function play() {
-			v1.play();
-		}
 		
 		function uploadFile(inputElement) {
 			var file = inputElement.files[0];
 			var reader = new FileReader();
 			reader.onloadend = function() {
-				//Data : reader.result
-				send({
-					event: "shareImage",
-					data: reader.result
-				});
-				console.log(reader.result);
+				//Data : reader.result;
+				arrayBuffer = reader.result;
+				conn.binaryType = 'arraybuffer';
+				conn.send(arrayBuffer);
 				image.src = reader.result;
 			}
 			reader.readAsDataURL(file);
@@ -146,10 +141,18 @@
 		
 		conn.onmessage = function(msg) {
 		    console.log("Got message", msg.data);
+		    var temp = msg.data;
+		    
+		    if (temp.type == '') { // binary data
+		    	image.src = temp;
+		    	return;
+		    }
+		    
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
 		    var to = content.to;
+		    
 			// 어차피 나중가면 from, to는 자동으로 정해지는 거니깐..
 		    //  && content.to === myName
 	    	if (content.event === "recv_paint"){
@@ -163,9 +166,6 @@
 		    	return;
 	    	}
 			
-			if (content.event === "shareImage") {
-				image.src = data;
-			}
 		}
 		
 		async function handlePaint(x1, y1, x2, y2, color, force) { // painter.js와 연동되는 부분임
