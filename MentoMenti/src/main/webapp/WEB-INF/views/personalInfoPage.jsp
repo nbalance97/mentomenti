@@ -84,7 +84,7 @@
 
 	<table class="table" style="width: 60%; margin: 0 auto;">
 		<tr>
-			<td style="width: 70px">이름</td>
+			<td style="width: 150px">이름</td>
 			<td><%=loginUser.getName() %></td>
 		</tr>
 		<tr>

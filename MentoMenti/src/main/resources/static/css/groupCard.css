@@ -59,7 +59,7 @@ a .cardscreen .introbottom{
 	border-radius: 0px 0px 5px 5px;
 	overflow:auto;
 	
-	transition:all .35s;
+	transition:all .45s;
 }
 
 a .cardscreen .introbottom::-webkit-scrollbar{
