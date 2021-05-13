@@ -94,7 +94,7 @@ form {
 
 	<div style="text-align: center;">
 		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="freeBoard"><button type="button"
+		<a href="freeBoard?page=1"><button type="button"
 				class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
@@ -119,7 +119,7 @@ int groupid = Integer.parseInt(strGroupid);
 
 	<div style="text-align: center;">
 		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="freeBoard"><button type="button" class="btn btn-secondary">목록으로</button></a>
+		<a href="freeBoard?page=1"><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
 <%

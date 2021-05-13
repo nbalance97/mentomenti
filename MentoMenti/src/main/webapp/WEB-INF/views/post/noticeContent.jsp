@@ -60,7 +60,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
-	> <a href="notice" style="text-decoration : none; color:gray">공지사항</a></p>
+	> <a href="notice?page=1" style="text-decoration : none; color:gray">공지사항</a></p>
 </div>
 
 

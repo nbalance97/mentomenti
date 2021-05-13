@@ -110,7 +110,7 @@
 								</a> <a class="dropdown-item" href="personalInfoChange"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 개인 정보
 									수정
-								</a> <a class="dropdown-item" href="activity?page=1"> <i
+								</a> <a class="dropdown-item" href="activity?page=1&compage=1"> <i
 									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 나의 활동
 								</a>
 								<div class="dropdown-divider"></div>

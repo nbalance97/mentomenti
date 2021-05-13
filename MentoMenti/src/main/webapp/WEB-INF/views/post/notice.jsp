@@ -22,6 +22,10 @@
 
 <%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
+<%
+	int curPage = Integer.parseInt(request.getParameter("page"));
+%>
+
 <!-- 공지사항 페이지 -->
 
 <!-- Page Heading -->
@@ -84,7 +88,12 @@
 		<%
 			}
 			else {	//결과가 있다면
-				for (PostDTO gn: noticeList){
+				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++){
+					//PostDTO gn: noticeList for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
+					if(i==noticeList.size()){
+						break;
+					}
+					PostDTO gn = noticeList.get(i);
 		%>
 		<tr role="row" class="odd">
 			<td>
@@ -107,25 +116,14 @@
 
 
 <!-- 페이지 버튼 -->
+<input type="hidden" id="curPage" value="<%=curPage%>"/>
+<input type="hidden" id="postSize" value="<%=noticeList.size() %>"/>
 <div class="d-flex align-items-center justify-content-between">
-	<div style="margin: 0 auto;">
-		<a href="#" class="btn-primary"
-			style="width: 40px; height: 10px; font-size: 15px; padding: 5px; border-radius: 5px; text-decoration: none">
-			<<</a>
-		<%
-			for (int j = 1; j <= 10; j++) {	//나중에 게시물 수에 따라 표시할 번호 다르게 해야함
-		%>
-		<a href="#" style="text-decoration: none"> <%
- 	out.println(j);
- %>
-		</a>
-		<%
-			}
-		%>
-		<a href="#" class="btn-primary"
-			style="width: 40px; height: 10px; font-size: 15px; padding: 5px; border-radius: 5px; text-decoration: none">
-			>></a>
-	</div>
+		<nav aria-label="Page navigation example" style="margin: 0 auto;">
+  			<ul class="pagination justify-content-center" id="list-body">
+    			<!-- 페이징 생성 -->
+ 			</ul>
+		</nav>
 
 	<%
 		if (id != null) {	//로그인상태
@@ -146,3 +144,46 @@
 </div>
 
 <%@include file="/WEB-INF/views/menuPart2.jsp"%>
+<script>
+	//작성한 글 개수 가져오기
+	var postData = document.getElementById("postSize").value;
+	var curpage = document.getElementById("curPage").value;
+	$(document).ready(function () {
+		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
+	});
+
+	function paging(totalData, currentPage){
+		
+		var dataPerPage = 10; //한 페이지에 보여지는 데이터 수
+		var countPage = 5; //한번에 보여지는 페이지 수
+		
+		//총페이지수
+		var totalPage = totalData / dataPerPage;
+		if(totalData%dataPerPage>0){
+			totalPage++;
+		}
+		
+		//보여지는 페이지번호
+		var startPage = Math.floor(((currentPage-1)/countPage))*countPage+1;//이유모르겠는디 오름으로 인식함->floor로 내림을 해줘야함,,,
+		var endPage = startPage + countPage-1;
+		if(endPage>totalPage){
+			endPage = totalPage;
+		}
+		const prev = startPage-1;
+		const next = endPage+1;
+		
+		$('#list-body').empty();
+		if(startPage > countPage){
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='notice?page="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+		}
+		for(var j=startPage ; j<=endPage ; j++){
+			if(currentPage==(j)){
+				$("#list-body").append("<li class='page-item active'><a class='page-link' href='notice?page=" + j + "'>" + j + "</a></li>");
+			}else if(j>0){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='notice?page=" + j + "'>" + j + "</a></li>");		
+			}
+		}
+		if(next > 5 && next < totalPage)
+		$("#list-body").append("<li class='page-item'><a class='page-link' href='notice?page="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+	} 
+</script>

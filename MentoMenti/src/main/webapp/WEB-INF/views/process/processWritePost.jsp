@@ -33,11 +33,11 @@
 		
 		if (groupid == null) {	//자유게시판
 			HomeController.dao.getPostDAO().insertGeneralPost(post);
-			response.sendRedirect("freeBoard");	//자유게시판 페이지로 이동
+			response.sendRedirect("freeBoard?page=1");	//자유게시판 페이지로 이동
 		} else {
 			post.setGroupid(Integer.parseInt(groupid));
 			HomeController.dao.getPostDAO().insertGroupPost(post);
-			response.sendRedirect("groupQnA?groupid="+groupid);
+			response.sendRedirect("groupQnA?page=1&groupid="+groupid);
 		}
 	%>
 </body>

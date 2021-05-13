@@ -59,7 +59,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
-	> <a href="freeBoard" style="text-decoration : none; color:gray">자유게시판</a></p>
+	> <a href="freeBoard?page=1" style="text-decoration : none; color:gray">자유게시판</a></p>
 </div>
 
 <table class="table table-bordered dataTable" width="100%"

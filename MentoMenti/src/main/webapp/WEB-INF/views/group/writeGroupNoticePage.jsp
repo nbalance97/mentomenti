@@ -82,7 +82,7 @@
 	
 	<div style="text-align:center;">
 		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="notice"><button type="button" class="btn btn-secondary">목록으로</button></a>
+		<a href="groupnotice?page=1&groupid=<%=strGroupid%>"><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
 

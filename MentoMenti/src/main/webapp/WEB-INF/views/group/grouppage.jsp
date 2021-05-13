@@ -130,7 +130,7 @@
 	<div class="content2">
 		<div style="overflow:hidden;">
 			<h4 class="text1" style="float:left;">공지사항</h4>
-			<span style="float:right;"><a href="groupnotice?groupid=<%=groupid%>" style="text-decoration:none; color:gray">더보기>></a></span>
+			<span style="float:right;"><a href="groupnotice?page=1&groupid=<%=groupid%>" style="text-decoration:none; color:gray">더보기>></a></span>
 		</div>
 		<table class="table table-bordered" id="dataTable"
 			cellspacing="0" role="grid" aria-describedby="dataTable_info"
@@ -188,7 +188,7 @@
 	<div class="content2">
 		<div style="overflow:hidden;">
 			<h4 class="text1" style="float:left;">Q & A</h4>
-			<span style="float:right;"><a href="groupQnA?groupid=<%=groupid%>" style="text-decoration:none; color:gray">더보기>></a></span>
+			<span style="float:right;"><a href="groupQnA?page=1&groupid=<%=groupid%>" style="text-decoration:none; color:gray">더보기>></a></span>
 		</div>
 		<table class="table table-bordered" id="dataTable"
 			cellspacing="0" role="grid" aria-describedby="dataTable_info"

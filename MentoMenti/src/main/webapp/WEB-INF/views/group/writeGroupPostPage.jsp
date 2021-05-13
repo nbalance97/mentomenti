@@ -79,7 +79,7 @@ int groupid = Integer.parseInt(strGroupid);
 
 	<div style="text-align: center;">
 		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="freeBoard"><button type="button" class="btn btn-secondary">목록으로</button></a>
+		<a href="groupQnA?page=1&groupid=<%=strGroupid%>"><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
 <%
