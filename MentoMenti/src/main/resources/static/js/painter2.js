@@ -321,7 +321,7 @@ function onLoadPage() {
   canvas = document.getElementById("canvas");
   cvs = canvas.getContext("2d");
   
-  cvs.canvas.width  = window.innerWidth*0.85;
+  cvs.canvas.width  = window.innerWidth*0.75;
   cvs.canvas.height = window.innerHeight*0.995;
 
   bufCanvas = document.createElement("canvas");
