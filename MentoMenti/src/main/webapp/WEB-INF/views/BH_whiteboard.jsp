@@ -56,6 +56,7 @@ input[type=range] {
   <%
   	session.setAttribute("my_id", "user"+Integer.toString((int)(Math.random() * 10000)));
   %>
+  	<input type="file" onchange="uploadFile(this);" />
 	<div class="canvas_div">
 		<!-- 캔버스 태그 특성상 동적으로 만들면 그림그린거 다 깨짐. 따라서 window.innerWidth, height 사용  -->
 		<!-- painter.js 맨 아래 onLoadPage 함수  -->
@@ -101,12 +102,14 @@ input[type=range] {
 	<script src="resources/js/painter2.js"></script>
   <script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/WBsocket');
+		var Binaryconn = new WebSocket('wss://localhost:8000/WBsocketB');
 	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
 	    var myCanvas = document.getElementById("canvas");
 	    var myCtx = myCanvas.getContext("2d");
 	    var image = new Image();
-		
+
 	    image.onload = function() {
+	    	console.log("image load...!!!");
 			myCtx.drawImage(image, 0, 0);
 		}
 		
@@ -117,12 +120,20 @@ input[type=range] {
 			reader.onloadend = function() {
 				//Data : reader.result;
 				arrayBuffer = reader.result;
-				conn.binaryType = 'arraybuffer';
-				conn.send(arrayBuffer);
-				image.src = reader.result;
+				console.log(arrayBuffer);
+				Binaryconn.send(arrayBuffer);
+				var url = URL.createObjectURL(new Blob([arrayBuffer]));
+				image.src = url;
+				//image.src = reader.result;
 			}
-			reader.readAsDataURL(file);
+			reader.readAsArrayBuffer(file);
 		}
+		
+		Binaryconn.onopen = function() {
+			console.log('opened Binary');
+		}
+		
+		
 		
 		conn.onopen = function() { // 소켓 열었을때
 			console.log("Connected to the signaling server");
@@ -134,15 +145,17 @@ input[type=range] {
 			//initialize();
 		}
 		
+		Binaryconn.onmessage = function(msg) {
+		    var temp = msg.data;
+		    console.log(temp);
+		    var url = URL.createObjectURL(new Blob([msg.data]));
+		    image.src = url;
+		}
+		
 		conn.onmessage = function(msg) {
 		    console.log("Got message", msg.data);
 		    var temp = msg.data;
-		    
-		    if (temp.type == '') { // binary data
-		    	image.src = temp;
-		    	return;
-		    }
-		    
+
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
