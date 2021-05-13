@@ -12,20 +12,23 @@ a .sortscreen{
 a .sortscreen span{
 	display:block;
 	position:absolute;
-	background:#0057cc;
 	transition:all .5s;
 	z-index:2;
 }
 a .sortscreen span:nth-child(1){top:0;left:0;height:5px;width:0;}
 a .sortscreen span:nth-child(2){top:0;right:0;height:0;width:5px;}
 a .sortscreen span:nth-child(3){bottom:0;right:0;height:5px;width:0;}
+/*
 a .sortscreen span:nth-child(4){bottom:0;left:0;height:0;width:5px;}
+*/
 
+/*transition-delay:.5s;*/
 #sortAction:hover .sortscreen span:nth-child(1){width:100%;}
 #sortAction:hover .sortscreen span:nth-child(2){height:100%;}
 #sortAction:hover .sortscreen span:nth-child(3){width:100%;}
+/*
 #sortAction:hover .sortscreen span:nth-child(4){height:100%;}
-
+*/
 <!--각 그룹 카드-->
 #groupList{
 	width:100%;
@@ -47,7 +50,7 @@ a .cardscreen{
 a .cardscreen .introbottom{
 	width:100%;
 	height:100%;
-	background:#002266;
+	background:#55A1CC;
 	position:absolute;
 	top:150%;
 	left:0;
@@ -56,7 +59,7 @@ a .cardscreen .introbottom{
 	border-radius: 0px 0px 5px 5px;
 	overflow:auto;
 	
-	transition:all .35s;
+	transition:all .45s;
 }
 
 a .cardscreen .introbottom::-webkit-scrollbar{

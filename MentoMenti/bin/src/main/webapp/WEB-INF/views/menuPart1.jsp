@@ -5,6 +5,8 @@
 	import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.io.*"%>
+<%@ page import="java.awt.image.BufferedImage" %>
+<%@ page import="javax.imageio.ImageIO" %>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -74,25 +76,25 @@
 							<span class="mr-2 d-none d-lg-inline small" ><%=nickname%>님</span>
 							
 							
-							<!-- 프로필 이미지 -->
-							<img id="originalPngImg" src="resources/img/user/<%=id%>.png" style="display:none;"/>
-							<img id="originalJpgImg" src="resources/img/user/<%=id%>.jpg" style="display:none;"/>
-							
+							<!-- 프로필 이미지 -->							
 							<%
 								File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
 								File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
 								
 								if (pngImg.exists()) {
 							%>
-								<div class="pngProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+								<div class="pngProfile profileImg rounded-circle"
+									style="width: 40px; height:40px; background-image:url('resources/img/user/<%=id%>.png')"></div>
 							<%
 								} else if (jpgImg.exists()){
 							%>
-								<div class="jpgProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+								<div class="jpgProfile profileImg rounded-circle"
+									style="width: 40px; height:40px; background-image:url('resources/img/user/<%=id%>.jpg')"></div>
 							<%
 								} else {
 							%>
-								<div class="defaultProfile profileImg rounded-circle" style="width: 40px; height:40px;"></div>
+								<div class="defaultProfile profileImg rounded-circle"
+									style="width: 40px; height:40px; background-image:url('resources/img/user/user.png')"></div>
 							<%
 								}
 							%>
@@ -108,7 +110,7 @@
 								</a> <a class="dropdown-item" href="personalInfoChange"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 개인 정보
 									수정
-								</a> <a class="dropdown-item" href="activity"> <i
+								</a> <a class="dropdown-item" href="activity?page=1&compage=1"> <i
 									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 나의 활동
 								</a>
 								<div class="dropdown-divider"></div>

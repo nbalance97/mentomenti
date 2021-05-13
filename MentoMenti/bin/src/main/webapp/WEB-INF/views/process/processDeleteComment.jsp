@@ -23,10 +23,16 @@
 		HomeController.dao.getCommentDAO().deleteComment(commentid);
 		pw.print("<script>alert('댓글이 삭제되었습니다.');</script>");
 		
+		int groupid = HomeController.dao.getPostDAO().searchByPostId(postid).get(0).getGroupid();
+		
 		if (HomeController.dao.getPostDAO().isNotice(postid)) { //공지사항
-			pw.print("<script>window.location=\"noticeContent?postid=" + postid + "\"</script>;");
+			if (groupid > 0) //그룹 공지사항
+				pw.print("<script>window.location=\"groupNoticeContent?postid=" + postid + "\"</script>;");
+			else pw.print("<script>window.location=\"noticeContent?postid=" + postid + "\"</script>;");
 		} else{	//자유게시판
-			pw.print("<script>window.location=\"postContent?postid=" + postid + "\"</script>;");
+			if (groupid > 0)
+				pw.print("<script>window.location=\"groupPostContent?postid=" + postid + "\"</script>;");
+			else pw.print("<script>window.location=\"postContent?postid=" + postid + "\"</script>;");
 		}
 	%>
 </body>

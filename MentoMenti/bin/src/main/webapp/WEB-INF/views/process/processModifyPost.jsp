@@ -30,10 +30,17 @@
 		HomeController.dao.getPostDAO().updatePost(post);	//DB 반영
 		pw.print("<script>alert('게시물이 수정되었습니다.');</script>");
 		
+		
+		int groupid = HomeController.dao.getPostDAO().searchByPostId(postid).get(0).getGroupid();
+		
 		if (isNotice) { //공지사항
-			pw.print("<script>window.location=\"noticeContent?postid="+postid+"\"</script>;");
+			if (groupid > 0)
+				pw.print("<script>window.location=\"groupNoticeContent?postid="+postid+"\"</script>;");
+			else pw.print("<script>window.location=\"noticeContent?postid="+postid+"\"</script>;");
 		} else{	//자유게시판
-			pw.print("<script>window.location=\"postContent?postid="+postid+"\"</script>;");
+			if (groupid > 0)
+				pw.print("<script>window.location=\"groupPostContent?postid="+postid+"\"</script>;");
+			else pw.print("<script>window.location=\"postContent?postid="+postid+"\"</script>;");
 		}
 	%>
 </body>

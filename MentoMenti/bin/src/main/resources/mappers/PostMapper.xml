@@ -25,15 +25,15 @@
   </select>
   
   <!-- 그룹 내 공지사항 -->
-  <select id="selectGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO">
+  <select id="selectGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT *
   	FROM post
   	WHERE groupid = #{groupid} and is_notice = True
   	ORDER BY postid desc;
   </select>
   
-  <!-- 그룹 내 게시물 -->
-  <select id="selectGroupPosts" resultType="Mento.Menti.Project.dto.PostDTO">
+  <!-- 그룹 내 Q&A -->
+  <select id="selectGroupPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT *
   	FROM post
   	WHERE groupid = #{groupid} and is_notice = False
@@ -101,7 +101,7 @@
   <select id="curGeneralNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT * FROM post
   	WHERE groupid is null and is_notice = True
-  	ORDER BY postid
+  	ORDER BY postid desc
   	LIMIT #{num};
   </select>
   	
@@ -109,7 +109,7 @@
   <select id="curGeneralPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT * FROM post
   	WHERE groupid is null and is_notice = False
-  	ORDER BY postid
+  	ORDER BY postid desc
   	LIMIT #{num};
   </select>
   
@@ -143,5 +143,18 @@
 	FROM post
 	WHERE userid = #{id};
   </select>
+  
+  
+    <!-- 그룹 공지사항 등록 -->
+  <insert id="insertGroupNotice" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, #{groupid}, #{userid}, #{title}, #{content}, #{postdate}, 0, True);
+  </insert>
+  
+  <!-- 그룹 Q&A 등록 -->
+  <insert id="insertGroupPost" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	INSERT INTO post
+  	VALUES (null, #{groupid}, #{userid}, #{title}, #{content}, #{postdate}, 0, False);
+  </insert>
   
 </mapper>

@@ -4,6 +4,17 @@
 
 
 /*.sidebar이 부트스트랩 css와 충돌나서 다시 지정*/
+
+/*사이드바 상단 로고부분*/
+.sideLogo{
+	font-size : 22px;
+	color : white;
+	font-weight : 700;
+}
+.sideLogo:hover{
+	color : white !important;
+}
+
 .sidebar{
 	width:100%;
 	min-height:200px;

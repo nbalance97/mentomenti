@@ -54,5 +54,17 @@
   	FROM user
   	WHERE id = #{id};
   </select>
+  <!-- 닉네임으로 유저찾기 -->
+  <select id="searchUserByNick" resultType="Mento.Menti.Project.dto.UserDTO">
+  	SELECT *
+  	FROM user
+  	WHERE nickname = #{nickname};
+  </select>
+  
+  <select id="selectIntroById" parameterType="String" resultType="String">
+  	SELECT intro
+  	FROM user
+  	WHERE id = #{id};
+  </select>
   
 </mapper>

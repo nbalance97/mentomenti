@@ -22,14 +22,23 @@
 		int date = cal.get(cal.DATE);
 		String postdate = year+"-"+month+"-"+date;	//작성일자
 		
-		PostDTO notice = new PostDTO();
-		notice.setUserid(userid);
-		notice.setTitle(title);
-		notice.setContent(content);
-		notice.setPostdate(postdate);
+		PostDTO post = new PostDTO();
+		post.setUserid(userid);
+		post.setTitle(title);
+		post.setContent(content);
+		post.setPostdate(postdate);
 		
-		HomeController.dao.getPostDAO().insertGeneralPost(notice);
-		response.sendRedirect("freeBoard");	//자유게시판 페이지로 이동
+		//그룹 Q&A면 groupid 있음
+		String groupid = request.getParameter("groupid");
+		
+		if (groupid == null) {	//자유게시판
+			HomeController.dao.getPostDAO().insertGeneralPost(post);
+			response.sendRedirect("freeBoard?page=1");	//자유게시판 페이지로 이동
+		} else {
+			post.setGroupid(Integer.parseInt(groupid));
+			HomeController.dao.getPostDAO().insertGroupPost(post);
+			response.sendRedirect("groupQnA?page=1&groupid="+groupid);
+		}
 	%>
 </body>
 </html>

@@ -40,6 +40,16 @@
 	margin-right : 16px;
 }
 
+/*사이드바 상단 로고부분*/
+.sideLogo{
+	font-size : 22px;
+	color : white;
+	font-weight : 700;
+}
+.sideLogo:hover{
+	color : white !important;
+}
+
 
 
 /* PC 환경 사이드바 버튼 */

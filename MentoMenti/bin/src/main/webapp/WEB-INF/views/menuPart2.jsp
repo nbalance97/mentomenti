@@ -67,8 +67,6 @@
 		</div>
 	</div>
 	
-	<!-- 프로필 이미지 크기 조절 -->
-	<%@include file="process/imgResizing.jsp" %>
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="resources/vendor/jquery/jquery.min.js"></script>

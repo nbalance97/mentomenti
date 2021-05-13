@@ -26,31 +26,35 @@
 
 <script type="text/javascript">
 	function chkForm(){
-		var form = document.writePostForm;
+		var form = document.writeNoticeForm;
 		var title = document.getElementById("title_text").value; //제목
 		var content = document.getElementById("content_text").value; //내용
 		
-		if (title.length < 6) {
-			alert("제목은 6글자 이상 입력해주세요");
+		if (title.length < 6 || title.length>30) {
+			alert("제목은 6~30글자 사이로 입력해주세요");
 			return;
 		}
 
-		if (content.length < 10) {
+		if (content.length < 10 ) {
 			alert("내용은 10글자 이상 입력해주세요");
 			return;
 		}
 
-		
 		form.submit();
 	}
 </script>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <%
 	if (id == null) { //로그인 안된 상태면 로그인 페이지로 이동
 	response.sendRedirect("loginPage?mode=nidLogin");
 }
+	
+	else if (!HomeController.dao.getUserDAO().isAdmin(id)){	//관리자가 아닌 계정으로 이동
+	response.sendRedirect("notice?page=1");
+}
+	
 	else {
 %>
 
@@ -63,10 +67,10 @@ form {
 -->
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading"> <!-- 여기에 margin-top 포함되어있음 -->
-	<h1 class="h3 mb-0 text-gray-800">게시물 작성</h1>
+	<h1 class="h3 mb-0 text-gray-800">공지사항 작성</h1>
 </div>
 
-<form action="processWritePost" name="writePostForm">
+<form action="processWriteNotice" name="writeNoticeForm">
 	<div class="form-group">
 		<label for="title_text">제목</label>
 		<input type="text" class="form-control" id="title_text" name="title">
@@ -79,7 +83,7 @@ form {
 	
 	<div style="text-align:center;">
 		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="freeBoard"><button type="button" class="btn btn-secondary">목록으로</button></a>
+		<a href="notice?page=1"><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
 
@@ -87,4 +91,4 @@ form {
 	}
 %>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>
