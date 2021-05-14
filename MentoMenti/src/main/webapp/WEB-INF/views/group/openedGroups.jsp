@@ -296,7 +296,7 @@
 			var scrollHeight = $(window).scrollTop() + $(window).height();
 			
 			//if(scrollHeight == documentHeight){
-			if(documentHeight <= scrollHeight){
+			if(scrollHeight >= documentHeight){
 				showGroups();
 			}
 		});

@@ -282,6 +282,7 @@
 						'</tr>').appendTo('#MemberTable');
 			}
 		}
+		
 		function uploadFile(inputElement) {
 			var file = inputElement.files[0];
 			var reader = new FileReader();
