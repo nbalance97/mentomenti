@@ -207,7 +207,7 @@ function pointMouseMove(event) { // 이부분 좀 수정함
 	  x2: currentPos.X,
 	  y2: currentPos.Y,
 	  force: cvs.lineWidth,
-	  color: pos.color
+	  color: pos.color,
   });
   
   pos.X = currentPos.X;

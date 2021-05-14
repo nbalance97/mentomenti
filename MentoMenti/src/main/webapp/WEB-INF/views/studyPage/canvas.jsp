@@ -149,8 +149,9 @@
 	</div>
 		<script src="/resources/js/painter2.js"></script>
   <script>
-		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/WBsocket');
-	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
+		var conn = new WebSocket('wss://localhost:8000/WBsocket');
+	    var myName = '<%=request.getParameter("my_id")%>'; // 자기 id 저장
+	    var yourName = '<%=request.getParameter("your_id")%>';
 	    var myCanvas = document.getElementById("canvas");
 	    var myCtx = myCanvas.getContext("2d");
 	    var image = new Image();
@@ -178,8 +179,10 @@
 			console.log("Current User:" + myName);
 			send({ // name을 server에 알려서 broadcast
 				event: "namecall",
-				data: myName 
+				from: myName,
+				to: yourName
 			});
+			console.log(yourName);
 			//initialize();
 		}
 		
