@@ -108,7 +108,7 @@
 			<tbody>
 				<%//페이지 따라 출력
 					List<PostDTO> posts = HomeController.dao.getPostDAO().searchMyPostsByUserId(id);
-				for (int i=(curPage-1)*3; i<(curPage-1)*3+3;i++) {
+				for (int i=(curPage-1)*5; i<(curPage-1)*5+5;i++) {
 					//PostDTO post : posts for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
 					if(i==posts.size()){
 						break;
@@ -199,7 +199,7 @@
 
 				<%
 					List<CommentDTO> comments = HomeController.dao.getCommentDAO().searchMyCommentsByUserId(id);
-				for (int i=(curPage_c-1)*3; i<(curPage_c-1)*3+3;i++) {
+				for (int i=(curPage_c-1)*5; i<(curPage_c-1)*5+5;i++) {
 					//for (int i=(curPage-1)*3; i<(curPage-1)*3+3;i++) {
 						//CommentDTO comment : comments for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
 					if(i==comments.size()){
@@ -293,7 +293,7 @@
 
 	function paging(totalData, currentPage){
 		
-		var dataPerPage = 3; //한 페이지에 보여지는 데이터 수
+		var dataPerPage = 5; //한 페이지에 보여지는 데이터 수
 		var countPage = 5; //한번에 보여지는 페이지 수
 		
 		//총페이지수
@@ -328,7 +328,7 @@
 	
 	function paging_c(totalData, currentPage){
 		
-		var dataPerPage = 3; //한 페이지에 보여지는 데이터 수
+		var dataPerPage = 5; //한 페이지에 보여지는 데이터 수
 		var countPage = 5; //한번에 보여지는 페이지 수
 		
 		//총페이지수

@@ -49,21 +49,22 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 %>
 <%
 	int curPage = Integer.parseInt(request.getParameter("page"));
+	String groupname = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();
 %>
 
-<!-- 공지사항 페이지 -->
-
-<!-- Page Heading -->
+<!-- 그룹 공지사항 페이지 -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
+	
 	<h1 class="h3 mb-0 text-gray-800">그룹 공지사항</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-				action="notice" method="GET">
+				action="groupnotice" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small" name="keyword"
 						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
+					<input type="text" name="page" value=<%=curPage%> style="display:none;">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
@@ -76,8 +77,8 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		</li>
 	</ul>
 </div>
-<p class="mb-4"><%=group.getName()%>
-	그룹의 공지사항입니다.
+<p class="mb-4"><a href="group?groupid=<%=groupid%>"><%=group.getName()%>
+	그룹</a>의 공지사항입니다.
 </p>
 
 
@@ -99,13 +100,25 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		<%
 			String kwd = request.getParameter("keyword");	//검색 키워드
 			List<PostDTO> groupNotices = null;
-			if (kwd == null) {	//검색x, 전체 공지
+			if (kwd == null) {	//검색x, 그룹 공지 전체
 				groupNotices = HomeController.dao.getPostDAO().selectGroupNotices(group.getGroupid());
 			} else{	//검색o
-				//검색 기능 추가해야
+				PostDTO searchNotice = new PostDTO();
+				searchNotice.setTitle(kwd);
+				searchNotice.setGroupid(groupid);	//검색 키워드, 그룹 아이디 넘김
+				groupNotices = HomeController.dao.getPostDAO().searchGroupNotices(searchNotice);
 			}
 			
-			if(groupNotices.size() > 0) {	//결과 있음
+			if (groupNotices.size() == 0){
+		%>
+	</tbody>
+</table>
+	<div style="height:200px; text-align:center; line-height:200px">
+		결과가 없습니다.		
+	</div>
+	
+		<%
+			} else {	//결과 있음
 				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++) {
 					//PostDTO gn: noticeList for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
 					if(i==groupNotices.size()){
@@ -124,16 +137,12 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		</tr>
 		<%
 				}
-			} else {	//결과 없음
-		%>
-		<tr style="height: 200px; line-height:200px;">
-			<td colspan="4">게시물이 아직 없습니다</td>
-		</tr>
-		<%
-			}
 		%>
 	</tbody>
 </table>
+		<%
+			}
+		%>
 
 
 <!-- 페이지 버튼 -->

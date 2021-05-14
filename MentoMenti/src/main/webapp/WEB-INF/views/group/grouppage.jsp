@@ -24,7 +24,7 @@
 .content1{
 	float:left;
 	width:50%;
-	margin-bottom:50px;
+	margin-bottom:100px;
 }
 
 .content2{
@@ -79,10 +79,12 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4" style="overflow:hidden;" id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800" style="float:left"><%=group.getName() %></h1>
 	<%
-		if (group.getMentoid().equals(id)){	//멘토는 자신의 그룹을 해체할 수 있음
+		if (group.getMentoid().equals(id)){	//멘토 - 그룹 해체, 멤버 관리
 	%>
-	<input type="button" class="btn btn-warning deleteGroup" value="그룹 해체하기"
-		style="float:right; font-size:14px; padding:3px; background:#BDBDBD; border:1px solid #BDBDBD"/>
+	<!-- <input type="button" class="btn btn-warning deleteGroup" value="그룹 해체하기"
+		style="float:right; font-size:14px; padding:3px; background:#BDBDBD; border:1px solid #BDBDBD"/> -->
+	<a href="groupManage?groupid=<%=groupid%>"><input type="button" class="btn btn-warning manageGroup" value="그룹 관리"
+		style="float:right; font-size:14px; padding:3px; background:#BDBDBD; border:1px solid #BDBDBD"/></a>
 	<%
 		} else { //멘티는 그룹에서 탈퇴할 수 있음
 	%>
@@ -104,20 +106,22 @@
 			<thead>
 				<tr role="row">
 					<th tabindex="0" rowspan="1" colspan="1" style="width: 90px;">역할</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 150px;">이름</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 150px;">닉네임</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>멘토</td>
-					<td><%=group.getMentoid()%></td>
+					<td><%=HomeController.dao.getUserDAO().selectNicknameById(group.getMentoid())%></td>
 				</tr>
 				<%
 					for(GroupmateDTO gl: groupmateList) {
+						String mentiId = gl.getId();
+						String mentiNick = HomeController.dao.getUserDAO().selectNicknameById(mentiId);
 				%>
 					<tr>
 					<td>멘티</td>
-					<td><%=gl.getId()%></td>
+					<td><%=mentiNick%></td>
 					</tr>
 				<%
 					}
@@ -167,7 +171,7 @@
 </div>
 
 
-<div style="width: 100%">
+<div class="wrapContents" style="width: 100%">
 	<div class="content1">
 		<h4 class="text1">개설수업</h4>
 		<div style="text-align:center; height:200px;">
@@ -175,13 +179,15 @@
 		<form>
 			<a href="studyPage/studyPageMentor?groupid=<%=group.getGroupid()%>">
 			<input type="button" class="btn btn-primary"
-				style="width: 40%; margin-bottom: 10px; margin-top: 20px" value="입장">
+				style="width: 50%; height:70px; margin-bottom: 10px; margin-top: 20px" value="입장하기">
 			</a>
 		</form>
 		
+		<!-- 
 		<form>
 			<input type="button" class="btn btn-info" style="width: 40%" value="개설">
 		</form>
+		-->
 		</div>
 	</div>
 

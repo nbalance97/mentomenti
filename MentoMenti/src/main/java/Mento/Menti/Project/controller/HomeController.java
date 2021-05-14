@@ -78,11 +78,6 @@ public class HomeController {
     	return "main";
     }
     
-    @RequestMapping(value="/practice")//실습화면-레이아웃 연습용
-    public String index8() {
-    	return "/studyPage/practicePage";
-    }
-    
     @RequestMapping(value="/signup")//회원가입
     public String index9() {
     	return "/signUpPage";
@@ -321,7 +316,16 @@ public class HomeController {
     public String modifyGroupPostPage() {
     	return "/group/modifyGroupPostPage";
     }  
+    
+    @RequestMapping(value="/groupManage")	//그룹 관리 페이지
+    public String groupManagePage() {
+    	return "/group/groupManagePage";
+    }
    
+    @RequestMapping(value="/processWithdraw")	//그룹 멤버 강퇴 페이지
+    public String groupWithdraw() {
+    	return "/process/processWithdraw";
+    }
     
     
     
