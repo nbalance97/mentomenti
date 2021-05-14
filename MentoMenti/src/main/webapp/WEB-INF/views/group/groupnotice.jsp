@@ -164,14 +164,16 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 
 
 	<%
-		if (group.getMentoid().equals(id))	//멘토인 경우에만 작성 버튼
+		if (group.getMentoid().equals(id)){	//멘토인 경우에만 작성 버튼
 	%>
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
 			<a href="writeGroupNoticePage?groupid=<%=groupid%>" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
-	
+	<%
+		}
+	%>
 
 </div>
 
