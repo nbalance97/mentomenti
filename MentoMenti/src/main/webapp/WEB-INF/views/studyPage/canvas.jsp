@@ -121,7 +121,6 @@
 						<button id="erase" class="btn btn-sm btn-outline-dark col-md-5">e</button>					
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
 						<button class="btn btn-sm btn-outline-success col-md-10"  onclick="clearPage()">메모🗑️</button>
-						<button class="btn btn-sm btn-outline-danger col-md-10" style="align-items:center;" onclick="deleteFiles()">🖼제거</button>
 				</div>
 			</div>
 		</div>

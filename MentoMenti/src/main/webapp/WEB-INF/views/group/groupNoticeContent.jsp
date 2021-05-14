@@ -92,17 +92,17 @@
 
 
 <!-- 자신이 작성한 글에는 삭제 버튼 있음 -->
+<div style="text-align:right;">
 <%
 	if(post.getUserid().equals(id)){
 %>
-<div style="text-align:right;">
 	<input type="button" class="btn btn-success modifyPost" value="수정"/>
 	<input type="button" class="btn btn-danger deletePost" value="삭제"/>
-</div>
 <%
 	}
 %>
-
+<input type="button" onclick="location.href='groupnotice?page=1&groupid=<%=groupid%>'" class="btn btn-info" value="목록"/>
+</div>
 	
 <!-- 댓글 영역 -->
 <div>
