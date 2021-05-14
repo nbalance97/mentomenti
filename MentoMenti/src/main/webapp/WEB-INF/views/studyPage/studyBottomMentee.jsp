@@ -4,6 +4,11 @@
     pageEncoding="UTF-8"%>
 <link href="/resources/css/bottomBar.css" rel="stylesheet" type="text/css"> 
 
+<%
+	int groupid_ = Integer.parseInt(request.getParameter("groupid"));
+	GroupDTO group_ = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid_);
+%>
+
 <div class="function">
 	<div class="icon-box">
 		<span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span>
@@ -16,6 +21,7 @@
 				<span class="icon"><a href="#"><i class="far fa-times-circle fa-3x emotion"></i></a></span>
 			</div>
 		</div>
+		<span class="icon"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a></span>
 	</div>
 </div>
 <span class="exit-box"><a id="exitBtn" onclick="exit()" href="#"><i class="fas fa-sign-out-alt fa-2x exit"></i></a></span>
@@ -28,7 +34,13 @@
 			
 		}
 	}
-	
+	function movePractice(){
+		if(confirm("실습페이지로 이동하시겠습니까?")){
+			location.replace("/practiceMento?groupid=<%=group_.getGroupid()%>");
+		}else{
+			
+		}
+	}
 	const muter = document.querySelector("#muter");
 	muter.addEventListener("click", (e) => {
 	  ["fa-microphone", "fa-microphone-slash"].forEach(
