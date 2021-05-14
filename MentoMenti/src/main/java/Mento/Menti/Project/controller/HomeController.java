@@ -322,6 +322,10 @@ public class HomeController {
     	return "/group/groupManagePage";
     }
    
+    @RequestMapping(value="/processWithdraw")	//그룹 멤버 강퇴 페이지
+    public String groupWithdraw() {
+    	return "/process/processWithdraw";
+    }
     
     
     

@@ -102,6 +102,7 @@
 			<div class="palette">
 				<h1>Palette</h1>
 				<div class="colo">
+				<input type="file" onchange="uploadFile(this);" />
 				<div class="column1">
 						<div class="p_color" style="background-color: black"	onclick="selectColor('black')"></div>
 						<div class="p_color" style="background-color: red"	onclick="selectColor('red')"></div>
@@ -131,8 +132,9 @@
 	</div>
 		<script src="/resources/js/painter2.js"></script>
   <script>
-		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/WBsocket');
-	    var myName = "<%=session.getAttribute("my_id")%>" // 자기 id 저장
+		var conn = new WebSocket('wss://localhost:8000/WBsocket');
+	    var myName = '<%=request.getParameter("my_id")%>'; // 자기 id 저장
+	    var yourName = '<%=request.getParameter("your_id")%>';
 	    var myCanvas = document.getElementById("canvas");
 	    var myCtx = myCanvas.getContext("2d");
 	    var image = new Image();
@@ -146,13 +148,12 @@
 			var file = inputElement.files[0];
 			var reader = new FileReader();
 			reader.onloadend = function() {
-				//Data : reader.result;
 				arrayBuffer = reader.result;
-				conn.binaryType = 'arraybuffer';
 				conn.send(arrayBuffer);
-				image.src = reader.result;
+				var url = URL.createObjectURL(new Blob([arrayBuffer]));
+				image.src = url;
 			}
-			reader.readAsDataURL(file);
+			reader.readAsArrayBuffer(file);
 		}
 		
 		conn.onopen = function() { // 소켓 열었을때
@@ -160,8 +161,10 @@
 			console.log("Current User:" + myName);
 			send({ // name을 server에 알려서 broadcast
 				event: "namecall",
-				data: myName 
+				from: myName,
+				to: yourName
 			});
+			console.log(yourName);
 			//initialize();
 		}
 		
@@ -169,9 +172,10 @@
 		    console.log("Got message", msg.data);
 		    var temp = msg.data;
 		    
-		    if (temp.type == '') { // binary data
-		    	image.src = temp;
-		    	return;
+		    if (temp instanceof Blob) {
+			    var url = URL.createObjectURL(new Blob([msg.data]));
+			    image.src = url;
+			    return;
 		    }
 		    
 		    var content = JSON.parse(msg.data);
@@ -188,13 +192,14 @@
 		    	var y2 = content.y2;
 		    	var color = content.color;
 		    	var force = content.force;
-		    	handlePaint(x1, y1, x2, y2, color, force);
+		    	var erase = content.erase;
+		    	handlePaint(x1, y1, x2, y2, color, force, erase);
 		    	return;
 	    	}
 			
 		}
 		
-		async function handlePaint(x1, y1, x2, y2, color, force) { // painter.js와 연동되는 부분임
+		async function handlePaint(x1, y1, x2, y2, color, force, erase) { // painter.js와 연동되는 부분임
 			  cvs.beginPath();
 				  cvs.moveTo(x1, y1);
 				  cvs.lineTo(x2, y2);
@@ -202,6 +207,7 @@
 				  cvs.lineWidth = force;
 				  cvs.lineCap = 'round';
 				  cvs.stroke();
+				  cvs.globalCompositeOperation = erase;
 			  cvs.closePath();
 		}
 		

@@ -268,21 +268,21 @@
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
 						'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
-						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 				'</tr>').appendTo('#MemberTable');
 			} else if (emot === "finish") {
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
 						'<td>'+'<i class="far fa-check-circle fa-2x emotion"></i></td>'+
-						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 						'</tr>').appendTo('#MemberTable');
 			} else if (emot === 'non-finish') {
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
 						'<td>'+'<i class="far fa-times-circle fa-2x emotion"></i></td>'+
-						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 						'</tr>').appendTo('#MemberTable');
 			}
 		}
@@ -301,7 +301,7 @@
 			reader.readAsArrayBuffer(file);
 		}
 		
-		function canvas(){
+		function canvas(btn){
 			var url = "/canvas";
 			var name = "canvas";
 			var popupWidth = 1200;
@@ -309,7 +309,7 @@
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
 			var popupY = (window.screen.height / 2) - (popupHeight / 2);
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
-			window.open(url, name, option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+			window.open(url+'?my_id='+myName+'&your_id='+btn.value, name, option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 		}
 		
 		function checkConnection() {

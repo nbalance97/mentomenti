@@ -161,13 +161,14 @@ input[type=range] {
 		    	var y2 = content.y2;
 		    	var color = content.color;
 		    	var force = content.force;
-		    	handlePaint(x1, y1, x2, y2, color, force);
+		    	var erase = content.erase;
+		    	handlePaint(x1, y1, x2, y2, color, force, erase);
 		    	return;
 	    	}
 			
 		}
 		
-		async function handlePaint(x1, y1, x2, y2, color, force) { // painter.js와 연동되는 부분임
+		async function handlePaint(x1, y1, x2, y2, color, force, erase) { // painter.js와 연동되는 부분임
 			  cvs.beginPath();
 				  cvs.moveTo(x1, y1);
 				  cvs.lineTo(x2, y2);
@@ -175,6 +176,7 @@ input[type=range] {
 				  cvs.lineWidth = force;
 				  cvs.lineCap = 'round';
 				  cvs.stroke();
+				  cvs.globalCompositeOperation = erase;
 			  cvs.closePath();
 		}
 		

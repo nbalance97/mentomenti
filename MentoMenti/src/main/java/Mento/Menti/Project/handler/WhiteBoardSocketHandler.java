@@ -2,9 +2,13 @@ package Mento.Menti.Project.handler;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.CloseStatus;
@@ -15,14 +19,38 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Component
 public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
+    HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
+    HashMap<WebSocketSession, String> targetMap = new HashMap<>();
     
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message)
       throws InterruptedException, IOException {
+    	
+    	/* JSON Parse */
+    	JSONParser jsonParse = new JSONParser();
+    	JSONObject jsonObj = null;
+    	try {
+			jsonObj = (JSONObject) jsonParse.parse(message.getPayload());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+    	
+    	/* 내 이름-세션정보 hashmap, 내 이름-상대 이름 hashmap */
+    	String event = (String)jsonObj.get("event");
+    	
+    	if (event.contentEquals("namecall")) {
+    		String myName = (String)jsonObj.get("from");
+    		String yourName = (String)jsonObj.get("to");
+    		sessionMap.put(myName, session);
+    		targetMap.put(session, yourName);
+    		return;
+    	}
+    	
         for (WebSocketSession webSocketSession : sessions) {
             if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) { // 자기 말고 다른 세션들에게만 메세지 전송
             	synchronized(webSocketSession) { // 동기화 처리 하여 충돌 안나도록 함.
-            		webSocketSession.sendMessage(message);
+            		if (webSocketSession == sessionMap.get(targetMap.get(session)))
+            			webSocketSession.sendMessage(message);
             	}
             }
         }
@@ -35,7 +63,8 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
             if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) { // 자기 말고 다른 세션들에게만 메세지 전송
             	synchronized(webSocketSession) { // 동기화 처리 하여 충돌 안나도록 함.
             		try {
-						webSocketSession.sendMessage(new BinaryMessage(byteBuffer));
+                		if (webSocketSession == sessionMap.get(targetMap.get(session)))
+                			webSocketSession.sendMessage(new BinaryMessage(byteBuffer));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -48,6 +77,7 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.remove(session);
+        targetMap.remove(session);
         super.afterConnectionClosed(session, status);
     }
     
