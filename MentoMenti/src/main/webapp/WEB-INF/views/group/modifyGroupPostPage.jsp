@@ -30,8 +30,8 @@
 		var title = document.getElementById("title_text").value; //제목
 		var content = document.getElementById("content_text").value; //내용
 		
-		if (title.length < 6) {
-			alert("제목은 6글자 이상 입력해주세요");
+		if (title.length < 6 || title.length > 30) {
+			alert("제목은 6~30글자 사이로 입력해주세요");
 			return;
 		}
 
@@ -56,9 +56,9 @@
 	
 	String backToList = "";
 	if (HomeController.dao.getPostDAO().isNotice(postid)){
-		backToList = "groupnotice?groupid="+groupid;
+		backToList = "groupnotice?page=1&groupid="+groupid;
 	} else {
-		backToList = "groupQnA?groupid="+groupid;
+		backToList = "groupQnA?page=1&groupid="+groupid;
 	}
 	
 
