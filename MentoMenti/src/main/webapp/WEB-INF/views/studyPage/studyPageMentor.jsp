@@ -122,15 +122,15 @@
 			}
 		}
 		
-		function canvas(){
+		function canvas(btn){
 			var url = "/canvas";
 			var name = "canvas";
 			var popupWidth = 1200;
 			var popupHeight = 700;
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
-			var popupY= (window.screen.height / 2) - (popupHeight / 2);
+			var popupY = (window.screen.height / 2) - (popupHeight / 2);
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
-			window.open(url, name, option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+			window.open(url+'?my_id='+myName+'&your_id='+btn.value, name, option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 		}
 		
 		function checkConnection() {
