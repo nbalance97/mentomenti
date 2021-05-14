@@ -131,6 +131,7 @@
 		<div class="coding">
 			<div class="problemImg shadow img-rounded">
 				<h1>문제를 게시해주세요</h1>
+				<img id="prob_image" style="width:100%; height:80%"></img>
 			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
@@ -245,25 +246,59 @@
 		editor2.setSize("100%", "100%");
 		editor3.setSize("100%", "100%");
 	</script>
-	
-		<script>
+	<script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
 	    var myGroup = <%=groupid%>;
 		var dataChannel;
 	    var myoffer;
+
+		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
+		var image = document.getElementById("prob_image");
+		var myemoticon = "ques";
+		
 		var pc = {};
 		var dc = {};
 		var share = {};
-		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
+		var emoticon = {};
 		
-		function addMemberToList(id, idx) {
-			$('<tr>'+
-			'<td>'+idx+'</td>'+
-			'<td>'+id+'</td>'+
-			'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
-			'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
-			'</tr>').appendTo('#MemberTable');
+		function addMemberToList(id, emot, idx) {
+			if (emot === "ques") {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+				'</tr>').appendTo('#MemberTable');
+			} else if (emot === "finish") {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-check-circle fa-2x emotion"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			} else if (emot === 'non-finish') {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-times-circle fa-2x emotion"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			}
+		}
+		function uploadFile(inputElement) {
+			var file = inputElement.files[0];
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				//Data : reader.result;
+				arrayBuffer = reader.result;
+				for (var key in dc)
+					dc[key].send(arrayBuffer);
+				
+				var url = URL.createObjectURL(new Blob([arrayBuffer]));
+				image.src = url;
+			}
+			reader.readAsArrayBuffer(file);
 		}
 		
 		function canvas(){
@@ -272,7 +307,7 @@
 			var popupWidth = 1200;
 			var popupHeight = 700;
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
-			var popupY= (window.screen.height / 2) - (popupHeight / 2);
+			var popupY = (window.screen.height / 2) - (popupHeight / 2);
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
 			window.open(url, name, option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 		}
@@ -280,16 +315,30 @@
 		function checkConnection() {
 			var idx = 1;
 			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
-			addMemberToList(myName, idx++);
+			addMemberToList(myName, myemoticon, idx++);
 			for (var key in pc) {
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
 					delete(pc[key]);
 					delete(dc[key]);
 					delete(share[key]);
+					delete(emoticon[key]);
 				} else {
-					addMemberToList(key, idx++);
+					addMemberToList(key, emoticon[key], idx++);
 				}
+			}
+		}
+		
+		
+		function changestatus(status) {
+			myemoticon = status;
+			for (var key in pc) {
+				send({
+					event : "changeStatus",
+					data : status,
+					from : myName,
+					to : key
+				});
 			}
 		}
 		
@@ -326,6 +375,10 @@
 			    case "namecall":
 			    	createOffer(data);
 			    	break;
+			    case "changeStatus":
+			    	emoticon[from] = data;
+			    	renegotiationflg = false;
+			    	break;
 			    default:
 			        break;
 			    }
@@ -357,8 +410,6 @@
 			
 			var peerConnection = new RTCPeerConnection(configuration);
 			peerConnection.onicecandidate = function(event) { // Handler 등록
-				if (renegotiationflg)
-					return;
 				if (event.candidate) {
 					send({
 						event : "candidate",
@@ -368,11 +419,7 @@
 					});
 				}
 			}
-			
 			setDataChannel(peerConnection, target);
-			
-
-
 			return peerConnection;
 		}
 		
@@ -383,7 +430,6 @@
 			
 			dataChannel.onopen = function(event) {
 				console.log("dataChannel successfully opened!");
-				dataChannel.send("data");
 			};
 			
 			dataChannel.onerror = function(error) {
@@ -397,10 +443,13 @@
 			
 			dataChannel.onmessage = function(event) {
 				console.log("Message:", event.data);
+				var arrayBuffer = event.data;
+				var url = URL.createObjectURL(new Blob([arrayBuffer]));
+				image.src = url;
 			};
 			
 			peerConnection.ondatachannel = function(event) {
-				dc[target] = event.channel; 
+				dc[target] = event.channel; // datachannel 따로 저장
 			};
 		}
 		
@@ -420,15 +469,15 @@
 				
 			});	
 			
-			if (!renegotiationflg)
-				pc[name] = peerConnection; // pc 객체에 저장
+			
+			pc[name] = peerConnection; // pc 객체에 저장
+			emoticon[name] = "ques";
 		}
 		
 		
 		function handleOffer(from, target, offer) { 
-			if (!renegotiationflg) {
-				pc[from] = createPeerConnection(from);
-			}
+			pc[from] = createPeerConnection(from);
+			emoticon[from] = "ques";
 			var peerConnection = pc[from];
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
 			peerConnection.createAnswer(function(answer) { // answer 만들어서 전송
@@ -445,8 +494,6 @@
 		}
 		
 		function handleCandidate(from, to, candidate) {
-			if (renegotiationflg)
-				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
 		}
 		

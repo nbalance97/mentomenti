@@ -83,23 +83,43 @@
 	  <script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
+	    var mentoName = "<%=mentoid%>";
 	    var myGroup = <%=groupid%>;
 		var dataChannel;
 	    var myoffer;
-		var pc = {};
-		var dc = {};
-		var share = {};
+		var myemoticon = "ques";
 		var renegotiationflg = false;
 		var v1 = document.getElementById("v1");
 		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
 		
-		function addMemberToList(id, idx) {
-			$('<tr>'+
-			'<td>'+idx+'</td>'+
-			'<td>'+id+'</td>'+
-			'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
-			'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
-			'</tr>').appendTo('#MemberTable');
+		var pc = {};
+		var dc = {};
+		var share = {};
+		var emoticon = {};
+		
+		function addMemberToList(id, emot, idx) {
+			if (emot === "ques") {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+				'</tr>').appendTo('#MemberTable');
+			} else if (emot === "finish") {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-check-circle fa-2x emotion"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			} else if (emot === 'non-finish') {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-times-circle fa-2x emotion"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			}
 		}
 		
 		function canvas(){
@@ -116,16 +136,29 @@
 		function checkConnection() {
 			var idx = 1;
 			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
-			addMemberToList(myName, idx++);
+			addMemberToList(myName, myemoticon, idx++);
 			for (var key in pc) {
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
 					delete(pc[key]);
 					delete(dc[key]);
 					delete(share[key]);
+					delete(emoticon[key]);
 				} else {
-					addMemberToList(key, idx++);
+					addMemberToList(key, emoticon[key], idx++);
 				}
+			}
+		}
+		
+		function changestatus(status) {
+			myemoticon = status;
+			for (var key in pc) {
+				send({
+					event : "changeStatus",
+					data : status,
+					from : myName,
+					to : key
+				});
 			}
 		}
 		
@@ -166,6 +199,11 @@
 			    case "rngt_offer":
 			    	renegotiationflg = true;
 			    	handleOffer(from, to, data);
+			    	break;
+			    case "changeStatus":
+			    	emoticon[from] = data;
+			    	renegotiationflg = false;
+			    	break;
 			    default:
 			        break;
 			    }
@@ -262,14 +300,17 @@
 				
 			});	
 			
-			if (!renegotiationflg)
+			if (!renegotiationflg) {
 				pc[name] = peerConnection; // pc 객체에 저장
+				emoticon[name] = "ques";
+			}
 		}
 		
 		
 		function handleOffer(from, target, offer) { 
 			if (!renegotiationflg) {
 				pc[from] = createPeerConnection(from);
+				emoticon[from] = "ques";
 			}
 			var peerConnection = pc[from];
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
@@ -287,7 +328,7 @@
 		}
 		
 		function handleCandidate(from, to, candidate) {
-			if (renegotiationflg)
+			if (renegotiationflg) // renegitation 과정에서는 candidate 교환필요 x
 				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
 		}

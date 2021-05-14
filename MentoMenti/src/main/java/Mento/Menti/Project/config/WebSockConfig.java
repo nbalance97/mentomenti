@@ -8,7 +8,6 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
 
-import Mento.Menti.Project.handler.BinarySocketHandler;
 import Mento.Menti.Project.handler.ScreenShareSocketHandler;
 import Mento.Menti.Project.handler.SocketHandler;
 import Mento.Menti.Project.handler.WhiteBoardSocketHandler;
@@ -31,7 +30,6 @@ public class WebSockConfig implements WebSocketConfigurer {
 		registry.addHandler(new SocketHandler(), "/chating").setAllowedOrigins("*");
 		registry.addHandler(new ScreenShareSocketHandler(), "/socket").setAllowedOrigins("*");
 		registry.addHandler(new WhiteBoardSocketHandler(), "/WBsocket").setAllowedOrigins("*");
-		registry.addHandler(new BinarySocketHandler(), "/WBsocketB").setAllowedOrigins("*");
 	}
 
 }
