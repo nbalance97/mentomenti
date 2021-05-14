@@ -87,7 +87,7 @@
 }
 
 .dropdown-content a {
-    text-decoration: none;
+    text-decoration: none; 
     display: inline-block;
     cursor:pointer;
 }
