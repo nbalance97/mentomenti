@@ -80,6 +80,15 @@ function isElementUnderBottom(elem, triggerDiff) {
 	}
 	
 	/*메인 화면 이중 스크롤바 해결*/
+	
+	#content-wrapper{
+		-ms-overflow-style:none;
+		scrollbar-width:none;
+	}
+	
+	#content-wrapper::-webkit-scrollbar{
+		display:none;
+	}
 </style>
 
 <%@include file="menuPart1.jsp"%>
