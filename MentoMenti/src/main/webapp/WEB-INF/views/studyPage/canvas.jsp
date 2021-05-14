@@ -102,6 +102,9 @@
 				<div class="colo">
 				<div class="column1">
 					<div class="row_">
+						<input type="file" onchange="uploadFile(this);" />
+					</div>
+					<div class="row_">
 						<div class="p_color" style="background-color: black"	onclick="selectColor('black')"></div>
 						<div class="p_color" style="background-color: red"	onclick="selectColor('red')"></div>
 					</div>
@@ -165,13 +168,12 @@
 			var file = inputElement.files[0];
 			var reader = new FileReader();
 			reader.onloadend = function() {
-				//Data : reader.result;
 				arrayBuffer = reader.result;
-				conn.binaryType = 'arraybuffer';
 				conn.send(arrayBuffer);
-				image.src = reader.result;
+				var url = URL.createObjectURL(new Blob([arrayBuffer]));
+				image.src = url;
 			}
-			reader.readAsDataURL(file);
+			reader.readAsArrayBuffer(file);
 		}
 		
 		conn.onopen = function() { // 소켓 열었을때
@@ -190,9 +192,10 @@
 		    console.log("Got message", msg.data);
 		    var temp = msg.data;
 		    
-		    if (temp.type == '') { // binary data
-		    	image.src = temp;
-		    	return;
+		    if (temp instanceof Blob) {
+			    var url = URL.createObjectURL(new Blob([msg.data]));
+			    image.src = url;
+			    return;
 		    }
 		    
 		    var content = JSON.parse(msg.data);
@@ -209,13 +212,14 @@
 		    	var y2 = content.y2;
 		    	var color = content.color;
 		    	var force = content.force;
-		    	handlePaint(x1, y1, x2, y2, color, force);
+		    	var erase = content.erase;
+		    	handlePaint(x1, y1, x2, y2, color, force, erase);
 		    	return;
 	    	}
 			
 		}
 		
-		async function handlePaint(x1, y1, x2, y2, color, force) { // painter.js와 연동되는 부분임
+		async function handlePaint(x1, y1, x2, y2, color, force, erase) { // painter.js와 연동되는 부분임
 			  cvs.beginPath();
 				  cvs.moveTo(x1, y1);
 				  cvs.lineTo(x2, y2);
@@ -223,6 +227,7 @@
 				  cvs.lineWidth = force;
 				  cvs.lineCap = 'round';
 				  cvs.stroke();
+				  cvs.globalCompositeOperation = erase;
 			  cvs.closePath();
 		}
 		
