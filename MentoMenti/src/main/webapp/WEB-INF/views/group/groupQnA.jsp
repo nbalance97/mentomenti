@@ -64,21 +64,21 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 					<input type="text" class="form-control border-0 small"
 						name="keyword" placeholder="검색" aria-label="Search"
 						aria-describedby="basic-addon2">
+					<input type="text" name="page" value=<%=curPage%> style="display:none;">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
 						</button>
 					</div>
 				</div>
-				
 				<!-- 그룹 아이디 넘기기 -->
 				<input type="text" name="groupid" value=<%=groupid%> style="display:none;"/>
 			</form>
 		</li>
 	</ul>
 </div>
-<p class="mb-4"><%=group.getName()%>
-	그룹의 Q&A 게시판입니다.
+<p class="mb-4"><a href="group?groupid=<%=groupid%>"><%=group.getName()%>
+	그룹</a>의 Q&A 게시판입니다.
 </p>
 
 
@@ -98,19 +98,30 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		<%
 			String kwd = request.getParameter("keyword");	//검색 키워드
 			List<PostDTO> groupPosts = null;
-			if (kwd == null){
+			if (kwd == null){	//검색x, 그룹 Q&A 전체
 				groupPosts = HomeController.dao.getPostDAO().selectGroupPosts(group.getGroupid());
-			} else {
-				//검색 기능 추가해야함
+			} else {	//검색o
+				PostDTO searchQnA = new PostDTO();
+				searchQnA.setTitle(kwd);
+				searchQnA.setGroupid(groupid);
+				groupPosts = HomeController.dao.getPostDAO().searchGroupQnA(searchQnA);
 			}
-			if (groupPosts.size() > 0) {
+			
+			if (groupPosts.size() == 0){	//결과x
+		%>
+	</tbody>
+</table>
+	<div style="height:200px; text-align:center; line-height:200px">
+		결과가 없습니다.		
+	</div>
+		<% 
+			} else {	//결과o
 				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++) {
 					//PostDTO gn: noticeList for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
 					if(i==groupPosts.size()){
 						break;
 					}
 					PostDTO gp = groupPosts.get(i);
-
 		%>
 		<tr>
 			<td>
@@ -124,18 +135,12 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		</tr>
 		<%
 				}
-			} else {
-		%>
-		<tr style="height: 200px; line-height:200px;">
-			<td colspan="4">게시물이 아직 없습니다</td>
-		</tr>
-		<%
-			}
 		%>
 	</tbody>
 </table>
-
-
+		<%
+			}
+		%>
 
 
 <!-- 페이지 버튼 -->

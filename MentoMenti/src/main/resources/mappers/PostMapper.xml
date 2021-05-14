@@ -157,4 +157,21 @@
   	VALUES (null, #{groupid}, #{userid}, #{title}, #{content}, #{postdate}, 0, False);
   </insert>
   
+  
+    <!-- 그룹 공지사항 검색 -->
+  <select id="searchGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE title LIKE '%${title}%' and groupid = #{groupid} and is_notice = True
+  	ORDER BY postid desc;
+  </select>
+  
+  <!-- 그룹 Q&A 검색 -->
+  <select id="searchGroupQnA" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="Mento.Menti.Project.dto.PostDTO">
+  	SELECT *
+  	FROM post
+  	WHERE title LIKE '%${title}%' and groupid = #{groupid} and is_notice = False
+  	ORDER BY postid desc;
+  </select>
+  
 </mapper>

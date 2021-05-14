@@ -37,4 +37,7 @@ public interface PostDAO {
 	
 	void insertGroupNotice(PostDTO notice) throws Exception;
 	void insertGroupPost(PostDTO post) throws Exception;
+	
+	List<PostDTO> searchGroupNotices(PostDTO notice) throws Exception;
+	List<PostDTO> searchGroupQnA(PostDTO qna) throws Exception;
 }
