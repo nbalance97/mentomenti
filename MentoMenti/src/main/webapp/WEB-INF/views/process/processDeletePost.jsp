@@ -25,12 +25,12 @@
 		
 		if (isNotice) { //공지사항
 			if (groupid > 0) //그룹 공지
-				pw.print("<script>window.location=\"groupnotice?groupid="+groupid+"\"</script>;");
-			else pw.print("<script>window.location=\"notice\"</script>;");
+				pw.print("<script>window.location=\"groupnotice?page=1&groupid="+groupid+"\"</script>;");
+			else pw.print("<script>window.location=\"notice?page=1\"</script>;");
 		} else{	//자유게시판
 			if (groupid > 0)
-				pw.print("<script>window.location=\"groupQnA?groupid="+groupid+"\"</script>;");
-			else pw.print("<script>window.location=\"freeBoard\"</script>;");
+				pw.print("<script>window.location=\"groupQnA?page=1&groupid="+groupid+"\"</script>;");
+			else pw.print("<script>window.location=\"freeBoard?page=1\"</script>;");
 		}
 	%>
 </body>

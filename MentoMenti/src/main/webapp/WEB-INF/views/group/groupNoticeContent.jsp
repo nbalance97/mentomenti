@@ -215,7 +215,7 @@
 		});
 		
 		$(".modifyPost").on('click', function(){
-		    location.href = "modifyPostPage?postid="+<%=post.getPostid()%>;
+		    location.href = "modifyGroupPostPage?postid="+<%=post.getPostid()%>;
 		});
 	});
 </script>
