@@ -316,6 +316,11 @@ public class HomeController {
     public String modifyGroupPostPage() {
     	return "/group/modifyGroupPostPage";
     }  
+    
+    @RequestMapping(value="/groupManage")	//그룹 관리 페이지
+    public String groupManagePage() {
+    	return "/group/groupManagePage";
+    }
    
     
     

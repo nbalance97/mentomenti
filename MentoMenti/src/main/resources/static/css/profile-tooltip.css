@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/*댓글 닉네임 hover시 프로필*/
 .nickname-tooltip{
 	position: relative;
 	display:inline-block;
@@ -18,7 +19,6 @@
 	border-radius:10px;
 	
 	overflow:hidden;
-	
 }
 
 .nickname-tooltip:hover{
