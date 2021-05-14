@@ -125,16 +125,12 @@
 			input.trim();
 		
 	%>
-	<%@include file="studySidebar.jsp"%>
+	
 	<div class="main">
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
 			<div class="problemImg shadow img-rounded">
-				<h1>문제를 게시해주세요</h1>
-				<img id="prob_image" style="width:100%; height:80%"></img>
-				<%//cnvImg = resizeImage(img, img.getWidth(), img.getHeight(), 650);
-				
-				%>
+				<img id="prob_image" style="width:100%; height:100%; object-fit: contain;"></img> 
 			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
@@ -214,7 +210,7 @@
 			
 		%>
 	</div>
-	
+	<%@include file="studySidebar.jsp"%>
 	<!-- Library textarea에 적용하는 과정 -->
 	<script>
 		var textarea = document.getElementById('editor');

@@ -11,7 +11,7 @@
 	<div class="icon-box">
 		<!-- <span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span> -->
 		<span class="icon"><a id="muter" href="#"><i class="fas fa-microphone fa-3x mic"></i></a></span>
-		<span class="icon"><label for="input-file"><i class="fas fa-upload fa-3x upload" aria-hidden="true"></i></label></span>
+		<span class="icon"><label for="input-file" style="margin-bottom:0;"><i class="fas fa-upload fa-3x upload" aria-hidden="true"></i></label></span>
 		<input type="file" id="input-file" onChange="uploadFile(this)" style="display:none"/> <!-- 숨겨지는 File Tag. Label의 for로 가리켜질 예정 -->
 		<span class="icon"><a onclick="moveStudy()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a></span>
 	</div>
