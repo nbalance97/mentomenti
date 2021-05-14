@@ -175,13 +175,15 @@
 		<form>
 			<a href="studyPage/studyPageMentor?groupid=<%=group.getGroupid()%>">
 			<input type="button" class="btn btn-primary"
-				style="width: 40%; margin-bottom: 10px; margin-top: 20px" value="입장">
+				style="width: 50%; height:70px; margin-bottom: 10px; margin-top: 20px" value="입장하기">
 			</a>
 		</form>
 		
+		<!-- 
 		<form>
 			<input type="button" class="btn btn-info" style="width: 40%" value="개설">
 		</form>
+		-->
 		</div>
 	</div>
 
