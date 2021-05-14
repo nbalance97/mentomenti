@@ -42,11 +42,11 @@
 			<a href="main" class="sideLogo" style="text-decoration:none;">MOCO</a>
 		</header>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
-			<li><a href="notice">
+			<li><a href="notice?page=1">
 				<i class="fas fa-check-circle"></i>
 				<span class="sidebar-component">공지사항</span>
 			</a></li>
-			<li><a href="freeBoard"><i class="fas fa-clipboard-list"></i>
+			<li><a href="freeBoard?page=1"><i class="fas fa-clipboard-list"></i>
 				<span class="sidebar-component">자유게시판</span>
 			</a></li>
 
@@ -78,7 +78,7 @@
 							<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보
 							확인
 						</a>
-						<a class="collapse-item" id="colItems" href="activity?page=1"> <i
+						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1"> <i
 							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>나의 활동
 						</a>
 					</div>

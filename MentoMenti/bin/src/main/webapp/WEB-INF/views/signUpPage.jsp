@@ -25,7 +25,18 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"></script>
-    
+<style>
+	@media screen and (max-width:995px){
+		.leftSigninfo{
+			width:100% !important;
+			float:auto;
+		}
+		.rightSigninfo{
+			width:100% !important;
+			float:auto;
+		}
+	}
+</style>
 </head>
 <body class="sidebar-toggled" style="background:#002266;">
 	
@@ -44,7 +55,7 @@
                                 <div class="p-3" style="text-align:center;">
                                     <!-- 회원가입 폼 태그 -->
                                     <form class="user" name="signupForm" action="processSignUp" method="post" style="width:100%;">
-                                    	<div style="float:left; width:45%;">
+                                    	<div class="leftSigninfo" style="float:left; width:45%;">
                                     			<div class="form-group" style="display:flex;">
                                         	<!-- 아이디 입력 -->
                                             		<input type="text" class="form-control form-control-user" name="id" id="id" onkeydown="inputIdCheck()" placeholder="아이디">
@@ -59,20 +70,26 @@
                                             	<input type="password" class="form-control form-control-user" name="pw" id="pw" placeholder="비밀번호">
                                             	<input type="password" class="form-control form-control-user" name="pw_check" id="pw_check" placeholder="비밀번호확인">
                                         	</div>
+                                        	<!-- 이름 입력 -->
                                         	<div class="form-group">
                                         		<input type="text" class="form-control form-control-user" name="name" id="name" placeholder="이름">
                                         	</div>
-                                        	<div class="form-group">
-                                        		<input type="text" class="form-control form-control-user" name="nickname" id="nickname" placeholder="닉네임">
-                                        	</div>                                        
+                                        	<!-- 닉네임 입력 -->
+                                        	<div class="form-group" style="display:flex;">
+                                        		<input type="text" class="form-control form-control-user" name="nickname" id="nickname" onkeydown="inputNickCheck()" placeholder="닉네임">
+                                        		<div style="float:right; width:20%; margin-left:3%; margin-top:1%; text-align:center;">
+                                        			<input type="button" class="btn btn-primary" value="확인" onclick="confirmNick(this.form)">
+                                        			<input type="hidden" name="NickDuplication" value="NickUncheck">
+                                        		</div>
+                                        	</div>                                     
                                     	</div>
-                                    	<div style="float:right; width:45%;">
+                                    	<div class="rightSigninfo" style="float:right; width:45%;">
                                         	<div class="form-group" style="margin-top:1%; display:flex;">
                                         		<div style="margin-top:2%;">생</div>
                                         		<div style="margin-top:2%;">일</div>
                                         		<div>&nbsp;</div>
                                         		<select name="year" id="year" title="년도" class="custom-select" onChange=setMonthBox()></select>
-												<select name="month" id="month" title="월" class="custom-select" onclick="setDay()"></select>
+												<select name="month" id="month" title="월" class="custom-select" onChange="setDay()"></select>
 												<select name="day" id="day" title="일" class="custom-select"></select>
                                         	</div>
                                         	<div class="form-group" style="display:flex;">
@@ -84,9 +101,9 @@
                                         		<select class="form-control" style="margin-top:2%; border-radius:50px; height:50px; font-size:12px;"  name="email_select" id="email_select" onChange="checkemailaddy();">
                                         			<option value="1" selected>직접입력</option>
     												<option value="naver.com">naver.com</option>
-    												<option value="hotmail.com">hotmail.com</option>
+    												<option value="kyonggi.ac.kr">kyonggi.ac.kr</option>
     												<option value="hanmail.com">hanmail.com</option>
-    												<option value="yahoo.co.kr">yahoo.co.kr</option>
+    												<option value="gmail.com">gmail.com</option>
                                         		</select>
                                         	</div>
                                         	<div class="form-group">
@@ -225,6 +242,7 @@
 				form.pw.focus();
 				return false;
 			}
+			//return false 존재 -> else if 필요x
 			if(form.pw.value!=form.pw_check.value){
 				alert("비밀번호를 확인해주세요");
 				form.pw.focus();
@@ -242,14 +260,8 @@
 				return false;
 			}
 			//닉네임
-			if(form.nickname.value==""){
-				alert("닉네임을 입력해주세요.");
-				form.nickname.focus();
-				return false;
-			}
-			else if(form.nickname.value.length>20){
-				alert("닉네임은 20글자 이내로 입력가능합니다.");
-				form.nickname.focus();
+			if(form.NickDuplication.value != "NickCheck"){
+				alert("닉네임 중복체크를 해주세요.");
 				return false;
 			}
 			//생년월일
@@ -290,6 +302,27 @@
 			url = "confirmId?id="+form.id.value;
 			open(url,"confirm",
 					"left=500, top=200, toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
+		}
+		
+		function inputNickCheck(){
+			document.signupForm.NickDuplication.value="NickUncheck";
+		}
+		
+		function confirmNick(){
+			var form = document.signupForm;
+			if(form.nickname.value==""){
+				alert("닉네임을 입력해주세요.");
+				form.nickname.focus();
+				return false;
+			}
+			else if(form.nickname.value.length>20 || form.nickname.value.length<2){
+				alert("닉네임은 2~20글자 이내로 입력가능합니다.");
+				form.nickname.focus();
+				return false;
+			}
+			url = "confirmNick?nickname="+form.nickname.value;
+			open(url,"confirm",
+			"left=500, top=200, toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
 		}
 		
 </script>

@@ -109,8 +109,8 @@
 			var popupHeight = 700;
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
 			var popupY= (window.screen.height / 2) - (popupHeight / 2);
-			var option = "toolbar=no, location=no, status=no"
-			window.open(url,name,option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
+			window.open(url, name, option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 		}
 		
 		function checkConnection() {

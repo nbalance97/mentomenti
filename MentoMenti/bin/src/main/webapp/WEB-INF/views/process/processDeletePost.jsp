@@ -18,13 +18,19 @@
 		int postid = Integer.parseInt(request.getParameter("postid"));
 		boolean isNotice = HomeController.dao.getPostDAO().isNotice(postid);
 		
+		int groupid = HomeController.dao.getPostDAO().searchByPostId(postid).get(0).getGroupid();
+		
 		HomeController.dao.getPostDAO().deletePost(postid);	//DB 반영
 		pw.print("<script>alert('게시물이 삭제되었습니다.');</script>");
 		
 		if (isNotice) { //공지사항
-			pw.print("<script>window.location=\"notice\"</script>;");
+			if (groupid > 0) //그룹 공지
+				pw.print("<script>window.location=\"groupnotice?groupid="+groupid+"\"</script>;");
+			else pw.print("<script>window.location=\"notice\"</script>;");
 		} else{	//자유게시판
-			pw.print("<script>window.location=\"freeBoard\"</script>;");
+			if (groupid > 0)
+				pw.print("<script>window.location=\"groupQnA?groupid="+groupid+"\"</script>;");
+			else pw.print("<script>window.location=\"freeBoard\"</script>;");
 		}
 	%>
 </body>

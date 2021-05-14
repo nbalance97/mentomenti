@@ -73,6 +73,7 @@
 
 <%
 	int curPage = Integer.parseInt(request.getParameter("page"));
+	int curPage_c = Integer.parseInt(request.getParameter("compage"));
 %>
 
 <!-- Page Heading -->
@@ -168,13 +169,13 @@
 
 			</tbody>
 		</table>
+		<input type="hidden" id="curPage" value="<%=curPage%>"/>
+		<input type="hidden" id="postSize" value="<%=posts.size() %>"/>
 		<nav aria-label="Page navigation example">
   			<ul class="pagination justify-content-center" id="list-body">
     			<!-- 페이징 생성 -->
  			</ul>
 		</nav>
-		<input type="hidden" id="curPage" value="<%=curPage%>"/>
-		<input type="hidden" id="postSize" value="<%=posts.size() %>"/>
 	</div>
 
 	<hr>
@@ -198,7 +199,13 @@
 
 				<%
 					List<CommentDTO> comments = HomeController.dao.getCommentDAO().searchMyCommentsByUserId(id);
-				for (CommentDTO comment : comments) {
+				for (int i=(curPage_c-1)*3; i<(curPage_c-1)*3+3;i++) {
+					//for (int i=(curPage-1)*3; i<(curPage-1)*3+3;i++) {
+						//CommentDTO comment : comments for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
+					if(i==comments.size()){
+						break;
+					}
+					CommentDTO comment = comments.get(i);
 				%>
 				<tr style="width: 200px">
 					<td>
@@ -234,19 +241,19 @@
 						<%
 						if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
 							%>
-							<a href="/notice">공지사항</a>
+							<a href="/notice?page=1">공지사항</a>
 							<%
 						}else if(!(commentpost.getGroupid()>0) && !commentpost.is_notice()){
 							%>
-							<a href="/freeBoard">자유게시판</a>
+							<a href="/freeBoard?page=1">자유게시판</a>
 							<%
 						}else if((commentpost.getGroupid()>0) && commentpost.is_notice()){
 							%>
-							<a href="groupnotice?groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
+							<a href="groupnotice?page=1&groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
 							<%
 						}else if((commentpost.getGroupid()>0) && !commentpost.is_notice()){
 							%>
-							<a href="groupQnA?groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - QnA</a>
+							<a href="groupQnA?page=1&groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - QnA</a>
 							<%
 						}
 						%>
@@ -258,6 +265,13 @@
 
 			</tbody>
 		</table>
+		<input type="hidden" id="curPage_c" value="<%=curPage_c%>"/>
+		<input type="hidden" id="commentSize" value="<%=comments.size() %>"/>
+		<nav aria-label="Page navigation example">
+  			<ul class="pagination justify-content-center" id="list-body_c">
+    			<!-- 페이징 생성 -->
+ 			</ul>
+		</nav>
 	</div>
 </div>
 
@@ -270,8 +284,11 @@
 	//작성한 글 개수 가져오기
 	var postData = document.getElementById("postSize").value;
 	var curpage = document.getElementById("curPage").value;
+	var commentData = document.getElementById("commentSize").value;
+	var curpage_c = document.getElementById("curPage_c").value;
 	$(document).ready(function () {
 		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
+		paging_c(commentData,curpage_c)
 	});
 
 	function paging(totalData, currentPage){
@@ -296,17 +313,52 @@
 		
 		$('#list-body').empty();
 		if(startPage > countPage){
-			$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+prev+ "&compage="+curpage_c+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 		}
 		for(var j=startPage ; j<=endPage ; j++){
 			if(currentPage==(j)){
-				$("#list-body").append("<li class='page-item active'><a class='page-link' href='activity?page=" + j + "'>" + j + "</a></li>");
+				$("#list-body").append("<li class='page-item active'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+"'>" + j + "</a></li>");
 			}else if(j>0){
-				$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page=" + j + "'>" + j + "</a></li>");		
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+ "'>" + j + "</a></li>");		
 			}
 		}
 		if(next > 5 && next < totalPage)
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+next+ "&compage="+curpage_c+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+	} 
+	
+	function paging_c(totalData, currentPage){
+		
+		var dataPerPage = 3; //한 페이지에 보여지는 데이터 수
+		var countPage = 5; //한번에 보여지는 페이지 수
+		
+		//총페이지수
+		var totalPage = totalData / dataPerPage;
+		if(totalData%dataPerPage>0){
+			totalPage++;
+		}
+		
+		//보여지는 페이지번호
+		var startPage = Math.floor(((currentPage-1)/countPage))*countPage+1;//이유모르겠는디 오름으로 인식함->floor로 내림을 해줘야함,,,
+		var endPage = startPage + countPage-1;
+		if(endPage>totalPage){
+			endPage = totalPage;
+		}
+		const prev = startPage-1;
+		const next = endPage+1;
+		
+		$('#list-body_c').empty();
+		if(startPage > countPage){
+			$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+		}
+		for(var j=startPage ; j<=endPage ; j++){
+			if(currentPage==(j)){
+				$("#list-body_c").append("<li class='page-item active'><a class='page-link' href='activity?page=" + curpage + "&compage="+ j +"'>" + j + "</a></li>");
+			}else if(j>0){
+				$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page=" + curpage + "&compage="+j+ "'>" + j + "</a></li>");		
+			}
+		}
+		if(next > 5 && next < totalPage)
+		$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 	} 
 </script>
 

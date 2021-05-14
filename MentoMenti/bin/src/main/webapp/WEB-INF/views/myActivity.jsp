@@ -7,6 +7,7 @@
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.CommentDTO, Mento.Menti.Project.dao.CommentDAO"%>
+<%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -40,8 +41,11 @@
 	margin-top:20px;
 }
 
-#wrapper{
-	height:100%;
+.content1 a{
+	text-decoration:none !important;
+}
+.content2 a{
+	text-decoration:none !important;
 }
 
 </style>
@@ -67,6 +71,10 @@
 	} else {
 %>
 
+<%
+	int curPage = Integer.parseInt(request.getParameter("page"));
+	int curPage_c = Integer.parseInt(request.getParameter("compage"));
+%>
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
@@ -88,7 +96,7 @@
 		}
 		%>
 
-		<table class="table table-bordered dataTable" id="dataTable" role="grid">
+		<table class="table table-bordered dataTable table-hover" id="dataTable" role="grid">
 
 			<thead>
 				<tr role="row">
@@ -98,11 +106,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%
+				<%//페이지 따라 출력
 					List<PostDTO> posts = HomeController.dao.getPostDAO().searchMyPostsByUserId(id);
-				for (PostDTO post : posts) {
+				for (int i=(curPage-1)*3; i<(curPage-1)*3+3;i++) {
+					//PostDTO post : posts for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
+					if(i==posts.size()){
+						break;
+					}
+					PostDTO post = posts.get(i);
+					GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(post.getGroupid());
 				%>
-				<tr style="width: 200px">
+				<tr style="width: 200px;" >
 					<td>
 					<%
 						if(!(post.getGroupid()>0) && post.is_notice()){
@@ -113,7 +127,15 @@
 							%>
 							<a href="postContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((post.getGroupid()>0) && post.is_notice()){
+							%>
+							<a href="groupNoticeContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
+							<%
+						}else if((post.getGroupid()>0) && !post.is_notice()){
+							%>
+							<a href="groupPostContent?postid=<%=post.getPostid()%>"><%=post.getTitle()%></a>
+							<%
+						}
 					%>
 					</td>
 					<td><%=post.getPostdate()%></td>
@@ -127,7 +149,16 @@
 							%>
 							<a href="/freeBoard">자유게시판</a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((post.getGroupid()>0) && post.is_notice()){
+							%>
+							<a href="groupnotice?groupid=<%=post.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
+							<%
+						}else if((post.getGroupid()>0) && !post.is_notice()){
+							%>
+							<a href="groupQnA?groupid=<%=post.getGroupid()%>"><%=group.getName()%> - QnA</a>
+							<%
+						}
+					
 					%>
 					</td>
 				</tr>
@@ -137,8 +168,9 @@
 
 
 			</tbody>
-
 		</table>
+		<input type="hidden" id="curPage" value="<%=curPage%>"/>
+		<input type="hidden" id="postSize" value="<%=posts.size() %>"/>
 		<nav aria-label="Page navigation example">
   			<ul class="pagination justify-content-center" id="list-body">
     			<!-- 페이징 생성 -->
@@ -151,7 +183,7 @@
 	<!-- 나의 댓글 -->
 	<div class="content2">
 		<h4 class="text1">My comments</h4>
-				<table class="table table-bordered dataTable" id="dataTable" role="grid">
+				<table class="table table-bordered dataTable table-hover" id="dataTable" role="grid">
 
 			<thead>
 				<tr role="row">
@@ -167,7 +199,13 @@
 
 				<%
 					List<CommentDTO> comments = HomeController.dao.getCommentDAO().searchMyCommentsByUserId(id);
-				for (CommentDTO comment : comments) {
+				for (int i=(curPage_c-1)*3; i<(curPage_c-1)*3+3;i++) {
+					//for (int i=(curPage-1)*3; i<(curPage-1)*3+3;i++) {
+						//CommentDTO comment : comments for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
+					if(i==comments.size()){
+						break;
+					}
+					CommentDTO comment = comments.get(i);
 				%>
 				<tr style="width: 200px">
 					<td>
@@ -177,6 +215,7 @@
 						if (HomeController.dao.getPostDAO().searchByPostId(comment.getPostid()).size() > 0) {
 							commentpost=HomeController.dao.getPostDAO().searchByPostId(comment.getPostid()).get(0);
 						}
+						GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(commentpost.getGroupid());
 						
 						if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
 							%>
@@ -186,7 +225,15 @@
 							%>
 							<a href="postContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((commentpost.getGroupid()>0) && commentpost.is_notice()){
+							%>
+							<a href="groupNoticeContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
+							<%
+						}else if((commentpost.getGroupid()>0) && !commentpost.is_notice()){
+							%>
+							<a href="groupPostContent?postid=<%=commentpost.getPostid()%>"><%=comment.getContent()%></a>
+							<%
+						}
 						%>
 					</td>
 					<td><%=comment.getCommentdate() %></td>
@@ -194,13 +241,21 @@
 						<%
 						if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
 							%>
-							<a href="/notice">공지사항</a>
+							<a href="/notice?page=1">공지사항</a>
 							<%
 						}else if(!(commentpost.getGroupid()>0) && !commentpost.is_notice()){
 							%>
-							<a href="/freeBoard">자유게시판</a>
+							<a href="/freeBoard?page=1">자유게시판</a>
 							<%
-						}//나중에 group대한 공지사항, QnA대한 내용 추가필요
+						}else if((commentpost.getGroupid()>0) && commentpost.is_notice()){
+							%>
+							<a href="groupnotice?page=1&groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
+							<%
+						}else if((commentpost.getGroupid()>0) && !commentpost.is_notice()){
+							%>
+							<a href="groupQnA?page=1&groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - QnA</a>
+							<%
+						}
 						%>
 					</td>
 				</tr>
@@ -210,6 +265,13 @@
 
 			</tbody>
 		</table>
+		<input type="hidden" id="curPage_c" value="<%=curPage_c%>"/>
+		<input type="hidden" id="commentSize" value="<%=comments.size() %>"/>
+		<nav aria-label="Page navigation example">
+  			<ul class="pagination justify-content-center" id="list-body_c">
+    			<!-- 페이징 생성 -->
+ 			</ul>
+		</nav>
 	</div>
 </div>
 
@@ -219,33 +281,84 @@
 
 <%@include file="menuPart2.jsp"%>
 <script>
+	//작성한 글 개수 가져오기
+	var postData = document.getElementById("postSize").value;
+	var curpage = document.getElementById("curPage").value;
+	var commentData = document.getElementById("commentSize").value;
+	var curpage_c = document.getElementById("curPage_c").value;
 	$(document).ready(function () {
-		paging(10,1);
+		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
+		paging_c(commentData,curpage_c)
 	});
 
 	function paging(totalData, currentPage){
 		
-		var dataPerPage = 3;
-		var countPage = 5;
+		var dataPerPage = 3; //한 페이지에 보여지는 데이터 수
+		var countPage = 5; //한번에 보여지는 페이지 수
 		
 		//총페이지수
-		var totalPage = totalData/dataPerPage;
+		var totalPage = totalData / dataPerPage;
 		if(totalData%dataPerPage>0){
 			totalPage++;
 		}
 		
 		//보여지는 페이지번호
-		var startPage = ((currentPage-1)/5)*5+1;
+		var startPage = Math.floor(((currentPage-1)/countPage))*countPage+1;//이유모르겠는디 오름으로 인식함->floor로 내림을 해줘야함,,,
 		var endPage = startPage + countPage-1;
 		if(endPage>totalPage){
 			endPage = totalPage;
 		}
+		const prev = startPage-1;
+		const next = endPage+1;
 		
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");
-		for(var j=startPage ; j<endPage ; j++){
-			$("#list-body").append("<li class='page-item'><a class='page-link' href='#'>"+j+"</a></li>");
+		$('#list-body').empty();
+		if(startPage > countPage){
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+prev+ "&compage="+curpage_c+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 		}
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		for(var j=startPage ; j<=endPage ; j++){
+			if(currentPage==(j)){
+				$("#list-body").append("<li class='page-item active'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+"'>" + j + "</a></li>");
+			}else if(j>0){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+ "'>" + j + "</a></li>");		
+			}
+		}
+		if(next > 5 && next < totalPage)
+		$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+next+ "&compage="+curpage_c+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+	} 
+	
+	function paging_c(totalData, currentPage){
+		
+		var dataPerPage = 3; //한 페이지에 보여지는 데이터 수
+		var countPage = 5; //한번에 보여지는 페이지 수
+		
+		//총페이지수
+		var totalPage = totalData / dataPerPage;
+		if(totalData%dataPerPage>0){
+			totalPage++;
+		}
+		
+		//보여지는 페이지번호
+		var startPage = Math.floor(((currentPage-1)/countPage))*countPage+1;//이유모르겠는디 오름으로 인식함->floor로 내림을 해줘야함,,,
+		var endPage = startPage + countPage-1;
+		if(endPage>totalPage){
+			endPage = totalPage;
+		}
+		const prev = startPage-1;
+		const next = endPage+1;
+		
+		$('#list-body_c').empty();
+		if(startPage > countPage){
+			$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+		}
+		for(var j=startPage ; j<=endPage ; j++){
+			if(currentPage==(j)){
+				$("#list-body_c").append("<li class='page-item active'><a class='page-link' href='activity?page=" + curpage + "&compage="+ j +"'>" + j + "</a></li>");
+			}else if(j>0){
+				$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page=" + curpage + "&compage="+j+ "'>" + j + "</a></li>");		
+			}
+		}
+		if(next > 5 && next < totalPage)
+		$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 	} 
 </script>
 

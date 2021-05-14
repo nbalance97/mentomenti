@@ -30,7 +30,7 @@
 		if (userAccount.size() > 0){%>
 			<div id="wrap">
 				<br/>
-				<h4>이미 사용중인 아이디 입니다.</h4>
+				<h4>이미 사용중인 아이디입니다.</h4>
 				<input type="button" value="확인" onclick="window.close()">
 			</div>
 		<%}else{%>

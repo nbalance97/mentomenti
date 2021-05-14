@@ -80,9 +80,6 @@ function isElementUnderBottom(elem, triggerDiff) {
 	}
 	
 	/*메인 화면 이중 스크롤바 해결*/
-	#content-wrapper{
-		overflow:hidden;
-	}
 </style>
 
 <%@include file="menuPart1.jsp"%>
@@ -128,6 +125,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 
 
 <!-- 사이트 설명 -->
+
 <div class="list">
 	<div class="up-on-scroll" id="site_intro1">
 		<h3 class="font-weight-700" style="margin:50px">Welcome to MOCO!</h3>
@@ -145,11 +143,11 @@ function isElementUnderBottom(elem, triggerDiff) {
 		<p>...</p>
 		<p>약간 이런 식으로 사이트 튜토리얼도 나쁘지 않을듯</p>
 	</div>
-	
-	
+
 	<div class="up-on-scroll">
-	
+
 		<!-- 가장 최근 공지사항 5개 -->
+
 		<div class="item">
 			<p class="font-weight-500"><b>공지사항</b></p>
 			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
@@ -174,11 +172,12 @@ function isElementUnderBottom(elem, triggerDiff) {
 					%>
 				</tbody>
 			</table>
-			<div style="text-align:right"><p class="seeMore"><a href="notice">더보기>></a></p></div>
+			<div style="text-align:right"><p class="seeMore"><a href="notice?page=1">더보기>></a></p></div>
 		</div>
 		
-		
+
 		<!-- 가장 최근 자유게시판 글 5개 -->
+
 		<div class="item">
 			<p class="font-weight-500"><b>자유게시판</b></p>
 			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
@@ -203,9 +202,10 @@ function isElementUnderBottom(elem, triggerDiff) {
 					%>
 				</tbody>
 			</table>
-			<div style="text-align:right"><p class="seeMore"><a href="freeBoard">더보기>></a></p></div>
+			<div style="text-align:right"><p class="seeMore"><a href="freeBoard?page=1">더보기>></a></p></div>
 		</div>
 	</div>
 </div>
+ 
 
 <%@include file="menuPart2.jsp"%>

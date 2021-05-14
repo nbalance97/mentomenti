@@ -7,6 +7,7 @@
 <meta charset="utf-8">
 <title>MOCO</title>
 <link href="resources/css/basic.css" rel="stylesheet" type="text/css">	<!-- 기본 css -->
+<link href="resources/css/profile-tooltip.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sidebar.css" rel="stylesheet" type="text/css" media="screen and (min-width:768px)"> <!-- PC 환경 사이드바 css -->
 <link href="resources/css/sidebar_phone.css" rel="stylesheet" type="text/css" media="screen and (max-width:767px)">	<!-- 모바일 환경 사이드바 CSS -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -30,7 +31,6 @@
 <body>
 
 	<input type="checkbox" id="check" checked>
-	<!-- 펼쳐진 상태가 디폴트 -->
 	<label for="check"> <i class="fas fa-bars" id="btn"></i> <!-- 펼치는 버튼 -->
 		<i class="fas fa-times" id="cancel"></i> <!-- 접는 버튼 -->
 	</label>
@@ -38,15 +38,15 @@
 
 	<div class="sidebar2" style="background: #002266">
 		<!-- 사이드바 메뉴 -->
-		<a href="main" style="text-decoration:none;">
-			<header class="font-weight-700" style="background: #002266">MOCO</header>
-		</a>
+		<header class="font-weight-700" style="background: #002266">
+			<a href="main" class="sideLogo" style="text-decoration:none;">MOCO</a>
+		</header>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
-			<li><a href="notice">
+			<li><a href="notice?page=1">
 				<i class="fas fa-check-circle"></i>
 				<span class="sidebar-component">공지사항</span>
 			</a></li>
-			<li><a href="freeBoard"><i class="fas fa-clipboard-list"></i>
+			<li><a href="freeBoard?page=1"><i class="fas fa-clipboard-list"></i>
 				<span class="sidebar-component">자유게시판</span>
 			</a></li>
 
@@ -77,9 +77,9 @@
 						<a class="collapse-item" id="colItems" href="personalInfoPage">
 							<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보
 							확인
-						</a> <a class="collapse-item" id="colItems" href="personalInfoChange">
-							<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보
-							수정
+						</a>
+						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1"> <i
+							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>나의 활동
 						</a>
 					</div>
 				</div>

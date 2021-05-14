@@ -52,7 +52,7 @@
 }
 	
 	else if (!HomeController.dao.getUserDAO().isAdmin(id)){	//관리자가 아닌 계정으로 이동
-	response.sendRedirect("notice");
+	response.sendRedirect("notice?page=1");
 }
 	
 	else {
@@ -83,7 +83,7 @@ form {
 	
 	<div style="text-align:center;">
 		<button type="button" class="btn btn-info" onclick="chkForm()">등록하기</button>
-		<a href="notice"><button type="button" class="btn btn-secondary">목록으로</button></a>
+		<a href="notice?page=1"><button type="button" class="btn btn-secondary">목록으로</button></a>
 	</div>
 </form>
 

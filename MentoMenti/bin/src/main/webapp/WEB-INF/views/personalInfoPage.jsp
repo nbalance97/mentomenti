@@ -4,7 +4,6 @@
 <%@ page import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
-<%@ page import="java.io.*"%>
 <head>
 
 <meta charset="utf-8">
@@ -41,25 +40,37 @@
 </div>
 
 <div style="text-align: center">
+
+
+
 	<!-- 프로필 이미지 -->
 	<%
-		File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-		File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
-		
-		if (pngImg.exists()) {
+	
+	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+	
+	if (pngImg.exists()) {
 	%>
-		<div class="pngProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/<%=id%>.png')"></div>
 	<%
-		} else if (jpgImg.exists()){
+	} else if (jpgImg.exists()){
 	%>
-		<div class="jpgProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/<%=id%>.jpg')"></div>
 	<%
-		} else {
+	} else {	//기본 이미지
 	%>
-		<div class="defaultProfile profileImg rounded-circle" style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px"></div>
+		<div class="profileImg rounded-circle"
+		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
+		background-image:url('resources/img/user/user.png')"></div>
 	<%
 		}
 	%>
+	
+	
 
 	<%
 		//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
@@ -73,7 +84,7 @@
 
 	<table class="table" style="width: 60%; margin: 0 auto;">
 		<tr>
-			<td style="width: 70px">이름</td>
+			<td style="width: 150px">이름</td>
 			<td><%=loginUser.getName() %></td>
 		</tr>
 		<tr>

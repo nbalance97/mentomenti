@@ -22,7 +22,8 @@
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
 
 <style>
@@ -35,7 +36,12 @@
 	}
 </style>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
+
+<% 
+	pageContext.setAttribute("br", "<br/>");
+	pageContext.setAttribute("cn", "\n");
+%>
 
 <!-- 공지사항 내용 페이지 -->
 
@@ -53,10 +59,8 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
-	> <a href="freeBoard" style="text-decoration : none; color:gray">자유게시판</a></p>
+	> <a href="freeBoard?page=1" style="text-decoration : none; color:gray">자유게시판</a></p>
 </div>
-
-
 
 <table class="table table-bordered dataTable" width="100%"
 	aria-describedby="dataTable_info" style="width: 100%; background: white;">
@@ -70,7 +74,11 @@
 			<td tabindex="0" rowspan="1" colspan="1" style="width: 20%;"><b>조회수</b><%=post.getViewcount()%></td>
 		</tr>
 		<tr>
-			<td colspan="3" style="padding:70px 20px"><%=post.getContent()%></td>
+			<td colspan="3" style="padding:70px 20px">
+			<c:set var="content" value="<%=post.getContent()%>"/>
+			${fn:replace(content, cn, br)}
+			</td>
+			
 		</tr>
 	</tbody>
 </table>
@@ -101,11 +109,66 @@
 	<%
 		List<CommentDTO> comments = HomeController.dao.getCommentDAO().selectComments(postid);
 		for (CommentDTO c: comments){
+			String commentId = c.getWriterid();
+			String commentNick = HomeController.dao.getUserDAO().selectNicknameById(c.getWriterid());
+			String userIntro = HomeController.dao.getUserDAO().selectIntroById(commentId);
 	%>
 	<div>
-		<div class="comment_component">
-			<img src="resources/img/user.png" style="width:20px; height:20px"/>
-			<%=c.getWriterid()%>
+		<div class="comment_component nickname-tooltip">
+				<!-- 댓글 프로필 이미지 -->
+					<%
+						File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
+						File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
+						
+						if (pngImg.exists()) {
+					%>
+						<img src="resources/img/user/<%=commentId%>.png" class="rounded-circle"
+							style="width:30px; height:30px"/>
+					<%
+						} else if (jpgImg.exists()){
+					%>
+						<img src="resources/img/user/<%=commentId%>.jpg" class="rounded-circle"
+							style="width:30px; height:30px"/>
+					<%
+						} else {
+					%>
+						<img src="resources/img/user/user.png" class="rounded-circle"
+							style="width:30px; height:30px"/>
+					<%
+						}
+					%>
+					
+					
+				<!-- 댓글 작성자 아이디 -->
+				<b><%=commentNick%></b>
+				
+								<!-- 댓글 작성자 프로필 (마우스 hover시 보임) -->
+				<div class="tooltip-content">
+					<div style="float:left;">
+					<%
+						if (pngImg.exists()) {
+					%>
+						<img src="resources/img/user/<%=commentId%>.png" class="rounded-circle"
+							style="width:120px; height:120px"/>
+					<%
+						} else if (jpgImg.exists()){
+					%>
+						<img src="resources/img/user/<%=commentId%>.jpg" class="rounded-circle"
+							style="width:120px; height:120px"/>
+					<%
+						} else {
+					%>
+						<img src="resources/img/user/user.png" class="rounded-circle"
+							style="width:120px; height:120px"/>
+					<%
+						}
+					%>
+					</div>
+					<div style="float:right; padding-top:10px">
+					<p><b><%=commentNick%></b> (<%=commentId%>)</p>
+					<p style="width:200px;"><%=userIntro%></p>
+					</div>
+				</div>
 		</div>
 		<div class="comment_component"><%=c.getContent()%></div>
 		<div class="comment_component" style="font-size:0.8em; overflow:hidden;">
@@ -151,4 +214,4 @@
 </script>
 
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>
