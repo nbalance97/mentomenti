@@ -85,6 +85,7 @@
 				<tr role="row">
 					<th tabindex="0" rowspan="1" colspan="1" style="width:30%">닉네임</th>
 					<th tabindex="0" rowspan="1" colspan="1">소개글</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width:10%">강퇴</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -99,6 +100,8 @@
 				<tr>
 					<td><%=menti.getNickname()%></td>
 					<td><%=menti.getIntro() %></td>
+					<td><input type="button" class="btn btn-danger withdraw" id=<%=menti.getNickname()%>
+						value="X" style="padding:2px 10px"></td>
 				</tr>
 				<%
 					}
@@ -112,7 +115,15 @@
 </div>
 
 <script type="text/javascript">
+
 	$(document).ready(function(){
+		$('.withdraw').on('click', function(){
+			var menti = $('.withdraw').attr('id');
+			if (confirm("멘티 "+menti+"님을 그룹에서 탈퇴시키겠습니까?")){
+				location.href="processWithdraw?groupid="+<%=group.getGroupid()%>+"&mentiNick="+menti;
+			}
+		});
+		
 		$(".deleteGroup").on('click', function(){
 		    if (confirm("그룹을 해체하시겠습니까? (해체한 그룹은 되돌릴 수 없습니다.)")) {
 		    	//그룹 번호 전달
