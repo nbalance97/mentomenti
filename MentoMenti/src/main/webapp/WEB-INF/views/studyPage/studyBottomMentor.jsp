@@ -9,7 +9,7 @@
 
 <div class="function">
 	<div class="icon-box">
-		<span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span>
+		<!-- <span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span> -->
 		<span class="icon"><a id="muter" href="#"><i class="fas fa-microphone fa-3x mic"></i></a></span>		
 		<span class="icon"><a href="javascript:void(0);" onclick="share_monitor()"><i class="fas fa-desktop fa-3x monitor"></i></a></span>
 		<span class="icon"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a></span>

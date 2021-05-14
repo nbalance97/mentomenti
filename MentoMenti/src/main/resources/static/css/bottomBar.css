@@ -7,15 +7,29 @@
 		background:white;
 		clear: both;
 		text-align: center;
+		display: table;
 	}
 	.icon-box{
-		display: inline-block;
-		padding:10px;
+		height:100%;
+		display: table;
+		vertical-align: middle;
+		text-align: center;
+		position: relative;
+		margin: 0 auto;
 	}
 	.icon{
-		margin : 10px;
+		padding:10px;
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		position: relative;
 	}
 	.icon>a>i{
+		border : 1px solid #B1B1B1;
+		color:black;
+		border-radius:30%;
+	}
+	.icon>label>i{
 		border : 1px solid #B1B1B1;
 		color:black;
 		border-radius:30%;
@@ -50,11 +64,15 @@
 	a>i:hover{
 		background:#B1B1B1;
 	}
+	label>i:hover{
+		background:#B1B1B1;
+		cursor:pointer;
+	}
 	
 /*이모티콘 출력*/
 .dropdown {
     position: relative;
-    display: inline-block;
+    display: table-cell;
 }
 
 .dropdown-content {
@@ -62,7 +80,7 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 80px;
-    left:-75px;
+    left:-85px;
     bottom: 55px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index:10000;
@@ -71,8 +89,9 @@
 .dropdown-content a {
     text-decoration: none;
     display: inline-block;
+    cursor:pointer;
 }
 
-.dropdown:hover .dropdown-content {
+.dropbtn:hover .dropdown-content {
     display: flex;
 }

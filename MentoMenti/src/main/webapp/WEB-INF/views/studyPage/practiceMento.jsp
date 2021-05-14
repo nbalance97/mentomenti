@@ -132,6 +132,9 @@
 			<div class="problemImg shadow img-rounded">
 				<h1>문제를 게시해주세요</h1>
 				<img id="prob_image" style="width:100%; height:80%"></img>
+				<%//cnvImg = resizeImage(img, img.getWidth(), img.getHeight(), 650);
+				
+				%>
 			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
@@ -150,9 +153,6 @@
 						%>>java</option>
 					</select>
 				</div>
-				<select id="groupidValue" name="groupidValue">
-					<option value=<%=groupid%> selected><%=groupid%></option>
-				</select>
 				<form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?groupid=<%=groupid%>&mode=<%=mode%>">
 					<div class="compiler img-rounded" style="padding:5px">
 							<label>Code Input</label>

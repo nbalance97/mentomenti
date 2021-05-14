@@ -78,11 +78,6 @@ public class HomeController {
     	return "main";
     }
     
-    @RequestMapping(value="/practice")//실습화면-레이아웃 연습용
-    public String index8() {
-    	return "/studyPage/practicePage";
-    }
-    
     @RequestMapping(value="/signup")//회원가입
     public String index9() {
     	return "/signUpPage";
