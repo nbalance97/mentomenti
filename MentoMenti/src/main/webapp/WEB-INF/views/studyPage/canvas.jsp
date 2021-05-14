@@ -100,10 +100,8 @@
 			<div class="palette">
 				<h1>Palette</h1>
 				<div class="colo">
+				<input type="file" onchange="uploadFile(this);" />
 				<div class="column1">
-					<div class="row_">
-						<input type="file" onchange="uploadFile(this);" />
-					</div>
 					<div class="row_">
 						<div class="p_color" style="background-color: black"	onclick="selectColor('black')"></div>
 						<div class="p_color" style="background-color: red"	onclick="selectColor('red')"></div>
