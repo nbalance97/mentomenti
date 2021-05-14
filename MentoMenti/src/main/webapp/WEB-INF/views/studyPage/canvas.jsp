@@ -47,18 +47,20 @@
 	}
 	.column1{
 		width:50%;
+		display:block;
 		float:left;
 	}
 	.column2{
 		width:50%;
+		display:block;
 		float:right;
 	}
 	.column3{
-		height:100%;
+		height:50%;
 		width:100%;
 	}
 	.kit{
-		height:100%;
+		height:50%;
 		width:50%;
 		margin:0 auto;
 	}
@@ -66,7 +68,7 @@
 	.p_color {
 	
 		margin:0 auto;
-		width: 150px;
+		width: 100px;
 		height: 30px;
 		margin-bottom: 5px;
 		border-radius: 30px;
@@ -101,44 +103,24 @@
 				<h1>Palette</h1>
 				<div class="colo">
 				<div class="column1">
-					<div class="row_">
 						<div class="p_color" style="background-color: black"	onclick="selectColor('black')"></div>
 						<div class="p_color" style="background-color: red"	onclick="selectColor('red')"></div>
-					</div>
-					<div class="row_">
 						<div class="p_color" style="background-color: #ff9500" onclick="selectColor('orange')"></div>
 						<div class="p_color" style="background-color: #ffcc00" onclick="selectColor('yellow')"></div>
-					</div>
 				</div>
 				<div class="column2">
-					<div class="row_">
 						<div class="p_color" style="background-color: #4cd963" onclick="selectColor('green')"></div>
 						<div class="p_color" style="background-color: #0579ff" onclick="selectColor('blue')"></div>
-					</div>
-					<div class="row_">
 						<div class="p_color" style="background-color: #5856d6" onclick="selectColor('purple')"></div>
 						<div class="p_color" style="background-color: deepPink" 	onclick="selectColor('deepPink')"></div>
-					</div>
 				</div>
 				</div>
-				<div class="column3">
 				<div class="kit">
-					<div class="row_">
 						<button class="btn btn-sm btn-outline-dark col-md-5" onclick="selectTool('pencil')">🖊︎</button>
-						<button id="erase" class="btn btn-sm btn-outline-dark col-md-5">e</button>
-					</div>
-					
-					<div class="row_">
+						<button id="erase" class="btn btn-sm btn-outline-dark col-md-5">e</button>					
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
-					</div>
-					
-					<div class="row_">
 						<button class="btn btn-sm btn-outline-success col-md-10"  onclick="clearPage()">메모🗑️</button>
-					</div>
-					<div class="row_">
 						<button class="btn btn-sm btn-outline-danger col-md-10" style="align-items:center;" onclick="deleteFiles()">🖼제거</button>
-					</div>
-				</div>
 				</div>
 			</div>
 		</div>
