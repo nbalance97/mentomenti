@@ -208,10 +208,7 @@ function pointMouseMove(event) { // 이부분 좀 수정함
 	  y2: currentPos.Y,
 	  force: cvs.lineWidth,
 	  color: pos.color,
-<<<<<<< HEAD
-=======
 	  erase: cvs.globalCompositeOperation
->>>>>>> branch 'master' of https://github.com/nbalance97/mentomenti.git
   });
   
   pos.X = currentPos.X;
