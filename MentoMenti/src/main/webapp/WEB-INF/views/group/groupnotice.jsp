@@ -53,8 +53,14 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 %>
 
 <!-- 그룹 공지사항 페이지 -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4"
-	id="pageHeading">
+
+<div id="pageHeading" style="margin-bottom:20px">
+	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
+	> <a href="joininggroups" style="text-decoration : none; color:gray">가입한 그룹</a>
+	> <a href="group?groupid=<%=groupid%>" style="text-decoration : none; color:gray"><%=group.getName()%></a></p>
+</div>
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
 	
 	<h1 class="h3 mb-0 text-gray-800">그룹 공지사항</h1>
 	<ul class="navbar-nav ml-auto">

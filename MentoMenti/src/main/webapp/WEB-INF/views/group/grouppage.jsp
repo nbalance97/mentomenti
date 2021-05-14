@@ -76,7 +76,11 @@
 
 
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4" style="overflow:hidden;" id="pageHeading">
+<div id="pageHeading" style="margin-bottom:20px">
+	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
+	> <a href="joininggroups" style="text-decoration : none; color:gray">가입한 그룹</a></p>
+</div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4" style="overflow:hidden;">
 	<h1 class="h3 mb-0 text-gray-800" style="float:left"><%=group.getName() %></h1>
 	<%
 		if (group.getMentoid().equals(id)){	//멘토 - 그룹 해체, 멤버 관리
