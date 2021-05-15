@@ -28,4 +28,11 @@
 		FROM comment
 		WHERE writerid = #{id};
 	</select>
+	
+	<!-- 모든 댓글 -->
+	<select id="selectAllComments" resultType="Mento.Menti.Project.dto.CommentDTO">
+		SELECT *
+		FROM comment
+		ORDER BY commentid desc;
+	</select>
 </mapper>
