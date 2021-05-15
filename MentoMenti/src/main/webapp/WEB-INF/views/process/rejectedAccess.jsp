@@ -22,6 +22,11 @@
 			pw.print("<script>window.location=\"joininggroups\"</script>;");	//자신의 그룹 목록 페이지로 이동
 		}
 		
+		if (message.equals("notAdmin")){
+			pw.print("<script>alert('관리자만 접근할 수 있는 페이지입니다');</script>");
+			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
+		}
+		
 		//이런 식으로 접근 권한 없는 페이지 처리하면 됨
 	%>
 </body>

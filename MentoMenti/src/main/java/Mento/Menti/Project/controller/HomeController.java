@@ -395,8 +395,23 @@ public class HomeController {
     	return "/mainCaro";
     }
     
-    @RequestMapping(value="/adminPage")	//관리자 페이지
-    public String adminPage() {
-    	return "/adminPage";
+    @RequestMapping(value="/adminPage") //관리자 메인 = 관리자 사용자 페이지
+    public String adminMainPage() {
+    	return "/admin/adminUserPage";
+    }
+    
+    @RequestMapping(value="/adminUserPage") //관리자 사용자 페이지
+    public String adminUserPage() {
+    	return "/admin/adminUserPage";
+    }
+    
+    @RequestMapping(value="/adminPostPage") //관리자 게시물 페이지
+    public String adminPostPage() {
+    	return "/admin/adminPostPage";
+    }
+    
+    @RequestMapping(value="/adminGroupPage") //관리자 그룹 페이지
+    public String adminGroupPage() {
+    	return "/admin/adminGroupPage";
     }
 }
