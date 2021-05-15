@@ -27,6 +27,16 @@
 			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
 		}
 		
+		if (message.equals("notCommentWriter")){
+			pw.print("<script>alert('자신의 댓글만 삭제할 수 있습니다');</script>");
+			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
+		}
+		
+		if (message.equals("notPostWriter")){
+			pw.print("<script>alert('자신의 게시물 삭제할 수 있습니다');</script>");
+			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
+		}
+		
 		//이런 식으로 접근 권한 없는 페이지 처리하면 됨
 	%>
 </body>

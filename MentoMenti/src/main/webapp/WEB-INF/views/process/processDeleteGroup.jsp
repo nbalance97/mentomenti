@@ -68,15 +68,17 @@
 				HomeController.dao.getNotificationDAO().insertNotification(n);	//멘티 알림
 			}
 				
-			HomeController.dao.getGroupDAO().deleteGroup(groupid);	//그룹 해체
-			if (from.equals("adminPage")) {
+			HomeController.dao.getGroupDAO().deleteGroup(groupid);	//그룹 해체 진행
+			
+			if (!from.equals("adminPage")) { // 그룹 멘토
 				pw.print("<script>alert('그룹이 해체되었습니다.');</script>");
+				pw.print("<script>window.location=\"joininggroups\"</script>"); //자신의 그룹 목록 페이지로 이동
+			} else {	//관리자
+				pw.print("<script>window.location=\"adminGroupPage\"</script>");
 			}
+		} else { //접근 권한이 없는 사람
+			pw.print("<script>window.location=\"rejectedAccess?type=notMento\"</script>;");
 		}
-		if (from.equals("adminPage"))
-			pw.print("<script>window.location=\"adminGroupPage\"</script>");
-		else 
-			pw.print("<script>window.location=\"joininggroups\"</script>"); //자신의 그룹 목록 페이지로 이동
 	%>
 </body>
 </html>

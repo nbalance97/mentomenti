@@ -35,4 +35,11 @@
 		FROM comment
 		ORDER BY commentid desc;
 	</select>
+	
+	<!-- 댓글 번호로 댓글 찾기 -->
+	<select id="searchCommentByCommentId" resultType="Mento.Menti.Project.dto.CommentDTO" parameterType="int">
+		SELECT *
+		FROM comment
+		WHERE commentid = #{commentid};	
+	</select>
 </mapper>
