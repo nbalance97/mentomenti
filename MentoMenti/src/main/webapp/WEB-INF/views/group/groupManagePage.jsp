@@ -111,7 +111,7 @@
 				<tr>
 					<td><%=menti.getNickname()%></td>
 					<td><%=menti.getIntro() %></td>
-					<td><input type="button" class="btn btn-danger withdraw" id=<%=menti.getNickname()%>
+					<td><input type="button" class="btn btn-danger" onclick="withdraw('<%=menti.getNickname()%>')"
 						value="X" style="padding:2px 10px"></td>
 				</tr>
 				<%
@@ -128,11 +128,6 @@
 		<span style="float:left;">운영중인 그룹을 해체하면 되돌릴 수 없습니다.</span>
 		<input type="button" class="btn btn-danger deleteGroup" value="그룹 해체하기" style="float:right">
 	</div>
-	<!-- 
-	<div style="text-align:center;">
-		<input type="button" class="btn btn-danger deleteGroup" value="그룹 해체하기">
-	</div>
-	-->
 </div>
 
 <div>
@@ -140,18 +135,15 @@
 </div>
 
 <script type="text/javascript">
+	function withdraw(menti){	//멘티 강퇴
+		if (confirm("멘티 "+menti+"님을 그룹에서 탈퇴시키겠습니까?")){
+			location.href="processWithdraw?groupid="+<%=group.getGroupid()%>+"&mentiNick="+menti;
+		}
+	}
 
 	$(document).ready(function(){
-		$('.withdraw').on('click', function(){
-			var menti = $('.withdraw').attr('id');
-			if (confirm("멘티 "+menti+"님을 그룹에서 탈퇴시키겠습니까?")){
-				location.href="processWithdraw?groupid="+<%=group.getGroupid()%>+"&mentiNick="+menti;
-			}
-		});
-		
-		$(".deleteGroup").on('click', function(){
+		$(".deleteGroup").on('click', function(){	//그룹 해체
 		    if (confirm("그룹을 해체하시겠습니까?")) {
-		    	//그룹 번호 전달
 		    	location.href = "processDeleteGroup?groupid="+<%=group.getGroupid()%>;
 		    }
 		});

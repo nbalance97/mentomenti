@@ -410,6 +410,11 @@ public class HomeController {
     	return "/admin/adminPostPage";
     }
     
+    @RequestMapping(value="/adminCommentPage") //관리자 댓글 페이지
+    public String adminCommentPage() {
+    	return "/admin/adminCommentPage";
+    }
+    
     @RequestMapping(value="/adminGroupPage") //관리자 그룹 페이지
     public String adminGroupPage() {
     	return "/admin/adminGroupPage";
