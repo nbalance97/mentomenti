@@ -75,7 +75,7 @@ public class HomeController {
     
     @RequestMapping(value="/main") //로그인 화면
     public String index7() {
-    	return "main";
+    	return "mainwoosub";
     }
     
     @RequestMapping(value="/signup")//회원가입
