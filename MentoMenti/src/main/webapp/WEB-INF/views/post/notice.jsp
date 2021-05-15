@@ -23,7 +23,11 @@
 <%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <%
-	int curPage = Integer.parseInt(request.getParameter("page"));
+	String strPage = request.getParameter("page");
+	int curPage;
+	if (strPage == null)	//기본값은 1
+		curPage = 1;
+	else curPage = Integer.parseInt(strPage);
 %>
 
 <!-- 공지사항 페이지 -->

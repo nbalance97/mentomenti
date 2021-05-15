@@ -43,7 +43,8 @@
 		height:82vh;
 		float:left;
 		width:48%;
-		border-style:dotted;
+		border:1px solid gray;
+		background:white;
 	}
 	.codingFunc{
 		width:48%;
@@ -130,7 +131,7 @@
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
 			<div class="problemImg shadow img-rounded">
-				<img id="prob_image" style="width:100%; height:100%; object-fit: contain;"></img> 
+				<img id="prob_image" src="resources/img/fileupload_default.png" style="width:100%; height:100%; object-fit: contain;"></img> 
 			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
