@@ -58,17 +58,6 @@
 	</style>
 </head>
 <script>
-	function change_opt(e) {
-		var groupid = document.getElementById("groupidValue").value;
-		if (e.value == 'python') {
-			window.location.href = 'practiceMento?groupid='+groupid+'&mode=python';
-		} else if (e.value == 'C') {
-			window.location.href = 'practiceMento?groupid='+groupid+'&mode=C';
-		} else if (e.value == 'java') {
-			var groupid_ = Integer.parseInt(request.getParameter("groupid"));
-			window.location.href = 'practiceMento?groupid='+groupid+'&mode=java';
-		}
-	}
 </script>
 <body>
 			<%
@@ -103,27 +92,6 @@
 	<% 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8"); 
-		String SRC = request.getParameter("CodeText"); // 코드와 입력값 받음
-		String input = request.getParameter("InputText");
-		String mode = request.getParameter("mode");
-		String settingFile = null; // 설정된 파일명
-		WebCompiler WC = WebCompiler.getInstance();
-		
-		if (mode == null) 
-			mode = "python";
-		
-		if (mode.equals("python"))
-			settingFile = "python";
-		else if (mode.equals("C"))
-			settingFile = "text/x-csrc";
-		else if (mode.equals("java"))
-			settingFile = "text/x-java";
-		
-		
-		if (SRC != null)
-			SRC.trim();
-		if (input != null)
-			input.trim();
 		
 	%>
 	
@@ -136,63 +104,27 @@
 			<div class="codingFunc">
 				<div class="languageSelect">
 					<select id="selectpart" onchange="change_opt(this)">
-						<option value="python" <%
-							if (mode.equals("python"))
-								out.println("selected");
-						%>>Python</option>
-						<option value="C" <%
-							if (mode.equals("C"))
-								out.println("selected");
-						%>>C</option>
-						<option value="java" <%
-							if (mode.equals("java"))
-								out.println("selected");
-						%>>java</option>
+						<option value="python">Python</option>
+						<option value="C">C</option>
+						<option value="java">java</option>
 					</select>
 				</div>
-				<form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?groupid=<%=groupid%>&mode=<%=mode%>">
+				<form name="compileView" style="width:100%; height:70%;" method="post" action="">
 					<div class="compiler img-rounded" style="padding:5px">
 							<label>Code Input</label>
-							<input type="submit" value="Execute">
-							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"><%
-								/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
-								if (SRC != null)
-									out.println(SRC);
-								if (SRC == null && mode.equals("java")) {
-									out.println(WC.getJavaDefault());
-								}
-							%></textarea> 
+							<input type="button" value="Execute" onclick="processCompile();">
+							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
 					</div>
 			
 					<div class="input img-rounded" style="padding:5px">
 						<label>stdin : </label>
-						<textarea style="width:100%; height:100%;" name="InputText" id="input"><%
-								if (input != null) {
-									out.println(input); // 사라지지 않게 처리
-								}
-							%></textarea>
+						<textarea style="width:100%; height:100%;" name="InputText" id="input"></textarea>
 					</div>
 				</form>
 			
 				<div class="result img-rounded" style="padding:5px">
 					<label>result : </label>
-					<textarea style="width:100%; height:100%;" name="ResultText" id="result"><%
-						if (SRC != null) {
-							String temp = null;
-							if (mode.equals("python")) {
-								temp = WC.compilePython(SRC, input);
-							} else if (mode.equals("C")) {
-								temp = WC.compileC(SRC, input);
-							} else if (mode.equals("java")) {
-								temp = WC.compileJava(SRC, input);
-							}
-					
-							if (temp != null) 
-								out.println(temp);
-							else
-								out.println("에러 발생");
-						}
-					%></textarea>
+					<textarea style="width:100%; height:100%;" name="ResultText" id="result"></textarea>
 				</div>
 			</div>
 		</div>
@@ -214,12 +146,14 @@
 	<%@include file="studySidebar.jsp"%>
 	<!-- Library textarea에 적용하는 과정 -->
 	<script>
+		var settingFile = 'python';
+	
 		var textarea = document.getElementById('editor');
 		var editor = CodeMirror.fromTextArea(textarea, {
 			lineNumbers: true,
 			lineWrapping: true,
 			theme: "dracula",
-			mode: "<%=settingFile%>",
+			mode: "python",
 			value: textarea.value,
 		});
 		
@@ -227,6 +161,7 @@
 		var editor2 = CodeMirror.fromTextArea(textarea2, {
 			lineNumbers: true,
 			lineWrapping: true,
+			mode: "python",
 			theme: "dracula",
 			value: textarea2.value
 		});
@@ -235,6 +170,7 @@
 		var editor3 = CodeMirror.fromTextArea(textarea3, {
 			lineNumbers: true,
 			lineWrapping: true,
+			mode: "python",
 			theme: "dracula",
 			value: textarea3.value
 		});
@@ -242,6 +178,68 @@
 		editor.setSize("100%", "100%");
 		editor2.setSize("100%", "100%");
 		editor3.setSize("100%", "100%");
+		
+		function change_opt(e) {
+			editor.setSize("0%", "0%"); // 0%에서 100%로 늘려줘야 점점 안커짐....,,,,,
+			editor2.setSize("0%", "0%");
+			editor3.setSize("0%", "0%");
+
+			if (e.value == "python") {
+				settingFile = 'python';
+			} else if (e.value === "C") {
+				settingFile = "text/x-csrc";
+			} else {
+				settingFile = "text/x-java";
+			}
+			
+			editor = CodeMirror.fromTextArea(textarea, {
+				lineNumbers: true,
+				lineWrapping: true,
+				theme: "dracula",
+				mode: settingFile,
+				value: textarea.value,
+			});
+			
+			editor2 = CodeMirror.fromTextArea(textarea2, {
+				lineNumbers: true,
+				lineWrapping: true,
+				theme: "dracula",
+				mode: settingFile,
+				value: textarea2.value
+			});
+			
+			editor3 = CodeMirror.fromTextArea(textarea3, {
+				lineNumbers: true,
+				lineWrapping: true,
+				theme: "dracula",
+				mode: settingFile,
+				value: textarea3.value
+			});
+			
+			editor.setSize("100%", "100%");
+			editor2.setSize("100%", "100%");
+			editor3.setSize("100%", "100%");	
+		}
+		
+		function processCompile() {
+			var total_data = {
+				mode: settingFile,
+				src: editor.getValue(),
+				input: editor3.getValue(),
+			};
+			
+			$.ajax({
+		        url: "https://localhost:8000/WebCompile",
+		        type: "POST",
+		        async: true,
+		        data: total_data,
+		        success: function(data) {
+		            result.value = data;
+		        }
+		    });
+		}
+		
+		
 	</script>
 	<script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
@@ -315,6 +313,8 @@
 			}
 			reader.readAsArrayBuffer(file);
 		}
+		
+	
 		
 		function canvas(btn){
 			var url = "/canvas";
