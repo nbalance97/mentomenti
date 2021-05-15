@@ -16,11 +16,12 @@
 		width:75%;
 		height:100vh;
 		float:left;
+		overflow:hidden;
 	}
 	.canvas {
-		border:1px solid gray;
+		/*border:1px solid gray;
 		outline: 2px dashed #92b0b3;
-		outline-offset: -10px;
+		outline-offset: -10px;*/
 		text-align: center;
 		transition: all .15s ease-in-out;
 		background-color: aliceblue;
@@ -33,10 +34,11 @@
 		display:flex;
 		float:right;
 		text-align:center;
+		border:1px solid gray;
 	}
 	.palette {
 		text-align:center;
-		margin-top:20px;
+		margin-top:10px;
 		width:  100%;
 		height: 100%;
 	}
@@ -61,7 +63,7 @@
 	}
 	.kit{
 		height:50%;
-		width:50%;
+		width:75%;
 		margin:0 auto;
 	}
 	
@@ -100,9 +102,8 @@
 		<!-- 캔버스 도구 -->
 		<div class="tool">
 			<div class="palette">
-				<h1>Palette</h1>
+				<h2>Palette</h2>
 				<div class="colo">
-				<input type="file" onchange="uploadFile(this);" />
 				<div class="column1">
 						<div class="p_color" style="background-color: black"	onclick="selectColor('black')"></div>
 						<div class="p_color" style="background-color: red"	onclick="selectColor('red')"></div>
@@ -121,6 +122,7 @@
 						<button id="erase" class="btn btn-sm btn-outline-dark col-md-5">e</button>					
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
 						<button class="btn btn-sm btn-outline-success col-md-10"  onclick="clearPage()">메모🗑️</button>
+						<input type="file" style="width:100%; margin-top:10px;"onchange="uploadFile(this);" />
 				</div>
 			</div>
 		</div>
