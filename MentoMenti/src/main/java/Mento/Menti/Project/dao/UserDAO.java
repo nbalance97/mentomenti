@@ -10,6 +10,7 @@ public interface UserDAO {
 	List<UserDTO> searchUser(UserDTO user) throws Exception;
 	List<UserDTO> searchUserById(UserDTO user) throws Exception;
 	List<UserDTO> searchUserByIdPw(UserDTO user) throws Exception;
+	List<UserDTO> searchUserByIdNameBirthEmail(UserDTO user) throws Exception;
 	
 	void updateUserInfo(UserDTO user) throws Exception;
 	
