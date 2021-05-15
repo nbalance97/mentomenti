@@ -23,7 +23,11 @@
 		HomeController.dao.getPostDAO().deletePost(postid);	//DB 반영
 		pw.print("<script>alert('게시물이 삭제되었습니다.');</script>");
 		
-		if (isNotice) { //공지사항
+		String from = request.getParameter("from");
+		if (from.equals("adminPage")){	//관리자가 게시물 관리 페이지에서 삭제했다면
+			pw.print("<script>window.location=\"adminPostPage\"</script>;");
+		}
+		else if (isNotice) { //공지사항
 			if (groupid > 0) //그룹 공지
 				pw.print("<script>window.location=\"groupnotice?page=1&groupid="+groupid+"\"</script>;");
 			else pw.print("<script>window.location=\"notice?page=1\"</script>;");

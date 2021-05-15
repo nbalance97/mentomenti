@@ -3,13 +3,15 @@
 <%@ page
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page
+	import="Mento.Menti.Project.dto.CommentDTO, Mento.Menti.Project.dao.CommentDAO"%>
+<%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@include file="adminMenuPart1.jsp" %>
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	style="margin-top: 50px" id="pageHeading">
-	<h3>게시물 관리</h3>
+	<h3>댓글 관리</h3>
 </div>
 
 <%
@@ -28,8 +30,7 @@
 	<thead>
 		<tr role="row">
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%">번호</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">게시판</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 40%">제목</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 55%">내용</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">작성자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성일자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">삭제</th>
@@ -38,10 +39,8 @@
 	
 	<tbody>
 		<%
-			List<PostDTO> postList = HomeController.dao.getPostDAO().selectPosts();
-			
-			
-			if (postList.size() == 0){	//결과가 없다면
+			List<CommentDTO> commentList = HomeController.dao.getCommentDAO().selectAllComments();
+			if (commentList.size() == 0){	//결과가 없다면
 		%>
 	</tbody>
 </table>
@@ -53,45 +52,45 @@
 			}
 			else {	//결과가 있다면
 				for (int i=(curPage-1)*20; i<(curPage-1)*20+20;i++){
-					if(i==postList.size()){
+					if(i==commentList.size()){
 						break;
 					}
-					PostDTO p = postList.get(i);
-					GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(p.getGroupid());
+					CommentDTO c = commentList.get(i);
 		%>
 		<tr role="row" class="odd">
-			<td><%=p.getPostid()%></td>
+			<td><%=c.getCommentid()%></td>
 			<td>
-					<%
-						if(!(p.getGroupid()>0) && p.is_notice()){
-							%>
-							<a href="/notice">공지사항</a>
-							<%
-						}else if(!(p.getGroupid()>0) && !p.is_notice()){
-							%>
-							<a href="/freeBoard">자유게시판</a>
-							<%
-						}else if((p.getGroupid()>0) && p.is_notice()){
-							%>
-							<a href="groupnotice?groupid=<%=p.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
-							<%
-						}else if((p.getGroupid()>0) && !p.is_notice()){
-							%>
-							<a href="groupQnA?groupid=<%=p.getGroupid()%>"><%=group.getName()%> - QnA</a>
-							<%
-						}
+				<%
+					PostDTO commentpost = null;
+				
+					if (HomeController.dao.getPostDAO().searchByPostId(c.getPostid()).size() > 0) {
+						commentpost=HomeController.dao.getPostDAO().searchByPostId(c.getPostid()).get(0);
+					}
+					GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(commentpost.getGroupid());
 					
-					%>
+					if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
+				%>
+					<a href="noticeContent?postid=<%=commentpost.getPostid()%>"><%=c.getContent()%></a>
+				<%
+					}else if(!(commentpost.getGroupid()>0) && !commentpost.is_notice()){
+				%>
+					<a href="postContent?postid=<%=commentpost.getPostid()%>"><%=c.getContent()%></a>
+				<%
+					}else if((commentpost.getGroupid()>0) && commentpost.is_notice()){
+				%>
+					<a href="groupNoticeContent?postid=<%=commentpost.getPostid()%>"><%=c.getContent()%></a>
+				<%
+					}else if((commentpost.getGroupid()>0) && !commentpost.is_notice()){
+				%>
+					<a href="groupPostContent?postid=<%=commentpost.getPostid()%>"><%=c.getContent()%></a>
+				<%
+					}
+				%>
 			</td>
-			<td>
-				<!-- 제목 -->
-				<a href="noticeContent?postid=<%=p.getPostid()%>">
-					<%=p.getTitle() %></a>
-			</td>
-			<td><%=p.getUserid() %></td> <!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
-			<td><%=p.getPostdate()%></td> <!-- 작성일자 -->
+			<td><%=c.getWriterid() %></td> <!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=c.getCommentdate()%></td> <!-- 작성일자 -->
 			<td>	<!-- 삭제 버튼 -->
-				<input type="button" class="btn btn-danger deleteBtn" value="X" style="padding:2px 10px" onclick="delPost(<%=p.getPostid()%>)">
+				<input type="button" class="btn btn-danger deleteBtn" value="X" style="padding:2px 10px" onclick="delComment(<%=c.getCommentid()%>)">
 			</td>
 		</tr>
 		<%
@@ -105,7 +104,7 @@
 		
 <!-- 페이지 버튼 -->
 <input type="hidden" id="curPage" value="<%=curPage%>"/>
-<input type="hidden" id="postSize" value="<%=postList.size() %>"/>
+<input type="hidden" id="postSize" value="<%=commentList.size() %>"/>
 <div class="d-flex align-items-center justify-content-between">
 		<nav aria-label="Page navigation example" style="margin: 0 auto;">
   			<ul class="pagination justify-content-center" id="list-body">
@@ -113,7 +112,6 @@
  			</ul>
 		</nav>
 </div>
-
 
 <%@include file="adminMenuPart2.jsp" %>
 <script>
@@ -159,9 +157,9 @@
 		$("#list-body").append("<li class='page-item'><a class='page-link' href='adminPostPage?page="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 	} 
 	
-	function delPost(postid){
-		if (confirm(postid+"번 게시물을 삭제하시겠습니까?")){
-			location.href="processDeletePost?from=adminPage&postid="+postid;
+	function delComment(commentid){
+		if (confirm(commentid+"번 댓글을 삭제하시겠습니까?")){
+			location.href="processDeleteComment?from=adminPage&commentid="+commentid;
 		}
 	}
 </script>

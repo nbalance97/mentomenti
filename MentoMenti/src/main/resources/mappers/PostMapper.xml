@@ -5,7 +5,8 @@
 <mapper namespace="Mento.Menti.Project.dao.PostDAO">
   <select id="selectPosts" resultType="Mento.Menti.Project.dto.PostDTO"> 
   	SELECT * 
-  	FROM post;
+  	FROM post
+  	ORDER BY postid desc;
   </select>
   
   <!-- 사이트 전체 공지사항 -->
