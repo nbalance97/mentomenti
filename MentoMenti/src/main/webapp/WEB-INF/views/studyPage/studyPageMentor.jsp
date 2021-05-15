@@ -85,7 +85,6 @@
 	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
 	    var mentoName = "<%=mentoid%>";
 	    var myGroup = <%=groupid%>;
-		var dataChannel;
 	    var myoffer;
 		var myemoticon = "ques";
 		var renegotiationflg = false;
@@ -98,6 +97,16 @@
 		var emoticon = {};
 		
 		function addMemberToList(id, emot, idx) {
+			if (id === myName) {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td></td>'+
+						'<td></td>'+
+				'</tr>').appendTo('#MemberTable');
+				return;
+			} 
+			
 			if (emot === "ques") {
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
@@ -117,6 +126,13 @@
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
 						'<td>'+'<i class="far fa-times-circle fa-2x emotion"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			} else if (emot === 'default') {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-circle fa-2x"></i></td>'+
 						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 						'</tr>').appendTo('#MemberTable');
 			}
@@ -183,6 +199,9 @@
 		    // 그룹의 새멤버 or 자신에게 향하는 패킷만 처리
 		    if ((content.event === "namecall" && content.group === myGroup) | content.to === myName) { 
 			    switch (content.event) {
+			    case "stop_video":
+			    	v1.srcObject = null;
+			    	break;
 			    case "offer":
 			        handleOffer(from, to, data);
 			        break;
@@ -302,7 +321,7 @@
 			
 			if (!renegotiationflg) {
 				pc[name] = peerConnection; // pc 객체에 저장
-				emoticon[name] = "ques";
+				emoticon[name] = "default";
 			}
 		}
 		
@@ -310,7 +329,7 @@
 		function handleOffer(from, target, offer) { 
 			if (!renegotiationflg) {
 				pc[from] = createPeerConnection(from);
-				emoticon[from] = "ques";
+				emoticon[from] = "default";
 			}
 			var peerConnection = pc[from];
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
@@ -364,7 +383,15 @@
 					screenStream.addTrack(audioStream.getAudioTracks()[0]);
 					v1.srcObject = screenStream;
 					var obj_keys = Object.keys(pc);
-					
+					screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+						for (var key in pc) {
+							send({
+								event : "stop_video",
+								from : myName,
+								to : key
+							});
+						}
+					});
 					for (var i = 0; i<obj_keys.length; i++) {
 						renegotiationflg = true;
 						(function (i){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
@@ -397,7 +424,7 @@
 					
 				}).catch(function(e){
 					//error;
-				});
+s				});
 			}).catch(function(e){
 				//error;
 			}); 

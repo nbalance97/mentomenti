@@ -259,6 +259,16 @@
 		var emoticon = {};
 		
 		function addMemberToList(id, emot, idx) {
+			if (id === myName) {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td></td>'+
+						'<td></td>'+
+				'</tr>').appendTo('#MemberTable');
+				return;
+			} 
+			
 			if (emot === "ques") {
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
@@ -278,6 +288,13 @@
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
 						'<td>'+'<i class="far fa-times-circle fa-2x emotion"></i></td>'+
+						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			} else if (emot === 'default') {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td>'+'<i class="far fa-circle fa-2x"></i></td>'+
 						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 						'</tr>').appendTo('#MemberTable');
 			}
@@ -468,13 +485,13 @@
 			
 			
 			pc[name] = peerConnection; // pc 객체에 저장
-			emoticon[name] = "ques";
+			emoticon[name] = "default";
 		}
 		
 		
 		function handleOffer(from, target, offer) { 
 			pc[from] = createPeerConnection(from);
-			emoticon[from] = "ques";
+			emoticon[from] = "default";
 			var peerConnection = pc[from];
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
 			peerConnection.createAnswer(function(answer) { // answer 만들어서 전송
