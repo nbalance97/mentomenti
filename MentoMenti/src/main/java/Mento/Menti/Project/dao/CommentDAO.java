@@ -10,4 +10,6 @@ public interface CommentDAO {
 	void insertComment(CommentDTO comment) throws Exception;
 	void deleteComment(int commentid) throws Exception;
 	List<CommentDTO> searchMyCommentsByUserId(String id) throws Exception;
+	List<CommentDTO> selectAllComments() throws Exception;
+	CommentDTO searchCommentByCommentId(int commentid) throws Exception;
 }

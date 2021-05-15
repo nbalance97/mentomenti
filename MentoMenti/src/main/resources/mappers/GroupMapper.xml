@@ -6,7 +6,8 @@
   <!-- 모든 그룹 -->
   <select id="selectGroups" resultType="Mento.Menti.Project.dto.GroupDTO"> 
   	SELECT * 
-  	FROM mmgroup;
+  	FROM mmgroup
+  	ORDER BY groupid desc;
   </select>
   
   <!-- C언어 그룹 -->

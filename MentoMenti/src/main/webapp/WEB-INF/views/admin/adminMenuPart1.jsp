@@ -3,8 +3,7 @@
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
 	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
-<%@ page
-	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+
 <%@ page import="java.util.List"%>
 
 <head>
@@ -45,6 +44,7 @@
 	font-weight:400;
 	color:white;
 }
+
 </style>
 
 <body id="page-top" style="background-color:#f8f9fc;">
@@ -82,10 +82,10 @@
 					style="position: fixed; width: 100%; background: #002266;">
 				
 					<div style="margin:0 auto; width:400px; text-align:center;">
-						<span class="menuComponent">사용자</span>
-						<span class="menuComponent">게시물</span>
-						<span class="menuComponent">댓글</span>
-						<span class="menuComponent">그룹</span>
+						<a href="adminUserPage"><span class="menuComponent">사용자</span></a>
+						<a href="adminPostPage"><span class="menuComponent">게시물</span></a>
+						<a href="adminCommentPage"><span class="menuComponent">댓글</span></a>
+						<a href="adminGroupPage"><span class="menuComponent">그룹</span></a>
 					</div>
 					
 				</nav>
