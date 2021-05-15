@@ -394,4 +394,9 @@ public class HomeController {
     public String index97() {
     	return "/mainCaro";
     }
+    
+    @RequestMapping(value="/adminPage")	//관리자 페이지
+    public String adminPage() {
+    	return "/adminPage";
+    }
 }
