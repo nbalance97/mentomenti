@@ -414,4 +414,18 @@ public class HomeController {
     public String adminGroupPage() {
     	return "/admin/adminGroupPage";
     }
+    
+    @RequestMapping(value="/pwsearch") //비번찾기 페이지
+    public String index98() {
+    	return "/pwSearchPage";
+    }
+    
+    @RequestMapping(value="/processPwsearch") //비번찾기 프로세스
+    public String index99() {
+    	return "/process/processPwsearch";
+    }
+    @RequestMapping(value="/confirmPw") //비번찾기 팝업
+    public String index111() {
+    	return "/process/confirmPw";
+    }
 }
