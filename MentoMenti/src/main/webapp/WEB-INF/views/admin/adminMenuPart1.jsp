@@ -80,7 +80,15 @@
 				<nav
 					class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow sticky-top"
 					style="position: fixed; width: 100%; background: #002266;">
+					
+					<!-- 메인 이동 -->
+					<div>
+						<a href="main" class="font-weight-400" style="color:white; text-decoration:none;">
+						← 메인
+						</a>
+					</div>
 				
+					<!-- 관리 메뉴 -->
 					<div style="margin:0 auto; width:400px; text-align:center;">
 						<a href="adminUserPage"><span class="menuComponent">사용자</span></a>
 						<a href="adminPostPage"><span class="menuComponent">게시물</span></a>

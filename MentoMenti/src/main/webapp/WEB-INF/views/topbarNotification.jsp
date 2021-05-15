@@ -8,9 +8,6 @@
 
 <!-- 메뉴 상단바의 알림 부분만 따로 분리 -->
 
-<!-- Topbar Navbar -->
-<ul class="navbar-nav ml-auto">
-
 	<!-- Nav Item - Alerts -->
 	<li class="nav-item dropdown no-arrow mx-1">
 	<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown"

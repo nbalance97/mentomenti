@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
+	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page
 	import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.io.*"%>
@@ -46,8 +48,12 @@
 					class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow sticky-top"
 					style="position: fixed; width: 100%; background: #002266">
 
+						<!-- Topbar Navbar -->
+						<ul class="navbar-nav ml-auto">
+						
 						<!-- 알림 아이콘 -->
 						<%@include file="topbarNotification.jsp"%>
+						</ul>
 
 						<!-- 쪽지 아이콘 삭제 -->
 
@@ -73,7 +79,7 @@
 							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline small" ><%=nickname%>님</span>
+							<span class="mr-2 d-none d-lg-inline small" style="color:white;"><%=nickname%>님</span>
 							
 							
 							<!-- 프로필 이미지 -->							
@@ -102,17 +108,35 @@
 							</a>
 							
 							<!-- Dropdown - User Information -->
-							<div
-								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="personalInfoPage"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 프로필
-								</a> <a class="dropdown-item" href="personalInfoChange"> <i
+								</a>
+								
+								<a class="dropdown-item" href="personalInfoChange"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 개인 정보
 									수정
-								</a> <a class="dropdown-item" href="activity?page=1&compage=1"> <i
+								</a>
+								
+								<a class="dropdown-item" href="activity?page=1&compage=1"> <i
 									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 나의 활동
 								</a>
+								
+								<%
+								UserDTO user = new UserDTO();
+								user.setId(id);
+								boolean isAdmin = HomeController.dao.getUserDAO().searchUserById(user).get(0).is_admin();
+								
+								if (isAdmin){
+								%>
+								<a class="dropdown-item" href="adminPage"> <i
+									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>관리자 페이지
+								</a>
+								<%
+								}
+								%>
+								
 								<div class="dropdown-divider"></div>
 								
 								<!-- logoutModal은 menuPart2.jsp에 -->
