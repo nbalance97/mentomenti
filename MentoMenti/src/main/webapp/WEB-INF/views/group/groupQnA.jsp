@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
+	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
@@ -30,24 +32,31 @@
 
 <%
 	int groupid = Integer.parseInt(request.getParameter("groupid"));
-GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
-List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
-
-//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
-boolean isMember = false;
-if (group.getMentoid().equals((String) session.getAttribute("userID")))
-	isMember = true;
-for (GroupmateDTO gl : groupmateList) { //가입한 그룹인 경우
-	if (gl.getId().equals((String) session.getAttribute("userID")))
+	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+	List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+	UserDTO user = new UserDTO();
+	user.setId(id);
+	boolean isAdmin = HomeController.dao.getUserDAO().searchUserById(user).get(0).is_admin();
+	
+	//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+	boolean isMember = false;
+	if (group.getMentoid().equals((String) session.getAttribute("userID")))
 		isMember = true;
-}
-if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
-	response.sendRedirect("rejectedAccess?type=notMember");
-}
+	for (GroupmateDTO gl : groupmateList) { //가입한 그룹인 경우
+		if (gl.getId().equals((String) session.getAttribute("userID")))
+			isMember = true;
+	}
+	if (!isMember && !isAdmin) { //관리자x & 해당 그룹의 멤버가 아니라면 접근 거부
+		response.sendRedirect("rejectedAccess?type=notMember");
+	}
 %>
 
 <%
-	int curPage = Integer.parseInt(request.getParameter("page"));
+	String strPage = request.getParameter("page");
+	int curPage;
+	if (strPage == null)	//기본값은 1
+		curPage = 1;
+	else curPage = Integer.parseInt(strPage);
 %>
 
 
