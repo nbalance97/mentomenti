@@ -30,7 +30,8 @@
 	<thead>
 		<tr role="row">
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%">번호</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 55%">내용</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">게시판</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 40%">내용</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">작성자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성일자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">삭제</th>
@@ -45,13 +46,13 @@
 	</tbody>
 </table>
 	<div style="height:200px; text-align:center; line-height:200px">
-		결과가 없습니다.		
+		댓글이 존재하지 않습니다.		
 	</div>
 		
 		<%
 			}
 			else {	//결과가 있다면
-				for (int i=(curPage-1)*20; i<(curPage-1)*20+20;i++){
+				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++){
 					if(i==commentList.size()){
 						break;
 					}
@@ -60,13 +61,36 @@
 		<tr role="row" class="odd">
 			<td><%=c.getCommentid()%></td>
 			<td>
+					<%
+						PostDTO commentpost = null;
+						
+						if (HomeController.dao.getPostDAO().searchByPostId(c.getPostid()).size() > 0) {
+							commentpost=HomeController.dao.getPostDAO().searchByPostId(c.getPostid()).get(0);
+						}
+						GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(commentpost.getGroupid());
+						
+						if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
+							%>
+							<a href="/notice">공지사항</a>
+							<%
+						}else if(!(commentpost.getGroupid()>0) && !commentpost.is_notice()){
+							%>
+							<a href="/freeBoard">자유게시판</a>
+							<%
+						}else if((commentpost.getGroupid()>0) && commentpost.is_notice()){
+							%>
+							<a href="groupnotice?groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - 공지사항</a>
+							<%
+						}else if((commentpost.getGroupid()>0) && !commentpost.is_notice()){
+							%>
+							<a href="groupQnA?groupid=<%=commentpost.getGroupid()%>"><%=group.getName()%> - QnA</a>
+							<%
+						}
+					
+					%>
+			</td>
+			<td>
 				<%
-					PostDTO commentpost = null;
-				
-					if (HomeController.dao.getPostDAO().searchByPostId(c.getPostid()).size() > 0) {
-						commentpost=HomeController.dao.getPostDAO().searchByPostId(c.getPostid()).get(0);
-					}
-					GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(commentpost.getGroupid());
 					
 					if(!(commentpost.getGroupid()>0) && commentpost.is_notice()){
 				%>
@@ -124,7 +148,7 @@
 
 	function paging(totalData, currentPage){
 		
-		var dataPerPage = 20; //한 페이지에 보여지는 데이터 수
+		var dataPerPage = 10; //한 페이지에 보여지는 데이터 수
 		var countPage = 5; //한번에 보여지는 페이지 수
 		
 		//총페이지수
@@ -144,17 +168,17 @@
 		
 		$('#list-body').empty();
 		if(startPage > countPage){
-			$("#list-body").append("<li class='page-item'><a class='page-link' href='adminPostPage?page="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='adminCommentPage?page="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 		}
 		for(var j=startPage ; j<=endPage ; j++){
 			if(currentPage==(j)){
-				$("#list-body").append("<li class='page-item active'><a class='page-link' href='adminPostPage?page=" + j + "'>" + j + "</a></li>");
+				$("#list-body").append("<li class='page-item active'><a class='page-link' href='adminCommentPage?page=" + j + "'>" + j + "</a></li>");
 			}else if(j>0){
-				$("#list-body").append("<li class='page-item'><a class='page-link' href='adminPostPage?page=" + j + "'>" + j + "</a></li>");		
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='adminCommentPage?page=" + j + "'>" + j + "</a></li>");		
 			}
 		}
 		if(next > 5 && next < totalPage)
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='adminPostPage?page="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		$("#list-body").append("<li class='page-item'><a class='page-link' href='adminCommentPage?page="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 	} 
 	
 	function delComment(commentid){

@@ -46,13 +46,13 @@
 	</tbody>
 </table>
 	<div style="height:200px; text-align:center; line-height:200px">
-		결과가 없습니다.		
+		게시물이 존재하지 않습니다.		
 	</div>
 		
 		<%
 			}
 			else {	//결과가 있다면
-				for (int i=(curPage-1)*20; i<(curPage-1)*20+20;i++){
+				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++){
 					if(i==postList.size()){
 						break;
 					}
@@ -126,7 +126,7 @@
 
 	function paging(totalData, currentPage){
 		
-		var dataPerPage = 20; //한 페이지에 보여지는 데이터 수
+		var dataPerPage = 10; //한 페이지에 보여지는 데이터 수
 		var countPage = 5; //한번에 보여지는 페이지 수
 		
 		//총페이지수
