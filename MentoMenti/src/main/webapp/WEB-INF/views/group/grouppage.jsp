@@ -241,14 +241,6 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$(".deleteGroup").on('click', function(){
-		    if (confirm("그룹을 해체하시겠습니까? (해체한 그룹은 되돌릴 수 없습니다.)")) {
-		    	//그룹 번호 전달
-		    	location.href = "processDeleteGroup?groupid="+<%=group.getGroupid()%>;
-		    }
-		});
-		
 		$(".leaveGroup").on('click', function(){
 		    if (confirm("그룹에서 탈퇴하시겠습니까?")) {
 		    	//그룹 번호 전달

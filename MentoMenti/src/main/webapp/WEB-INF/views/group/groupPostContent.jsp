@@ -65,7 +65,7 @@
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
 	> <a href="joininggroups" style="text-decoration : none; color:gray">가입한 그룹</a>
 	> <a href="group?groupid=<%=groupid%>" style="text-decoration : none; color:gray"><%=groupname%></a>
-	> <a href="groupQnA?page=1&groupid=<%=groupid%>" style="text-decoration : none; color:gray">그룹 Q&A</a></p>
+	> <a href="groupQnA?groupid=<%=groupid%>" style="text-decoration : none; color:gray">그룹 Q&A</a></p>
 </div>
 
 

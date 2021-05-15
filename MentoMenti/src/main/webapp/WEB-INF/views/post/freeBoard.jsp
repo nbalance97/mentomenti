@@ -32,7 +32,9 @@
 <!-- 자유게시판 -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800">자유게시판</h1>
+	<h1 class="h3 mb-0">
+		<a href="freeBoard" class="text-gray-800 font-weight-500" style="text-decoration:none;">자유게시판</a>
+	</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
@@ -40,7 +42,6 @@
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small" name="keyword"
 						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
-					<input type="text" name="page" value=<%=curPage%> style="display:none;">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
@@ -118,6 +119,8 @@
 <!-- 페이지 버튼 -->
 <input type="hidden" id="curPage" value="<%=curPage%>"/>
 <input type="hidden" id="postSize" value="<%=postList.size() %>"/>
+<input type="hidden" id="keyword" value="<%=kwd%>"/>	<!-- 검색 키워드 -->
+
 <div class="d-flex align-items-center justify-content-between">
 		<nav aria-label="Page navigation example" style="margin: 0 auto;">
   			<ul class="pagination justify-content-center" id="list-body">
@@ -145,6 +148,7 @@
 	//작성한 글 개수 가져오기
 	var postData = document.getElementById("postSize").value;
 	var curpage = document.getElementById("curPage").value;
+	var kwd = document.getElementById("keyword").value;
 	$(document).ready(function () {
 		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
 	});
@@ -170,17 +174,35 @@
 		const next = endPage+1;
 		
 		$('#list-body').empty();
-		if(startPage > countPage){
-			$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
-		}
-		for(var j=startPage ; j<=endPage ; j++){
-			if(currentPage==(j)){
-				$("#list-body").append("<li class='page-item active'><a class='page-link' href='freeBoard?page=" + j + "'>" + j + "</a></li>");
-			}else if(j>0){
-				$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page=" + j + "'>" + j + "</a></li>");		
+		
+		if (kwd=="null"){	//검색 x
+			if(startPage > countPage){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 			}
+			for(var j=startPage ; j<=endPage ; j++){
+				if(currentPage==(j)){
+					$("#list-body").append("<li class='page-item active'><a class='page-link' href='freeBoard?page=" + j + "'>" + j + "</a></li>");
+				}else if(j>0){
+					$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page=" + j + "'>" + j + "</a></li>");		
+				}
+			}
+			if(next > 5 && next < totalPage)
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 		}
-		if(next > 5 && next < totalPage)
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		
+		else {	//검색 o
+			if(startPage > countPage){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page="+prev+"&keyword="+kwd+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+			}
+			for(var j=startPage ; j<=endPage ; j++){
+				if(currentPage==(j)){
+					$("#list-body").append("<li class='page-item active'><a class='page-link' href='freeBoard?page=" + j + "&keyword="+kwd+ "'>" + j + "</a></li>");
+				}else if(j>0){
+					$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page=" + j + "&keyword="+kwd+ "'>" + j + "</a></li>");		
+				}
+			}
+			if(next > 5 && next < totalPage)
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='freeBoard?page="+next+"&keyword="+kwd+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		}
 	} 
 </script>

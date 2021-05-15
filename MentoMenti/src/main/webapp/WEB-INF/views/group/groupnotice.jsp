@@ -72,7 +72,9 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	
-	<h1 class="h3 mb-0 text-gray-800">그룹 공지사항</h1>
+	<h1 class="h3 mb-0 text-gray-800">
+		<a href="groupnotice?groupid=<%=groupid%>" class="text-gray-800 font-weight-500" style="text-decoration:none;">그룹 공지사항</a>
+	</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
@@ -80,7 +82,6 @@
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small" name="keyword"
 						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
-					<input type="text" name="page" value=<%=curPage%> style="display:none;">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
@@ -136,7 +137,6 @@
 		<%
 			} else {	//결과 있음
 				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++) {
-					//PostDTO gn: noticeList for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
 					if(i==groupNotices.size()){
 						break;
 					}
@@ -165,6 +165,8 @@
 <input type="hidden" id="curPage" value="<%=curPage%>"/>
 <input type="hidden" id="postSize" value="<%=groupNotices.size() %>"/>
 <input type="hidden" id="gid" value="<%=groupid %>"/>
+<input type="hidden" id="keyword" value="<%=kwd%>"/>	<!-- 검색 키워드 -->
+
 <div class="d-flex align-items-center justify-content-between">
 		<nav aria-label="Page navigation example" style="margin: 0 auto;">
   			<ul class="pagination justify-content-center" id="list-body">
@@ -193,6 +195,7 @@
 	var postData = document.getElementById("postSize").value;
 	var curpage = document.getElementById("curPage").value;
 	var groupid = document.getElementById("gid").value;
+	var kwd = document.getElementById("keyword").value;
 	$(document).ready(function () {
 		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
 	});
@@ -217,18 +220,36 @@
 		const prev = startPage-1;
 		const next = endPage+1;
 		
-		$('#list-body').empty();
-		if(startPage > countPage){
-			$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+prev+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
-		}
-		for(var j=startPage ; j<=endPage ; j++){
-			if(currentPage==(j)){
-				$("#list-body").append("<li class='page-item active'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");
-			}else if(j>0){
-				$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");		
+		if (kwd=="null")	{	//검색 x
+			$('#list-body').empty();
+			if(startPage > countPage){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+prev+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 			}
+			for(var j=startPage ; j<=endPage ; j++){
+				if(currentPage==(j)){
+					$("#list-body").append("<li class='page-item active'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");
+				}else if(j>0){
+					$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");		
+				}
+			}
+			if(next > 5 && next < totalPage)
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+next+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 		}
-		if(next > 5 && next < totalPage)
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+next+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
-	} 
+		
+		else {	//검색 o
+			$('#list-body').empty();
+			if(startPage > countPage){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+prev+"&groupid="+groupid+"&keyword="+kwd+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+			}
+			for(var j=startPage ; j<=endPage ; j++){
+				if(currentPage==(j)){
+					$("#list-body").append("<li class='page-item active'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"&keyword="+kwd+"'>" + j + "</a></li>");
+				}else if(j>0){
+					$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"&keyword="+kwd+"'>" + j + "</a></li>");		
+				}
+			}
+			if(next > 5 && next < totalPage)
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+next+"&groupid="+groupid+"&keyword="+kwd+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		}
+	}
 </script>
