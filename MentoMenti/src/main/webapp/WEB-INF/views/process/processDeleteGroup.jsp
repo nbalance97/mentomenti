@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
+	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
@@ -24,11 +26,18 @@
 	
 		int groupid = Integer.parseInt(request.getParameter("groupid"));
 		GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
-		String mentoid = group.getMentoid();
-		String loginid = (String)session.getAttribute("userID");
+		String mentoid = group.getMentoid();	//멘토 아이디
+		String loginid = (String)session.getAttribute("userID");	//로그인 아이디
+		
+		//로그인 사용자가 관리자인지 확인
+		UserDTO user = new UserDTO();
+		user.setId(loginid);
+		boolean isAdmin = HomeController.dao.getUserDAO().searchUserById(user).get(0).is_admin();
+		String from = request.getParameter("from");
+		
 		String groupName = group.getName();
 		
-		if (mentoid.equals(loginid)){	//멘토 아이디 = 로그인한 아이디인 경우에만 해체 진행
+		if (mentoid.equals(loginid) || isAdmin){	//멘토 아이디 = 로그인한 아이디인 경우 or 관리자인 경우에만 해체 진행
 			//현재 시각 구하기
 			Calendar cal = Calendar.getInstance();
 			int todayYear = cal.get(cal.YEAR);
@@ -43,11 +52,11 @@
 			
 			//그룹 해체 알림 DB 추가
 			NotificationDTO notification = new NotificationDTO();
-			notification.setReceiverid((String)session.getAttribute("userID"));
+			notification.setReceiverid(mentoid);
 			notification.setSendtime(datetime);
 			notification.setContent(groupName+" 그룹이 해체되었습니다.");
 			notification.setIsread(false);
-			HomeController.dao.getNotificationDAO().insertNotification(notification);	//멘티 알림
+			HomeController.dao.getNotificationDAO().insertNotification(notification);	//멘토 알림
 			
 			List<GroupmateDTO> groupmates = HomeController.dao.getGroupmateDAO().selectMentiList(groupid);	//멘티들
 			for (GroupmateDTO gm: groupmates){
@@ -59,12 +68,15 @@
 				HomeController.dao.getNotificationDAO().insertNotification(n);	//멘티 알림
 			}
 				
-				
 			HomeController.dao.getGroupDAO().deleteGroup(groupid);	//그룹 해체
-			pw.print("<script>alert('그룹이 해체되었습니다.');</script>");
+			if (from.equals("adminPage")) {
+				pw.print("<script>alert('그룹이 해체되었습니다.');</script>");
+			}
 		}
-
-		pw.print("<script>window.location=\"joininggroups\"</script>"); //자신의 그룹 목록 페이지로 이동
+		if (from.equals("adminPage"))
+			pw.print("<script>window.location=\"adminGroupPage\"</script>");
+		else 
+			pw.print("<script>window.location=\"joininggroups\"</script>"); //자신의 그룹 목록 페이지로 이동
 	%>
 </body>
 </html>
