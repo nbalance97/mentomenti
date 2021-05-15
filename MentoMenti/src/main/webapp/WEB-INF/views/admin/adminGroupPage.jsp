@@ -5,8 +5,7 @@
 <%@include file="adminMenuPart1.jsp" %>
 
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4"
-	style="margin-top: 50px" id="pageHeading">
+<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 	<h3>그룹 관리</h3>
 </div>
 
@@ -73,7 +72,7 @@
 		
 <!-- 페이지 버튼 -->
 <input type="hidden" id="curPage" value="<%=curPage%>"/>
-<input type="hidden" id="postSize" value="<%=groupList.size() %>"/>
+<input type="hidden" id="groupSize" value="<%=groupList.size() %>"/>
 <div class="d-flex align-items-center justify-content-between">
 		<nav aria-label="Page navigation example" style="margin: 0 auto;">
   			<ul class="pagination justify-content-center" id="list-body">
@@ -86,7 +85,7 @@
 <%@include file="adminMenuPart2.jsp" %>
 <script>
 	//작성한 글 개수 가져오기
-	var postData = document.getElementById("postSize").value;
+	var postData = document.getElementById("groupSize").value;
 	var curpage = document.getElementById("curPage").value;
 	$(document).ready(function () {
 		paging(postData,curpage);

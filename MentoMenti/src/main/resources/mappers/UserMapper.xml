@@ -5,7 +5,8 @@
 <mapper namespace="Mento.Menti.Project.dao.UserDAO">	
   <select id="selectUsers" resultType="Mento.Menti.Project.dto.UserDTO"> 
   	SELECT * 
-  	FROM user;
+  	FROM user
+  	ORDER BY joindate desc;
   </select>
   
   <insert id="insertUsers" parameterType="Mento.Menti.Project.dto.UserDTO">
@@ -72,5 +73,11 @@
   	FROM user
   	WHERE id = #{id};
   </select>
+  
+  <!-- 회원 탈퇴 -->
+  <delete id="deleteUser" parameterType="String">
+  	DELETE FROM user
+  	WHERE id = #{id};
+  </delete>
   
 </mapper>

@@ -19,4 +19,6 @@ public interface UserDAO {
 	String selectNicknameById(String id) throws Exception;
 	List<UserDTO> searchUserByNick(UserDTO user) throws Exception;
 	String selectIntroById(String id) throws Exception;
+	
+	void deleteUser(String id) throws Exception;
 }

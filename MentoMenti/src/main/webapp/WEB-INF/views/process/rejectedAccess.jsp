@@ -37,6 +37,11 @@
 			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
 		}
 		
+		if (message.equals("notLoginUser")){
+			pw.print("<script>alert('자신의 계정만 탈퇴시킬 수 있습니다');</script>");
+			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
+		}
+		
 		//이런 식으로 접근 권한 없는 페이지 처리하면 됨
 	%>
 </body>

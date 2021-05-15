@@ -434,4 +434,9 @@ public class HomeController {
     public String index111() {
     	return "/process/confirmPw";
     }
+    
+    @RequestMapping(value="/processDeleteUser") //사용자 사이트 탈퇴
+    public String deleteUser() {
+    	return "/process/processDeleteUser";
+    }
 }

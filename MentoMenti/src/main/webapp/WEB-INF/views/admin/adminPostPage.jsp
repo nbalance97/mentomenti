@@ -7,8 +7,7 @@
 <%@include file="adminMenuPart1.jsp" %>
 
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4"
-	style="margin-top: 50px" id="pageHeading">
+<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 	<h3>게시물 관리</h3>
 </div>
 
