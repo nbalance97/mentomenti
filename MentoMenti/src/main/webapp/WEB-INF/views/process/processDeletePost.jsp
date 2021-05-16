@@ -38,7 +38,7 @@
 			pw.print("<script>alert('게시물이 삭제되었습니다.');</script>");
 	
 			String from = request.getParameter("from");
-			if (from.equals("adminPage")) { //관리자가 게시물 관리 페이지에서 삭제했다면
+			if (from != null) { //관리자가 게시물 관리 페이지에서 삭제했다면
 				pw.print("<script>window.location=\"adminPostPage\"</script>;");
 			} else if (isNotice) { //공지사항
 				if (groupid > 0) //그룹 공지

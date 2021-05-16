@@ -30,7 +30,7 @@
 			HomeController.dao.getUserDAO().deleteUser(userid);	//DB에서 계정 삭제
 	
 			String from = request.getParameter("from");
-			if (from.equals("adminPage")) { //관리자가 탈퇴시킨 경우
+			if (from != null) { //관리자가 탈퇴시킨 경우
 				pw.print("<script>window.location=\"adminUserPage\"</script>;");
 			} else { //본인이 탈퇴 신청을 했을 때
 				pw.print("<script>alert('탈퇴 완료되었습니다.');</script>");

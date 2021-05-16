@@ -70,7 +70,7 @@
 				
 			HomeController.dao.getGroupDAO().deleteGroup(groupid);	//그룹 해체 진행
 			
-			if (!from.equals("adminPage")) { // 그룹 멘토
+			if (from == null) { // 그룹 멘토
 				pw.print("<script>alert('그룹이 해체되었습니다.');</script>");
 				pw.print("<script>window.location=\"joininggroups\"</script>"); //자신의 그룹 목록 페이지로 이동
 			} else {	//관리자
