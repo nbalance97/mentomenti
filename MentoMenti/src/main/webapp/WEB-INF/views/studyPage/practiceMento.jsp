@@ -229,7 +229,7 @@
 			};
 			
 			$.ajax({
-		        url: "https://localhost:8000/WebCompile",
+		        url: "https://kgu.mentomenti.kro.kr:8000/WebCompile",
 		        type: "POST",
 		        async: true,
 		        data: total_data,
@@ -238,8 +238,6 @@
 		        }
 		    });
 		}
-		
-		
 	</script>
 	<script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
