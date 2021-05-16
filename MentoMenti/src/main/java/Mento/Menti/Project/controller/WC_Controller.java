@@ -1,5 +1,6 @@
 package Mento.Menti.Project.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,8 @@ import Mento.Menti.Project.dto.WebCompilerDTO;
 
 @RestController
 public class WC_Controller {
+	
+	@CrossOrigin("*")
     @RequestMapping(value="/WebCompile")
     public @ResponseBody String Compile(WebCompilerDTO data) {
     	WebCompiler WC = WebCompiler.getInstance();
