@@ -14,7 +14,7 @@
 <div class="function">
 	<div class="icon-box">
 		<!-- <span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span> -->
-		<span class="icon"><a id="muter" href="#"><i class="fas fa-microphone fa-3x mic"></i></a></span>
+		<span class="icon"><a id="muter" onclick="share_microphone();"><i class="fas fa-microphone-slash fa-3x mic"></i></a></span>
 		<div class="dropdown icon">
 			<div class="icon dropbtn" style="padding:0;"><a id="emotionSelect" href="#"><i class="far fa-hand-paper fa-3x emotion-select"></i></a>
 			<div class="dropdown-content">

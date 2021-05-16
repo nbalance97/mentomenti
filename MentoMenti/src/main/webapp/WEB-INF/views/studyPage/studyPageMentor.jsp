@@ -94,7 +94,18 @@
 		var pc = {};
 		var dc = {};
 		var share = {};
+		var audio_share = {};
 		var emoticon = {};
+		var available = false;
+		
+		function addVideo(id) {
+			$('<video id="'+id+'" autoplay="true" width="1"></video>').appendTo('#screens');
+			//$('#'+id).play;
+		}
+		
+		function removeVideo(id) {
+			$('#'+id).remove();
+		}
 		
 		function addMemberToList(id, emot, idx) {
 			if (id === myName) {
@@ -161,6 +172,7 @@
 					delete(dc[key]);
 					delete(share[key]);
 					delete(emoticon[key]);
+					removeVideo(key);
 				} else {
 					addMemberToList(key, emoticon[key], idx++);
 				}
@@ -269,9 +281,14 @@
 			
 			setDataChannel(peerConnection, target);
 			
-			peerConnection.ontrack = function(e) {
-				v1.srcObject = e.streams[0];
-			}
+			/*peerConnection.ontrack = function(e) {
+				if (e.track.kind === "video") 
+					v1.srcObject = e.streams[0];
+				else if (e.track.kind === "audio")
+					
+					
+					
+			}*/
 
 			return peerConnection;
 		}
@@ -306,7 +323,6 @@
 		
 		function createOffer(name) { // 상대방의 name으로 connection 생성
 			var peerConnection = createPeerConnection(name);
-			
 			peerConnection.createOffer(async function(offer) { // offer 상대 peer에 전송
 				await send({
 					event : "offer",
@@ -322,6 +338,19 @@
 			
 			if (!renegotiationflg) {
 				pc[name] = peerConnection; // pc 객체에 저장
+				addVideo(name);
+				pc[name].ontrack = function(e) {
+					console.log(e);
+					if (e.track.kind === "video") {
+						v1.srcObject = e.streams[0];
+						console.log(name, "Video");
+					}
+					else if (e.track.kind === "audio") {
+						var targets = document.getElementById(name);
+						targets.srcObject = e.streams[0];
+						console.log(name, "Audio");
+					}
+				};
 				emoticon[name] = "default";
 			}
 		}
@@ -330,6 +359,19 @@
 		function handleOffer(from, target, offer) { 
 			if (!renegotiationflg) {
 				pc[from] = createPeerConnection(from);
+				addVideo(from);
+				pc[from].ontrack = function(e) {
+					console.log(e);
+					if (e.track.kind === "video") {
+						v1.srcObject = e.streams[0];
+						console.log(from, "Video");
+					}
+					else if (e.track.kind === "audio") {
+						var targets = document.getElementById(from);
+						targets.srcObject = e.streams[0];
+						console.log(from, "Audio");
+					}
+				};
 				emoticon[from] = "default";
 			}
 			var peerConnection = pc[from];
@@ -366,72 +408,106 @@
 			input.value = "";
 		}
 		
+		async function share_microphone() {
+			navigator.mediaDevices.getUserMedia({
+				audio: true
+			}).then(function(audioStream){
+				for (var key in pc) {
+					renegotiationflg = true;
+					(function (key){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
+						pc[key].onnegotiationneeded = function() {
+					    	pc[key].createOffer(async function(offer) { // offer 상대 peer에 전송
+								await send({
+									event : "rngt_offer",
+									data : offer,
+									from : myName,
+									to : key
+								});	
+								pc[key].setLocalDescription(offer); 
+								// LocalDescription 설정 -> icecandidate 유발시킴, 즉, candidate도 전송
+							}, function(error) {
+								
+							});	
+					    };
+					    
+					    //v1.srcObject = audioStream;
+					    
+					    if (key in audio_share) { // 이미 공유중인 상황이라면 제거 
+					    	pc[key].removeTrack(audio_share[key]);
+					    	delete(audio_share[key]);
+					    }
+					    else { // 공유중이지 않다면 새로 addTrack
+							audioStream.getTracks().forEach((track) => {
+								audio_share[key] = pc[key].addTrack(track, audioStream);
+							}); 
+					    }
+					})(key);
+				}
+			}).catch(function(e){
+				console.log(e);
+			}); 
+		}
+		
+		
 
 		async function share_monitor() { 
 			/*
 			 최대 난제. 화면공유 시 renegotiation 해주어야 하는 문제
 			 문제 해결 위해 rngt_offer로 offer 전달하면 renegotiation 해주도록 구현 
 			*/
-			navigator.mediaDevices.getUserMedia({
-				audio: true
-			}).then(function(audioStream){
-				//오디오 스트림을 얻어냄
-				navigator.mediaDevices.getDisplayMedia({
-					audio: true,
-					video: true
-				}).then(async function(screenStream){
-					//스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함
-					screenStream.addTrack(audioStream.getAudioTracks()[0]);
-					v1.srcObject = screenStream;
-					var obj_keys = Object.keys(pc);
-					/* 화면 공유 중지 */
-					screenStream.getVideoTracks()[0].addEventListener('ended', () => {
-						for (var key in pc) {
-							send({
-								event : "stop_video",
-								from : myName,
-								to : key
-							});
-						}
-					});
-					
-					
-					for (var i = 0; i<obj_keys.length; i++) {
-						renegotiationflg = true;
-						(function (i){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
-							pc[obj_keys[i]].onnegotiationneeded = function() {
-						    	pc[obj_keys[i]].createOffer(async function(offer) { // offer 상대 peer에 전송
-									await send({
-										event : "rngt_offer",
-										data : offer,
-										from : myName,
-										to : obj_keys[i]
-									});	
-									pc[obj_keys[i]].setLocalDescription(offer); 
-									// LocalDescription 설정 -> icecandidate 유발시킴, 즉, candidate도 전송
-								}, function(error) {
-									
-								});	
-						    };
-							
-						    if (obj_keys[i] in share) // 이미 공유중인 상황이라면 replace
-						    	screenStream.getTracks().forEach((track) =>{
-						    		share[obj_keys[i]].replaceTrack(track);
-						    	}); 
-						    else { // 공유중이지 않다면 새로 addTrack
-								screenStream.getTracks().forEach((track) => {
-									share[obj_keys[i]] = pc[obj_keys[i]].addTrack(track, screenStream);
-								});
-						    }
-						})(i);
+			navigator.mediaDevices.getDisplayMedia({
+				video: true
+			}).then(async function(screenStream){
+				//스크린 공유 스트림을 얻어내고 여기에 오디오 스트림을 결합함
+				//screenStream.addTrack(audioStream.getAudioTracks()[0]);
+				v1.srcObject = screenStream;
+				var obj_keys = Object.keys(pc);
+				/* 화면 공유 중지 */
+				screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+					for (var key in pc) {
+						send({
+							event : "stop_video",
+							from : myName,
+							to : key
+						});
 					}
-					
-				}).catch(function(e){
-					//error;
-s				});
+				});
+				
+				
+				for (var i = 0; i<obj_keys.length; i++) {
+					renegotiationflg = true;
+					(function (i){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
+						pc[obj_keys[i]].onnegotiationneeded = function() {
+					    	pc[obj_keys[i]].createOffer(async function(offer) { // offer 상대 peer에 전송
+								await send({
+									event : "rngt_offer",
+									data : offer,
+									from : myName,
+									to : obj_keys[i]
+								});	
+								pc[obj_keys[i]].setLocalDescription(offer); 
+								// LocalDescription 설정 -> icecandidate 유발시킴, 즉, candidate도 전송
+							}, function(error) {
+								
+							});	
+					    };
+						
+					    if (obj_keys[i] in share) // 이미 공유중인 상황이라면 replace
+					    	screenStream.getTracks().forEach((track) =>{
+					    		share[obj_keys[i]].replaceTrack(track);
+					    	}); 
+					    else { // 공유중이지 않다면 새로 addTrack
+							screenStream.getTracks().forEach((track) => {
+								share[obj_keys[i]] = pc[obj_keys[i]].addTrack(track, screenStream);
+							});
+					    }
+					})(i);
+				}
+				
 			}).catch(function(e){
 				//error;
-			}); 
+			});
+
 		}
 	</script>
 </body>
