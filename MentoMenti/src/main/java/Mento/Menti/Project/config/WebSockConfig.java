@@ -1,10 +1,6 @@
 package Mento.Menti.Project.config;
 
-import javax.servlet.ServletContext;
-import javax.websocket.server.ServerContainer;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -19,20 +15,9 @@ import Mento.Menti.Project.handler.WhiteBoardSocketHandler;
 @Configuration
 @EnableWebSocket
 public class WebSockConfig implements WebSocketConfigurer {
-	@Autowired
-	private ServletContext servletContext;
-	private boolean ignoreNullWsContainer;
 	
 	@Bean
 	public ServletServerContainerFactoryBean createWebSocketContainer() {
-        if (ignoreNullWsContainer) {
-            // Check if attribute is set in the ServletContext
-            ServerContainer serverContainer = (ServerContainer) this.servletContext.getAttribute("javax.websocket.server.ServerContainer");
-            if (serverContainer == null) {
-                return null;
-            }
-        }
-        
 	    ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
 	    container.setMaxTextMessageBufferSize(500000);
 	    container.setMaxBinaryMessageBufferSize(500000);
@@ -47,8 +32,4 @@ public class WebSockConfig implements WebSocketConfigurer {
 		registry.addHandler(new WhiteBoardSocketHandler(), "/WBsocket").setAllowedOrigins("*");
 	}
 	
-    @Value("${project.ignore-null-websocket-container:false}")
-    private void setIgnoreNullWsContainer(String flag) {
-        this.ignoreNullWsContainer = Boolean.parseBoolean(flag);
-    }
 }
