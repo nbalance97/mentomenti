@@ -38,7 +38,6 @@ public class SocketHandler extends TextWebSocketHandler {
    public void handleTextMessage(WebSocketSession session, TextMessage message) {
        //메시지 발송시 받게 됨 (send() 호출시)
        String msg = message.getPayload();
-       System.out.println(msg);
        for(WebSocketSession s : sessions) {
            try {
         	   if (s.getId() != session.getId())

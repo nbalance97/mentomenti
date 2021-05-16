@@ -384,6 +384,7 @@
 					screenStream.addTrack(audioStream.getAudioTracks()[0]);
 					v1.srcObject = screenStream;
 					var obj_keys = Object.keys(pc);
+					/* 화면 공유 중지 */
 					screenStream.getVideoTracks()[0].addEventListener('ended', () => {
 						for (var key in pc) {
 							send({
@@ -393,6 +394,8 @@
 							});
 						}
 					});
+					
+					
 					for (var i = 0; i<obj_keys.length; i++) {
 						renegotiationflg = true;
 						(function (i){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ

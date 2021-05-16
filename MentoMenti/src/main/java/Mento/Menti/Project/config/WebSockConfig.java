@@ -15,7 +15,6 @@ import Mento.Menti.Project.handler.WhiteBoardSocketHandler;
 @Configuration
 @EnableWebSocket
 public class WebSockConfig implements WebSocketConfigurer {
-	
 	@Bean
 	public ServletServerContainerFactoryBean createWebSocketContainer() {
 	    ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();

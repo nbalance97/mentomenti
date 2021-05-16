@@ -147,6 +147,7 @@
 	<!-- Library textarea에 적용하는 과정 -->
 	<script>
 		var settingFile = 'python';
+		var set_mode = 'python';
 	
 		var textarea = document.getElementById('editor');
 		var editor = CodeMirror.fromTextArea(textarea, {
@@ -183,7 +184,8 @@
 			editor.setSize("0%", "0%"); // 0%에서 100%로 늘려줘야 점점 안커짐....,,,,,
 			editor2.setSize("0%", "0%");
 			editor3.setSize("0%", "0%");
-
+			set_mode = e.value;
+			
 			if (e.value == "python") {
 				settingFile = 'python';
 			} else if (e.value === "C") {
@@ -223,7 +225,7 @@
 		
 		function processCompile() {
 			var total_data = {
-				mode: settingFile,
+				mode: set_mode,
 				src: editor.getValue(),
 				input: editor3.getValue(),
 			};
@@ -234,7 +236,7 @@
 		        async: true,
 		        data: total_data,
 		        success: function(data) {
-		            result.value = data;
+		            editor2.setValue(data);
 		        }
 		    });
 		}
