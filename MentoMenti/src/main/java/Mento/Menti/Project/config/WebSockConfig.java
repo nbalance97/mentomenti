@@ -1,23 +1,38 @@
 package Mento.Menti.Project.config;
 
+import javax.servlet.ServletContext;
+import javax.websocket.server.ServerContainer;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean;
-
 import Mento.Menti.Project.handler.ScreenShareSocketHandler;
 import Mento.Menti.Project.handler.SocketHandler;
 import Mento.Menti.Project.handler.WhiteBoardSocketHandler;
 
+
 @Configuration
 @EnableWebSocket
 public class WebSockConfig implements WebSocketConfigurer {
+	@Autowired
+	private ServletContext servletContext;
+	private boolean ignoreNullWsContainer;
 	
 	@Bean
 	public ServletServerContainerFactoryBean createWebSocketContainer() {
+        if (ignoreNullWsContainer) {
+            // Check if attribute is set in the ServletContext
+            ServerContainer serverContainer = (ServerContainer) this.servletContext.getAttribute("javax.websocket.server.ServerContainer");
+            if (serverContainer == null) {
+                return null;
+            }
+        }
+        
 	    ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
 	    container.setMaxTextMessageBufferSize(500000);
 	    container.setMaxBinaryMessageBufferSize(500000);
@@ -31,5 +46,9 @@ public class WebSockConfig implements WebSocketConfigurer {
 		registry.addHandler(new ScreenShareSocketHandler(), "/socket").setAllowedOrigins("*");
 		registry.addHandler(new WhiteBoardSocketHandler(), "/WBsocket").setAllowedOrigins("*");
 	}
-
+	
+    @Value("${project.ignore-null-websocket-container:false}")
+    private void setIgnoreNullWsContainer(String flag) {
+        this.ignoreNullWsContainer = Boolean.parseBoolean(flag);
+    }
 }
