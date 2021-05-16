@@ -144,7 +144,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td></td>
+			<td style="text-align: left;"><a href="javascript:void(0);" onclick="withdrawUser('<%=loginUser.getId()%>')" class="btn btn-danger">회원탈퇴</a></td>
 			<td style="text-align: right;"><a href="personalInfoChange" class="btn btn-primary">수정</a></td>
 		</tr>
 	</table>
@@ -153,5 +153,11 @@
 <%
 	}
 %>
-
+<script>
+	function withdrawUser(userid){
+		if (confirm("정말 탈퇴하시겠습니까?")){
+			location.href="processDeleteUser?userid="+userid;
+		}
+	}
+</script>
 <%@include file="menuPart2.jsp"%>
