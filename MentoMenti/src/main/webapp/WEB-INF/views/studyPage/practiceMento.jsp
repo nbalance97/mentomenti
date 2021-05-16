@@ -270,29 +270,29 @@
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
-						'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
-						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-question-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 				'</tr>').appendTo('#MemberTable');
 			} else if (emot === "finish") {
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
-						'<td>'+'<i class="far fa-check-circle fa-2x emotion"></i></td>'+
-						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-check-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 						'</tr>').appendTo('#MemberTable');
 			} else if (emot === 'non-finish') {
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
-						'<td>'+'<i class="far fa-times-circle fa-2x emotion"></i></td>'+
-						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-times-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 						'</tr>').appendTo('#MemberTable');
 			} else if (emot === 'default') {
 				$('<tr>'+
 						'<td>'+idx+'</td>'+
 						'<td>'+id+'</td>'+
-						'<td>'+'<i class="far fa-circle fa-2x"></i></td>'+
-						'<td><button type="button" class="btn btn-info" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
 						'</tr>').appendTo('#MemberTable');
 			}
 		}

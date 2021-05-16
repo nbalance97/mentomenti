@@ -107,7 +107,7 @@
                                         		</select>
                                         	</div>
                                         	<div class="form-group">
-                                        		<textarea style="rows:100%; text-align:left;" class="form-control form-control-user" name="intro" placeholder="소개말">안녕하세요!</textarea>
+                                        		<textarea style="rows:100%; text-align:left;" class="form-control form-control-user" name="intro" placeholder="소개말을 넣어주세요"></textarea>
                                         	</div>                                        
                                         </div>
                                       <div style="float:right; width:100%;">
