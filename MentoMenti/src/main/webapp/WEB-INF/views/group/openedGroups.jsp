@@ -270,11 +270,11 @@
 				
 				var s = "";
 				for (var j = 0; j<mentiCnt[i].cnt; j++) {
-					s += '<img src="resources/img/menti.png" style="width:10%">';
+					s += '<img src="resources/img/그룹파랑.png" style="width:10%">';
 				}
 				
 				for (var k = 0; k<group[i].maxperson - mentiCnt[i].cnt; k++) {
-					s += '<img src="resources/img/mento.png" style="width:10%">';
+					s += '<img src="resources/img/그룹검정.png" style="width:10%">';
 				}
 			
 				
