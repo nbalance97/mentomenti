@@ -268,6 +268,16 @@
 				if (i >= group.length) // 읽어들인 크기보다 커지면
 					break;
 				
+				var s = "";
+				for (var j = 0; j<mentiCnt[i].cnt; j++) {
+					s += '<img src="resources/img/menti.png" style="width:10%">';
+				}
+				
+				for (var k = 0; k<group[i].maxperson - mentiCnt[i].cnt; k++) {
+					s += '<img src="resources/img/mento.png" style="width:10%">';
+				}
+			
+				
 				$('<div class="col-lg-4"><a id="cardAction"><div class="card shadow mb-4"><div class="card-header py-3">'
 						+'<h5 class="m-0 text-primary">'
 						+'<span class="font-weight-500">'+group[i].name+'</span>'
@@ -278,10 +288,11 @@
 						+'<div class="introbottom">'
 						+'<p class="introheader"><em>스터디 소개</em><p>'
 						+'<p class="introheader">'+group[i].intro+'</p>'+'</div>'
-						
 						+'<p>과목 : '+group[i].category+'</p>'
 						+'<p>멘토 : '+group[i].mentoid+'</p>'
-						+'<p>인원 수 : '+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p></div></a></div>').appendTo('#groupList');
+						+ s + '</div></a></div>'
+						//+'<p>인원 수 : '+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p></div></a></div>'
+						).appendTo('#groupList');
 			}
 			
 			cntShowGroupIndex += 9;
