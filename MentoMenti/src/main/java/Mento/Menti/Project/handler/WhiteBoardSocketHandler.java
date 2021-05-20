@@ -21,8 +21,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Component
 public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
-    HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
-    HashMap<WebSocketSession, String> targetMap = new HashMap<>();
+    HashMap<String, String> sessionMap = new HashMap<>();
+    HashMap<String, String> targetMap = new HashMap<>();
     
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message)
@@ -45,15 +45,15 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     		String yourName = (String)jsonObj.get("to");
     		if (sessionMap.get(yourName) != null) // 상대가 누군가랑 연결이 되어있으면 연결 안함
     			return;
-    		sessionMap.put(myName, session);
-    		targetMap.put(session, yourName);
+    		sessionMap.put(myName, session.getId());
+    		targetMap.put(session.getId(), yourName);
     		return;
     	}
     	
         for (WebSocketSession webSocketSession : sessions) {
             if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) { // 자기 말고 다른 세션들에게만 메세지 전송
             	synchronized(webSocketSession) { // 동기화 처리 하여 충돌 안나도록 함.
-            		if (webSocketSession == sessionMap.get(targetMap.get(session)))
+            		if (webSocketSession.getId() == sessionMap.get(targetMap.get(session.getId())))
             			webSocketSession.sendMessage(message);
             	}
             }
@@ -67,7 +67,7 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
             if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) { // 자기 말고 다른 세션들에게만 메세지 전송
             	synchronized(webSocketSession) { // 동기화 처리 하여 충돌 안나도록 함.
             		try {
-                		if (webSocketSession == sessionMap.get(targetMap.get(session)))
+                		if (webSocketSession.getId() == sessionMap.get(targetMap.get(session.getId())))
                 			webSocketSession.sendMessage(new BinaryMessage(byteBuffer));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -81,13 +81,13 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.remove(session);
-        Set<Entry<String, WebSocketSession>> keyset = sessionMap.entrySet();
-        for (Entry<String, WebSocketSession> entry: keyset) {
-        	if(entry.getValue() == session) {
+        Set<Entry<String, String>> keyset = sessionMap.entrySet();
+        for (Entry<String, String> entry: keyset) {
+        	if(entry.getValue() == session.getId()) {
         		sessionMap.remove(entry.getKey());
         	}
         }
-        targetMap.remove(session);
+        targetMap.remove(session.getId());
         super.afterConnectionClosed(session, status);
     }
     
