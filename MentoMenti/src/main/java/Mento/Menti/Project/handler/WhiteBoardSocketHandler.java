@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.json.simple.JSONObject;
@@ -41,6 +43,8 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     	if (event.contentEquals("namecall")) {
     		String myName = (String)jsonObj.get("from");
     		String yourName = (String)jsonObj.get("to");
+    		if (sessionMap.get(yourName) != null) // 상대가 누군가랑 연결이 되어있으면 연결 안함
+    			return;
     		sessionMap.put(myName, session);
     		targetMap.put(session, yourName);
     		return;
@@ -77,6 +81,12 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.remove(session);
+        Set<Entry<String, WebSocketSession>> keyset = sessionMap.entrySet();
+        for (Entry<String, WebSocketSession> entry: keyset) {
+        	if(entry.getValue() == session) {
+        		sessionMap.remove(entry.getKey());
+        	}
+        }
         targetMap.remove(session);
         super.afterConnectionClosed(session, status);
     }
