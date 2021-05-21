@@ -9,11 +9,27 @@ import lombok.ToString;
 
 @NoArgsConstructor 
 @AllArgsConstructor
-@Getter
-@Setter
 @ToString
 public class WebCompilerDTO {
 	String mode;
 	String src;
 	String input;
+	public String getMode() {
+		return mode;
+	}
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+	public String getSrc() {
+		return src;
+	}
+	public void setSrc(String src) {
+		this.src = src;
+	}
+	public String getInput() {
+		return input;
+	}
+	public void setInput(String input) {
+		this.input = input;
+	}
 }
