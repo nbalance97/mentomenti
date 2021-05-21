@@ -44,12 +44,12 @@
 			int curMin = cal.get(cal.MINUTE);
 			int curSec = cal.get(cal.SECOND);
 			DecimalFormat df = new DecimalFormat("00");	//두 자리로 형식 맞춤
-			String joinDatetime = todaydate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
+			String leaveDatetime = todaydate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
 			
 			//그룹 탈퇴 완료 알림 DB 추가
 			NotificationDTO notification = new NotificationDTO();
 			notification.setReceiverid(loginid);
-			notification.setSendtime(joinDatetime);
+			notification.setSendtime(leaveDatetime);
 			notification.setContent(group.getName()+" 그룹에서 탈퇴 완료되었습니다.");
 			notification.setIsread(false);
 			HomeController.dao.getNotificationDAO().insertNotification(notification);

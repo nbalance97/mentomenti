@@ -10,6 +10,6 @@
 	display: block
 	}
 </style>
-<div class="screen">
+<div class="screen" id="screens">
 	<video class='center' id="v1" autoplay="true" width="80%" height="100%"></video> 
 </div> 

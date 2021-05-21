@@ -65,7 +65,7 @@
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
 	> <a href="joininggroups" style="text-decoration : none; color:gray">가입한 그룹</a>
 	> <a href="group?groupid=<%=groupid%>" style="text-decoration : none; color:gray"><%=groupname%></a>
-	> <a href="groupQnA?page=1&groupid=<%=groupid%>" style="text-decoration : none; color:gray">그룹 Q&A</a></p>
+	> <a href="groupQnA?groupid=<%=groupid%>" style="text-decoration : none; color:gray">그룹 Q&A</a></p>
 </div>
 
 
@@ -92,17 +92,17 @@
 
 
 <!-- 자신이 작성한 글에는 삭제 버튼 있음 -->
+<div style="text-align:right;">
 <%
 	if(post.getUserid().equals(id)){
 %>
-<div style="text-align:right;">
 	<input type="button" class="btn btn-success modifyPost" value="수정"/>
 	<input type="button" class="btn btn-danger deletePost" value="삭제"/>
-</div>
 <%
 	}
 %>
-
+<input type="button" onclick="location.href='groupQnA?page=1&groupid=<%=groupid%>'" class="btn btn-info" value="목록"/>
+</div>
 	
 <!-- 댓글 영역 -->
 <div>

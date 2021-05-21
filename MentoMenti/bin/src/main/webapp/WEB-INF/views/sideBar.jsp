@@ -42,11 +42,11 @@
 			<a href="main" class="sideLogo" style="text-decoration:none;">MOCO</a>
 		</header>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
-			<li><a href="notice?page=1">
+			<li><a href="notice">
 				<i class="fas fa-check-circle"></i>
 				<span class="sidebar-component">공지사항</span>
 			</a></li>
-			<li><a href="freeBoard?page=1"><i class="fas fa-clipboard-list"></i>
+			<li><a href="freeBoard"><i class="fas fa-clipboard-list"></i>
 				<span class="sidebar-component">자유게시판</span>
 			</a></li>
 

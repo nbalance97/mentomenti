@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
+	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page
 	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
@@ -32,35 +34,51 @@
 
 <%
 	int groupid = Integer.parseInt(request.getParameter("groupid"));
-GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
-List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
-
-//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
-boolean isMember = false;
-if (group.getMentoid().equals((String) session.getAttribute("userID")))
-	isMember = true;
-for (GroupmateDTO gl : groupmateList) { //가입한 그룹인 경우
-	if (gl.getId().equals((String) session.getAttribute("userID")))
+	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+	List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+	UserDTO user = new UserDTO();
+	user.setId(id);
+	boolean isAdmin = HomeController.dao.getUserDAO().searchUserById(user).get(0).is_admin();
+	
+	//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+	boolean isMember = false;
+	if (group.getMentoid().equals((String) session.getAttribute("userID")))
 		isMember = true;
-}
-if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
-	response.sendRedirect("rejectedAccess?type=notMember");
-}
+	for (GroupmateDTO gl : groupmateList) { //가입한 그룹인 경우
+		if (gl.getId().equals((String) session.getAttribute("userID")))
+			isMember = true;
+	}
+	if (!isMember && !isAdmin) { //관리자x & 해당 그룹의 멤버가 아니라면 접근 거부
+		response.sendRedirect("rejectedAccess?type=notMember");
+	}
 %>
 <%
-	int curPage = Integer.parseInt(request.getParameter("page"));
+	String strPage = request.getParameter("page");
+	int curPage;
+	if (strPage == null)	//기본값은 1
+		curPage = 1;
+	else curPage = Integer.parseInt(strPage);
+	
+	String groupname = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();
 %>
 
-<!-- 공지사항 페이지 -->
+<!-- 그룹 공지사항 페이지 -->
 
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4"
-	id="pageHeading">
-	<h1 class="h3 mb-0 text-gray-800">그룹 공지사항</h1>
+<div id="pageHeading" style="margin-bottom:20px">
+	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
+	> <a href="joininggroups" style="text-decoration : none; color:gray">가입한 그룹</a>
+	> <a href="group?groupid=<%=groupid%>" style="text-decoration : none; color:gray"><%=group.getName()%></a></p>
+</div>
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	
+	<h1 class="h3 mb-0 text-gray-800">
+		<a href="groupnotice?groupid=<%=groupid%>" class="text-gray-800 font-weight-500" style="text-decoration:none;">그룹 공지사항</a>
+	</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-				action="notice" method="GET">
+				action="groupnotice" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small" name="keyword"
 						placeholder="검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
@@ -76,8 +94,8 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		</li>
 	</ul>
 </div>
-<p class="mb-4"><%=group.getName()%>
-	그룹의 공지사항입니다.
+<p class="mb-4"><a href="group?groupid=<%=groupid%>"><%=group.getName()%>
+	그룹</a>의 공지사항입니다.
 </p>
 
 
@@ -99,15 +117,26 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		<%
 			String kwd = request.getParameter("keyword");	//검색 키워드
 			List<PostDTO> groupNotices = null;
-			if (kwd == null) {	//검색x, 전체 공지
+			if (kwd == null) {	//검색x, 그룹 공지 전체
 				groupNotices = HomeController.dao.getPostDAO().selectGroupNotices(group.getGroupid());
 			} else{	//검색o
-				//검색 기능 추가해야
+				PostDTO searchNotice = new PostDTO();
+				searchNotice.setTitle(kwd);
+				searchNotice.setGroupid(groupid);	//검색 키워드, 그룹 아이디 넘김
+				groupNotices = HomeController.dao.getPostDAO().searchGroupNotices(searchNotice);
 			}
 			
-			if(groupNotices.size() > 0) {	//결과 있음
+			if (groupNotices.size() == 0){
+		%>
+	</tbody>
+</table>
+	<div style="height:200px; text-align:center; line-height:200px">
+		결과가 없습니다.		
+	</div>
+	
+		<%
+			} else {	//결과 있음
 				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++) {
-					//PostDTO gn: noticeList for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
 					if(i==groupNotices.size()){
 						break;
 					}
@@ -124,22 +153,20 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		</tr>
 		<%
 				}
-			} else {	//결과 없음
-		%>
-		<tr style="height: 200px; line-height:200px;">
-			<td colspan="4">게시물이 아직 없습니다</td>
-		</tr>
-		<%
-			}
 		%>
 	</tbody>
 </table>
+		<%
+			}
+		%>
 
 
 <!-- 페이지 버튼 -->
 <input type="hidden" id="curPage" value="<%=curPage%>"/>
 <input type="hidden" id="postSize" value="<%=groupNotices.size() %>"/>
 <input type="hidden" id="gid" value="<%=groupid %>"/>
+<input type="hidden" id="keyword" value="<%=kwd%>"/>	<!-- 검색 키워드 -->
+
 <div class="d-flex align-items-center justify-content-between">
 		<nav aria-label="Page navigation example" style="margin: 0 auto;">
   			<ul class="pagination justify-content-center" id="list-body">
@@ -149,14 +176,16 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 
 
 	<%
-		if (group.getMentoid().equals(id))	//멘토인 경우에만 작성 버튼
+		if (group.getMentoid().equals(id)){	//멘토인 경우에만 작성 버튼
 	%>
 	<div class="d-sm-flex justify-content-between">
 		<div style="margin: 0 auto; float: right">
 			<a href="writeGroupNoticePage?groupid=<%=groupid%>" class="btn btn-secondary">작성</a>
 		</div>
 	</div>
-	
+	<%
+		}
+	%>
 
 </div>
 
@@ -166,6 +195,7 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 	var postData = document.getElementById("postSize").value;
 	var curpage = document.getElementById("curPage").value;
 	var groupid = document.getElementById("gid").value;
+	var kwd = document.getElementById("keyword").value;
 	$(document).ready(function () {
 		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
 	});
@@ -190,18 +220,36 @@ if (!isMember) { //해당 그룹의 멤버가 아니라면 접근 거부
 		const prev = startPage-1;
 		const next = endPage+1;
 		
-		$('#list-body').empty();
-		if(startPage > countPage){
-			$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+prev+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
-		}
-		for(var j=startPage ; j<=endPage ; j++){
-			if(currentPage==(j)){
-				$("#list-body").append("<li class='page-item active'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");
-			}else if(j>0){
-				$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");		
+		if (kwd=="null")	{	//검색 x
+			$('#list-body').empty();
+			if(startPage > countPage){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+prev+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 			}
+			for(var j=startPage ; j<=endPage ; j++){
+				if(currentPage==(j)){
+					$("#list-body").append("<li class='page-item active'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");
+				}else if(j>0){
+					$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"'>" + j + "</a></li>");		
+				}
+			}
+			if(next > 5 && next < totalPage)
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+next+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 		}
-		if(next > 5 && next < totalPage)
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+next+"&groupid="+groupid+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
-	} 
+		
+		else {	//검색 o
+			$('#list-body').empty();
+			if(startPage > countPage){
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+prev+"&groupid="+groupid+"&keyword="+kwd+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+			}
+			for(var j=startPage ; j<=endPage ; j++){
+				if(currentPage==(j)){
+					$("#list-body").append("<li class='page-item active'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"&keyword="+kwd+"'>" + j + "</a></li>");
+				}else if(j>0){
+					$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page=" + j + "&groupid="+groupid+"&keyword="+kwd+"'>" + j + "</a></li>");		
+				}
+			}
+			if(next > 5 && next < totalPage)
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='groupnotice?page="+next+"&groupid="+groupid+"&keyword="+kwd+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		}
+	}
 </script>

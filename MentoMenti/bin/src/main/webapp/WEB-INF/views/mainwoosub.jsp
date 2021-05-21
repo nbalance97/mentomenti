@@ -104,7 +104,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 			<div>
 				<label for="slide04" class="left"></label>
 				<label for="slide02" class="right"></label>
-				<a><img src="resources/img/mainimg1_2.png"></a>
+				<a href="notice"><img src="resources/img/mainimg1_2.png"></a>
 			</div>
 		</li>
 		<li class="slideitem">
@@ -125,7 +125,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 			<div>
 				<label for="slide03" class="left"></label>
 				<label for="slide01" class="right"></label>
-				<a><img src="resources/img/four_side.png"></a>
+				<a><img src="resources/img/4번슬라이드.png"></a>
 			</div>
 		</li>		
 	</ul>

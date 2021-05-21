@@ -5,7 +5,8 @@
 <mapper namespace="Mento.Menti.Project.dao.UserDAO">	
   <select id="selectUsers" resultType="Mento.Menti.Project.dto.UserDTO"> 
   	SELECT * 
-  	FROM user;
+  	FROM user
+  	ORDER BY joindate desc;
   </select>
   
   <insert id="insertUsers" parameterType="Mento.Menti.Project.dto.UserDTO">
@@ -60,11 +61,23 @@
   	FROM user
   	WHERE nickname = #{nickname};
   </select>
+  <!-- 아이디, 이름, 생년월일, 이메일로 유저찾기 -->
+   <select id="searchUserByIdNameBirthEmail" resultType="Mento.Menti.Project.dto.UserDTO">
+  	SELECT *
+  	FROM user
+  	WHERE id = #{id} and name = #{name} and birth = #{birth} and email = #{email};
+  </select>
   
   <select id="selectIntroById" parameterType="String" resultType="String">
   	SELECT intro
   	FROM user
   	WHERE id = #{id};
   </select>
+  
+  <!-- 회원 탈퇴 -->
+  <delete id="deleteUser" parameterType="String">
+  	DELETE FROM user
+  	WHERE id = #{id};
+  </delete>
   
 </mapper>

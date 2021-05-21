@@ -212,28 +212,6 @@
 	}
 %>
 
-<div class="col-lg-4">
-	<a id="cardAction">
-		<div class="card shadow mb-4">
-			<div class="card-header py-3">
-				<h5 class="m-0 text-primary">
-				<span class="font-weight-500">데이터베이스 기초</span>
-			<div class="btn btn-warning btn-circle btn-sm" style="float: right;" onclick="chkAbleToJoin(group[i].mentoid, group[i].groupid)">
-			<img src="resources/img/right-arrow.png" style="width:100%"></h5>
-		</div>
-		<div class="card-body cardscreen">
-			<div class="introbottom">
-				<p class="introheader"><em>스터디 소개</em><p>
-				<p class="introheader">스터디는 이러하다</p>
-			</div>
-			<p><span class="font-weight-700" style="color:gray">과목</span> 데이터베이스</p>
-			<p><span class="font-weight-700" style="color:gray">멘토</span> 멘토이름</p>
-			<p><span class="font-weight-700" style="color:gray">현재 인원 수</span> 3/4</p>
-		</div>
-	</a>
-</div>
-
-
 <!-- jstl문 활용해서 groups에 실제 group, 멘티 수 넣어 줌 -->
 <c:set var="groups" value="<%=groups%>"></c:set>
 <c:set var="mentiCnts" value="<%=mentiCnts%>"></c:set>
@@ -268,6 +246,16 @@
 				if (i >= group.length) // 읽어들인 크기보다 커지면
 					break;
 				
+				var s = "";
+				for (var j = 0; j<mentiCnt[i].cnt; j++) {
+					s += '<img src="resources/img/그룹파랑.png" style="width:45px">';
+				}
+				
+				for (var k = 0; k<group[i].maxperson - mentiCnt[i].cnt; k++) {
+					s += '<img src="resources/img/그룹검정.png" style="width:45px">';
+				}
+			
+				
 				$('<div class="col-lg-4"><a id="cardAction"><div class="card shadow mb-4"><div class="card-header py-3">'
 						+'<h5 class="m-0 text-primary">'
 						+'<span class="font-weight-500">'+group[i].name+'</span>'
@@ -278,12 +266,13 @@
 						+'<div class="introbottom">'
 						+'<p class="introheader"><em>스터디 소개</em><p>'
 						+'<p class="introheader">'+group[i].intro+'</p>'+'</div>'
-						
-						+'<p>과목 : '+group[i].category+'</p>'
-						+'<p>멘토 : '+group[i].mentoid+'</p>'
-						+'<p>인원 수 : '+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p></div></a></div>').appendTo('#groupList');
+						+'<span class="font-weight-500" style="color:gray">과목 </span>'+group[i].category+'</p>'
+						+'<span class="font-weight-500" style="color:gray">멘토 </span>'+group[i].mentoid+'</p>'
+						+ s + '</div></a></div>'
+					
+						).appendTo('#groupList');
 			}
-			
+	
 			cntShowGroupIndex += 9;
 		};
 		
@@ -296,7 +285,7 @@
 			var scrollHeight = $(window).scrollTop() + $(window).height();
 			
 			//if(scrollHeight == documentHeight){
-			if(documentHeight <= scrollHeight){
+			if(scrollHeight >= documentHeight - 50){
 				showGroups();
 			}
 		});

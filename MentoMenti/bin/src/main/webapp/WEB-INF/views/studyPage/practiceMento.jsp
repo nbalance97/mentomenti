@@ -43,7 +43,8 @@
 		height:82vh;
 		float:left;
 		width:48%;
-		border-style:dotted;
+		border:1px solid gray;
+		background:white;
 	}
 	.codingFunc{
 		width:48%;
@@ -57,17 +58,6 @@
 	</style>
 </head>
 <script>
-	function change_opt(e) {
-		var groupid = document.getElementById("groupidValue").value;
-		if (e.value == 'python') {
-			window.location.href = 'practiceMento?groupid='+groupid+'&mode=python';
-		} else if (e.value == 'C') {
-			window.location.href = 'practiceMento?groupid='+groupid+'&mode=C';
-		} else if (e.value == 'java') {
-			var groupid_ = Integer.parseInt(request.getParameter("groupid"));
-			window.location.href = 'practiceMento?groupid='+groupid+'&mode=java';
-		}
-	}
 </script>
 <body>
 			<%
@@ -102,99 +92,39 @@
 	<% 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8"); 
-		String SRC = request.getParameter("CodeText"); // 코드와 입력값 받음
-		String input = request.getParameter("InputText");
-		String mode = request.getParameter("mode");
-		String settingFile = null; // 설정된 파일명
-		WebCompiler WC = WebCompiler.getInstance();
-		
-		if (mode == null) 
-			mode = "python";
-		
-		if (mode.equals("python"))
-			settingFile = "python";
-		else if (mode.equals("C"))
-			settingFile = "text/x-csrc";
-		else if (mode.equals("java"))
-			settingFile = "text/x-java";
-		
-		
-		if (SRC != null)
-			SRC.trim();
-		if (input != null)
-			input.trim();
 		
 	%>
-	<%@include file="studySidebar.jsp"%>
+	
 	<div class="main">
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
 			<div class="problemImg shadow img-rounded">
-				<h1>문제를 게시해주세요</h1>
+				<img id="prob_image" src="resources/img/fileupload_default.png" style="width:100%; height:100%; object-fit: contain;"></img> 
 			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
 					<select id="selectpart" onchange="change_opt(this)">
-						<option value="python" <%
-							if (mode.equals("python"))
-								out.println("selected");
-						%>>Python</option>
-						<option value="C" <%
-							if (mode.equals("C"))
-								out.println("selected");
-						%>>C</option>
-						<option value="java" <%
-							if (mode.equals("java"))
-								out.println("selected");
-						%>>java</option>
+						<option value="python">Python</option>
+						<option value="C">C</option>
+						<option value="java">java</option>
 					</select>
 				</div>
-				<select id="groupidValue" name="groupidValue">
-					<option value=<%=groupid%> selected><%=groupid%></option>
-				</select>
-				<form name="compileView" style="width:100%; height:70%;" method="post" action="./practiceMento?groupid=<%=groupid%>&mode=<%=mode%>">
+				<form name="compileView" style="width:100%; height:70%;" method="post" action="">
 					<div class="compiler img-rounded" style="padding:5px">
 							<label>Code Input</label>
-							<input type="submit" value="Execute">
-							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"><%
-								/* 제출해도 사라지지 않도록 제출 시 제출한 코드 다시 롤백 */
-								if (SRC != null)
-									out.println(SRC);
-								if (SRC == null && mode.equals("java")) {
-									out.println(WC.getJavaDefault());
-								}
-							%></textarea> 
+							<input type="button" value="Execute" onclick="processCompile();">
+							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
 					</div>
 			
 					<div class="input img-rounded" style="padding:5px">
 						<label>stdin : </label>
-						<textarea style="width:100%; height:100%;" name="InputText" id="input"><%
-								if (input != null) {
-									out.println(input); // 사라지지 않게 처리
-								}
-							%></textarea>
+						<textarea style="width:100%; height:100%;" name="InputText" id="input"></textarea>
 					</div>
 				</form>
 			
 				<div class="result img-rounded" style="padding:5px">
 					<label>result : </label>
-					<textarea style="width:100%; height:100%;" name="ResultText" id="result"><%
-						if (SRC != null) {
-							String temp = null;
-							if (mode.equals("python")) {
-								temp = WC.compilePython(SRC, input);
-							} else if (mode.equals("C")) {
-								temp = WC.compileC(SRC, input);
-							} else if (mode.equals("java")) {
-								temp = WC.compileJava(SRC, input);
-							}
-					
-							if (temp != null) 
-								out.println(temp);
-							else
-								out.println("에러 발생");
-						}
-					%></textarea>
+					<textarea style="width:100%; height:100%;" name="ResultText" id="result"></textarea>
 				</div>
 			</div>
 		</div>
@@ -213,15 +143,18 @@
 			
 		%>
 	</div>
-	
+	<%@include file="studySidebar.jsp"%>
 	<!-- Library textarea에 적용하는 과정 -->
 	<script>
+		var settingFile = 'python';
+		var set_mode = 'python';
+	
 		var textarea = document.getElementById('editor');
 		var editor = CodeMirror.fromTextArea(textarea, {
 			lineNumbers: true,
 			lineWrapping: true,
 			theme: "dracula",
-			mode: "<%=settingFile%>",
+			mode: "python",
 			value: textarea.value,
 		});
 		
@@ -229,6 +162,7 @@
 		var editor2 = CodeMirror.fromTextArea(textarea2, {
 			lineNumbers: true,
 			lineWrapping: true,
+			mode: "python",
 			theme: "dracula",
 			value: textarea2.value
 		});
@@ -237,6 +171,7 @@
 		var editor3 = CodeMirror.fromTextArea(textarea3, {
 			lineNumbers: true,
 			lineWrapping: true,
+			mode: "python",
 			theme: "dracula",
 			value: textarea3.value
 		});
@@ -244,52 +179,182 @@
 		editor.setSize("100%", "100%");
 		editor2.setSize("100%", "100%");
 		editor3.setSize("100%", "100%");
+		
+		function change_opt(e) {
+			editor.setSize("0%", "0%"); // 0%에서 100%로 늘려줘야 점점 안커짐....,,,,,
+			editor2.setSize("0%", "0%");
+			editor3.setSize("0%", "0%");
+			set_mode = e.value;
+			
+			if (e.value == "python") {
+				settingFile = 'python';
+			} else if (e.value === "C") {
+				settingFile = "text/x-csrc";
+			} else {
+				settingFile = "text/x-java";
+			}
+			
+			editor = CodeMirror.fromTextArea(textarea, {
+				lineNumbers: true,
+				lineWrapping: true,
+				theme: "dracula",
+				mode: settingFile,
+				value: textarea.value,
+			});
+			
+			editor2 = CodeMirror.fromTextArea(textarea2, {
+				lineNumbers: true,
+				lineWrapping: true,
+				theme: "dracula",
+				mode: settingFile,
+				value: textarea2.value
+			});
+			
+			editor3 = CodeMirror.fromTextArea(textarea3, {
+				lineNumbers: true,
+				lineWrapping: true,
+				theme: "dracula",
+				mode: settingFile,
+				value: textarea3.value
+			});
+			
+			editor.setSize("100%", "100%");
+			editor2.setSize("100%", "100%");
+			editor3.setSize("100%", "100%");	
+		}
+		
+		function processCompile() {
+			var total_data = {
+				mode: set_mode,
+				src: editor.getValue(),
+				input: editor3.getValue(),
+			};
+			
+			$.ajax({
+		        url: "https://kgu.mentomenti.kro.kr:8000/WebCompile",
+		        type: "POST",
+		        async: true,
+		        data: total_data,
+		        success: function(data) {
+		            editor2.setValue(data);
+		        }
+		    });
+		}
 	</script>
-	
-		<script>
+	<script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
 	    var myGroup = <%=groupid%>;
 		var dataChannel;
 	    var myoffer;
+
+		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
+		var image = document.getElementById("prob_image");
+		var myemoticon = "ques";
+		
 		var pc = {};
 		var dc = {};
 		var share = {};
-		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
+		var emoticon = {};
 		
-		function addMemberToList(id, idx) {
-			$('<tr>'+
-			'<td>'+idx+'</td>'+
-			'<td>'+id+'</td>'+
-			'<td>'+'<i class="far fa-question-circle stateIcon fa-2x"></i></td>'+
-			'<td><button type="button" class="btn btn-info" onclick="canvas()">이동</button></td>'+
-			'</tr>').appendTo('#MemberTable');
+		function addMemberToList(id, emot, idx) {
+			if (id === myName) {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td></td>'+
+						'<td></td>'+
+				'</tr>').appendTo('#MemberTable');
+				return;
+			} 
+			
+			if (emot === "ques") {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-question-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+				'</tr>').appendTo('#MemberTable');
+			} else if (emot === "finish") {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-check-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			} else if (emot === 'non-finish') {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-times-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			} else if (emot === 'default') {
+				$('<tr>'+
+						'<td>'+idx+'</td>'+
+						'<td>'+id+'</td>'+
+						'<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>'+
+						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
+						'</tr>').appendTo('#MemberTable');
+			}
 		}
 		
-		function canvas(){
+		function uploadFile(inputElement) {
+			var file = inputElement.files[0];
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				//Data : reader.result;
+				arrayBuffer = reader.result;
+				for (var key in dc)
+					dc[key].send(arrayBuffer);
+				
+				var url = URL.createObjectURL(new Blob([arrayBuffer]));
+				image.src = url;
+			}
+			reader.readAsArrayBuffer(file);
+		}
+		
+	
+		
+		function canvas(btn){
 			var url = "/canvas";
 			var name = "canvas";
 			var popupWidth = 1200;
 			var popupHeight = 700;
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
-			var popupY= (window.screen.height / 2) - (popupHeight / 2);
+			var popupY = (window.screen.height / 2) - (popupHeight / 2);
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
-			window.open(url, name, option+", height="+popupHeight+', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+			myExternalWindow = window.open(url+'?my_id='+myName+'&your_id='+btn.value, name, option+ ', left='+ popupX + ', top='+ popupY);
+			myExternalWindow.resizeTo(1200,700);
 		}
 		
 		function checkConnection() {
 			var idx = 1;
 			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
-			addMemberToList(myName, idx++);
+			addMemberToList(myName, myemoticon, idx++);
 			for (var key in pc) {
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
 					delete(pc[key]);
 					delete(dc[key]);
 					delete(share[key]);
+					delete(emoticon[key]);
 				} else {
-					addMemberToList(key, idx++);
+					addMemberToList(key, emoticon[key], idx++);
 				}
+			}
+		}
+		
+		
+		function changestatus(status) {
+			myemoticon = status;
+			for (var key in pc) {
+				send({
+					event : "changeStatus",
+					data : status,
+					from : myName,
+					to : key
+				});
 			}
 		}
 		
@@ -326,6 +391,10 @@
 			    case "namecall":
 			    	createOffer(data);
 			    	break;
+			    case "changeStatus":
+			    	emoticon[from] = data;
+			    	renegotiationflg = false;
+			    	break;
 			    default:
 			        break;
 			    }
@@ -357,8 +426,6 @@
 			
 			var peerConnection = new RTCPeerConnection(configuration);
 			peerConnection.onicecandidate = function(event) { // Handler 등록
-				if (renegotiationflg)
-					return;
 				if (event.candidate) {
 					send({
 						event : "candidate",
@@ -368,11 +435,7 @@
 					});
 				}
 			}
-			
 			setDataChannel(peerConnection, target);
-			
-
-
 			return peerConnection;
 		}
 		
@@ -383,7 +446,6 @@
 			
 			dataChannel.onopen = function(event) {
 				console.log("dataChannel successfully opened!");
-				dataChannel.send("data");
 			};
 			
 			dataChannel.onerror = function(error) {
@@ -397,10 +459,13 @@
 			
 			dataChannel.onmessage = function(event) {
 				console.log("Message:", event.data);
+				var arrayBuffer = event.data;
+				var url = URL.createObjectURL(new Blob([arrayBuffer]));
+				image.src = url;
 			};
 			
 			peerConnection.ondatachannel = function(event) {
-				dc[target] = event.channel; 
+				dc[target] = event.channel; // datachannel 따로 저장
 			};
 		}
 		
@@ -420,15 +485,15 @@
 				
 			});	
 			
-			if (!renegotiationflg)
-				pc[name] = peerConnection; // pc 객체에 저장
+			
+			pc[name] = peerConnection; // pc 객체에 저장
+			emoticon[name] = "default";
 		}
 		
 		
 		function handleOffer(from, target, offer) { 
-			if (!renegotiationflg) {
-				pc[from] = createPeerConnection(from);
-			}
+			pc[from] = createPeerConnection(from);
+			emoticon[from] = "default";
 			var peerConnection = pc[from];
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
 			peerConnection.createAnswer(function(answer) { // answer 만들어서 전송
@@ -445,8 +510,6 @@
 		}
 		
 		function handleCandidate(from, to, candidate) {
-			if (renegotiationflg)
-				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
 		}
 		
