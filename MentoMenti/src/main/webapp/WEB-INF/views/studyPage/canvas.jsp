@@ -133,7 +133,7 @@
 	</div>
 		<script src="/resources/js/painter2.js"></script>
   <script>
-		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/WBsocket');
+		var conn = new WebSocket('wss://localhost:8000/WBsocket');
 	    var myName = '<%=request.getParameter("my_id")%>'; // 자기 id 저장
 	    var yourName = '<%=request.getParameter("your_id")%>';
 	    var myCanvas = document.getElementById("canvas");

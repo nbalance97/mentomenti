@@ -52,6 +52,8 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     		}
     		sessionMap.put(myName, session.getId());
     		targetMap.put(session.getId(), yourName);
+    		System.out.println(sessionMap);
+    		System.out.println(targetMap);
     		return;
     	}
     	
