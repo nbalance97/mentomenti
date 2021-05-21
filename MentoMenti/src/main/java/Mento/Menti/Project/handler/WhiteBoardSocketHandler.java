@@ -43,8 +43,13 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     	if (event.contentEquals("namecall")) {
     		String myName = (String)jsonObj.get("from");
     		String yourName = (String)jsonObj.get("to");
-    		if (sessionMap.get(yourName) != null) // 상대가 누군가랑 연결이 되어있으면 연결 안함
-    			return;
+    		if (sessionMap.get(yourName) != null) { // 상대가 누군가랑 연결이 되어있으면 그게 자신인지 체크
+    			if (targetMap.get(sessionMap.get(yourName)).contentEquals(myName)) {
+    	    		sessionMap.put(myName, session.getId());
+    	    		targetMap.put(session.getId(), yourName);
+    			}
+     			return;
+    		}
     		sessionMap.put(myName, session.getId());
     		targetMap.put(session.getId(), yourName);
     		return;
