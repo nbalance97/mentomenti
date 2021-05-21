@@ -30,7 +30,7 @@ public class HomeController {
 
     @RequestMapping(value="/")
     public String index() {    
-        return "loginPage";
+        return "mainwoosub";
     }
     
     @RequestMapping(value="/bh3")
