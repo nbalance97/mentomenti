@@ -125,32 +125,7 @@ public class HomeController {
     
     @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
     public String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
-    	if (!img.isEmpty()) {	//프로필 이미지를 새로 업로드 했을 때만 실행
-	    	//업로드 경로
-	    	String root = System.getProperty("user.dir");
-	    	String uploadPath = "src/main/resources/static/img/user";
-	    	
-	    	//기존에 있던 프로필 이미지 삭제
-	    	File existsPng = new File(root + "/" + uploadPath + "/" + id + ".png");
-	    	File existsJpg = new File(root + "/" + uploadPath + "/" + id + ".jpg");
-	    	if(existsPng.exists()) {
-	    		existsPng.delete();
-	    	}
-	    	if (existsJpg.exists()) {
-	    		existsJpg.delete();
-	    	}
-	    	
-	    	//업로드 이미지 확장자
-	    	StringTokenizer st = new StringTokenizer(img.getOriginalFilename(), ".");
-	    	String extension = null;
-	    	while(st.hasMoreTokens())
-	    		extension = st.nextToken();
-	    	String filePath = root + "/" + uploadPath + "/" + id + "." + extension.toLowerCase();
-	    	
-	    	//이미지 파일 저장
-	    	File dest = new File(filePath);
-	    	img.transferTo(dest);
-    	}
+    	if (!img.isEmpty()) {}
 
     	return "/process/processPersonalInfoChange";
     }
@@ -165,9 +140,9 @@ public class HomeController {
     	return "/notificationListPage";
     }
     
-    @RequestMapping(value="/mainwoosub") //알림 목록 페이지
+    @RequestMapping(value="/newjoingroup") //알림 목록 페이지
     public String index42() {
-    	return "/mainwoosub";
+    	return "/group/newjoingroup";
     }
     
     
