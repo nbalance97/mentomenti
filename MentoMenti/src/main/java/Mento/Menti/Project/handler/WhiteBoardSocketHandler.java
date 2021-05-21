@@ -53,7 +53,7 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
         for (WebSocketSession webSocketSession : sessions) {
             if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) { // 자기 말고 다른 세션들에게만 메세지 전송
             	synchronized(webSocketSession) { // 동기화 처리 하여 충돌 안나도록 함.
-            		if (webSocketSession.getId() == sessionMap.get(targetMap.get(session.getId())))
+            		if (webSocketSession.getId().contentEquals(sessionMap.get(targetMap.get(session.getId()))))
             			webSocketSession.sendMessage(message);
             	}
             }
@@ -67,7 +67,7 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
             if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) { // 자기 말고 다른 세션들에게만 메세지 전송
             	synchronized(webSocketSession) { // 동기화 처리 하여 충돌 안나도록 함.
             		try {
-                		if (webSocketSession.getId() == sessionMap.get(targetMap.get(session.getId())))
+                		if (webSocketSession.getId().contentEquals(sessionMap.get(targetMap.get(session.getId()))))
                 			webSocketSession.sendMessage(new BinaryMessage(byteBuffer));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -83,7 +83,7 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
         sessions.remove(session);
         Set<Entry<String, String>> keyset = sessionMap.entrySet();
         for (Entry<String, String> entry: keyset) {
-        	if(entry.getValue() == session.getId()) {
+        	if(entry.getValue().contentEquals(session.getId())) {
         		sessionMap.remove(entry.getKey());
         	}
         }
