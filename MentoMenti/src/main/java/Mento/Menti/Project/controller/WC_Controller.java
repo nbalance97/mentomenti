@@ -15,7 +15,6 @@ public class WC_Controller {
     @RequestMapping(value="/WebCompile")
     public @ResponseBody String Compile(WebCompilerDTO data) {
     	WebCompiler WC = WebCompiler.getInstance();
-    	System.out.println(data.toString());
     	String temp = "";
 		if (data.getMode().equals("python")) {
 			temp = WC.compilePython(data.getSrc(), data.getInput());
