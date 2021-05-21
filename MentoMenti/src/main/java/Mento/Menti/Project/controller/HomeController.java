@@ -140,11 +140,7 @@ public class HomeController {
     	return "/notificationListPage";
     }
     
-    @RequestMapping(value="/newjoingroup") //알림 목록 페이지
-    public String index42() {
-    	return "/group/newjoingroup";
-    }
-    
+
     
     
     
@@ -240,7 +236,7 @@ public class HomeController {
     
     @RequestMapping(value="/joininggroups") //가입한 그룹 목록 페이지
     public String joiningGroups() {
-    	return "/group/joininggroups";
+    	return "/group/newjoingroup";
     }
     
     @RequestMapping(value="/group") //그룹 별 페이지
