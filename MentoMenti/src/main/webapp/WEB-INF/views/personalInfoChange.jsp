@@ -55,12 +55,13 @@
 
 	//모든 조건을 만족했는지 확인 후 수정 완료
 	function chkForm() {
-		var pw1 = document.getElementById("new_pw_text").value;
-		var pw2 = document.getElementById("pw_chk_text").value;
-		
 		var form = document.changeForm;
 		var nickname = document.getElementById("nickname_text").value; //닉네임
+		var pw1 = document.getElementById("new_pw_text").value;	//변경할 비밀번호
+		var pw2 = document.getElementById("pw_chk_text").value;	//변경할 비밀번호 확인
 		var email = document.getElementById("email_text").value; //이메일
+		var intro = document.getElementById("intro_text").value; //소개글
+		
 		var origin = document.getElementById("originNickUser").value;
 
 		if(nickname!=origin){
@@ -70,7 +71,7 @@
 			}
 		}
 		
-		if (pw1.length>0 || pw2.length>0){	//비번 변경 시
+		if (pw1.length > 0 || pw2.length > 0){	//비번 변경 시
 			if(isPwChecked == false) {
 				alert("비밀번호 확인을 해주세요");
 				return;
@@ -82,6 +83,11 @@
 		var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 		if (!regExpEmail.test(email)) {
 			alert("이메일 형식을 확인해주세요");
+			return;
+		}
+		
+		if (intro.length > 50){
+			alert("소개글은 50글자 이하로 작성해주세요");
 			return;
 		}
 
@@ -180,7 +186,6 @@
 	}
 	%>
 	
-	
 		<table class="table" style="width: 80%; margin: 0 auto;">
 			<tr style="width: 50px">
 				<td>이름</td>
@@ -228,8 +233,10 @@
 			</tr>
 			<tr>
 				<td>소개글</td>
-				<td><textarea id="intro_text" name="new_intro" rows="4"
-						style="width: 80%"><%=loginUser.getIntro()%></textarea></td>
+				<td>
+					<textarea id="intro_text" name="new_intro" rows="4" style="width: 80%"><%=loginUser.getIntro()%></textarea>
+					(<strong id="intro_len">-</strong><span>/50자</span>)
+				</td>
 			</tr>
 			<tr>
 				<td></td>
@@ -247,3 +254,48 @@
 %>
 
 <%@include file="menuPart2.jsp"%>
+
+
+
+<script type="text/javascript">	
+	//소개글 텍스트 입력할 때마다 글자 수 실시간 반영
+    (function (window, $, undefined) {
+    	//글자수 셀 대상, 글자수 표시 text
+        var $intro_text = $('#intro_text'), $intro_len = $('#intro_len');
+
+      	//실시간 글자수 세기
+        $intro_text.keyup(function () {
+            chkIntroLength(this);
+        });
+      
+        function chkIntroLength(objMsg) { //소개글 길이 계산
+            var pattern = /\r\n/gm;
+            var vacuum_text;
+            var vacuum_length;
+
+            vacuum_text = $(objMsg).val();
+            vacuum_length = lengthMsg($(objMsg).val());
+            vacuum_text = vacuum_text.replace(pattern, '\n');
+            $intro_len.html(vacuum_text.length);//현재 글자수 반영
+        }
+        
+        //텍스트 길이 계산
+        function lengthMsg(obj_msg) {
+            var nbytes = 0;
+            var i;
+            for (i = 0; i < obj_msg.length; i++) {
+                var ch = obj_msg.charAt(i);
+                if (encodeURIComponent(ch).length > 4) { // 한글일 경우
+                    nbytes += 2;
+                } else if (ch === '\n') { // 줄바꿈일 경우
+                    if (obj_msg.charAt(i - 1) !== '\r') { // 하지만 밀려서 줄이 바뀐경우가 아닐때
+                        nbytes += 1;
+                    }
+                } else { //나머지는 모두 1byte
+                    nbytes += 1;
+                }
+            }
+            return nbytes;
+        }
+    })(window, jQuery, undefined);
+</script>
