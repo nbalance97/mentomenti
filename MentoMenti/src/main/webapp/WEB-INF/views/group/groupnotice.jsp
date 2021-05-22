@@ -141,13 +141,14 @@
 						break;
 					}
 					PostDTO gn = groupNotices.get(i);
+					String writerNick = HomeController.dao.getUserDAO().selectNicknameById(gn.getUserid());	//작성자 아이디
 		%>
 		<tr role="row" class="odd">
 			<td>
 				<!-- 제목 -->
 				<a href="groupNoticeContent?postid=<%=gn.getPostid()%>" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
 			</td>
-			<td><%=gn.getUserid() %></td> <!-- 작성자 -->
+			<td><%=writerNick %></td> <!-- 작성자 -->
 			<td><%=gn.getPostdate()%></td> <!-- 작성일자 -->
 			<td><%=gn.getViewcount() %></td> <!-- 조회수 -->
 		</tr>

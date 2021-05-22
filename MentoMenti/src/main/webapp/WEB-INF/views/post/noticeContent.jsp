@@ -52,9 +52,9 @@
 	if (id != null){	//로그인 상태에서 게시물 조회 -> 조회수 증가
 		HomeController.dao.getPostDAO().updateViewcount(postid);
 	}
-	List<PostDTO> postList = HomeController.dao.getPostDAO().searchByPostId(postid);	//게시물 번호로 찾은 게시물
-	PostDTO post = postList.get(0);
-
+	List<PostDTO> noticeList = HomeController.dao.getPostDAO().searchByPostId(postid);	//게시물 번호로 찾은 게시물
+	PostDTO notice = noticeList.get(0);
+	String nWriterNick = HomeController.dao.getUserDAO().selectNicknameById(notice.getUserid());	//작성자 아이디
 %>
 
 <!-- Page Heading -->
@@ -69,16 +69,16 @@
 	aria-describedby="dataTable_info" style="width: 100%; background: white; margin-bottom:50px">
 	<tbody>
 		<tr>
-			<th colspan="3" style="text-align:center;" id="title"><h4 style="padding:5px 0px"><%=post.getTitle()%></h4></th>
+			<th colspan="3" style="text-align:center;" id="title"><h4 style="padding:5px 0px"><%=notice.getTitle()%></h4></th>
 		</tr>
 		<tr role="row">
-			<td tabindex="0" rowspan="1" colspan="1" style="width: 35%"><b>작성자</b><%=post.getUserid()%></td>
-			<td tabindex="0" rowspan="1" colspan="1" style="width: 45%;"><b>작성일자</b><%=post.getPostdate()%></td>
-			<td tabindex="0" rowspan="1" colspan="1" style="width: 20%;"><b>조회수</b><%=post.getViewcount()%></td>
+			<td tabindex="0" rowspan="1" colspan="1" style="width: 35%"><b>작성자</b><%=nWriterNick%></td>
+			<td tabindex="0" rowspan="1" colspan="1" style="width: 45%;"><b>작성일자</b><%=notice.getPostdate()%></td>
+			<td tabindex="0" rowspan="1" colspan="1" style="width: 20%;"><b>조회수</b><%=notice.getViewcount()%></td>
 		</tr>
 		<tr>
 			<td colspan="3" style="padding:70px 20px">
-				<c:set var="content" value="<%=post.getContent()%>"/>
+				<c:set var="content" value="<%=notice.getContent()%>"/>
 				${fn:replace(fn:escapeXml(content), cn, br)}
 			</td>
 		</tr>
@@ -89,7 +89,7 @@
 <!-- 자신이 작성한 글에는 삭제 버튼 있음 -->
 <div style="text-align:right;">
 <%
-	if(post.getUserid().equals(id)){
+	if(notice.getUserid().equals(id)){
 %>
 	<input type="button" class="btn btn-success modifyPost" value="수정"/>
 	<input type="button" class="btn btn-danger deletePost" value="삭제"/>
@@ -141,7 +141,7 @@
 					%>
 					
 					
-				<!-- 댓글 작성자 아이디 -->
+				<!-- 댓글 작성자 닉네임 -->
 				<b><%=commentNick%></b>
 				
 				<!-- 댓글 작성자 프로필 (마우스 hover시 보임) -->
@@ -200,19 +200,19 @@
 		$(".deletePost").on('click', function(){
 		    if (confirm("게시물을 삭제하시겠습니까?")) {
 		    	//댓글 번호, 게시물 번호 전달 (삭제 버튼 id가 댓글 번호로 설정되어 있음)
-		    	location.href = "processDeletePost?postid="+<%=post.getPostid()%>;
+		    	location.href = "processDeletePost?postid="+<%=notice.getPostid()%>;
 		    }
 		});
 		
 		$(".deleteComment").on('click', function(){
 		    if (confirm("댓글을 삭제하시겠습니까?")) {
 		    	//댓글 번호, 게시물 번호 전달 (삭제 버튼 id가 댓글 번호로 설정되어 있음)
-		    	location.href = "processDeleteComment?commentid="+$(this).attr('id')+"&postid="+<%=post.getPostid()%>;
+		    	location.href = "processDeleteComment?commentid="+$(this).attr('id')+"&postid="+<%=notice.getPostid()%>;
 		    }
 		});
 		
 		$(".modifyPost").on('click', function(){
-		    location.href = "modifyPostPage?postid="+<%=post.getPostid()%>;
+		    location.href = "modifyPostPage?postid="+<%=notice.getPostid()%>;
 		});
 	});
 </script>

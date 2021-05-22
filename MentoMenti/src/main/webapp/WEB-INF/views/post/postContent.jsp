@@ -53,7 +53,7 @@
 	}
 	List<PostDTO> postList = HomeController.dao.getPostDAO().searchByPostId(postid);	//게시물 번호로 찾은 게시물
 	PostDTO post = postList.get(0);
-
+	String pWriterNick = HomeController.dao.getUserDAO().selectNicknameById(post.getUserid());	//작성자 아이디
 %>
 
 <!-- Page Heading -->
@@ -69,7 +69,7 @@
 			<th colspan="3" style="text-align:center;" id="title"><h4 style="padding:5px 0px"><%=post.getTitle()%></h4></th>
 		</tr>
 		<tr role="row">
-			<td tabindex="0" rowspan="1" colspan="1" style="width: 35%"><b>작성자</b><%=post.getUserid()%></td>
+			<td tabindex="0" rowspan="1" colspan="1" style="width: 35%"><b>작성자</b><%=pWriterNick%></td>
 			<td tabindex="0" rowspan="1" colspan="1" style="width: 45%;"><b>작성일자</b><%=post.getPostdate()%></td>
 			<td tabindex="0" rowspan="1" colspan="1" style="width: 20%;"><b>조회수</b><%=post.getViewcount()%></td>
 		</tr>

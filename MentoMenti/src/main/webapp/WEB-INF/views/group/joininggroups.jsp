@@ -131,7 +131,7 @@
 			<thead>
 				<tr role="row">
 					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">그룹 이름</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘토 이름</th>
+					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘토</th>
 				</tr>
 			</thead>
 
@@ -141,11 +141,12 @@
 
 				<%
 					List<GroupDTO> mentoGroups2 = HomeController.dao.getGroupDAO().searchJoinGroupsByUserId(id);
-				for (GroupDTO mg2 : mentoGroups2) {
+					for (GroupDTO mg2 : mentoGroups2) {
+						String mentoNick = HomeController.dao.getUserDAO().selectNicknameById(mg2.getMentoid());
 				%>
 				<tr style="width: 200px">
 					<td><a href="group?groupid=<%=mg2.getGroupid()%>" style="text-decoration: none;"><%=mg2.getName()%></a><br></td>
-					<td><%=mg2.getMentoid()%></td>
+					<td><%=mentoNick%></td>
 				</tr>
 				<%
 					}

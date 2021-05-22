@@ -100,6 +100,7 @@
 						break;
 					}
 					PostDTO gn = noticeList.get(i);
+					String writerNick = HomeController.dao.getUserDAO().selectNicknameById(gn.getUserid());	//작성자 아이디
 		%>
 		<tr role="row" class="odd">
 			<td>
@@ -107,7 +108,7 @@
 				<a href="noticeContent?postid=<%=gn.getPostid()%>" style="text-decoration: none; color: gray">
 					<%=gn.getTitle() %></a>
 			</td>
-			<td><%=gn.getUserid() %></td> <!-- 작성자, 현재는 id가 출력되도록. 나중에 닉네임으로 바꿀듯 -->
+			<td><%=writerNick %></td>	<!-- 작성자 닉네임 -->
 			<td><%=gn.getPostdate()%></td> <!-- 작성일자 -->
 			<td><%=gn.getViewcount() %></td> <!-- 조회수 -->
 		</tr>

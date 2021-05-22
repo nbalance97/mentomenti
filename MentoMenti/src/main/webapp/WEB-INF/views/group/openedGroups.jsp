@@ -34,13 +34,11 @@
 	<h1 class="h3 mb-0 text-gray-800">개설된 그룹</h1>
 	<ul class="navbar-nav ml-auto">
 		<li>
-			<!-- 그룹 검색 기능 구현해야 함 -->
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
 				action="openedGroups" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small" name="keyword"
-						placeholder="그룹 명 검색" aria-label="Search"
-						aria-describedby="basic-addon2">
+						placeholder="그룹 명 검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<i class="fas fa-search fa-sm"></i>
@@ -203,23 +201,25 @@
 	}
 	//groups에 출력할 그룹 목록 담김
 	
-	//각 그룹에 대한 멘티 수를 저장할 배열
-	int[] mentiCnts = new int[groups.size()];
-	//멘티 수 구하기
+	int[] mentiCnts = new int[groups.size()];	//각 그룹에 대한 멘티 수를 저장할 배열
+	String[] mentoNicks = new String[groups.size()];	//각 그룹에 대한 멘토 닉네임을 저장할 배열 (닉네임제)
 	for (int i=0; i<groups.size(); i++){
 		int groupId = groups.get(i).getGroupid();
-		mentiCnts[i] = HomeController.dao.getGroupmateDAO().cntMenti(groupId);
+		mentiCnts[i] = HomeController.dao.getGroupmateDAO().cntMenti(groupId);	//멘티 수
+		mentoNicks[i] = HomeController.dao.getUserDAO().selectNicknameById(groups.get(i).getMentoid());	//멘토 닉네임
 	}
 %>
 
 <!-- jstl문 활용해서 groups에 실제 group, 멘티 수 넣어 줌 -->
 <c:set var="groups" value="<%=groups%>"></c:set>
 <c:set var="mentiCnts" value="<%=mentiCnts%>"></c:set>
+<c:set var="mentoNicks" value="<%=mentoNicks%>"></c:set>
 
 <script type="text/javascript">
 	var cntShowGroupIndex = 0;
 	var group = new Array();
 	var mentiCnt = new Array();
+	var mentoNick = new Array();
 	
 	/*group Array에 그룹 정보 저장*/
 	<c:forEach items="${groups}" var="group">
@@ -237,6 +237,13 @@
 	<c:forEach items="${mentiCnts}" var="mentiCnt">
 		mentiCnt.push({
 			cnt: "${mentiCnt}"
+		});
+	</c:forEach>
+	
+	//mentiNick Array에 멘티 수 저장
+	<c:forEach items="${mentoNicks}" var="mentoNick">
+		mentoNick.push({
+			mentonick: "${mentoNick}"
 		});
 	</c:forEach>
 	
@@ -267,7 +274,7 @@
 						+'<p class="introheader"><em>스터디 소개</em><p>'
 						+'<p class="introheader">'+group[i].intro+'</p>'+'</div>'
 						+'<span class="font-weight-500" style="color:gray">과목 </span>'+group[i].category+'</p>'
-						+'<span class="font-weight-500" style="color:gray">멘토 </span>'+group[i].mentoid+'</p>'
+						+'<span class="font-weight-500" style="color:gray">멘토 </span>'+mentoNick[i].mentonick+'</p>'
 						+ s + '</div></a></div>'
 					
 						).appendTo('#groupList');

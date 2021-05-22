@@ -137,16 +137,16 @@
 						break;
 					}
 					PostDTO gp = groupPosts.get(i);
+					String writerNick = HomeController.dao.getUserDAO().selectNicknameById(gp.getUserid());	//작성자 아이디
 		%>
 		<tr>
 			<td>
 				<!-- 제목 --> <a href="groupPostContent?postid=<%=gp.getPostid()%>"
 				style="text-decoration: none; color: gray"><%=gp.getTitle()%></a>
 			</td>
-			<td><%=gp.getUserid()%></td>
-			<td><%=gp.getPostdate()%></td>
-			<td><%=gp.getViewcount()%></td>
-			<!-- 조회수 -->
+			<td><%=writerNick%></td> <!-- 작성자 -->
+			<td><%=gp.getPostdate()%></td> <!-- 작성일자 -->
+			<td><%=gp.getViewcount()%></td> <!-- 조회수 -->
 		</tr>
 		<%
 				}
