@@ -155,7 +155,7 @@
 			for (var key in pc) {
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
-					if (key === '<%=mentoid%>'); 
+					if (key === '<%=mentoid%>')
 						v1.srcObject = null;
 					delete(pc[key]);
 					delete(dc[key]);
@@ -387,7 +387,8 @@
 		function handleAnswer(from, to, answer){
 		    pc[from].setRemoteDescription(new RTCSessionDescription(answer));
 		    shareMonitorById(from);
-		    shareMicById(from);
+		    if (mic_status)
+		    	shareMicById(from);
 			console.log("Connection.");
 		}
 		
@@ -401,6 +402,10 @@
 		
 		
 		async function setMicStream() {
+			if (mic_stream !== null) {
+				return mic_stream;
+			}
+			
 			return navigator.mediaDevices.getUserMedia({
 				audio: true
 			}).then(function(audioStream){
@@ -408,9 +413,21 @@
 			});
 		}
 		
+		async function removeMicById(id) {
+			 if (mic_status == true) {
+				 	if (id in audio_share) { 
+				    	pc[id].removeTrack(audio_share[id]);
+				    	delete(audio_share[id]);
+				 	}
+			 }
+		}
+		
 		async function shareMicById(id) {
 			if (pc[id] === undefined | mic_stream === null) 
 				return;
+			if (audio_share[id] !== undefined)
+				return;
+			
 			renegotiationflg = true;
 			pc[id].onnegotiationneeded = function() {
 			    	pc[id].createOffer(async function(offer) { // offer 상대 peer에 전송
@@ -427,27 +444,24 @@
 					});	
 			 };
 			    
-			    //v1.srcObject = audioStream;
-			 if (mic_status == true) {
-			 	if (id in audio_share) { // 이미 공유중인 상황이라면 제거 (mic off)
-			    	pc[id].removeTrack(audio_share[id]);
-			    	delete(audio_share[id]);
-			 	}
-			 	return;
-			 }
-			 } else { // 공유중이지 않다면 새로 addTrack (mic on)
-				mic_stream.getTracks().forEach((track) => {
-					audio_share[id] = pc[id].addTrack(track, mic_stream);
-				}); 
-			 }
+		    //v1.srcObject = audioStream;
+			mic_stream.getTracks().forEach((track) => {
+				audio_share[id] = pc[id].addTrack(track, mic_stream);
+			}); 
 		}
 		
 		async function share_microphone() {
-			setMicStream().then(function() {
+			if (mic_status === true) {
 				for (var key in pc) {
-					shareMicById(key);
+					removeMicById(key);
 				}
-			});
+			} else {
+				setMicStream().then(function() {
+					for (var key in pc) {
+						shareMicById(key);
+					}
+				});
+			}
 			mic_status = !mic_status;
 		}
 		
