@@ -181,12 +181,7 @@
 				});
 			}
 		}
-		
-		
-		function playVideo() {
-			v1.play();
-		}
-		
+
 		conn.onopen = function() { // 소켓 열었을때
 			console.log("Connected to the signaling server");
 			console.log("Current User:" + myName);
@@ -270,6 +265,29 @@
 					});
 				}
 			}
+			
+			peerConnection.onconnectionstatechange = function(event) {
+				  switch(peerConnection.connectionState) {
+				    case "connected":
+				      console.log("connected changed");
+				      if (flg[target] == false) {
+				    	  console.log(target + "작동.");
+						  shareMonitorById(target);
+						  if (mic_status)
+						     shareMicById(target);
+				      } 
+				      flg[target] = true;
+				      break;
+				    case "disconnected":
+				    case "failed":
+				      // One or more transports has terminated unexpectedly or in an error
+				      break;
+				    case "closed":
+				      // The connection has been closed
+				      break;
+				  }
+			}
+			
 			flg[target] = false;
 			setDataChannel(peerConnection, target);
 
@@ -283,26 +301,14 @@
 			
 			dataChannel.onopen = function(event) { 
 				console.log("dataChannel successfully opened!");
-				
-				flg[target] = true;
-			    shareMonitorById(target);
-			    if (mic_status)
-			    	shareMicById(target);
 			};
 			
 			dataChannel.onerror = function(error) {
 				console.log("Error:", error);
-				console.log("Data Channel is closed");
 			};
 			
 			dataChannel.onclose = function() {
 				console.log("Data Channel is closed");
-				delete(pc[target]);
-				delete(dc[target]);
-				delete(share[target]);
-				delete(emoticon[target]);
-				delete(flg[target]);
-				removeVideo(target);
 			};
 			
 			dataChannel.onmessage = function(event) {
@@ -337,14 +343,12 @@
 				if (e.track.kind === "video") {
 					v1.srcObject = e.streams[0];
 					console.log(name, "Video");
-					playVideo();
 				}
 				else if (e.track.kind === "audio") {
 					var targets = document.getElementById(name);
 					targets.srcObject = e.streams[0];
 					console.log(name, "Audio");
 				}
-			
 			};
 			emoticon[name] = "default";
 		}
@@ -521,6 +525,7 @@
 					});
 			    }
 			})(id);
+			console.log(id + '에게 화면공유');
 		}
 
 		async function share_monitor() { 
