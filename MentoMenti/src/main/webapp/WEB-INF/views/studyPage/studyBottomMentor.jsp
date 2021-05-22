@@ -10,9 +10,24 @@
 <div class="function">
 	<div class="icon-box">
 		<!-- <span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span> -->
-		<span class="icon"><a id="muter" onclick="share_microphone(available);"><i class="fas fa-microphone-slash fa-3x mic"></i></a></span>		
+		<div class="icon">
+			<div class="icon micbtn inactive" style="padding:0;"><a id="muter" onclick="share_microphone();"><i class="fas fa-microphone-slash fa-3x mic"></i></a>
+				<div class="nonemic_ex">
+					마이크 켜기
+				</div>
+				<div class="usemic_ex">
+					마이크 끄기
+				</div>
+			</div>
+		</div>		
 		<span class="icon"><a href="javascript:void(0);" onclick="share_monitor()"><i class="fas fa-desktop fa-3x monitor"></i></a></span>
-		<span class="icon"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a></span>
+		<div class="icon">
+			<div class="icon movebtn" style="padding:0;"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
+				<div class="moveExplain">
+					실습페이지로 이동
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <span class="exit-box"><a id="exitBtn" onclick="exit()" href="#"><i class="fas fa-sign-out-alt fa-2x exit"></i></a></span>
@@ -42,4 +57,8 @@
 	  ["fa-microphone", "fa-microphone-slash"].forEach(
 	    c => e.target.classList.toggle(c));
 	});
+	document.querySelector('div.micbtn').addEventListener('click', function() {
+		  this.classList.toggle('inactive');
+		  this.classList.toggle('active');
+		});
 </script>

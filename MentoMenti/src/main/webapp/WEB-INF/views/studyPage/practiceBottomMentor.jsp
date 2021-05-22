@@ -10,10 +10,25 @@
 <div class="function">
 	<div class="icon-box">
 		<!-- <span class="icon"><a href="#"><i class="fas fa-pencil-alt fa-3x pen" aria-hidden="true"></i></a></span> -->
-		<span class="icon"><a id="muter" href="#"><i class="fas fa-microphone fa-3x mic"></i></a></span>
+		<div class="icon">
+			<div class="icon micbtn inactive" style="padding:0;"><a id="muter" onclick="share_microphone();"><i class="fas fa-microphone-slash fa-3x mic"></i></a>
+				<div class="nonemic_ex">
+					마이크 켜기
+				</div>
+				<div class="usemic_ex">
+					마이크 끄기
+				</div>
+			</div>
+		</div>	
 		<span class="icon"><label for="input-file" style="margin-bottom:0;"><i class="fas fa-upload fa-3x upload" aria-hidden="true"></i></label></span>
 		<input type="file" id="input-file" onChange="uploadFile(this)" style="display:none"/> <!-- 숨겨지는 File Tag. Label의 for로 가리켜질 예정 -->
-		<span class="icon"><a onclick="moveStudy()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a></span>
+		<div class="icon">
+			<div class="icon movebtn" style="padding:0;"><a onclick="moveStudy()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
+				<div class="moveExplain">
+					수업페이지로 이동
+				</div>
+			</div>
+		</div>	
 	</div>
 </div>
 <span class="exit-box"><a id="exitBtn" onclick="exit()" href="#"><i class="fas fa-sign-out-alt fa-2x exit"></i></a></span>
@@ -43,4 +58,8 @@
 	  ["fa-microphone", "fa-microphone-slash"].forEach(
 	    c => e.target.classList.toggle(c));
 	});
+	document.querySelector('div.micbtn').addEventListener('click', function() {
+		  this.classList.toggle('inactive');
+		  this.classList.toggle('active');
+		});
 </script>
