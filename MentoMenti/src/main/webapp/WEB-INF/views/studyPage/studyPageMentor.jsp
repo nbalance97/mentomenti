@@ -156,8 +156,6 @@
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
 					console.log(key + "->" + pc[key].connectionState);
-					if (key === '<%=mentoid%>')
-						v1.srcObject = null;
 					delete(pc[key]);
 					delete(dc[key]);
 					delete(share[key]);
@@ -216,6 +214,7 @@
 			        handleCandidate(from, to, data); // candidate 저장
 			        break;
 			    case "namecall":
+			    	flg[data] = false;
 			    	createOffer(data);
 			    	break;
 			    case "rngt_offer":
@@ -269,9 +268,8 @@
 			peerConnection.onconnectionstatechange = function(event) {
 				  switch(peerConnection.connectionState) {
 				    case "connected":
-				      console.log("connected changed");
-				      if (flg[target] == false) {
-				    	  console.log(target + "작동.");
+				      if (flg[target] === false) {
+				    	  console.log("[onconnectionstatechange]" + target + "에게 연결되었으니 화면공유");
 						  shareMonitorById(target);
 						  if (mic_status)
 						     shareMicById(target);
@@ -359,6 +357,7 @@
 				pc[from] = createPeerConnection(from);
 				addVideo(from);
 				pc[from].ontrack = function(e) {
+					
 					if (e.track.kind === "video") {
 						v1.srcObject = e.streams[0];
 						console.log(from, "Video");
