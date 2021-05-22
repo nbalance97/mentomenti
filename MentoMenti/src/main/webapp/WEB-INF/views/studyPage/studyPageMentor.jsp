@@ -383,13 +383,13 @@
 			if (renegotiationflg) // renegitation 과정에서는 candidate 교환필요 x
 				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
+		    shareMonitorById(from);
+		    if (mic_status)
+		    	shareMicById(from);
 		}
 		
 		function handleAnswer(from, to, answer){
 		    pc[from].setRemoteDescription(new RTCSessionDescription(answer));
-		    shareMonitorById(from);
-		    if (mic_status)
-		    	shareMicById(from);
 			console.log("Connection.");
 		}
 		
