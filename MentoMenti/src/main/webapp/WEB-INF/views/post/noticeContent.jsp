@@ -79,7 +79,7 @@
 		<tr>
 			<td colspan="3" style="padding:70px 20px">
 				<c:set var="content" value="<%=post.getContent()%>"/>
-				${fn:replace(content, cn, br)}
+				${fn:replace(fn:escapeXml(content), cn, br)}
 			</td>
 		</tr>
 	</tbody>
@@ -172,7 +172,10 @@
 					</div>
 				</div>
 		</div>
-		<div class="comment_component"><%=c.getContent()%></div>
+		<div class="comment_component">
+				<c:set var="comment" value="<%=c.getContent()%>"/>
+				${fn:replace(fn:escapeXml(comment), cn, br)}
+		</div>
 		<div class="comment_component" style="font-size:0.8em; overflow:hidden;">
 			<div style="float:left;"><%=c.getCommentdate()%></div>
 			<% 
