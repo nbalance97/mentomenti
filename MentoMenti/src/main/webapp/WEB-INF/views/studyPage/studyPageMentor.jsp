@@ -285,9 +285,12 @@
 				reliable: true
 			});
 			
-			dataChannel.onopen = function(event) {
+			dataChannel.onopen = function(event) { 
 				console.log("dataChannel successfully opened!");
-				dataChannel.send("data");
+				flg[target] = true;
+			    shareMonitorById(target);
+			    if (mic_status)
+			    	shareMicById(target);
 			};
 			
 			dataChannel.onerror = function(error) {
@@ -381,12 +384,6 @@
 			if (flg[from]) // renegitation 과정에서는 candidate 교환필요 x
 				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
-			if (pc[from].connectionState == "connected") {
-				flg[from] = true;
-			    shareMonitorById(from);
-			    if (mic_status)
-			    	shareMicById(from);
-			}
 		}
 		
 		function handleAnswer(from, to, answer){
