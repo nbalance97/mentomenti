@@ -87,7 +87,6 @@
 	    var myGroup = <%=groupid%>;
 	    var myoffer;
 		var myemoticon = "default";
-		var renegotiationflg = false;
 		var v1 = document.getElementById("v1");
 		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
 		
@@ -97,6 +96,7 @@
 		var audio_share = {};
 		var emoticon = {};
 		var available = false;
+		var flg = {};
 		
 		var share_flag = false;
 		var screen_stream = null;
@@ -162,6 +162,7 @@
 					delete(dc[key]);
 					delete(share[key]);
 					delete(emoticon[key]);
+					delete(flg[key]);
 					removeVideo(key);
 				} else {
 					addMemberToList(key, emoticon[key], idx++);
@@ -206,25 +207,22 @@
 			    	v1.srcObject = null;
 			    	break;
 			    case "offer":
-			        handleOffer(from, to, data);
+			        handleOffer(from, to, data, false);
 			        break;
 			    case "answer":
-			        handleAnswer(from, to, data); 
+			        handleAnswer(from, to, data, false); 
 			        break;
 			    case "candidate":
 			        handleCandidate(from, to, data); // candidate 저장
 			        break;
 			    case "namecall":
-			    	renegotiationflg = false;
 			    	createOffer(data);
 			    	break;
 			    case "rngt_offer":
-			    	renegotiationflg = true;
-			    	handleOffer(from, to, data);
+			    	handleOffer(from, to, data, true);
 			    	break;
 			    case "changeStatus":
 			    	emoticon[from] = data;
-			    	renegotiationflg = false;
 			    	break;
 			    default:
 			        break;
@@ -257,8 +255,6 @@
 			
 			var peerConnection = new RTCPeerConnection(configuration);
 			peerConnection.onicecandidate = function(event) { // Handler 등록
-				if (renegotiationflg)
-					return;
 				if (event.candidate) {
 					send({
 						event : "candidate",
@@ -268,6 +264,7 @@
 					});
 				}
 			}
+			flg[target] = false;
 			
 			setDataChannel(peerConnection, target);
 			
@@ -299,7 +296,6 @@
 			
 			dataChannel.onclose = function() {
 				console.log("Data Channel is closed");
-				delete(dc[target]);
 			};
 			
 			dataChannel.onmessage = function(event) {
@@ -326,27 +322,26 @@
 				
 			});	
 			
-			if (!renegotiationflg) {
-				pc[name] = peerConnection; // pc 객체에 저장
-				addVideo(name);
-				pc[name].ontrack = function(e) {
-					console.log(e);
-					if (e.track.kind === "video") {
-						v1.srcObject = e.streams[0];
-						console.log(name, "Video");
-					}
-					else if (e.track.kind === "audio") {
-						var targets = document.getElementById(name);
-						targets.srcObject = e.streams[0];
-						console.log(name, "Audio");
-					}
-				};
-				emoticon[name] = "default";
-			}
+			
+			pc[name] = peerConnection; // pc 객체에 저장
+			addVideo(name);
+			pc[name].ontrack = function(e) {
+				console.log(e);
+				if (e.track.kind === "video") {
+					v1.srcObject = e.streams[0];
+					console.log(name, "Video");
+				}
+				else if (e.track.kind === "audio") {
+					var targets = document.getElementById(name);
+					targets.srcObject = e.streams[0];
+					console.log(name, "Audio");
+				}
+			};
+			emoticon[name] = "default";
 		}
 		
 		
-		function handleOffer(from, target, offer) { 
+		function handleOffer(from, target, offer, renegotiationflg) { 
 			if (!renegotiationflg) {
 				pc[from] = createPeerConnection(from);
 				addVideo(from);
@@ -368,6 +363,9 @@
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
 			peerConnection.createAnswer(function(answer) { // answer 만들어서 전송
 				peerConnection.setLocalDescription(answer);
+				if (renegotiationflg) 
+					flg[from] = true;
+				
 				send({
 					event : "answer",
 					data : answer,
@@ -380,9 +378,10 @@
 		}
 		
 		function handleCandidate(from, to, candidate) {
-			if (renegotiationflg) // renegitation 과정에서는 candidate 교환필요 x
+			if (flg[from]) // renegitation 과정에서는 candidate 교환필요 x
 				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
+			flg[from] = true;
 		    shareMonitorById(from);
 		    if (mic_status)
 		    	shareMicById(from);
@@ -433,7 +432,6 @@
 				return;
 			}
 			
-			renegotiationflg = true;
 			pc[id].onnegotiationneeded = function() {
 			    	pc[id].createOffer(async function(offer) { // offer 상대 peer에 전송
 						await send({
@@ -492,13 +490,12 @@
 		}
 		
 		async function shareMonitorById(id) {
-			if (screen_stream === null || pc[id] === undefined) {
-				console.log('screen_stream이 없거나 pc[id]가 존재하지 않음.');
+			if (screen_stream === null | pc[id] === undefined) {
 				return;
 			}
-			
-			renegotiationflg = true;
+
 			(function (id){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
+				console.log(id);
 				pc[id].onnegotiationneeded = function() {
 			    	pc[id].createOffer(async function(offer) { // offer 상대 peer에 전송
 						await send({
@@ -508,7 +505,6 @@
 							to : id
 						});	
 						pc[id].setLocalDescription(offer); 
-						// LocalDescription 설정 -> icecandidate 유발시킴, 즉, candidate도 전송
 					}, function(error) {
 						
 					});	
