@@ -194,7 +194,7 @@
 		}
 		
 		conn.onmessage = function(msg) {
-		    //console.log("Got message", msg.data);
+		    console.log("Got message", msg.data);
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
@@ -290,12 +290,6 @@
 			
 			dataChannel.onclose = function() {
 				console.log("Data Channel is closed");
-				delete(pc[target]);
-				delete(dc[target]);
-				delete(share[target]);
-				delete(emoticon[target]);
-				delete(flg[target]);
-				removeVideo(target);
 			};
 			
 			dataChannel.onmessage = function(event) {
