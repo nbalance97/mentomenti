@@ -381,10 +381,12 @@
 			if (flg[from]) // renegitation 과정에서는 candidate 교환필요 x
 				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
-			flg[from] = true;
-		    shareMonitorById(from);
-		    if (mic_status)
-		    	shareMicById(from);
+			if (pc[from].connectionState == "connected") {
+				flg[from] = true;
+			    shareMonitorById(from);
+			    if (mic_status)
+			    	shareMicById(from);
+			}
 		}
 		
 		function handleAnswer(from, to, answer){
