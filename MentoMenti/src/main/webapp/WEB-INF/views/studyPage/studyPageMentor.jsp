@@ -102,6 +102,8 @@
 		var screen_stream = null;
 		var mic_stream = null;
 		
+		var mic_status = false;
+		
 		function addVideo(id) {
 			$('<video id="'+id+'" autoplay="true" width="1"></video>').appendTo('#screens');
 			//$('#'+id).play;
@@ -153,6 +155,8 @@
 			for (var key in pc) {
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
+					if (key === '<%=mentoid%>'); 
+						v1.srcObject = null;
 					delete(pc[key]);
 					delete(dc[key]);
 					delete(share[key]);
@@ -383,6 +387,7 @@
 		function handleAnswer(from, to, answer){
 		    pc[from].setRemoteDescription(new RTCSessionDescription(answer));
 		    shareMonitorById(from);
+		    shareMicById(from);
 			console.log("Connection.");
 		}
 		
@@ -423,10 +428,13 @@
 			 };
 			    
 			    //v1.srcObject = audioStream;
-			    
-			 if (id in audio_share) { // 이미 공유중인 상황이라면 제거 (mic off)
-			    pc[id].removeTrack(audio_share[id]);
-			    delete(audio_share[id]);
+			 if (mic_status == true) {
+			 	if (id in audio_share) { // 이미 공유중인 상황이라면 제거 (mic off)
+			    	pc[id].removeTrack(audio_share[id]);
+			    	delete(audio_share[id]);
+			 	}
+			 	return;
+			 }
 			 } else { // 공유중이지 않다면 새로 addTrack (mic on)
 				mic_stream.getTracks().forEach((track) => {
 					audio_share[id] = pc[id].addTrack(track, mic_stream);
@@ -440,6 +448,7 @@
 					shareMicById(key);
 				}
 			});
+			mic_status = !mic_status;
 		}
 		
 		
