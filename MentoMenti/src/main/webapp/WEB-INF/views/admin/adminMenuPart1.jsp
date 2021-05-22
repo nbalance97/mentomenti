@@ -33,12 +33,6 @@
 	color: white;
 }
 
-/*기본 폰트 Noto Sans, font-weight:300, 부분마다 font-weight 바꿔서 사용하면 됨*/
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-	font-weight: 300;
-}
-
 .menuComponent{
 	margin:0 15px;
 	font-weight:400;
@@ -84,7 +78,7 @@
 					<!-- 메인 이동 -->
 					<div>
 						<a href="main" class="font-weight-400" style="color:white; text-decoration:none;">
-						← 메인
+						메인으로
 						</a>
 					</div>
 				

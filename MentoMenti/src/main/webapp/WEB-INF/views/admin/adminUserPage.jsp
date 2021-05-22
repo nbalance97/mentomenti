@@ -26,7 +26,6 @@
 			<th tabindex="0" rowspan="1" colspan="1">아이디</th>
 			<th tabindex="0" rowspan="1" colspan="1">닉네임</th>
 			<th tabindex="0" rowspan="1" colspan="1">가입 일자</th>
-			<th tabindex="0" rowspan="1" colspan="1">이메일</th>
 			<th tabindex="0" rowspan="1" colspan="1">소개글</th>
 			<th tabindex="0" rowspan="1" colspan="1">탈퇴</th>
 		</tr>
@@ -56,7 +55,6 @@
 			<td><%=u.getId()%></td>
 			<td><%=u.getNickname() %></td>
 			<td><%=u.getJoindate() %></td>
-			<td><%=u.getEmail()%></td>
 			<td><%=u.getIntro()%></td>
 			<td>	<!-- 해체 버튼 -->
 				<input type="button" class="btn btn-danger deleteBtn" value="X" style="padding:2px 10px" onclick="withdrawUser('<%=u.getId()%>')">

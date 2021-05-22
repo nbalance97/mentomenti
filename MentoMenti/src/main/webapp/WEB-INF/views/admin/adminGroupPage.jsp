@@ -24,11 +24,10 @@
 	style="width: 100%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%">번호</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 25%">이름</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">멘토 아이디</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 40%;">소개글</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">해체</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%">번호</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 45%">이름</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 25%">멘토 아이디</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">해체</th>
 		</tr>
 	</thead>
 	
@@ -56,7 +55,6 @@
 			<td><%=g.getGroupid()%></td>
 			<td><a href="group?groupid=<%=g.getGroupid()%>"><%=g.getName() %></a></td>
 			<td><%=g.getMentoid() %></td>
-			<td><%=g.getIntro()%></td>
 			<td>	<!-- 해체 버튼 -->
 				<input type="button" class="btn btn-danger deleteBtn" value="X" style="padding:2px 10px" onclick="delGroup(<%=g.getGroupid()%>)">
 			</td>
