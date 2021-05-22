@@ -20,7 +20,13 @@
 				</div>
 			</div>
 		</div>	
-		<span class="icon"><label for="input-file" style="margin-bottom:0;"><i class="fas fa-upload fa-3x upload" aria-hidden="true"></i></label></span>
+		<div class="icon">
+			<div class="icon filebtn" style="padding:0;"><label for="input-file" style="margin-bottom:0;"><i class="fas fa-upload fa-3x upload" aria-hidden="true"></i></label>
+				<div class="fileExplain">
+					파일업로드
+				</div>
+			</div>
+		</div>
 		<input type="file" id="input-file" onChange="uploadFile(this)" style="display:none"/> <!-- 숨겨지는 File Tag. Label의 for로 가리켜질 예정 -->
 		<div class="icon">
 			<div class="icon movebtn" style="padding:0;"><a onclick="moveStudy()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>

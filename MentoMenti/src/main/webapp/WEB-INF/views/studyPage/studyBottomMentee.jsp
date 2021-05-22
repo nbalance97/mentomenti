@@ -32,6 +32,9 @@
 					<span class="icon"><a onclick="changestatus('finish');"><i class="far fa-check-circle fa-3x emotion"></i></a></span>
 					<span class="icon"><a onclick="changestatus('non-finish');"><i class="far fa-times-circle fa-3x emotion"></i></a></span>
 				</div>
+				<div class="emotionExplain">
+					이모티콘 전송
+				</div>
 			</div>
 		</div>
 		<div class="icon">

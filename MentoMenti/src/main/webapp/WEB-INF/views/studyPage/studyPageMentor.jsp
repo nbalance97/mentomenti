@@ -4,6 +4,8 @@
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page import="java.util.List"%>
 <!DOCTYPE html>
@@ -45,6 +47,8 @@
 			//해당 그룹의 멘토아이디 받아오기
 			String mentoid = group.getMentoid();
 			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
+			//접속아이디의 닉네임 가져오기
+			String nick = HomeController.dao.getUserDAO().selectNicknameById(id);
 			//그룹에 참여한 멘티 목록
 			List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
 
@@ -61,7 +65,7 @@
 			if(!isMember || id==null){//서버연결 뭐시기 땜에 sendRedirect가 안먹힘,,,
 				//response.sendRedirect("rejectedAccess?type=notMember");
 				%>
-				<div>잘못된접근인데 sendRedirect가 안됨 오류나ㅏㅁㅁㅇㅁㄴㅇ.</div>
+				<div>window.location</div>
 				<%
 			}
 			
@@ -83,6 +87,7 @@
 	  <script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
+	    var myNick = "<%=nick%>";
 	    var mentoName = "<%=mentoid%>";
 	    var myGroup = <%=groupid%>;
 	    var myoffer;
@@ -117,7 +122,7 @@
 			var tag = '';
 			tag = tag + '<tr>';
 			tag = tag + '<td>'+idx+'</td>';
-			tag = tag + '<td>'+id+'</td>';
+			tag = tag + '<td>'+id+'</td>';//아이디->닉네임으로 변경
 			if (emot === "ques")
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-question-circle  fa-2x"></i></td>';
 			else if (emot === "finish")
@@ -127,7 +132,7 @@
 			else if (emot === 'default')
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>';
 			
-			if (id !== myName)
+			if (id !== myNick)
 				tag = tag + '<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td></tr>';
 			else
 				tag = tag + '<td></td></tr>'	
@@ -144,14 +149,14 @@
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
 			var popupY = (window.screen.height / 2) - (popupHeight / 2);
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
-			myExternalWindow = window.open(url+'?my_id='+myName+'&your_id='+btn.value, name, option+ ', left='+ popupX + ', top='+ popupY);
+			myExternalWindow = window.open(url+'?my_id='+myNick+'&your_id='+btn.value, name, option+ ', left='+ popupX + ', top='+ popupY);
 			myExternalWindow.resizeTo(1200,700);
 		}
 		
 		function checkConnection() {
 			var idx = 1;
 			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
-			addMemberToList(myName, myemoticon, idx++);
+			addMemberToList(myNick, myemoticon, idx++);
 			for (var key in pc) {
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
@@ -174,7 +179,7 @@
 				send({
 					event : "changeStatus",
 					data : status,
-					from : myName,
+					from : myNick,
 					to : key
 				});
 			}
@@ -185,7 +190,7 @@
 			console.log("Current User:" + myName);
 			send({ // name을 server에 알려서 broadcast
 				event: "namecall",
-				data: myName,
+				data: myNick,
 				group: myGroup
 			});
 			//initialize();
@@ -199,7 +204,7 @@
 		    var to = content.to;
 		    
 		    // 그룹의 새멤버 or 자신에게 향하는 패킷만 처리
-		    if ((content.event === "namecall" && content.group === myGroup) || content.to === myName) { 
+		    if ((content.event === "namecall" && content.group === myGroup) || content.to === myNick) { 
 			    switch (content.event) {
 			    case "stop_video":
 			    	v1.srcObject = null;
@@ -259,7 +264,7 @@
 					send({
 						event : "candidate",
 						data : event.candidate,
-						from : myName,
+						from : myNick,
 						to : target
 					});
 				}
@@ -324,7 +329,7 @@
 				await send({
 					event : "offer",
 					data : offer,
-					from : myName,
+					from : myNick,
 					to : name
 				});	
 				peerConnection.setLocalDescription(offer); 
@@ -377,7 +382,7 @@
 				send({
 					event : "answer",
 					data : answer,
-					from : myName,
+					from : myNick,
 					to : from
 				});
 			}, function(error) {
@@ -441,7 +446,7 @@
 						await send({
 							event : "rngt_offer",
 							data : offer,
-							from : myName,
+							from : myNick,
 							to : id
 						});	
 						pc[id].setLocalDescription(offer); 
@@ -482,7 +487,7 @@
 							for (var key in pc) {
 								send({
 									event : "stop_video",
-									from : myName,
+									from : myNick,
 									to : key
 								});
 							}
@@ -505,7 +510,7 @@
 						await send({
 							event : "rngt_offer",
 							data : offer,
-							from : myName,
+							from : myNick,
 							to : id
 						});	
 						pc[id].setLocalDescription(offer); 

@@ -29,11 +29,14 @@
 		</div>	
 		<div class="dropdown icon">
 			<div class="icon dropbtn" style="padding:0;"><a id="emotionSelect" href="#"><i class="far fa-hand-paper fa-3x emotion-select"></i></a>
-			<div class="dropdown-content">
-				<span class="icon"><a onclick="changestatus('ques');"><i class="far fa-question-circle fa-3x emotion"></i></a></span>
-				<span class="icon"><a onclick="changestatus('finish');"><i class="far fa-check-circle fa-3x emotion"></i></a></span>
-				<span class="icon"><a onclick="changestatus('non-finish');"><i class="far fa-times-circle fa-3x emotion"></i></a></span>
-			</div>
+				<div class="dropdown-content">
+					<span class="icon"><a onclick="changestatus('ques');"><i class="far fa-question-circle fa-3x emotion"></i></a></span>
+					<span class="icon"><a onclick="changestatus('finish');"><i class="far fa-check-circle fa-3x emotion"></i></a></span>
+					<span class="icon"><a onclick="changestatus('non-finish');"><i class="far fa-times-circle fa-3x emotion"></i></a></span>
+				</div>
+				<div class="emotionExplain">
+					이모티콘 전송
+				</div>
 			</div>
 		</div>
 		<div class="icon">

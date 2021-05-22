@@ -17,6 +17,7 @@
 <body>
 <script>
 	function sendCheck(){
+		window.opener.location="loginPage";
 		self.close();
 	}
 </script>
@@ -43,13 +44,13 @@
 				<h4><%=myname%>님의 비밀번호는</h4>
 				<h4><%=pw%></h4>
 				<h4>입니다.</h4>
-				<input type="button" value="확인" onclick="window.close()">
+				<input type="button" value="확인" onclick="sendCheck()">
 			</div>
 		<%}else{%>
 			<div id="wrap">
 				<br/>
 				<h4>일치하는 정보가 존재하지 않습니다.</h4>
-				<input type="button" value="확인" onclick="sendCheck()">
+				<input type="button" value="확인" onclick="window.close()">
 			</div>
 		<% }%>
 </body>

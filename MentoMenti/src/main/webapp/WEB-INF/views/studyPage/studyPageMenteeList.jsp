@@ -9,7 +9,7 @@
 		<thead>
 			<tr>
 				<th>No.</th>
-				<th>이름</th>
+				<th>닉네임</th>
 				<th>상태</th>
 				<th>1:1</th>
 			</tr>

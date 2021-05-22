@@ -20,7 +20,13 @@
 				</div>
 			</div>
 		</div>		
-		<span class="icon"><a href="javascript:void(0);" onclick="share_monitor()"><i class="fas fa-desktop fa-3x monitor"></i></a></span>
+		<div class="icon">
+			<div class="icon screenbtn" style="padding:0;"><a href="javascript:void(0);" onclick="share_monitor()"><i class="fas fa-desktop fa-3x monitor"></i></a>
+				<div class="screenExplain">
+					화면공유
+				</div>
+			</div>
+		</div>
 		<div class="icon">
 			<div class="icon movebtn" style="padding:0;"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
 				<div class="moveExplain">
