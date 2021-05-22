@@ -43,27 +43,27 @@
 		</header>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
 			<li><a href="notice">
-				<i class="fas fa-check-circle"></i>
+				<img src="resources/img/공지.png" style="width:15px; margin-right : 8px;">
 				<span class="sidebar-component">공지사항</span>
 			</a></li>
-			<li><a href="freeBoard"><i class="fas fa-clipboard-list"></i>
+			<li><a href="freeBoard"><img src="resources/img/자유게시판.png" style="width:15px; margin-right : 8px;">
 				<span class="sidebar-component">자유게시판</span>
 			</a></li>
 
 			<li><a class="collapsed" href="#" data-toggle="collapse"
 				data-target="#collapseOne" aria-expanded="true"
-				aria-controls="collapseOne"> <i class="fas fa-users"></i><span class="sidebar-component">그룹</span>
+				aria-controls="collapseOne"> <img src="resources/img/그룹.png" style="width:15px; margin-right : 12px;"><span class="sidebar-component">그룹</span>
 			</a>
 				<div id="collapseOne" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
-						<a class="collapse-item" id="colItems" href="openedGroups"> <i
-							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>개설된 그룹
-						</a> <a class="collapse-item" id="colItems" href="joininggroups"> <i
-							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>가입한 그룹
+						<a class="collapse-item" id="colItems" href="openedGroups">
+						<img src="resources/img/리스트.png" style="width:15px; margin-right : 8px;">개설된 그룹
+						</a> <a class="collapse-item" id="colItems" href="joininggroups"> 
+						<img src="resources/img/리스트.png" style="width:15px; margin-right : 8px;">가입한 그룹
 						</a>
-						<a class="collapse-item" id="colItems" href="createGroupPage"> <i
-							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>그룹 개설
+						<a class="collapse-item" id="colItems" href="createGroupPage">
+						<img src="resources/img/리스트.png" style="width:15px; margin-right : 8px;">그룹 개설
 						</a>
 					</div>
 				</div></li>
@@ -75,11 +75,10 @@
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
 						<a class="collapse-item" id="colItems" href="personalInfoPage">
-							<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>회원 정보
-							확인
+								<img src="resources/img/회원정보확인.png" style="width:15px; margin-right : 14px;">회원 정보 확인
 						</a>
-						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1"> <i
-							class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>나의 활동
+						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1">
+						<img src="resources/img/리스트.png" style="width:15px; margin-right : 14px;">나의 활동
 						</a>
 					</div>
 				</div>
