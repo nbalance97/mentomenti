@@ -155,6 +155,7 @@
 			for (var key in pc) {
 				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
+					console.log(key + "->" + pc[key].connectionState);
 					if (key === '<%=mentoid%>')
 						v1.srcObject = null;
 					delete(pc[key]);
@@ -199,7 +200,7 @@
 		    var to = content.to;
 		    
 		    // 그룹의 새멤버 or 자신에게 향하는 패킷만 처리
-		    if ((content.event === "namecall" && content.group === myGroup) | content.to === myName) { 
+		    if ((content.event === "namecall" && content.group === myGroup) || content.to === myName) { 
 			    switch (content.event) {
 			    case "stop_video":
 			    	v1.srcObject = null;
@@ -423,10 +424,14 @@
 		}
 		
 		async function shareMicById(id) {
-			if (pc[id] === undefined | mic_stream === null) 
+			if (pc[id] === undefined || mic_stream === null) {
+				console.log("mic stream이 없거나 pc[id]가 정의되지 않음.");
 				return;
-			if (audio_share[id] !== undefined)
+			}
+			if (audio_share[id] !== undefined) {
+				console.log("audio가 이미 공유되고 있음.");
 				return;
+			}
 			
 			renegotiationflg = true;
 			pc[id].onnegotiationneeded = function() {
@@ -487,8 +492,10 @@
 		}
 		
 		async function shareMonitorById(id) {
-			if (screen_stream === null | pc[id] === undefined) 
+			if (screen_stream === null || pc[id] === undefined) {
+				console.log('screen_stream이 없거나 pc[id]가 존재하지 않음.');
 				return;
+			}
 			
 			renegotiationflg = true;
 			(function (id){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
