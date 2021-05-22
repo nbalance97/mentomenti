@@ -236,7 +236,8 @@ public class HomeController {
     
     @RequestMapping(value="/joininggroups") //가입한 그룹 목록 페이지
     public String joiningGroups() {
-    	return "/group/newjoingroup";
+    	return "/group/joininggroups";
+    	//return "/group/newjoingroup";	//페이지 수정 완료 후 반영할 예정
     }
     
     @RequestMapping(value="/group") //그룹 별 페이지

@@ -15,6 +15,7 @@
 
 <title>MOCO</title>
 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -22,27 +23,6 @@
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
-<script type="text/javascript">
-	function categoryChange() {
-		if (document.getElementById('categorySelect').value == "기타") {
-			document.getElementById('categoryText').disabled = false;
-		} else {
-			document.getElementById('categoryText').disabled = true;
-		}
-	}
-	
-	function chkInput(){
-		var form = document.createGroupForm;
-		var groupName = document.getElementById("name_text").value;
-		if(groupName.length < 5){
-			alert("그룹 명은 5글자 이상으로 작성해주세요");
-			return;
-		}
-		form.submit();
-	}
-</script>
-
 
 <%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
@@ -62,7 +42,10 @@
 		<table class="table" style="width: 80%; margin: 0 auto;">
 			<tr style="width: 50px">
 				<td>그룹 이름</td>
-				<td><input type="text" name="groupName" id="name_text" style="width: 60%" /></td>
+				<td>
+					<input type="text" name="groupName" id="name_text" style="width: 60%" />
+				 	(<strong id="name_len">0</strong><span>/20자</span>)
+				 </td>
 			</tr>
 			<tr>
 				<td>최대 멘티 수</td> <!-- 멘티 1 ~ 5명 -->
@@ -84,12 +67,15 @@
 						<option value="Java">Java</option>
 						<option value="Python">Python</option>
 						<option value="기타">기타</option>
-				</select> <input type="text" name="categoryText" id="categoryText" placeholder="직접 입력"
+				</select> <input type="text" name="categoryText" id="category_text" placeholder="직접 입력"
 					style="width: 40%" disabled />
 			</tr>
 			<tr>
 				<td>소개글</td>
-				<td><textarea name="intro" id="intro_text" rows="4" style="width: 80%"></textarea></td>
+				<td>
+					<textarea name="intro" id="intro_text" rows="4" style="width: 80%"></textarea>
+				 	(<strong id="intro_len">0</strong><span>/100자</span>)
+				</td>
 			</tr>
 			<tr>
 				<td></td>
@@ -105,3 +91,100 @@
 %>
 
 <%@include file="/WEB-INF/views/menuPart2.jsp"%>
+
+
+<script type="text/javascript">
+	/*그룹 분류 '기타' 선택 시 직접 입력*/
+	function categoryChange() {
+		if (document.getElementById('categorySelect').value == "기타") {
+			document.getElementById('category_text').disabled = false;
+		} else {
+			document.getElementById('category_text').value = ""
+			document.getElementById('category_text').disabled = true;
+		}
+	}
+	
+	function chkInput(){
+		var form = document.createGroupForm;
+		var groupName = document.getElementById("name_text").value;
+		var categoryText = document.getElementById("category_text");
+		var category = categoryText.value;
+		var intro = document.getElementById("intro_text").value;
+		
+		//그룹 명 유효성 검사
+		if(groupName.length < 5 || groupName.length > 20){
+			alert("그룹 명은 5글자 이상, 20글자 이하로 작성해주세요");
+			return;
+		}
+		
+		//그룹 분류 유효성 검사
+		if((category.length < 4 || category.length > 15) && categoryText.disabled == false){
+			alert("그룹 분류는 4글자 이상, 15글자 이하로 작성해주세요");
+			return;
+		}
+		
+		//소개글 유효성 검사
+		if(intro.length>100){
+			alert("그룹 소개글은 100글자 이하로 작성해주세요");
+			return;
+		}
+		
+		form.submit();
+	}
+	
+	//텍스트 입력할 때마다 글자 수 실시간 반영
+    (function (window, $, undefined) {
+    	//글자수 셀 대상, 글자수 표시 text
+        var $name_text = $('#name_text'), $name_len = $('#name_len'),
+        $intro_text = $('#intro_text'), $intro_len = $('#intro_len');
+
+      //실시간 글자수 세기
+        $name_text.keyup(function () {
+            chkNameLength(this);
+        });
+        $intro_text.keyup(function () {
+        	chkIntroLength(this);
+        })
+
+        function chkNameLength(objMsg) { //그룹 이름 길이 계산
+            var pattern = /\r\n/gm;
+            var vacuum_text;
+            var vacuum_length;
+
+            vacuum_text = $(objMsg).val();
+            vacuum_length = lengthMsg($(objMsg).val());
+            vacuum_text = vacuum_text.replace(pattern, '\n');
+            $name_len.html(vacuum_text.length);//현재 글자수 반영
+        }
+        
+        function chkIntroLength(objMsg) { //소개글 길이 계산
+            var pattern = /\r\n/gm;
+            var vacuum_text;
+            var vacuum_length;
+
+            vacuum_text = $(objMsg).val();
+            vacuum_length = lengthMsg($(objMsg).val());
+            vacuum_text = vacuum_text.replace(pattern, '\n');
+            $intro_len.html(vacuum_text.length);//현재 글자수 반영
+        }
+        
+        //텍스트 길이 계산
+        function lengthMsg(obj_msg) {
+            var nbytes = 0;
+            var i;
+            for (i = 0; i < obj_msg.length; i++) {
+                var ch = obj_msg.charAt(i);
+                if (encodeURIComponent(ch).length > 4) { // 한글일 경우
+                    nbytes += 2;
+                } else if (ch === '\n') { // 줄바꿈일 경우
+                    if (obj_msg.charAt(i - 1) !== '\r') { // 하지만 밀려서 줄이 바뀐경우가 아닐때
+                        nbytes += 1;
+                    }
+                } else { //나머지는 모두 1byte
+                    nbytes += 1;
+                }
+            }
+            return nbytes;
+        }
+    })(window, jQuery, undefined);
+</script>

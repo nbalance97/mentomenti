@@ -19,7 +19,6 @@
 .text1 {
 	position: relative;
 	margin-bottom:40px;
-	font-weight:700;
 }
 
 .wrapContents {
@@ -71,7 +70,7 @@
 
 	<!-- 자신이 멘토인 그룹 목록 -->
 	<div class="content1">
-		<h4 class="text1">Mento Groups</h4>
+		<h4 class="text1 text-gray-800 font-weight-700">Mento Groups</h4>
 		<img src="resources/img/mento.png"
 			style="display: block; height: 200px; position: relative; margin:0 auto">
 
@@ -121,7 +120,7 @@
 
 	<!-- 멘티로 참여한 그룹 목록 -->
 	<div class="content2">
-		<h4 class="text1">Menti Groups</h4>
+		<h4 class="text1 text-gray-800 font-weight-700">Menti Groups</h4>
 		<img src="resources/img/menti.png"
 			style="display: block; height: 200px; position: relative; margin:0 auto">
 

@@ -111,38 +111,6 @@
 			<td>가입 일자</td>
 			<td><%=loginUser.getJoindate() %></td>
 		</tr>
-		
-		<tr>
-			<td>개설한 그룹</td>
-			<!-- 그룹 이름 클릭하면 해당 그룹 페이지로 이동할 예정 -->
-			<td>
-			<%
-			List<GroupDTO> mentoGroups = HomeController.dao.getGroupDAO().searchMentoGroupsByUserId(id);
-			for(GroupDTO mg: mentoGroups){
-			%>
-				<a href="group?groupid=<%=mg.getGroupid()%>" style="text-decoration: none;"><%=mg.getName()%></a><br>
-			<%
-				}
-			%>
-			</td>
-		</tr>
-		<tr>
-		
-		
-		<tr>
-			<td>가입한 그룹</td>
-			<!-- 그룹 이름 클릭하면 해당 그룹 페이지로 이동할 예정 -->
-			<td>
-			<%
-			List<GroupDTO> joinGroups = HomeController.dao.getGroupDAO().searchJoinGroupsByUserId(id);
-			for(GroupDTO jg: joinGroups){
-			%>
-				<a href="group?groupid=<%=jg.getGroupid()%>" style="text-decoration: none;"><%=jg.getName()%></a><br>
-			<%
-				}
-			%>
-			</td>
-		</tr>
 		<tr>
 			<td style="text-align: left;"><a href="javascript:void(0);" onclick="withdrawUser('<%=loginUser.getId()%>')" class="btn btn-danger">회원탈퇴</a></td>
 			<td style="text-align: right;"><a href="personalInfoChange" class="btn btn-primary">수정</a></td>

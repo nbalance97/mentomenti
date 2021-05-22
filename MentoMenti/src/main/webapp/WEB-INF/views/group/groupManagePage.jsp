@@ -130,10 +130,6 @@
 	</div>
 </div>
 
-<div>
-	<h2>그룹 관리 페이지 내용 추가, 디자인 보완 필요!!</h2>
-</div>
-
 <script type="text/javascript">
 	function withdraw(menti){	//멘티 강퇴
 		if (confirm("멘티 "+menti+"님을 그룹에서 탈퇴시키겠습니까?")){
