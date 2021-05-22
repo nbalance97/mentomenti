@@ -182,6 +182,11 @@
 			}
 		}
 		
+		
+		function playVideo() {
+			v1.play();
+		}
+		
 		conn.onopen = function() { // 소켓 열었을때
 			console.log("Connected to the signaling server");
 			console.log("Current User:" + myName);
@@ -194,7 +199,7 @@
 		}
 		
 		conn.onmessage = function(msg) {
-		    console.log("Got message", msg.data);
+		    //console.log("Got message", msg.data);
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
@@ -219,6 +224,7 @@
 			    	createOffer(data);
 			    	break;
 			    case "rngt_offer":
+			    	flg[from] = true;
 			    	handleOffer(from, to, data, true);
 			    	break;
 			    case "changeStatus":
@@ -277,6 +283,7 @@
 			
 			dataChannel.onopen = function(event) { 
 				console.log("dataChannel successfully opened!");
+				
 				flg[target] = true;
 			    shareMonitorById(target);
 			    if (mic_status)
@@ -290,6 +297,12 @@
 			
 			dataChannel.onclose = function() {
 				console.log("Data Channel is closed");
+				delete(pc[target]);
+				delete(dc[target]);
+				delete(share[target]);
+				delete(emoticon[target]);
+				delete(flg[target]);
+				removeVideo(target);
 			};
 			
 			dataChannel.onmessage = function(event) {
@@ -324,12 +337,14 @@
 				if (e.track.kind === "video") {
 					v1.srcObject = e.streams[0];
 					console.log(name, "Video");
+					playVideo();
 				}
 				else if (e.track.kind === "audio") {
 					var targets = document.getElementById(name);
 					targets.srcObject = e.streams[0];
 					console.log(name, "Audio");
 				}
+			
 			};
 			emoticon[name] = "default";
 		}
@@ -340,7 +355,6 @@
 				pc[from] = createPeerConnection(from);
 				addVideo(from);
 				pc[from].ontrack = function(e) {
-					console.log(e);
 					if (e.track.kind === "video") {
 						v1.srcObject = e.streams[0];
 						console.log(from, "Video");
@@ -357,9 +371,6 @@
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
 			peerConnection.createAnswer(function(answer) { // answer 만들어서 전송
 				peerConnection.setLocalDescription(answer);
-				if (renegotiationflg) 
-					flg[from] = true;
-				
 				send({
 					event : "answer",
 					data : answer,
@@ -485,7 +496,7 @@
 			}
 
 			(function (id){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
-				console.log(id);
+				//console.log(id);
 				pc[id].onnegotiationneeded = function() {
 			    	pc[id].createOffer(async function(offer) { // offer 상대 peer에 전송
 						await send({
