@@ -285,6 +285,7 @@
 			
 			dataChannel.onerror = function(error) {
 				console.log("Error:", error);
+				console.log("Data Channel is closed");
 			};
 			
 			dataChannel.onclose = function() {
