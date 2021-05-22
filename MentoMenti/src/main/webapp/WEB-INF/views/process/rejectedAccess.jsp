@@ -33,13 +33,23 @@
 		}
 		
 		if (message.equals("notPostWriter")){
-			pw.print("<script>alert('자신의 게시물 삭제할 수 있습니다');</script>");
+			pw.print("<script>alert('자신의 게시물만 삭제할 수 있습니다');</script>");
 			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
 		}
 		
 		if (message.equals("notLoginUser")){
 			pw.print("<script>alert('자신의 계정만 탈퇴시킬 수 있습니다');</script>");
 			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
+		}
+		
+		if (message.equals("notCorrectPw")){
+			pw.print("<script>alert('잘못된 비밀번호입니다.');</script>");
+			pw.print("<script>window.location=\"personalInfoPage\"</script>;");	//회원 정보 확인 페이지로 이동
+		}
+		
+		if (message.equals("pwNotChecked")){
+			pw.print("<script>alert('비밀번호 확인을 거치지 않았습니다.');</script>");
+			pw.print("<script>window.location=\"personalInfoPage\"</script>;");	//회원 정보 확인 페이지로 이동
 		}
 		
 		//이런 식으로 접근 권한 없는 페이지 처리하면 됨

@@ -28,9 +28,14 @@
 		UserDTO user = new UserDTO(null, null, null, null, null, null, null, false, null);
 		user.setId(id);
 		user.setNickname(nickname);
-		user.setPw(pw);
 		user.setEmail(email);
 		user.setIntro(intro);
+		
+		if (pw.equals("")){	//비밀번호 변경 x
+			user.setPw(HomeController.dao.getUserDAO().searchUser(user).get(0).getPw());
+		} else {	//비밀번호 변경 o
+			user.setPw(pw);
+		}
 		
 		HomeController.dao.getUserDAO().updateUserInfo(user);	//DB update
 		session.setAttribute("nickname", nickname);

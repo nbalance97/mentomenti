@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -98,6 +99,16 @@ public class HomeController {
     	return "personalInfoPage";
     }
     
+    @RequestMapping(value="/personalInfoChkPw") //회원 정보 수정 페이지 전 비밀번호 체크 페이지
+    public String chkPwPage() {
+    	return "personalInfoChkPw";
+    }
+    
+    @RequestMapping(value="/processChkPw") //비밀번호 체크 진행
+    public String processChkPw() {
+    	return "/process/processChkPw";
+    }
+    
     @RequestMapping(value="/personalInfoChange") //회원 정보 수정 페이지
     public String index15() {
     	return "personalInfoChange";
@@ -125,8 +136,40 @@ public class HomeController {
     
     @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
     public String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
-    	if (!img.isEmpty()) {}
+    	if (!img.isEmpty()) {
+	    	//업로드 경로
+	    	//String root = System.getProperty("user.dir");
+	    	
+	    	String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
+	    	System.out.println(uploadPath);
 
+	    	//String uploadPath = "src/main/resources/static/img/user";
+	    	//File existsPng = new File(root + "/" + uploadPath + "/" + id + ".png");
+	    	//File existsJpg = new File(root + "/" + uploadPath + "/" + id + ".jpg");
+	    	
+	    	//기존에 있던 프로필 이미지 삭제
+	    	File existsPng = new File(uploadPath + "\\" + id + ".png");	//원래 "\\"대신 "/" 였는데 수정해봄
+	    	File existsJpg = new File(uploadPath + "\\" + id + ".jpg");
+	    	if(existsPng.exists()) {
+	    		existsPng.delete();
+	    	}
+	    	if (existsJpg.exists()) {
+	    		existsJpg.delete();
+	    	}
+
+	    	//업로드 이미지 확장자
+	    	StringTokenizer st = new StringTokenizer(img.getOriginalFilename(), ".");
+	    	String extension = null;
+	    	while(st.hasMoreTokens())
+	    		extension = st.nextToken();
+	    	//String filePath = root + "/" + uploadPath + "/" + id + "." + extension.toLowerCase();
+	    	String filePath = uploadPath + "\\" + id + "." + extension.toLowerCase();
+	    	System.out.println(filePath);
+
+	    	//이미지 파일 저장
+	    	File dest = new File(filePath);
+	    	img.transferTo(dest);
+    	}
     	return "/process/processPersonalInfoChange";
     }
     
