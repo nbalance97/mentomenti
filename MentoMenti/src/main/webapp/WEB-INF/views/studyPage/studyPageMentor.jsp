@@ -194,7 +194,7 @@
 		}
 		
 		conn.onmessage = function(msg) {
-		    console.log("Got message", msg.data);
+		    //console.log("Got message", msg.data);
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
@@ -265,17 +265,7 @@
 				}
 			}
 			flg[target] = false;
-			
 			setDataChannel(peerConnection, target);
-			
-			/*peerConnection.ontrack = function(e) {
-				if (e.track.kind === "video") 
-					v1.srcObject = e.streams[0];
-				else if (e.track.kind === "audio")
-					
-					
-					
-			}*/
 
 			return peerConnection;
 		}
@@ -299,6 +289,12 @@
 			
 			dataChannel.onclose = function() {
 				console.log("Data Channel is closed");
+				delete(pc[key]);
+				delete(dc[key]);
+				delete(share[key]);
+				delete(emoticon[key]);
+				delete(flg[key]);
+				removeVideo(key);
 			};
 			
 			dataChannel.onmessage = function(event) {
