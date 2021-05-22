@@ -289,12 +289,12 @@
 			
 			dataChannel.onclose = function() {
 				console.log("Data Channel is closed");
-				delete(pc[key]);
-				delete(dc[key]);
-				delete(share[key]);
-				delete(emoticon[key]);
-				delete(flg[key]);
-				removeVideo(key);
+				delete(pc[target]);
+				delete(dc[target]);
+				delete(share[target]);
+				delete(emoticon[target]);
+				delete(flg[target]);
+				removeVideo(target);
 			};
 			
 			dataChannel.onmessage = function(event) {
