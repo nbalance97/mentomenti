@@ -50,6 +50,8 @@
 						break;
 					}
 					UserDTO u = userList.get(i);
+					if (u.getId().equals(id))	//관리자 본인은 목록에서 제외
+						continue;
 		%>
 		<tr role="row" class="odd">
 			<td><%=u.getId()%></td>
