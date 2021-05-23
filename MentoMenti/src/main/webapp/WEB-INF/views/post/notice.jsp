@@ -154,12 +154,12 @@
 
 <%@include file="/WEB-INF/views/menuPart2.jsp"%>
 <script>
-	//작성한 글 개수 가져오기
+	//공지사항 개수 가져오기
 	var postData = document.getElementById("postSize").value;
 	var curpage = document.getElementById("curPage").value;
 	var kwd = document.getElementById("keyword").value;
 	$(document).ready(function () {
-		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
+		paging(postData,curpage);
 	});
 
 	function paging(totalData, currentPage){

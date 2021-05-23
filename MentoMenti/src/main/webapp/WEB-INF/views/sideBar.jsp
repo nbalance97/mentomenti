@@ -77,6 +77,9 @@
 						<a class="collapse-item" id="colItems" href="personalInfoPage">
 								<img src="resources/img/회원정보확인.png" style="width:15px; margin-right : 14px;">회원 정보 확인
 						</a>
+						<a class="collapse-item" id="colItems" href="personalInfoChkPw">
+								<img src="resources/img/회원정보확인.png" style="width:15px; margin-right : 14px;">회원 정보 수정
+						</a>
 						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1">
 						<img src="resources/img/리스트.png" style="width:15px; margin-right : 14px;">나의 활동
 						</a>
