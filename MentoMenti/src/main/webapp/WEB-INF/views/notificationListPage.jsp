@@ -8,6 +8,7 @@
 <%@ page
 	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.StringTokenizer" %>
 <head>
 
 <meta charset="utf-8">
@@ -112,11 +113,31 @@
 				<!-- 그룹 페이지로 이동하는 a태그 추가 -->
 				
 				<%
-					int[] groupIdList = HomeController.dao.getGroupmateDAO().joinedGroupsId(id);
+					int[] mentiGroupIdList = HomeController.dao.getGroupmateDAO().joinedGroupsId(id);	//가입한 그룹 아이디
+					int[] mentoGroupIdList = HomeController.dao.getGroupDAO().searchMentoGroupIdsByUserId(id);	//개설한 그룹 아이디
+					
 					boolean find = false;
-					for (int gi: groupIdList){
+					for (int gi: mentiGroupIdList){
 						String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(gi).getName();	//가입한 그룹들 이름
-						if (n.getContent().contains(groupName)){	//그룹 이름을 포함하고 있다면
+						StringTokenizer st = new StringTokenizer(n.getContent(), "[]");
+						if (st.nextToken().equals(groupName)){	//그룹 이름을 포함하고 있다면
+							find = true;
+				%>
+				<a href="group?groupid=<%=gi%>">
+					<div style="float:left; width:85%; padding:15px; text-align:left;">
+						<div style="margin-bottom:10px"><%=n.getContent()%></div>
+						<div style="font-size:12px"><%=n.getSendtime()%></div>
+					</div>
+				</a>
+				<%
+							break;
+						}
+					}
+					
+					for (int gi: mentoGroupIdList){
+						String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(gi).getName();	//개설한 그룹들 이름
+						StringTokenizer st = new StringTokenizer(n.getContent(), "[]");
+						if (st.nextToken().equals(groupName)){	//그룹 이름을 포함하고 있다면
 							find = true;
 				%>
 				<a href="group?groupid=<%=gi%>">

@@ -77,4 +77,11 @@
   	delete FROM mmgroup
   	WHERE groupid = #{groupid};
   </delete>
+  
+  <!-- 유저 아이디로 본인이 멘토인 그룹의 아이디 찾기 -->
+  <select id="searchMentoGroupIdsByUserId" resultType="int" parameterType="String">
+  	SELECT groupid
+  	FROM mmgroup
+  	WHERE mentoid = #{id};
+  </select>
 </mapper>

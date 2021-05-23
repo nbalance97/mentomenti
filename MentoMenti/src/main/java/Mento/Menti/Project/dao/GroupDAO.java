@@ -20,4 +20,6 @@ public interface GroupDAO {
 	GroupDTO searchGroupByGroupid(int groupid) throws Exception;
 	
 	void deleteGroup(int groupid) throws Exception;
+	
+	int[] searchMentoGroupIdsByUserId(String id) throws Exception;
 }
