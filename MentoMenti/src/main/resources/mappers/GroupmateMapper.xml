@@ -35,4 +35,11 @@
 		DELETE FROM groupmate
 		WHERE id = #{id} and groupid = #{groupid};
 	</delete>
+	
+	<!-- 가입한 그룹 아이디 리턴 -->
+	<select id="joinedGroupsId" resultType="int" parameterType="String">
+		SELECT groupid
+		FROM groupmate
+		WHERE id = #{id};
+	</select>
 </mapper>

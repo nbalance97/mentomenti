@@ -3,6 +3,10 @@
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page
 	import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
+<%@ page
+	import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="java.util.List"%>
 <head>
 
@@ -65,7 +69,7 @@
 		<%
 			} else {
 				//for(NotificationDTO n: notifications) {
-				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++){
+				for (int i=(curPage-1)*10; i<(curPage-1)*10+10;i++) {
 					if(i==notifications.size()){
 						break;
 					}
@@ -104,10 +108,37 @@
 					%>
 				
 				</div>
+				
+				<!-- 그룹 페이지로 이동하는 a태그 추가 -->
+				
+				<%
+					int[] groupIdList = HomeController.dao.getGroupmateDAO().joinedGroupsId(id);
+					boolean find = false;
+					for (int gi: groupIdList){
+						String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(gi).getName();	//가입한 그룹들 이름
+						if (n.getContent().contains(groupName)){	//그룹 이름을 포함하고 있다면
+							find = true;
+				%>
+				<a href="group?groupid=<%=gi%>">
+					<div style="float:left; width:85%; padding:15px; text-align:left;">
+						<div style="margin-bottom:10px"><%=n.getContent()%></div>
+						<div style="font-size:12px"><%=n.getSendtime()%></div>
+					</div>
+				</a>
+				<%
+							break;
+						}
+					}
+					
+					if (find == false){	//그룹 이름 포함 X
+				%>
 				<div style="float:left; width:85%; padding:15px; text-align:left;">
 					<div style="margin-bottom:10px"><%=n.getContent()%></div>
 					<div style="font-size:12px"><%=n.getSendtime()%></div>
 				</div>
+				<%
+					}
+				%>
 			</div>
 		</td></tr>
 		<%
@@ -121,7 +152,7 @@
 
 <!-- 페이지 버튼 -->
 <input type="hidden" id="curPage" value="<%=curPage%>"/>
-<input type="hidden" id="notificationSize" value="<%=notifications.size() %>"/>
+<input type="hidden" id="notificationSize" value="<%=notifications.size()%>"/>
 
 <div class="d-flex align-items-center justify-content-between">
 		<nav aria-label="Page navigation example" style="margin: 0 auto;">

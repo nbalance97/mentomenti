@@ -10,4 +10,5 @@ public interface GroupmateDAO {
 	int cntMenti(int groupid) throws Exception;
 	List<GroupmateDTO> selectMentiList(int groupid) throws Exception;
 	void leaveGroup(GroupmateDTO groupmate) throws Exception;
+	int[] joinedGroupsId(String id) throws Exception;
 }
