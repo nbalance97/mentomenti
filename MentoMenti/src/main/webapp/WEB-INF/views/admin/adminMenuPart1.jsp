@@ -19,13 +19,14 @@
 <!-- 기본 css -->
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-</head>
-
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
 	rel="stylesheet">
-
+<!-- 파비콘 설정 -->
+<link rel="shortcut icon" href="resources/img/logo3.png">
+<link rel="icon" href="resources/img/logo3.png">
+</head>
 
 <style>
 ::selection {

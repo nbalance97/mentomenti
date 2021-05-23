@@ -26,6 +26,7 @@
 	}
 </style>
 </head>
+
 <body>
 	<%
   		session.setAttribute("my_id", "user"+Integer.toString((int)(Math.random() * 10000)));

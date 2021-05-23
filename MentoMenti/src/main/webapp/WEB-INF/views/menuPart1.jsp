@@ -12,7 +12,9 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
+<!-- 파비콘 설정 -->
+<link rel="shortcut icon" href="resources/img/logo3.png">
+<link rel="icon" href="resources/img/logo3.png">
 
 <style>
 	::selection{background:#002266; color:white;}
@@ -66,7 +68,7 @@
 							<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="loginPage" id="userDropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline small">로그인</span>
+							<span class="mr-2 d-none d-lg-inline small" style="color:white;">로그인</span>
 							<img class="img-profile rounded-circle" src="resources/img/user.png">
 							</a>
 							<%

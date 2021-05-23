@@ -22,6 +22,10 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/codemirror.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/mdn-like.css">
 	<link rel="stylesheet" type="text/css" href="/resources/css/dracula.css">
+	<!-- 파비콘 설정 -->
+	<link rel="shortcut icon" href="resources/img/logo3.png">
+	<link rel="icon" href="resources/img/logo3.png">
+
 	<script type="text/javascript" src="/resources/js/codemirror.js"></script>
 	<script src="/resources/js/python.js"></script>
 	<script src="/resources/js/clike.js"></script>
