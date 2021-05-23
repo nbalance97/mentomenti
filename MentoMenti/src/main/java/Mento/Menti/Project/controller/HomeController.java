@@ -375,7 +375,7 @@ public class HomeController {
     
     @RequestMapping(value="/board")//화이트보드
     public String index104() {
-    	return "/whiteBoard3";
+    	return "/whiteBoard2";
     }
     
     @RequestMapping(value="/confirmId")//아이디 중복체크
