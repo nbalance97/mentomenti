@@ -53,7 +53,7 @@
 		NotificationDTO notification = new NotificationDTO();
 		notification.setReceiverid((String)session.getAttribute("userID"));
 		notification.setSendtime(joinDatetime);
-		notification.setContent(name+" 그룹 개설이 완료되었습니다.");
+		notification.setContent("["+name+"] 그룹 개설이 완료되었습니다.");
 		notification.setIsread(false);
 		HomeController.dao.getNotificationDAO().insertNotification(notification);
 		

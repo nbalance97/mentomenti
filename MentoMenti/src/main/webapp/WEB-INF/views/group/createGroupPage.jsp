@@ -111,9 +111,15 @@
 		var category = categoryText.value;
 		var intro = document.getElementById("intro_text").value;
 		
-		//그룹 명 유효성 검사
+		//그룹 명 길이 검사
 		if(groupName.length < 5 || groupName.length > 20){
 			alert("그룹 명은 5글자 이상, 20글자 이하로 작성해주세요");
+			return;
+		}
+		
+		//그룹 명에 [ 또는 ] 포함되어 있는지 검사
+		if(groupName.indexOf('[') != -1 || groupName.indexOf(']') != -1){
+			alert("그룹 명에는 [ 또는 ] 기호가 들어갈 수 없습니다.");
 			return;
 		}
 		

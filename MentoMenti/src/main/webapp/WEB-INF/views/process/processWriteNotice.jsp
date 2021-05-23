@@ -59,7 +59,7 @@
 				NotificationDTO notification = new NotificationDTO();
 				notification.setReceiverid(menti.getId());
 				notification.setSendtime(uploadDatetime);
-				notification.setContent(groupName+" 그룹에 공지사항이 등록되었습니다.");
+				notification.setContent("["+groupName+"] 그룹에 공지사항이 등록되었습니다.");
 				notification.setIsread(false);
 				HomeController.dao.getNotificationDAO().insertNotification(notification);
 			}

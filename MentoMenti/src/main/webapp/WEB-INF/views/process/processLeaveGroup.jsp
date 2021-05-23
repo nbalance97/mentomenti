@@ -50,7 +50,7 @@
 			NotificationDTO notification = new NotificationDTO();
 			notification.setReceiverid(loginid);
 			notification.setSendtime(leaveDatetime);
-			notification.setContent(group.getName()+" 그룹에서 탈퇴 완료되었습니다.");
+			notification.setContent("["+group.getName()+"] 그룹에서 탈퇴 완료되었습니다.");
 			notification.setIsread(false);
 			HomeController.dao.getNotificationDAO().insertNotification(notification);
 		

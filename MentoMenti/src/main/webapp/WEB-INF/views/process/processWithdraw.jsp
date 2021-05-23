@@ -51,7 +51,7 @@
 		NotificationDTO notification = new NotificationDTO();
 		notification.setReceiverid(mentiId);
 		notification.setSendtime(withDrawDatetime);
-		notification.setContent(group.getName()+" 그룹에서 강퇴되었습니다.");
+		notification.setContent("["+group.getName()+"] 그룹에서 강퇴되었습니다.");
 		notification.setIsread(false);
 		HomeController.dao.getNotificationDAO().insertNotification(notification);
 	

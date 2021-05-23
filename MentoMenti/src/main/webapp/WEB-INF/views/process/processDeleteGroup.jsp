@@ -54,7 +54,7 @@
 			NotificationDTO notification = new NotificationDTO();
 			notification.setReceiverid(mentoid);
 			notification.setSendtime(datetime);
-			notification.setContent(groupName+" 그룹이 해체되었습니다.");
+			notification.setContent("["+groupName+"] 그룹이 해체되었습니다.");
 			notification.setIsread(false);
 			HomeController.dao.getNotificationDAO().insertNotification(notification);	//멘토 알림
 			
@@ -63,7 +63,7 @@
 				NotificationDTO n = new NotificationDTO();
 				n.setReceiverid(gm.getId());
 				n.setSendtime(datetime);
-				n.setContent(groupName+" 그룹이 해체되었습니다.");
+				n.setContent("["+groupName+"] 그룹이 해체되었습니다.");
 				n.setIsread(false);
 				HomeController.dao.getNotificationDAO().insertNotification(n);	//멘티 알림
 			}

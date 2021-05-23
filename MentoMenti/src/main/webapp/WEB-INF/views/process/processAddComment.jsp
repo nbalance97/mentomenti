@@ -67,7 +67,7 @@
 				NotificationDTO notification = new NotificationDTO();
 				notification.setReceiverid(post.getUserid());	//Q&A 작성자
 				notification.setSendtime(addDatetime);
-				notification.setContent(groupName+" 그룹에서 작성한 Q&A에 답변이 등록되었습니다.");
+				notification.setContent("["+groupName+"] 작성한 Q&A에 답변이 등록되었습니다.");
 				notification.setIsread(false);
 				HomeController.dao.getNotificationDAO().insertNotification(notification);
 				
