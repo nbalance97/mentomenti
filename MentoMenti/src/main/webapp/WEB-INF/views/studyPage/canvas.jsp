@@ -80,7 +80,7 @@
 	}
 	
 	input[type=range] { 
-		width:90%;
+		width:70%;
 		margin:0 auto;
 		background: transparent; 
 	}
@@ -111,9 +111,9 @@
 						<div class="p_color" style="background-color: #ffcc00" onclick="selectColor('yellow')"></div>
 				</div>
 				<div class="column2">
-						<div class="p_color" style="background-color: #4cd963" onclick="selectColor('green')"></div>
+						<div class="p_color" style="background-color: #4cd963" onclick="selectColor('yellowgreen')"></div>
 						<div class="p_color" style="background-color: #0579ff" onclick="selectColor('blue')"></div>
-						<div class="p_color" style="background-color: #5856d6" onclick="selectColor('purple')"></div>
+						<div class="p_color" style="background-color: purple" onclick="selectColor('purple')"></div>
 						<div class="p_color" style="background-color: deepPink" 	onclick="selectColor('deepPink')"></div>
 				</div>
 				</div>
@@ -193,14 +193,20 @@
 		    	var y2 = content.y2;
 		    	var color = content.color;
 		    	var force = content.force;
-		    	var erase = content.erase;
-		    	handlePaint(x1, y1, x2, y2, color, force, erase);
+		    	var penMode = content.penMode;
+		    	handlePaint(x1, y1, x2, y2, color, force, penMode);
 		    	return;
 	    	}
 			
+	    	else if(content.event==="recv_clear"){
+	    		var isClear = content.isClear;
+	    		clearBoard(isClear);
+	    		return;
+	    	}		
+			
 		}
 		
-		async function handlePaint(x1, y1, x2, y2, color, force, erase) { // painter.js와 연동되는 부분임
+		async function handlePaint(x1, y1, x2, y2, color, force, penMode) { // painter.js와 연동되는 부분임
 			  cvs.beginPath();
 				  cvs.moveTo(x1, y1);
 				  cvs.lineTo(x2, y2);
@@ -208,9 +214,18 @@
 				  cvs.lineWidth = force;
 				  cvs.lineCap = 'round';
 				  cvs.stroke();
-				  cvs.globalCompositeOperation = erase;
+				  cvs.globalCompositeOperation = penMode;
 			  cvs.closePath();
 		}
+		
+		async function clearBoard(isClear){
+			if (isClear==1)
+				cvs.clearRect(0, 0, canvas.width, canvas.height);
+			else
+				return;
+			
+		}
+		
 		
 		function isOpen(ws) { 
 			return ws.readyState === ws.OPEN; 

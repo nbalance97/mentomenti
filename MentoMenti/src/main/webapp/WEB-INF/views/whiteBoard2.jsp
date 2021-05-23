@@ -50,7 +50,7 @@
 }
 
 input[type=range] { 
-	width:90%;
+	width:70%;
 	background: transparent; 
 }
 </style>

@@ -4,8 +4,10 @@ var canvas;
 var bufCanvas;
 var bufCtx;
 
-
 var drawingMode="draw";
+var isClear=0;
+
+var clearBoard=0;
 document.getElementById("erase").onclick = function () {
 	drawingMode = "eraser";
   //console.warn(drawingMode);
@@ -70,7 +72,7 @@ function point() {
   };
 }
 
-function drwaCommand() {
+function drawCommand() {
   return {
     mode: paintMode[0],
     color: "white",
@@ -153,7 +155,7 @@ function selectColor(choosedColor) {
   pos.color = choosedColor;
   pos.colorIdx = colorTableIdx[choosedColor];
 
-  var newColor = drwaCommand();
+  var newColor = drawCommand();
   newColor.mode = "color";
   newColor.color = choosedColor;
 }
@@ -181,7 +183,7 @@ function pointMouseDown(event) {
   pos.X = startPos.X;
   pos.Y = startPos.Y;
 
-  var newPoint = drwaCommand();
+  var newPoint = drawCommand();
   newPoint.mode = "pencil_begin";
 }
 
@@ -195,7 +197,7 @@ function pointMouseMove(event) { // 이부분 좀 수정함
   cvs.lineCap = 'round';
   cvs.stroke();
 
-  var newPoint = drwaCommand();
+  var newPoint = drawCommand();
   newPoint.mode = "line";
   newPoint.X1 = { X: pos.X, Y: pos.Y };
   newPoint.X2 = { X: currentPos.X, Y: currentPos.Y };
@@ -208,7 +210,7 @@ function pointMouseMove(event) { // 이부분 좀 수정함
 	  y2: currentPos.Y,
 	  force: cvs.lineWidth,
 	  color: pos.color,
-	  erase: cvs.globalCompositeOperation
+	  penMode: cvs.globalCompositeOperation
   });
   
   pos.X = currentPos.X;
@@ -223,7 +225,7 @@ function pointMouseUp(event) {
   pos.isDraw = false;
   cvs.closePath();
 
-  var newPoint = drwaCommand();
+  var newPoint = drawCommand();
   newPoint.mode = "pencil_end";
 }
 
@@ -251,7 +253,7 @@ function handleStart(event) {
 		pos.Y = touches[i].clientY;
 	}
 
-	var newPoint = drwaCommand();
+	var newPoint = drawCommand();
 	newPoint.mode = "pencil_begin";
 }
 
@@ -266,7 +268,7 @@ function handleMove(event) { // 이부분 좀 수정함
 		  cvs.lineCap = 'round';
 		  cvs.stroke();
 	
-		  var newPoint = drwaCommand();
+		  var newPoint = drawCommand();
 		  newPoint.mode = "line";
 		  newPoint.X1 = { X: pos.X, Y: pos.Y };
 		  newPoint.X2 = { X: touches[i].clientX, Y: touches[i].clientY };
@@ -279,7 +281,7 @@ function handleMove(event) { // 이부분 좀 수정함
 			  y2: touches[i].clientY,
 			  force: cvs.lineWidth,
 			  color: pos.color,
-			  erase: cvs.globalCompositeOperation
+			  penMode: cvs.globalCompositeOperation // 펜, 지우개 모드 판별
 		  });
 		  
 		  pos.X = touches[i].clientX;
@@ -295,7 +297,7 @@ function handleEnd(event) {
 	  pos.isDraw = false;
 	  cvs.closePath();
 
-	  var newPoint = drwaCommand();
+	  var newPoint = drawCommand();
 	  newPoint.mode = "pencil_end";
 }
 
@@ -314,9 +316,15 @@ function initPage() {
 function clearPage(){
 	if(confirm("메모를 삭제합니다.")==true){
 		console.log("initPage()");
+		isClear=1;
   		clearCanvas();
 	}
 	else return;
+	
+	send({
+		event:"recv_clear",
+		isClear:isClear,
+	});
 }
 
 function onLoadPage() {
@@ -324,7 +332,7 @@ function onLoadPage() {
   cvs = canvas.getContext("2d");
   
   cvs.canvas.width  = window.innerWidth*0.75;
-  cvs.canvas.height = window.innerHeight*1;
+  cvs.canvas.height = window.innerHeight;
 
   bufCanvas = document.createElement("canvas");
   bufCanvas.width = canvas.width;
