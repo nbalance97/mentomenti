@@ -9,6 +9,7 @@
 	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,7 @@
 </script>
 <body>
 			<%
+			PrintWriter pw = response.getWriter();
 			//방만들기 클릭시 class대한 세션설정 필요?
 			//클래스아이디 받아오기
 			//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
@@ -87,8 +89,10 @@
 					isMember=true;
 				}
 			}
-			if(!isMember || id == null){
-				response.sendRedirect("rejectedAccess?type=notMember");
+			if(!isMember || id.equals(null)){//서버연결 뭐시기 땜에 sendRedirect가 안먹힘,,,
+				//response.sendRedirect("rejectedAccess?type=notMember");
+				pw.print("<script>alert('해당그룹에 가입하지 않았습니다.');</script>");
+				pw.print("<script>window.location='main'</script>"); //자신의 그룹 목록 페이지로 이동
 			}
 			
 			%>

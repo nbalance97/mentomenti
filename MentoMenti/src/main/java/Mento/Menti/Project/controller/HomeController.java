@@ -454,4 +454,8 @@ public class HomeController {
     public String deleteUser() {
     	return "/process/processDeleteUser";
     }
+    @RequestMapping(value="/newmain") //메인_slider 변경
+    public String index112() {
+    	return "/mainRemake";
+    }
 }

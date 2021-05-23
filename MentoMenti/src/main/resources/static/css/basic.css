@@ -14,18 +14,6 @@ body{
 	font-weight: 300;
 }
 
-section{
-	background : url("../img/test2.png") no-repeat;
-	background-position: absolute;
-
-	left: 0;
-    top: 0;
-    max-width: 100%;
-	width : 1920px;
-	height : 700px;
-	transition:all .5s;
-}
-
 #pageHeading{
 	padding-top:100px;
 }
