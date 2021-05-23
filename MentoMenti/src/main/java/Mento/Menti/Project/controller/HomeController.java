@@ -454,8 +454,12 @@ public class HomeController {
     public String deleteUser() {
     	return "/process/processDeleteUser";
     }
-    @RequestMapping(value="/newmain") //메인_slider 변경
+    @RequestMapping(value="/newmain") //메인_slider 수정한것 = 매우노답.
     public String index112() {
     	return "/mainRemake";
+    }
+    @RequestMapping(value="/explain") //모코 설명 페이지
+    public String index113() {
+    	return "/mocoExplain";
     }
 }

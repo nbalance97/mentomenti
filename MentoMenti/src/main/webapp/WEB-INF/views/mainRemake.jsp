@@ -144,6 +144,9 @@ a, a:hover {
 
 <!-- 사이트 설명 -->
 <div class="list">
+	<div class="up-on-scroll">
+		<a href="explain" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">모코가 처음이신가요?</a>
+	</div>
 	<div class="up-on-scroll" id="site_intro1">
 		<h3 class="font-weight-700" style="margin: 30px">Welcome to MOCO!</h3>
 		<p>누구나 멘토가 될 수 있고</p>
