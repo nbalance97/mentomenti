@@ -64,26 +64,12 @@
 		notification.setIsread(false);
 		HomeController.dao.getNotificationDAO().insertNotification(notification);
 		
-		//로그인 페이지로 이동
-		response.sendRedirect("loginPage");
-	    /*
-	    @RequestMapping(value="/insert")
-	    // select문, insert문 전용 테스트 함수
-	    public String insert() throws Exception {
-	    	UserDTO insUser = new UserDTO(null, null, null, null, null, null, null, false, null);
-	    	insUser.setEmail("a@naver.com");
-	     	List<UserDTO> temp = dao.getUserDAO().searchUser(insUser);
-	     	for (UserDTO u: temp)
-	     		System.out.println(u.getId() + "//" + u.getPw());
-	    	return "insert";
-	    }
-	    */
-	    /*  User 리스트중 첫번쨰 user의 데이터를 수정 후 insert
-	     *  List<UserDTO> temp = dao.getUserDAO().selectUsers();
-	    	UserDTO user = temp.get(0);
-	    	user.setId("user4"); 
-	    	dao.getUserDAO().insertUsers(user);
-	     */
+		//회원가입 직후 바로 로그인 완료 처리
+		session.setAttribute("userID", id);
+		session.setAttribute("nickname", nickname);
+		
+		//response.sendRedirect("loginPage");	//로그인 페이지로 이동
+		response.sendRedirect("explain");	//사이트 이용 안내 페이지로 이동
 	%>
 </body>
 </html>

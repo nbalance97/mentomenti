@@ -41,10 +41,18 @@
 				<div class="mr-3">
 					<!-- 아이콘 나중에 바꿀지 고민 -->
 					<div class="icon-circle">
-										<%
+					<%
 						if (n.getContent().contains("수업")) {
 					%>
 					<img src="resources/img/icon_class.png" style="width:100%"/>
+					<%
+						} else if (n.getContent().contains("답변")) {
+					%>
+					<img src="resources/img/icon_comment.png" style="width:100%"/>
+					<%
+						} else if (n.getContent().contains("공지")) {
+					%>
+					<img src="resources/img/icon_newpost.png" style="width:100%"/>
 					<%
 						} else if (n.getContent().contains("그룹")) {
 					%>
