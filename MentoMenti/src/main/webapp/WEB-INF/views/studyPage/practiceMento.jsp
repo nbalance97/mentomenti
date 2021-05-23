@@ -124,7 +124,7 @@
 				<form name="compileView" style="width:100%; height:70%;" method="post" action="">
 					<div class="compiler img-rounded" style="padding:5px">
 							<label>Code Input</label>
-							<input type="button" value="Execute" onclick="processCompile();">
+							<input type="button" class="btn" style="margin:0px 10px;" value="Execute" onclick="processCompile();">
 							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
 					</div>
 			

@@ -1,5 +1,6 @@
 /*스터디 페이지 & 실습 페이지 default css요소*/
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
 html,body{
 	width:100%;
@@ -9,8 +10,18 @@ html,body{
 .main{
 	width:100%;
 	height:100%;
-	background:#474f7d;
+	background:#102A5D;
+	/*background:#474f7d;*/
 }
 .shadow {
     box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+}
+
+label{
+	color:white;
+}
+
+*{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size:15px;
 }
