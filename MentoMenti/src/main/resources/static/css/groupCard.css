@@ -50,7 +50,8 @@ a .cardscreen{
 a .cardscreen .introbottom{
 	width:100%;
 	height:100%;
-	background:#55A1CC;
+	/*background:#55A1CC;*/
+	background:#8EA8DB;
 	position:absolute;
 	top:150%;
 	left:0;

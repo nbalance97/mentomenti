@@ -259,22 +259,25 @@
 				}
 				
 				for (var k = 0; k<group[i].maxperson - mentiCnt[i].cnt; k++) {
-					s += '<img src="resources/img/그룹검정.png" style="width:45px">';
+					s += '<img src="resources/img/그룹회색.png" style="width:45px">';
 				}
 			
 				
 				$('<div class="col-lg-4"><a id="cardAction"><div class="card shadow mb-4"><div class="card-header py-3">'
 						+'<h5 class="m-0 text-primary">'
 						+'<span class="font-weight-500">'+group[i].name+'</span>'
-						+'<div class="btn btn-warning btn-circle btn-sm" style="float: right;"'
-						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
-						+'<img src="resources/img/right-arrow.png" style="width:100%"></h5></div>'
+						+'</div>'
 						+'<div class="card-body cardscreen">'
-						+'<div class="introbottom">'
-						+'<p class="introheader"><em>스터디 소개</em><p>'
-						+'<p class="introheader">'+group[i].intro+'</p>'+'</div>'
+						+'<div class="introbottom" style="text-align:center;">'
+						+'<p class="introheader"><em><b>스터디 소개</b></em><p>'
+						+'<p class="introheader">'+group[i].intro+'</p>'
+						+'<div class="btn btn-primary" style="font-size:15px"'
+						+'onclick="chkAbleToJoin(' + "'" + group[i].mentoid + "', '" + group[i].groupid + "'" + ')">'
+						+'가입하기</h5></div>'
+						+'</div>'
 						+'<span class="font-weight-500" style="color:gray">과목 </span>'+group[i].category+'</p>'
 						+'<span class="font-weight-500" style="color:gray">멘토 </span>'+mentoNick[i].mentonick+'</p>'
+						+'<span class="font-weight-500" style="color:gray">현재 인원 수 </span>'+mentiCnt[i].cnt+'/'+group[i].maxperson+'</p>'
 						+ s + '</div></a></div>'
 					
 						).appendTo('#groupList');
