@@ -116,7 +116,7 @@
 	}
 </script>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <%
 	String isPwChecked = (String) session.getAttribute("pwChk");
@@ -253,7 +253,7 @@
 	}
 %>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>
 
 
 

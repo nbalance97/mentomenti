@@ -24,7 +24,7 @@
 
 </head>
 
-<%@include file="menuPart1.jsp"%>
+<%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 
 <%
@@ -125,7 +125,7 @@
 	}
 %>
 
-<%@include file="menuPart2.jsp"%>
+<%@include file="/WEB-INF/views/menuPart2.jsp"%>
 
 <script>
 	function withdrawUser(userid){

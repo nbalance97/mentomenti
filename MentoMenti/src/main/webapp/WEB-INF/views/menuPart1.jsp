@@ -116,7 +116,7 @@
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 프로필
 								</a>
 								
-								<a class="dropdown-item" href="personalInfoChange"> <i
+								<a class="dropdown-item" href="personalInfoChkPw"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 개인 정보
 									수정
 								</a>

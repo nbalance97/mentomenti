@@ -96,12 +96,12 @@ public class HomeController {
     
     @RequestMapping(value="/personalInfoPage") //회원 정보 확인 페이지
     public String index14() {
-    	return "personalInfoPage";
+    	return "/myPage/personalInfoPage";
     }
     
     @RequestMapping(value="/personalInfoChkPw") //회원 정보 수정 페이지 전 비밀번호 체크 페이지
     public String chkPwPage() {
-    	return "personalInfoChkPw";
+    	return "/myPage/personalInfoChkPw";
     }
     
     @RequestMapping(value="/processChkPw") //비밀번호 체크 진행
@@ -111,7 +111,7 @@ public class HomeController {
     
     @RequestMapping(value="/personalInfoChange") //회원 정보 수정 페이지
     public String index15() {
-    	return "personalInfoChange";
+    	return "/myPage/personalInfoChange";
     }
     
     @RequestMapping(value="/writepage") //게시물 작성 페이지
@@ -382,9 +382,10 @@ public class HomeController {
     public String index105() {
     	return "/process/confirmId";
     }
-    @RequestMapping(value="/activity")//나의 활동 = 내댓글, 게시글,,,
+    
+    @RequestMapping(value="/activity") //나의 활동 (작성한 게시물, 댓글 목록)
     public String index91() {
-    	return "/myActivity";
+    	return "/myPage/myActivity";
     }
     
     @RequestMapping(value="/bh2")
