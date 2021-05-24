@@ -4,6 +4,7 @@
 <%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page import="Mento.Menti.Project.dto.CommentDTO, Mento.Menti.Project.dao.CommentDAO"%>
 <%@ page import="java.util.List"%>
+<%@ page import="org.springframework.core.io.ClassPathResource" %>
 
 <head>
 
@@ -63,8 +64,6 @@
 	> <a href="notice?page=1" style="text-decoration : none; color:gray">공지사항</a></p>
 </div>
 
-
-
 <table class="table table-bordered dataTable" width="100%"
 	aria-describedby="dataTable_info" style="width: 100%; background: white; margin-bottom:50px">
 	<tbody>
@@ -119,23 +118,31 @@
 		<div class="comment_component nickname-tooltip">
 				<!-- 댓글 프로필 이미지 -->
 					<%
-						File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
-						File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
+						//File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
+						//File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
+						String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();
+						String pngImgPath = uploadPath + "\\" + commentId + ".png";
+						String jpgImgPath = uploadPath + "\\" + commentId + ".jpg";
+						File pngImg = new File(pngImgPath);
+						File jpgImg = new File(jpgImgPath);
 						
 						if (pngImg.exists()) {
 					%>
-						<img src="resources/img/user/<%=commentId%>.png" class="rounded-circle"
-							style="width:30px; height:30px"/>
+						<div class="profileImg rounded-circle" style="width:30px; height:30px; float:left; margin-right:10px">
+							<img src="resources/img/user/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
+						</div>
 					<%
 						} else if (jpgImg.exists()){
 					%>
-						<img src="resources/img/user/<%=commentId%>.jpg" class="rounded-circle"
-							style="width:30px; height:30px"/>
+						<div class="profileImg rounded-circle" style="width:30px; height:30px; float:left; margin-right:10px">
+							<img src="resources/img/user/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+						</div>
 					<%
 						} else {
 					%>
-						<img src="resources/img/user/user.png" class="rounded-circle"
-							style="width:30px; height:30px"/>
+						<div class="profileImg rounded-circle" style="width:30px; height:30px; float:left; margin-right:10px">
+							<img src="resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
+						</div>
 					<%
 						}
 					%>
@@ -150,18 +157,21 @@
 					<%
 						if (pngImg.exists()) {
 					%>
-						<img src="resources/img/user/<%=commentId%>.png" class="rounded-circle"
-							style="width:120px; height:120px"/>
+						<div class="profileImg rounded-circle" style="width:120px; height:120px;">
+							<img src="resources/img/user/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
+						</div>
 					<%
 						} else if (jpgImg.exists()){
 					%>
-						<img src="resources/img/user/<%=commentId%>.jpg" class="rounded-circle"
-							style="width:120px; height:120px"/>
+						<div class="profileImg rounded-circle" style="width:120px; height:120px;">
+							<img src="resources/img/user/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+						</div>
 					<%
 						} else {
 					%>
-						<img src="resources/img/user/user.png" class="rounded-circle"
-							style="width:120px; height:120px"/>
+						<div class="profileImg rounded-circle" style="width:120px; height:120px;">
+							<img src="resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
+						</div>
 					<%
 						}
 					%>

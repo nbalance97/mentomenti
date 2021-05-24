@@ -154,8 +154,8 @@ public class HomeController {
 	    	//File existsJpg = new File(root + "/" + uploadPath + "/" + id + ".jpg");
 	    	
 	    	//기존에 있던 프로필 이미지 삭제
-	    	File existsPng = new File(uploadPath + "/" + id + ".png");	//원래 "\\"대신 "/" 였는데 수정해봄
-	    	File existsJpg = new File(uploadPath + "/" + id + ".jpg");
+	    	File existsPng = new File(uploadPath + "\\" + id + ".png");	//원래 "\\"대신 "/" 였는데 수정해봄
+	    	File existsJpg = new File(uploadPath + "\\" + id + ".jpg");
 	    	if(existsPng.exists()) {
 	    		existsPng.delete();
 	    	}

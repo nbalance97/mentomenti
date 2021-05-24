@@ -6,9 +6,8 @@
 <%@ page
 	import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO"%>
 <%@ page import="java.util.List"%>
-<%@ page import="java.io.*"%>
-<%@ page import="java.awt.image.BufferedImage" %>
-<%@ page import="javax.imageio.ImageIO" %>
+<%@ page import="org.springframework.core.io.ClassPathResource" %>
+<%@ page import="java.io.File" %>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -86,23 +85,31 @@
 							
 							<!-- 프로필 이미지 -->							
 							<%
-								File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-								File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
-								
+								//File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
+								//File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
+								String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();
+								String pngImgPath = uploadPath + "\\" + id + ".png";
+								String jpgImgPath = uploadPath + "\\" + id + ".jpg";
+								File pngImg = new File(pngImgPath);
+								File jpgImg = new File(jpgImgPath);
+							
 								if (pngImg.exists()) {
 							%>
-								<div class="pngProfile profileImg rounded-circle"
-									style="width: 40px; height:40px; background-image:url('resources/img/user/<%=id%>.png')"></div>
+								<div class="profileImg rounded-circle" style="width:40px; height:40px; float:left; margin-right:10px">
+									<img src="resources/img/user/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
+								</div>
 							<%
 								} else if (jpgImg.exists()){
 							%>
-								<div class="jpgProfile profileImg rounded-circle"
-									style="width: 40px; height:40px; background-image:url('resources/img/user/<%=id%>.jpg')"></div>
+								<div class="profileImg rounded-circle" style="width:40px; height:40px; float:left; margin-right:10px">
+									<img src="resources/img/user/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+								</div>
 							<%
 								} else {
 							%>
-								<div class="defaultProfile profileImg rounded-circle"
-									style="width: 40px; height:40px; background-image:url('resources/img/user/user.png')"></div>
+								<div class="profileImg rounded-circle" style="width:40px; height:40px; float:left; margin-right:10px">
+									<img src="resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
+								</div>
 							<%
 								}
 							%>

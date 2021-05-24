@@ -4,8 +4,7 @@
 <%@ page
 	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="java.util.List"%>
-<%@ page import="java.awt.image.BufferedImage" %>
-<%@ page import="javax.imageio.ImageIO" %>
+<%@ page import="org.springframework.core.io.ClassPathResource" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 
@@ -150,31 +149,34 @@
 	<!-- 프로필 이미지 -->
 	<%
 	
-	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+	//File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+	//File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+	String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();
+	String pngImgPath = uploadPath + "\\" + id + ".png";
+	String jpgImgPath = uploadPath + "\\" + id + ".jpg";
+	File pngImg = new File(pngImgPath);
+	File jpgImg = new File(jpgImgPath);
 	
 	if (pngImg.exists()) {
 	%>
-		<div class="profileImg rounded-circle"
-		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
-		background-image:url('resources/img/user/<%=id%>.png')"></div>
+		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+			<img src="resources/img/user/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
+		</div>
 	<%
 	} else if (jpgImg.exists()){
 	%>
-		<div class="profileImg rounded-circle"
-		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
-		background-image:url('resources/img/user/<%=id%>.jpg')"></div>
+		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+			<img src="resources/img/user/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+		</div>
 	<%
 	} else {	//기본 이미지
 	%>
-		<div class="profileImg rounded-circle"
-		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
-		background-image:url('resources/img/user/user.png')"></div>
+		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+			<img src="resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
+		</div>
 	<%
 		}
 	%>
-	
-	
 	
 	<form action="processPersonalInfoChange?userid=<%=id%>" method="post" enctype="multipart/form-data" name="changeForm">
 	<div style="margin-bottom:20px;">

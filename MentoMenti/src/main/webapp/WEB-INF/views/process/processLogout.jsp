@@ -9,7 +9,11 @@
 </head>
 <body>
 	<%
-		session.removeAttribute("userID");	//로그인 세션 해제
+		//로그인 세션 해제
+		session.removeAttribute("userID");
+		session.removeAttribute("nickname");
+		session.removeAttribute("pwChk");
+		
 		response.sendRedirect("main");	//로그인 화면으로 이동
 	%>
 </body>
