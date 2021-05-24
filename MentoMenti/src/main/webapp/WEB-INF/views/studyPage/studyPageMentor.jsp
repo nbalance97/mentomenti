@@ -212,31 +212,50 @@
 		    // 그룹의 새멤버 or 자신에게 향하는 패킷만 처리
 		    if ((content.event === "namecall" && content.group === myGroup) || content.to === myNick) { 
 			    switch (content.event) {
-			    case "stop_video":
-			    	v1.srcObject = null;
-			    	break;
-			    case "offer":
-			        handleOffer(from, to, data, false);
-			        break;
-			    case "answer":
-			        handleAnswer(from, to, data, false); 
-			        break;
-			    case "candidate":
-			        handleCandidate(from, to, data); // candidate 저장
-			        break;
-			    case "namecall":
-			    	flg[data] = false;
-			    	createOffer(data);
-			    	break;
-			    case "rngt_offer":
-			    	flg[from] = true;
-			    	handleOffer(from, to, data, true);
-			    	break;
-			    case "changeStatus":
-			    	emoticon[from] = data;
-			    	break;
-			    default:
-			        break;
+				    case "stop_video":
+				    	v1.srcObject = null;
+				    	break;
+				    	
+				    case "offer":
+				        handleOffer(from, to, data, false);
+				        break;
+				        
+				    case "answer":
+				        handleAnswer(from, to, data, false); 
+				        break;
+				        
+				    case "candidate":
+				        handleCandidate(from, to, data); // candidate 저장
+				        break;
+				        
+				    case "namecall":
+				    	flg[data] = false;
+				    	if (pc[data] !== undefined)
+				    		send({
+				    			event : "duplicate",
+				    			from : myNick,
+				    			to : data
+				    		});
+				    	else
+				    		createOffer(data);
+				    	break;
+				    	
+				    case "rngt_offer":
+				    	flg[from] = true;
+				    	handleOffer(from, to, data, true);
+				    	break;
+				    	
+				    case "changeStatus":
+				    	emoticon[from] = data;
+				    	break;
+				    
+				    case "duplicate":
+				    	alert("이미 접속중인 ID입니다.");
+				    	window.location.href='/main';
+				    	break;
+				    	
+				    default:
+				        break;
 			    }
 		    }
 		}
