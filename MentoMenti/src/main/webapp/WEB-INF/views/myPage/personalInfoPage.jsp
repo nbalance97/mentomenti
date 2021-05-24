@@ -23,6 +23,18 @@
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
+<style>
+#personalInfoTable {
+	width:60%;
+}
+
+@media screen and (max-width:970px){
+	#personalInfoTable{
+		width:90%;
+	}
+}
+</style>
+
 </head>
 
 <%@include file="/WEB-INF/views/menuPart1.jsp"%>
@@ -84,7 +96,7 @@
 		}
 	%>
 
-	<table class="table" style="width: 60%; margin: 0 auto;">
+	<table class="table" id="personalInfoTable" style="margin: 0 auto;">
 		<tr>
 			<td style="width: 150px">이름</td>
 			<td style="text-align:center;"><%=loginUser.getName() %></td>

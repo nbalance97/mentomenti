@@ -21,6 +21,18 @@
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+
+<style>
+#personalInfoTable {
+	width:80%;
+}
+
+@media screen and (max-width:970px){
+	#personalInfoTable{
+		width:95%;
+	}
+}
+</style>
 </head>
 
 <script type="text/javascript">
@@ -183,7 +195,6 @@
 		<!-- 프로필 사진 업로드 버튼 -->
 		<label for="file" class="btn btn-success">프로필 등록</label>
 		<input type="file" id="file" name="profileImg" style="display:none;">
-		<p style="font-size:14px">※정사각형 이미지 권장
 	</div>
 
 
@@ -197,7 +208,7 @@
 	}
 	%>
 	
-		<table class="table" style="width: 80%; margin: 0 auto;">
+		<table class="table" id="personalInfoTable" style="margin: 0 auto;">
 			<tr style="width: 50px">
 				<td>이름</td>
 				<td><input type="text" id="name_text"
