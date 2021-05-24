@@ -7,7 +7,10 @@ import java.io.File;
 import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,9 @@ public class HomeController {
 
 	@Autowired
 	private DAOConfiguration temp;
+	
+	@Autowired
+	ServletContext servletContext;
 	
 	@PostConstruct
 	private void initDao() {
@@ -140,7 +146,8 @@ public class HomeController {
 	    	//업로드 경로
 	    	//String root = System.getProperty("user.dir");
 	    	
-	    	String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
+	    	//String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
+    		String uploadPath = servletContext.getRealPath("/resources/img/user");
 	    	System.out.println(uploadPath);
 
 	    	//String uploadPath = "src/main/resources/static/img/user";
