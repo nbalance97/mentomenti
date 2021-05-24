@@ -47,20 +47,20 @@
 	<!-- 프로필 이미지 -->
 	<%
 	
-	File pngImg = new File("/root/user/"+id+".png");
-	File jpgImg = new File("/root/user/"+id+".jpg");
+	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
 	
 	if (pngImg.exists()) {
 	%>
 		<div class="profileImg rounded-circle"
 		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
-		background-image:url('/root/user/<%=id%>.png')"></div>
+		background-image:url('resources/img/user/<%=id%>.png')"></div>
 	<%
 	} else if (jpgImg.exists()){
 	%>
 		<div class="profileImg rounded-circle"
 		style="width: 200px; height:200px; margin:0 auto; margin-bottom: 30px;
-		background-image:url('/root/user/<%=id%>.jpg')"></div>
+		background-image:url('resources/img/user/<%=id%>.jpg')"></div>
 	<%
 	} else {	//기본 이미지
 	%>
