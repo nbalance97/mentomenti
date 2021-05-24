@@ -41,6 +41,7 @@
 		margin-top:10px;
 		width:  100%;
 		height: 100%;
+		padding-top:20px;
 	}
 	.colo{
 		margin-bottom:10px;
@@ -102,7 +103,6 @@
 		<!-- 캔버스 도구 -->
 		<div class="tool">
 			<div class="palette">
-				<h2>Palette</h2>
 				<div class="colo">
 				<div class="column1">
 						<div class="p_color" style="background-color: black"	onclick="selectColor('black')"></div>

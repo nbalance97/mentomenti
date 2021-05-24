@@ -37,7 +37,7 @@ public class HomeController {
 
     @RequestMapping(value="/")
     public String index() {    
-        return "mainwoosub";
+        return "main";
     }
     
     @RequestMapping(value="/bh3")
@@ -83,7 +83,7 @@ public class HomeController {
     
     @RequestMapping(value="/main") //로그인 화면
     public String index7() {
-    	return "mainwoosub";
+    	return "main";
     }
     
     @RequestMapping(value="/signup")//회원가입
@@ -458,10 +458,6 @@ public class HomeController {
     @RequestMapping(value="/processDeleteUser") //사용자 사이트 탈퇴
     public String deleteUser() {
     	return "/process/processDeleteUser";
-    }
-    @RequestMapping(value="/newmain") //메인_slider 수정한것 = 매우노답.
-    public String index112() {
-    	return "/mainRemake";
     }
     @RequestMapping(value="/explain") //모코 설명 페이지
     public String index113() {
