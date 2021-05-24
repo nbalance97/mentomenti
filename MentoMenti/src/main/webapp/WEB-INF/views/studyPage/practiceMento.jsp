@@ -123,19 +123,18 @@
 				</div>
 				<form name="compileView" style="width:100%; height:70%;" method="post" action="">
 					<div class="compiler img-rounded" style="padding:5px">
-							<label>Code Input</label>
-							<input type="button" class="btn" style="margin:0px 10px;" value="Execute" onclick="processCompile();">
+							<label>코드 작성</label>
 							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
 					</div>
-			
 					<div class="input img-rounded" style="padding:5px">
-						<label>stdin : </label>
+						<label> 입력값 </label>
 						<textarea style="width:100%; height:100%;" name="InputText" id="input"></textarea>
 					</div>
+					<input type="button" class="btn" style="margin:0px 10px; float:right;" value="Execute" onclick="processCompile();">
 				</form>
 			
 				<div class="result img-rounded" style="padding:5px">
-					<label>result : </label>
+					<label>결과</label>
 					<textarea style="width:100%; height:100%;" name="ResultText" id="result"></textarea>
 				</div>
 			</div>
