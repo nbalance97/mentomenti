@@ -203,7 +203,7 @@
 		}
 		
 		conn.onmessage = function(msg) {
-		    //console.log("Got message", msg.data);
+		    console.log("Got message", msg.data);
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
@@ -221,7 +221,7 @@
 				        break;
 				        
 				    case "answer":
-				        handleAnswer(from, to, data, false); 
+				        handleAnswer(from, to, data); 
 				        break;
 				        
 				    case "candidate":
@@ -233,7 +233,8 @@
 				    		break;
 				    	
 				    	flg[data] = false;
-				    	if (pc[data] !== undefined)
+				    	if (pc[data] !== undefined || dc[data] !== undefined || audio_share[data] !== undefined || 
+				    			share[data] !== undefined || emoticon[data] !== undefined)
 				    		send({
 				    			event : "duplicate",
 				    			from : myNick,
@@ -305,13 +306,14 @@
 				    	console.log("[onconnectionstatechange]" + target + "에게 연결되었으니 화면공유");
 						shareMonitorById(target);
 						if (mic_status)
-						       shareMicById(target);
+						   shareMicById(target);
 				        } 
 				        flg[target] = true;
 				        break;
 				    case "disconnected":
+				    	break;
 				    case "failed":
-				    case "closed":
+				    	console.log(peerConnection.connectionState);
 						delete(pc[target]);
 						delete(dc[target]);
 						delete(share[target]);
@@ -321,6 +323,8 @@
 							delete(audio_share[target]);
 						removeVideo(target);
 				        break;
+				    case "closed":
+				    	break;
 				  }
 			}
 			

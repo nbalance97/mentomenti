@@ -122,7 +122,6 @@ function isElementUnderBottom(elem, triggerDiff) {
 			</li>
 		</ul>
 		
-		<!-- 페이징 -->
 		<ul class="slide-pagelist">
 			<li><label for="slide01"></label></li>
 			<li><label for="slide02"></label></li>

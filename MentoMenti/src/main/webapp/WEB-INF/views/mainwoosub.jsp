@@ -129,31 +129,26 @@ function isElementUnderBottom(elem, triggerDiff) {
 			</div>
 		</li>		
 	</ul>
+	<!-- 
 	<ul class="slide-pagelist">
 		<li><label for="slide01"></label></li>
 		<li><label for="slide02"></label></li>
 		<li><label for="slide03"></label></li>
 		<li><label for="slide04"></label></li>
 	</ul>
+	 -->
 </div>
 
 <!-- 사이트 설명 -->
 <div class="list">
 	<div class="up-on-scroll" id="site_intro1">
+		<a href="explain" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">모코가 처음이신가요?</a>
 		<h3 class="font-weight-700" style="margin:30px">Welcome to MOCO!</h3>
 		<p>누구나 멘토가 될 수 있고</p>
 		<p>누구나 멘티가 될 수 있는</p>
 		<p>모두의 코딩 교실,</p>
 		<p><b class="font-weight-500">모코(MOCO)</b>에 오신 것을 환영합니다!</p>
 	</div>
-	
-	<div class="up-on-scroll" id="site_intro2">
-		<p>개설된 스터디 그룹 목록을 확인해보세요</p>
-		<p>가입된 그룹 페이지에서 수업에 참여할 수 있습니다</p>
-		<p>자유게시판에서 다른 사용자들과 소통해보세요</p>
-
-	</div>
-	
 	
 </div>
 
