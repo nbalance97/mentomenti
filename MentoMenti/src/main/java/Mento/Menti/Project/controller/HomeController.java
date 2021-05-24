@@ -146,8 +146,7 @@ public class HomeController {
 	    	//업로드 경로
 	    	//String root = System.getProperty("user.dir");
 	    	
-	    	//String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
-    		String uploadPath = "/root/user";
+	    	String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
 	    	System.out.println(uploadPath);
 
 	    	//String uploadPath = "src/main/resources/static/img/user";
