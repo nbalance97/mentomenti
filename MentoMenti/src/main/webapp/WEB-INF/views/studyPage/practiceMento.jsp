@@ -478,6 +478,7 @@
 						delete(share[target]);
 						delete(emoticon[target]);
 						delete(flg[target]);
+						delete(audio_share[target]);
 						removeVideo(target);
 				        break;
 				  }
