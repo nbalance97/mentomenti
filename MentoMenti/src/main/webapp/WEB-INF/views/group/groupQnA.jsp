@@ -93,7 +93,7 @@
 	</ul>
 </div>
 <p class="mb-4"><a href="group?groupid=<%=groupid%>"><%=group.getName()%>
-	그룹</a>의 Q&A 게시판입니다.
+	그룹</a>의 Q&A 게시판입니다. 
 </p>
 
 
