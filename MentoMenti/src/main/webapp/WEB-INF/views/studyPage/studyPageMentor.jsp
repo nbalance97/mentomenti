@@ -180,7 +180,6 @@
 		
 		function removeConnection(target) {
 			if (pc[target] !== undefined) {
-				pc[target].close();
 				delete(pc[target]);
 			}
 			if (dc[target] !== undefined)
