@@ -178,6 +178,24 @@
 			}
 		}
 		
+		function removeConnection(target) {
+			if (pc[target] !== undefined) {
+				delete(pc[target]);
+			}
+			if (dc[target] !== undefined)
+				delete(dc[target]);
+			if (share[target] !== undefined) 
+				delete(share[target]);
+			if (emoticon[target] !== undefined)
+				delete(emoticon[target]);
+			if (flg[target] !== undefined)
+				delete(flg[target]);
+			if (audio_share[target] !== undefined)
+				delete(audio_share[target]);
+			if (document.getElementById(target) !== null)
+				removeVideo(target);
+		}
+		
 		function changestatus(status) {
 			myemoticon = status;
 			for (var key in pc) {
@@ -231,17 +249,29 @@
 				    case "namecall":
 				    	if (content.mode === "practice")
 				    		break;
-				    	
-				    	flg[data] = false;
 				    	if (pc[data] !== undefined || dc[data] !== undefined || audio_share[data] !== undefined || 
-				    			share[data] !== undefined || emoticon[data] !== undefined)
+				    			share[data] !== undefined || emoticon[data] !== undefined) {
+				    		for (var key in pc) {
+					    		send({
+					    			event : "duplicate",
+					    			from : myNick,
+					    			to : key,
+					    			who : data
+					    		});
+				    		}
+				    		
 				    		send({
 				    			event : "duplicate",
 				    			from : myNick,
-				    			to : data
+				    			to : data,
+				    			who : data
 				    		});
-				    	else
+				    		
+				    	}
+				    	else {
+					    	flg[data] = false;
 				    		createOffer(data);
+				    	}
 				    	break;
 				    	
 				    case "rngt_offer":
@@ -254,8 +284,13 @@
 				    	break;
 				    
 				    case "duplicate":
-				    	alert("이미 접속중인 ID입니다.");
-				    	window.location.href='/main';
+				    	if (content.who === myNick) {
+					    	alert("이미 접속중인 ID입니다.");
+					    	window.location.href='/main';
+				    	} else {
+				    		if (pc[content.who] !== undefined)
+				    			pc[content.who].close();
+				    	}
 				    	break;
 				    	
 				    default:
@@ -313,18 +348,10 @@
 				    case "disconnected":
 				    	break;
 				    case "failed":
-				    	console.log(peerConnection.connectionState);
-						delete(pc[target]);
-						delete(dc[target]);
-						delete(share[target]);
-						delete(emoticon[target]);
-						delete(flg[target]);
-						if (audio_share[target] !== undefined)
-							delete(audio_share[target]);
-						removeVideo(target);
-				        break;
 				    case "closed":
-				    	break;
+				    	console.log(peerConnection.connectionState);
+						removeConnection(target);
+				        break;
 				  }
 			}
 			
