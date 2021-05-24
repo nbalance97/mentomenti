@@ -41,10 +41,8 @@
 
 		HomeController.dao.getCommentDAO().insertComment(newComment); //DB 반영 완료
 		
-		
 		int groupid = HomeController.dao.getPostDAO().searchByPostId(postid).get(0).getGroupid();	//그룹 아이디
-		String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();	//그룹 이름
-
+		
 		if (HomeController.dao.getPostDAO().isNotice(postid)) { //공지
 			if (groupid > 0)	//그룹 내 공지
 				response.sendRedirect("groupNoticeContent?postid=" + postid);
@@ -62,6 +60,8 @@
 				int curSec = cal.get(cal.SECOND);
 				DecimalFormat df = new DecimalFormat("00");	//두 자리로 형식 맞춤
 				String addDatetime = todaydate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
+				//그룹 이름 찾기
+				String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();
 				
 				//알림 DB 추가
 				NotificationDTO notification = new NotificationDTO();
