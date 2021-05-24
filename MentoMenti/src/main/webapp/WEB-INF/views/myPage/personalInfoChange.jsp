@@ -64,6 +64,7 @@
 		
 		var origin = document.getElementById("originNickUser").value;
 
+		//닉네임 중복체크 여부 확인
 		if(nickname!=origin){
 			if(form.NickDuplication.value != "NickCheck"){
 				alert("닉네임 중복체크를 해주세요.");
@@ -80,14 +81,22 @@
 			isPwChecked == true
 		}
 
+		//이메일 형식 검사
 		var regExpEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 		if (!regExpEmail.test(email)) {
 			alert("이메일 형식을 확인해주세요");
 			return;
 		}
 		
+		//소개글 길이 제한
 		if (intro.length > 70){
 			alert("소개글은 70글자 이하로 작성해주세요");
+			return;
+		}
+		
+		//소개글 엔터 포함 여부 검사
+		if(intro.indexOf('\n') != -1){
+			alert("소개글에 엔터를 입력할 수 없습니다.");
 			return;
 		}
 

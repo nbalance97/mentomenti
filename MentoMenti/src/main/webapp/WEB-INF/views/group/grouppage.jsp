@@ -27,17 +27,35 @@
 	float:left;
 	width:50%;
 	margin-bottom:100px;
+	padding:0 20px;
 }
 
 .content2{
 	float:right;
 	width:50%;
 	margin-bottom:50px;
+	padding:0 20px;
 }
 
 .text1{
-	font-weight:300;
-	margin-bottom:30px;
+	padding-bottom:30px;
+}
+
+#moveToStudyDiv{
+	min-height:200px;
+}
+
+@media screen and (max-width:970px){
+	.content1{
+		width:100%;
+		margin-bottom:25px;
+		padding:0 10px;
+	}
+	.content2{
+		width:100%;
+		margin-bottom:25px;
+		padding:0 10px;
+	}
 }
 
 </style>
@@ -80,14 +98,18 @@
 	}
 %>
 
-
 <!-- Page Heading -->
 <div id="pageHeading" style="margin-bottom:20px">
 	<p><a href="main" style="text-decoration : none; color:gray">Home</a>
 	> <a href="joininggroups" style="text-decoration : none; color:gray">가입한 그룹</a></p>
 </div>
+
 <div class="d-sm-flex align-items-center justify-content-between mb-4" style="overflow:hidden;">
 	<h1 class="h3 mb-0 text-gray-800" style="float:left"><%=group.getName() %></h1>
+</div>
+
+<div style="overflow:hidden;">
+<span style="float:left; width:70%"><%=group.getIntro() %></span>
 	<%
 		if (group.getMentoid().equals(id)){	//멘토 - 그룹 해체, 멤버 관리
 	%>
@@ -107,9 +129,25 @@
 <hr>
 
 <div class="wrapContents" style="width: 100%">
-	<!-- 가입멤버 -->
+
+	<!-- 수업 입장 버튼 -->
 	<div class="content1">
-		<h4 class="text1">가입멤버</h4>
+		<span class="text1 h5 mb-0 text-gray-800">수업 참여</span>
+		<div style="text-align:center;" id="moveToStudyDiv">
+		<form>
+			<a href="studyPage/studyPageMentor?groupid=<%=group.getGroupid()%>">
+			<input type="button" class="btn btn-primary"
+				style="width: 50%; height:70px; margin-bottom: 10px; margin-top: 50px" value="입장하기">
+			</a>
+		</form>
+		</div>
+	</div>
+
+	<!-- 가입멤버 -->
+	<div class="content2">
+		<div style="overflow:hidden;">
+			<span class="text1 h5 mb-0 text-gray-800" style="float:left;">가입 멤버</span>
+		</div>
 		<table class="table table-bordered" id="dataTable"
 			cellspacing="0" role="grid" aria-describedby="dataTable_info"
 			style="width: 80%; background: white; text-align: center; margin:0 auto;">
@@ -139,11 +177,15 @@
 			</tbody>
 		</table>
 	</div>
+</div>
+
+
+<div class="wrapContents" style="width: 100%">
 
 	<!-- 공지사항 -->
-	<div class="content2">
+	<div class="content1">
 		<div style="overflow:hidden;">
-			<h4 class="text1" style="float:left;">공지사항</h4>
+			<span class="text1 h5 mb-0 text-gray-800" style="float:left;">공지사항</span>
 			<span style="float:right;"><a href="groupnotice?page=1&groupid=<%=groupid%>" style="text-decoration:none; color:gray">더보기>></a></span>
 		</div>
 		<table class="table table-bordered" id="dataTable"
@@ -178,32 +220,10 @@
 			</tbody>
 		</table>
 	</div>
-</div>
-
-
-<div class="wrapContents" style="width: 100%">
-	<div class="content1">
-		<h4 class="text1">개설수업</h4>
-		<div style="text-align:center; height:200px;">
-		
-		<form>
-			<a href="studyPage/studyPageMentor?groupid=<%=group.getGroupid()%>">
-			<input type="button" class="btn btn-primary"
-				style="width: 50%; height:70px; margin-bottom: 10px; margin-top: 20px" value="입장하기">
-			</a>
-		</form>
-		
-		<!-- 
-		<form>
-			<input type="button" class="btn btn-info" style="width: 40%" value="개설">
-		</form>
-		-->
-		</div>
-	</div>
 
 	<div class="content2">
 		<div style="overflow:hidden;">
-			<h4 class="text1" style="float:left;">Q & A</h4>
+			<span class="text1 h5 mb-0 text-gray-800" style="float:left;">Q & A</span>
 			<span style="float:right;"><a href="groupQnA?page=1&groupid=<%=groupid%>" style="text-decoration:none; color:gray">더보기>></a></span>
 		</div>
 		<table class="table table-bordered" id="dataTable"
