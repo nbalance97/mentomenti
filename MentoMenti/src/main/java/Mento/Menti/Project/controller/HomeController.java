@@ -410,11 +410,6 @@ public class HomeController {
     	return "/process/confirmNick_ch";
     }
     
-    @RequestMapping(value="/caro")//메인  - 자동화
-    public String index97() {
-    	return "/mainCaro";
-    }
-    
     @RequestMapping(value="/adminPage") //관리자 메인 = 관리자 사용자 페이지
     public String adminMainPage() {
     	return "/admin/adminUserPage";

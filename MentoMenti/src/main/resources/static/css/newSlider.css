@@ -78,7 +78,7 @@ a .sortscreen span:nth-child(1){top:0;left:0;height:5px;width:0;}
   animation-name: none;
 }
 */
-
+/*
 .slide-pagelist {
 	text-align: center;
 	padding: 10px;
@@ -97,7 +97,7 @@ a .sortscreen span:nth-child(1){top:0;left:0;height:5px;width:0;}
 	margin: 20px 8px;
 	cursor: pointer;
 }
-
+*/
 .slide-pagelist>li:nth-child(1)>label:hover
 	{
 	background: #999;
