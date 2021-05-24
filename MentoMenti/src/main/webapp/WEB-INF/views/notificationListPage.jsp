@@ -124,7 +124,7 @@
 							find = true;
 				%>
 				<a href="group?groupid=<%=gi%>">
-					<div style="float:left; width:85%; padding:15px; text-align:left;">
+					<div style="float:left; width:70%; padding:15px; text-align:left;">
 						<div style="margin-bottom:10px"><%=n.getContent()%></div>
 						<div style="font-size:12px"><%=n.getSendtime()%></div>
 					</div>
@@ -141,7 +141,7 @@
 							find = true;
 				%>
 				<a href="group?groupid=<%=gi%>">
-					<div style="float:left; width:85%; padding:15px; text-align:left;">
+					<div style="float:left; width:70%; padding:15px; text-align:left;">
 						<div style="margin-bottom:10px"><%=n.getContent()%></div>
 						<div style="font-size:12px"><%=n.getSendtime()%></div>
 					</div>
@@ -153,13 +153,19 @@
 					
 					if (find == false){	//그룹 이름 포함 X
 				%>
-				<div style="float:left; width:85%; padding:15px; text-align:left;">
+				<div style="float:left; width:70%; padding:15px; text-align:left;">
 					<div style="margin-bottom:10px"><%=n.getContent()%></div>
 					<div style="font-size:12px"><%=n.getSendtime()%></div>
 				</div>
 				<%
 					}
 				%>
+				
+				<!-- 알림 삭제 버튼 -->
+				<div style="float:right; width:10%">
+					<input type="button" class="btn btn-danger deleteNotification" id="<%=n.getNotificationid()%>"
+						value="X" style="font-size:14px; padding:5px">
+				</div>
 			</div>
 		</td></tr>
 		<%
@@ -190,6 +196,12 @@
 	var curpage = document.getElementById("curPage").value;
 	$(document).ready(function () {
 		paging(postData,curpage);
+		
+		$(".deleteNotification").on('click', function(){
+		    if (confirm("알림을 삭제하시겠습니까?")) {
+		    	location.href = "processDeleteNotification?notificationid="+$(this).attr('id');	//알림 번호 전달
+		    }
+		});
 	});
 
 	function paging(totalData, currentPage){

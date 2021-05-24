@@ -38,4 +38,16 @@
  		FROM notification
  		WHERE receiverid = #{receiverid} and isread = false;
  	</select>
+ 	
+ 	<!-- 알림 받은 사람 아이디 -->
+ 	<select id="selectReceiverid" resultType="String" parameterType="int">
+ 		SELECT receiverid
+ 		FROM notification
+ 		WHERE notificationid = #{notificationid};
+ 	</select>
+ 	
+ 	<delete id="deleteNotification" parameterType="int">
+ 		DELETE FROM notification
+ 		WHERE notificationid = #{notificationid};
+ 	</delete>
 </mapper>

@@ -10,4 +10,6 @@ public interface NotificationDAO {
 	List<NotificationDTO> selectCurNotifications(String receiverid) throws Exception;
 	void updateRead(int notificationid) throws Exception;
 	int countNotRead(String receiverid) throws Exception;
+	String selectReceiverid(int notificationid) throws Exception;
+	void deleteNotification(int notificationid) throws Exception;
 }

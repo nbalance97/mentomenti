@@ -179,11 +179,14 @@ public class HomeController {
     }
     
     @RequestMapping(value="/notifications") //알림 목록 페이지
-    public String index41() {
+    public String notificationList() {
     	return "/notificationListPage";
     }
     
-
+    @RequestMapping(value="/processDeleteNotification") //알림 삭제 진행
+    public String deleteNotification() {
+    	return "/process/processDeleteNotification";
+    }
     
     
     
