@@ -86,7 +86,7 @@
 
 	<div class="content1">
 		<div>
-			<h4 class="text1 text-gray-800 font-weight-500">멘토 그룹</h4>
+			<h4 class="text1 text-gray-800 font-weight-500">개설한 그룹</h4>
 			<img src="resources/img/mento.png"
 				style="display: block; width:40%; max-width:200px; position: relative; margin:0 auto">
 		</div>
@@ -126,7 +126,7 @@
 	<!-- 멘티로 참여한 그룹 목록 -->
 	<div class="content2">
 		<div>
-			<h4 class="text1 text-gray-800 font-weight-500">멘티 그룹</h4>
+			<h4 class="text1 text-gray-800 font-weight-500">가입한 그룹</h4>
 			<img src="resources/img/menti.png"
 				style="display: block; width:40%; max-width:200px; position: relative; margin:0 auto">
 		</div>
