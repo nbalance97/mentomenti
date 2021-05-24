@@ -1,4 +1,4 @@
-package Mento.Menti.Project.WebChat;
+ package Mento.Menti.Project.WebChat;
 
 
 import java.io.IOException;
@@ -18,7 +18,6 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-
 
 @ServerEndpoint("/webChatServer") // 클라이언트에서 서버로 접속할 주소. WebSocket 주소 맨 끝에 붙여주면 됨
 public class WebChatServer extends HttpServlet {

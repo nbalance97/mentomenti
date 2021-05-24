@@ -226,6 +226,10 @@ function pointMouseDown(event) {
 }
 
 function pointMouseMove(event) { // 이부분 좀 수정함
+  if (usage) {
+	  return;
+  }
+  
   var currentPos = getMousePosition(event);
   cvs.lineTo(currentPos.X, currentPos.Y);
   cvs.lineWidth = 3;

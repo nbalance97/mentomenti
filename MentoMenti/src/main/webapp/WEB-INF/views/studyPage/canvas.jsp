@@ -139,6 +139,7 @@
 	    var myCanvas = document.getElementById("canvas");
 	    var myCtx = myCanvas.getContext("2d");
 	    var image = new Image();
+	    var usage = false;
 		
 	    image.onload = function() {
 			myCtx.drawImage(image, 0, 0);
@@ -207,6 +208,7 @@
 		}
 		
 		async function handlePaint(x1, y1, x2, y2, color, force, penMode) { // painter.js와 연동되는 부분임
+			  usage = true;
 			  cvs.beginPath();
 				  cvs.moveTo(x1, y1);
 				  cvs.lineTo(x2, y2);
@@ -216,10 +218,11 @@
 				  cvs.stroke();
 				  cvs.globalCompositeOperation = penMode;
 			  cvs.closePath();
+			  usage = false;
 		}
 		
 		async function clearBoard(isClear){
-			if (isClear==1)
+			if (isClear == 1)
 				cvs.clearRect(0, 0, canvas.width, canvas.height);
 			else
 				return;
