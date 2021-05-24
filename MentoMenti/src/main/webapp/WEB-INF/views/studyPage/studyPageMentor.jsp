@@ -22,9 +22,9 @@
 	//클래스아이디 받아오기
 	//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
 	String temp = request.getParameter("groupid");
-	if (temp == null) %>
+	if (temp == null)  { %>
 	    <c:redirect url="../main" />
-   <% 
+   <% }
 	int groupid = Integer.parseInt(temp);
 	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
 	//해당 그룹의 멘토아이디 받아오기
@@ -42,7 +42,7 @@
 	}
 	for(GroupmateDTO mentee:groupmateList){
 		if(mentee.getId().equals(id)){
-			isMember=true;
+			isMember = true;
 		}
 	}
 	if(!isMember || id == null){ %>
@@ -504,6 +504,7 @@
 						
 						screen_stream = screenStream;
 						v1.srcObject = screenStream;
+					    return;
 				});
 		}
 		
@@ -547,6 +548,7 @@
 				for (var key in pc) {
 					shareMonitorById(key);
 				}
+			    return;
 			});
 		}
 		
