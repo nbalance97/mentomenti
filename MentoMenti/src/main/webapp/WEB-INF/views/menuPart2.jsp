@@ -42,8 +42,8 @@
 		});
 	</script>	
 	<!-- Scroll to Top Button-->
-	<div class="scroll-to-top rounded" id="topButton"> <i
-		class="fas fa-angle-up"></i>
+	<div class="scroll-to-top rounded" id="topButton">
+		<img src="resources/img/menu/up_arrow.png" style="width:15px; padding-top:12px">
 	</div>
 
 	<!-- Logout Modal-->
