@@ -162,9 +162,9 @@
 				%>
 				
 				<!-- 알림 삭제 버튼 -->
-				<div style="float:right; width:10%">
+				<div style="float:right;">
 					<input type="button" class="btn btn-danger deleteNotification" id="<%=n.getNotificationid()%>"
-						value="X" style="font-size:14px; padding:5px">
+						value="X" style="font-size:14px; padding:0px 5px">
 				</div>
 			</div>
 		</td></tr>

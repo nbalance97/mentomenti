@@ -267,7 +267,6 @@
 		    	location.href = "processLeaveGroup?groupid="+<%=group.getGroupid()%>;
 		    }
 		});
-	});
 </script>
 
 <%@include file="/WEB-INF/views/menuPart2.jsp"%>

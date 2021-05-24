@@ -174,7 +174,7 @@ a, a:hover {
 	<a id="use"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px">그럼 이제 MOCO를 이용하기 위해서 
-		<span class="font-weight-700" style="background-color:#D9E5FF">MOCO의 이용방법</span>을 알아볼까요?</h3>
+		<span class="font-weight-700" style="background-color:#D9E5FF">MOCO의 이용 방법</span>을 알아볼까요?</h3>
 	</div>
 	
 	</br>
