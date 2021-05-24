@@ -9,26 +9,29 @@ a .sortscreen{
 	position: relative;
 	overflow:hidden;
 }
-a .sortscreen span{
+a .sortscreen > span{
 	display:block;
 	position:absolute;
 	transition:all .5s;
 	z-index:2;
 }
-a .sortscreen span:nth-child(1){top:0;left:0;height:5px;width:0;}
-a .sortscreen span:nth-child(2){top:0;right:0;height:0;width:5px;}
-a .sortscreen span:nth-child(3){bottom:0;right:0;height:5px;width:0;}
+a .sortscreen > span:nth-child(1){top:0;left:0;height:5px;width:0;}
+a .sortscreen > span:nth-child(2){top:0;right:0;height:0;width:5px;}
+a .sortscreen > span:nth-child(3){bottom:0;right:0;height:5px;width:0;}
 /*
 a .sortscreen span:nth-child(4){bottom:0;left:0;height:0;width:5px;}
 */
+#sortscreen-4th-child {bottom:0;left:0;height:0;width:5px;} /* 가입 그룹 페이지 카드 */
 
 /*transition-delay:.5s;*/
-#sortAction:hover .sortscreen span:nth-child(1){width:100%;}
-#sortAction:hover .sortscreen span:nth-child(2){height:100%;}
-#sortAction:hover .sortscreen span:nth-child(3){width:100%;}
+#sortAction:hover .sortscreen > span:nth-child(1){width:100%;}
+#sortAction:hover .sortscreen > span:nth-child(2){height:100%;}
+#sortAction:hover .sortscreen > span:nth-child(3){width:100%;}
 /*
 #sortAction:hover .sortscreen span:nth-child(4){height:100%;}
 */
+#sortAction:hover #sortscreen-4th-child {height:100%}; /* 가입 그룹 페이지 카드 */
+
 <!--각 그룹 카드-->
 #groupList{
 	width:100%;
