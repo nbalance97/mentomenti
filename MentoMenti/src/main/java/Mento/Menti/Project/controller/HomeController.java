@@ -146,8 +146,7 @@ public class HomeController {
 	    	//업로드 경로
 	    	//String root = System.getProperty("user.dir");
 	    	
-	    	//String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
-    		String uploadPath = "~/user";
+	    	String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
 	    	System.out.println(uploadPath);
 
 	    	//String uploadPath = "src/main/resources/static/img/user";
@@ -155,8 +154,8 @@ public class HomeController {
 	    	//File existsJpg = new File(root + "/" + uploadPath + "/" + id + ".jpg");
 	    	
 	    	//기존에 있던 프로필 이미지 삭제
-	    	File existsPng = new File(uploadPath + "\\" + id + ".png");	//원래 "\\"대신 "/" 였는데 수정해봄
-	    	File existsJpg = new File(uploadPath + "\\" + id + ".jpg");
+	    	File existsPng = new File(uploadPath + "/" + id + ".png");	//원래 "\\"대신 "/" 였는데 수정해봄
+	    	File existsJpg = new File(uploadPath + "/" + id + ".jpg");
 	    	if(existsPng.exists()) {
 	    		existsPng.delete();
 	    	}
@@ -170,7 +169,7 @@ public class HomeController {
 	    	while(st.hasMoreTokens())
 	    		extension = st.nextToken();
 	    	//String filePath = root + "/" + uploadPath + "/" + id + "." + extension.toLowerCase();
-	    	String filePath = uploadPath + "\\" + id + "." + extension.toLowerCase();
+	    	String filePath = uploadPath + "/" + id + "." + extension.toLowerCase();
 	    	System.out.println(filePath);
 
 	    	//이미지 파일 저장
