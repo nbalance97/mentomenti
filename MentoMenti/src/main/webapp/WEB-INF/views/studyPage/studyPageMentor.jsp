@@ -108,8 +108,7 @@
 		var emoticon = {};
 		var available = false;
 		var flg = {};
-		
-		var share_flag = false;
+
 		var screen_stream = null;
 		var mic_stream = null;
 		
@@ -197,7 +196,8 @@
 			send({ // name을 server에 알려서 broadcast
 				event: "namecall",
 				data: myNick,
-				group: myGroup
+				group: myGroup,
+				mode: "study"
 			});
 			//initialize();
 		}
@@ -229,6 +229,9 @@
 				        break;
 				        
 				    case "namecall":
+				    	if (content.mode === "practice")
+				    		break;
+				    	
 				    	flg[data] = false;
 				    	if (pc[data] !== undefined)
 				    		send({
@@ -314,6 +317,8 @@
 						delete(share[target]);
 						delete(emoticon[target]);
 						delete(flg[target]);
+						if (audio_share[target] !== undefined)
+							delete(audio_share[target]);
 						removeVideo(target);
 				        break;
 				  }
@@ -389,8 +394,7 @@
 			if (!renegotiationflg) {
 				pc[from] = createPeerConnection(from);
 				addVideo(from);
-				pc[from].ontrack = function(e) {
-					
+				pc[from].ontrack = function(e) {		
 					if (e.track.kind === "video") {
 						v1.srcObject = e.streams[0];
 						console.log(from, "Video");

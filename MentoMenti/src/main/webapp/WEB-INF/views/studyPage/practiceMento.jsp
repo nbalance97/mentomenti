@@ -110,7 +110,7 @@
 	<div class="main">
 			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
 		<div class="coding">
-			<div class="problemImg shadow img-rounded">
+			<div class="problemImg shadow img-rounded" id="savetemp">
 				<img id="prob_image" src="resources/img/fileupload_default.png" style="width:100%; height:100%; object-fit: contain;"></img> 
 			</div>
 			<div class="codingFunc">
@@ -263,53 +263,48 @@
 
 		var refreshTimer = setInterval("checkConnection()", 3000); // 3초간격으로 유저 확인
 		var image = document.getElementById("prob_image");
-		var myemoticon = "ques";
+		var myemoticon = "default";
 		
+		var flg = {};
 		var pc = {};
 		var dc = {};
 		var share = {};
+		var audio_share = {};
 		var emoticon = {};
 		
+		var mic_stream = null;
+		var mic_status = false;
+		
+		function addVideo(id) {
+			$('<video id="'+id+'" autoplay="true" width="1"></video>').appendTo('#savetemp');
+			//$('#'+id).play;
+		}
+		
+		function removeVideo(id) {
+			$('#'+id).remove();
+		}
+		
 		function addMemberToList(id, emot, idx) {
-			if (id === myNick) {
-				$('<tr>'+
-						'<td>'+idx+'</td>'+
-						'<td>'+id+'</td>'+
-						'<td></td>'+
-						'<td></td>'+
-				'</tr>').appendTo('#MemberTable');
-				return;
-			} 
+			var tag = '';
+			tag = tag + '<tr>';
+			tag = tag + '<td>'+idx+'</td>';
+			tag = tag + '<td>'+id+'</td>';//아이디->닉네임으로 변경
+			if (emot === "ques")
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-question-circle  fa-2x"></i></td>';
+			else if (emot === "finish")
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-check-circle fa-2x "></i></td>';
+			else if (emot === 'non-finish')
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-times-circle fa-2x "></i></td>';
+			else if (emot === 'default')
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>';
 			
-			if (emot === "ques") {
-				$('<tr>'+
-						'<td>'+idx+'</td>'+
-						'<td>'+id+'</td>'+
-						'<td style="padding:5px;">'+'<i class="far fa-question-circle fa-2x"></i></td>'+
-						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
-				'</tr>').appendTo('#MemberTable');
-			} else if (emot === "finish") {
-				$('<tr>'+
-						'<td>'+idx+'</td>'+
-						'<td>'+id+'</td>'+
-						'<td style="padding:5px;">'+'<i class="far fa-check-circle fa-2x"></i></td>'+
-						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
-						'</tr>').appendTo('#MemberTable');
-			} else if (emot === 'non-finish') {
-				$('<tr>'+
-						'<td>'+idx+'</td>'+
-						'<td>'+id+'</td>'+
-						'<td style="padding:5px;">'+'<i class="far fa-times-circle fa-2x"></i></td>'+
-						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
-						'</tr>').appendTo('#MemberTable');
-			} else if (emot === 'default') {
-				$('<tr>'+
-						'<td>'+idx+'</td>'+
-						'<td>'+id+'</td>'+
-						'<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>'+
-						'<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td>'+
-						'</tr>').appendTo('#MemberTable');
-			}
+			if (id !== myNick)
+				tag = tag + '<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td></tr>';
+			else
+				tag = tag + '<td></td></tr>'	
+			
+			$(tag).appendTo('#MemberTable');
+			return;
 		}
 		
 		function uploadFile(inputElement) {
@@ -326,8 +321,6 @@
 			}
 			reader.readAsArrayBuffer(file);
 		}
-		
-	
 		
 		function canvas(btn){
 			var url = "/canvas";
@@ -346,15 +339,7 @@
 			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
 			addMemberToList(myNick, myemoticon, idx++);
 			for (var key in pc) {
-				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
-						|| pc[key].connectionState === "closed") {
-					delete(pc[key]);
-					delete(dc[key]);
-					delete(share[key]);
-					delete(emoticon[key]);
-				} else {
-					addMemberToList(key, emoticon[key], idx++);
-				}
+				addMemberToList(key, emoticon[key], idx++);
 			}
 		}
 		
@@ -377,7 +362,8 @@
 			send({ // name을 server에 알려서 broadcast
 				event: "namecall",
 				data: myNick,
-				group: myGroup
+				group: myGroup,
+				mode: "practice"
 			});
 			//initialize();
 		}
@@ -393,25 +379,50 @@
 		    if ((content.event === "namecall" && content.group === myGroup) | content.to === myNick) { 
 			    switch (content.event) {
 			    case "offer":
-			        handleOffer(from, to, data);
+			        handleOffer(from, to, data, false);
 			        break;
+			        
 			    case "answer":
-			        handleAnswer(from, to, data); 
+			        handleAnswer(from, to, data, false); 
 			        break;
+			        
 			    case "candidate":
 			        handleCandidate(from, to, data); // candidate 저장
 			        break;
+			        
 			    case "namecall":
-			    	createOffer(data);
+			    	if (content.mode === "study")
+			    		break;
+			    	
+			    	flg[data] = false;
+			    	if (pc[data] !== undefined)
+			    		send({
+			    			event : "duplicate",
+			    			from : myNick,
+			    			to : data
+			    		});
+			    	else
+			    		createOffer(data);
 			    	break;
+			    	
+			    case "rngt_offer":
+			    	flg[from] = true;
+			    	handleOffer(from, to, data, true);
+			    	break;
+			    	
 			    case "changeStatus":
 			    	emoticon[from] = data;
-			    	renegotiationflg = false;
 			    	break;
+			    
+			    case "duplicate":
+			    	alert("이미 접속중인 ID입니다.");
+			    	window.location.href='/main';
+			    	break;
+			    	
 			    default:
 			        break;
-			    }
-		    }
+		    	}
+	   		}
 		}
 		
 		function isOpen(ws) { 
@@ -448,6 +459,31 @@
 					});
 				}
 			}
+			
+			peerConnection.onconnectionstatechange = function(event) {
+				  switch(peerConnection.connectionState) {
+				      case "connected":
+				      	if (flg[target] === false) {
+				    	console.log("[onconnectionstatechange]" + target + "에게 연결되었으니 공유");
+						if (mic_status)
+						       shareMicById(target);
+				        } 
+				        flg[target] = true;
+				        break;
+				    case "disconnected":
+				    case "failed":
+				    case "closed":
+						delete(pc[target]);
+						delete(dc[target]);
+						delete(share[target]);
+						delete(emoticon[target]);
+						delete(flg[target]);
+						removeVideo(target);
+				        break;
+				  }
+			}
+			
+			flg[target] = false; // renegotiation flg false
 			setDataChannel(peerConnection, target);
 			return peerConnection;
 		}
@@ -498,15 +534,34 @@
 				
 			});	
 			
-			
 			pc[name] = peerConnection; // pc 객체에 저장
+			addVideo(name);
+			pc[name].ontrack = function(e) {
+				console.log(e);
+				if (e.track.kind === "audio") {
+					var targets = document.getElementById(name);
+					targets.srcObject = e.streams[0];
+					console.log(name, "Audio");
+				}
+			};
+
 			emoticon[name] = "default";
 		}
 		
 		
-		function handleOffer(from, target, offer) { 
-			pc[from] = createPeerConnection(from);
-			emoticon[from] = "default";
+		function handleOffer(from, target, offer, renegotiationflg) { 
+			if (!renegotiationflg) {
+				pc[from] = createPeerConnection(from);
+				addVideo(from);
+				pc[from].ontrack = function(e) {		
+					if (e.track.kind === "audio") {
+						var targets = document.getElementById(from);
+						targets.srcObject = e.streams[0];
+						console.log(from, "Audio");
+					}
+				};
+				emoticon[from] = "default";
+			}
 			var peerConnection = pc[from];
 			peerConnection.setRemoteDescription(new RTCSessionDescription(offer)); // offer에 따라 RemoteDescription 설정
 			peerConnection.createAnswer(function(answer) { // answer 만들어서 전송
@@ -523,6 +578,8 @@
 		}
 		
 		function handleCandidate(from, to, candidate) {
+			if (flg[from]) // renegitation 과정에서는 candidate 교환필요 x
+				return;
 			pc[from].addIceCandidate(new RTCIceCandidate(candidate));
 		}
 		
@@ -537,6 +594,73 @@
 				//dc[obj_keys[i]].send(input.value);
 			}
 			input.value = "";
+		}
+		
+		async function setMicStream() {
+			if (mic_stream !== null) {
+				return mic_stream;
+			}
+			
+			return navigator.mediaDevices.getUserMedia({
+				audio: true
+			}).then(function(audioStream){
+				mic_stream = audioStream;
+			});
+		}
+		
+		async function removeMicById(id) {
+			 if (mic_status == true) {
+				 	if (id in audio_share) { 
+				    	pc[id].removeTrack(audio_share[id]);
+				    	delete(audio_share[id]);
+				 	}
+			 }
+		}
+		
+		async function shareMicById(id) {
+			if (pc[id] === undefined || mic_stream === null) {
+				console.log("mic stream이 없거나 pc[id]가 정의되지 않음.");
+				return;
+			}
+			if (audio_share[id] !== undefined) {
+				console.log("audio가 이미 공유되고 있음.");
+				return;
+			}
+			
+			pc[id].onnegotiationneeded = function() {
+			    	pc[id].createOffer(async function(offer) { // offer 상대 peer에 전송
+						await send({
+							event : "rngt_offer",
+							data : offer,
+							from : myNick,
+							to : id
+						});	
+						pc[id].setLocalDescription(offer); 
+						// LocalDescription 설정 -> icecandidate 유발시킴, 즉, candidate도 전송
+					}, function(error) {
+						
+					});	
+			 };
+			    
+		    //v1.srcObject = audioStream;
+			mic_stream.getTracks().forEach((track) => {
+				audio_share[id] = pc[id].addTrack(track, mic_stream);
+			}); 
+		}
+		
+		async function share_microphone() {
+			if (mic_status === true) {
+				for (var key in pc) {
+					removeMicById(key);
+				}
+			} else {
+				setMicStream().then(function() {
+					for (var key in pc) {
+						shareMicById(key);
+					}
+				});
+			}
+			mic_status = !mic_status;
 		}
 	</script>
 </body>
