@@ -9,12 +9,47 @@
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.io.PrintWriter" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
 <link href="/resources/css/defaultStudyPractice.css" rel="stylesheet" type="text/css">
+<%
+	PrintWriter pw = response.getWriter();
+	//방만들기 클릭시 class대한 세션설정 필요?
+	//클래스아이디 받아오기
+	//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
+	String temp = request.getParameter("groupid");
+	if (temp == null) %>
+	    <c:redirect url="../main" />
+   <% 
+	int groupid = Integer.parseInt(temp);
+	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
+	//해당 그룹의 멘토아이디 받아오기
+	String mentoid = group.getMentoid();
+	String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
+	//접속아이디의 닉네임 가져오기
+	String nick = HomeController.dao.getUserDAO().selectNicknameById(id);
+	//그룹에 참여한 멘티 목록
+	List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
+
+	//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+	boolean isMember = false;
+	if(mentoid.equals(id)){
+		isMember = true;
+	}
+	for(GroupmateDTO mentee:groupmateList){
+		if(mentee.getId().equals(id)){
+			isMember=true;
+		}
+	}
+	if(!isMember || id == null){ %>
+		<c:redirect url="../main"/>
+	<% 
+	}
+%>
 <meta charset="UTF-8">
 <title>StudyPage_Mento</title>
 <style>
@@ -40,37 +75,7 @@
 		<!-- 화면공유  -->
 		<%@include file="studyPageScreen.jsp"%>
 		<!-- 수업페이지 기능모음 메뉴 -->
-		<%
-			PrintWriter pw = response.getWriter();
-			//방만들기 클릭시 class대한 세션설정 필요?
-			//클래스아이디 받아오기
-			//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
-			int groupid = Integer.parseInt(request.getParameter("groupid"));
-			GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
-			//해당 그룹의 멘토아이디 받아오기
-			String mentoid = group.getMentoid();
-			String id = (String)session.getAttribute("userID");	//세션에서 접속한 아이디 받아오기 
-			//접속아이디의 닉네임 가져오기
-			String nick = HomeController.dao.getUserDAO().selectNicknameById(id);
-			//그룹에 참여한 멘티 목록
-			List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());
-
-			//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
-			boolean isMember = false;
-			if(mentoid.equals(id)){
-				isMember = true;
-			}
-			for(GroupmateDTO mentee:groupmateList){
-				if(mentee.getId().equals(id)){
-					isMember=true;
-				}
-			}
-			if(!isMember || id.equals(null)){//서버연결 뭐시기 땜에 sendRedirect가 안먹힘,,,
-				//response.sendRedirect("rejectedAccess?type=notMember");
-				pw.print("<script>alert('해당그룹에 가입하지 않았습니다.');</script>");
-				pw.print("<script>window.location='main'</script>"); //자신의 그룹 목록 페이지로 이동
-			}
-			
+			<% 
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
 			if (mentoid.equals(id)){//멘토
@@ -82,7 +87,6 @@
 				<%@include file="studyBottomMentee.jsp"%>
 				<%
 			}
-			
 		%>
 	</div>
 	
@@ -160,7 +164,7 @@
 			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
 			addMemberToList(myNick, myemoticon, idx++);
 			for (var key in pc) {
-				if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
+				/*if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
 						|| pc[key].connectionState === "closed") {
 					console.log(key + "->" + pc[key].connectionState);
 					delete(pc[key]);
@@ -169,9 +173,9 @@
 					delete(emoticon[key]);
 					delete(flg[key]);
 					removeVideo(key);
-				} else {
+				} else {*/
 					addMemberToList(key, emoticon[key], idx++);
-				}
+				/*}*/
 			}
 		}
 		
@@ -274,26 +278,29 @@
 			
 			peerConnection.onconnectionstatechange = function(event) {
 				  switch(peerConnection.connectionState) {
-				    case "connected":
-				      if (flg[target] === false) {
-				    	  console.log("[onconnectionstatechange]" + target + "에게 연결되었으니 화면공유");
-						  shareMonitorById(target);
-						  if (mic_status)
-						     shareMicById(target);
-				      } 
-				      flg[target] = true;
-				      break;
+				      case "connected":
+				      	if (flg[target] === false) {
+				    	console.log("[onconnectionstatechange]" + target + "에게 연결되었으니 화면공유");
+						shareMonitorById(target);
+						if (mic_status)
+						       shareMicById(target);
+				        } 
+				        flg[target] = true;
+				        break;
 				    case "disconnected":
 				    case "failed":
-				      // One or more transports has terminated unexpectedly or in an error
-				      break;
 				    case "closed":
-				      // The connection has been closed
-				      break;
+						delete(pc[target]);
+						delete(dc[target]);
+						delete(share[target]);
+						delete(emoticon[target]);
+						delete(flg[target]);
+						removeVideo(target);
+				        break;
 				  }
 			}
 			
-			flg[target] = false;
+			flg[target] = false; // renegotiation flg false
 			setDataChannel(peerConnection, target);
 
 			return peerConnection;
