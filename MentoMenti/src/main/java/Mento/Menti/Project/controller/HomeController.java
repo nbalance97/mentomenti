@@ -147,7 +147,7 @@ public class HomeController {
 	    	//String root = System.getProperty("user.dir");
 	    	
 	    	//String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();	//경로 수정함
-    		String uploadPath = servletContext.getRealPath("/resources/static/img/user");
+    		String uploadPath = "~/user";
 	    	System.out.println(uploadPath);
 
 	    	//String uploadPath = "src/main/resources/static/img/user";
