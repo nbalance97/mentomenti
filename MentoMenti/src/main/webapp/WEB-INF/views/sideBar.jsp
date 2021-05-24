@@ -39,8 +39,8 @@
 
 	<input type="checkbox" id="check" checked>
 	<label for="check">
-		<i id="btn"><img src="resources/img/menu_show_btn.png" width="35px"></i> <!-- 펼치는 버튼 -->
-		<i id="cancel"><img src="resources/img/menu_close_btn.png" width="30px"></i> <!-- 접는 버튼 -->
+		<i id="btn"><img src="resources/img/menu/menu_show_btn.png" width="35px"></i> <!-- 펼치는 버튼 -->
+		<i id="cancel"><img src="resources/img/menu/menu_close_btn.png" width="30px"></i> <!-- 접는 버튼 -->
 	</label>
 
 
@@ -52,13 +52,13 @@
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
 			<li>
 				<a href="notice">
-					<img src="resources/img/공지.png" class="sidebar-icon">
+					<img src="resources/img/menu/공지.png" class="sidebar-icon">
 					<span class="sidebar-component">공지사항</span>
 				</a>
 			</li>
 			<li>
 				<a href="freeBoard">
-					<img src="resources/img/자유게시판.png" class="sidebar-icon">
+					<img src="resources/img/menu/자유게시판.png" class="sidebar-icon">
 					<span class="sidebar-component">자유게시판</span>
 				</a>
 			</li>
@@ -74,32 +74,35 @@
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
 						<a class="collapse-item" id="colItems" href="openedGroups">
-							<img src="resources/img/리스트.png" class="sidebar-icon">개설된 그룹
+							<img src="resources/img/menu/리스트.png" class="sidebar-icon">개설된 그룹
 						</a>
 						<a class="collapse-item" id="colItems" href="joininggroups"> 
-							<img src="resources/img/리스트.png" class="sidebar-icon">가입한 그룹
+							<img src="resources/img/menu/리스트.png" class="sidebar-icon">가입한 그룹
 						</a>
 						<a class="collapse-item" id="colItems" href="createGroupPage">
-							<img src="resources/img/리스트.png" class="sidebar-icon">그룹 개설
+							<img src="resources/img/menu/리스트.png" class="sidebar-icon">그룹 개설
 						</a>
 					</div>
 				</div>
 			</li>
 
-			<li><a class="collapsed" href="#" data-toggle="collapse"
+			<li>
+				<a class="collapsed" href="#" data-toggle="collapse"
 				data-target="#collapseTwo" aria-expanded="true"
-				aria-controls="collapseTwo"> <i class="fas fa-user"></i><span class="sidebar-component">마이페이지</span></a>
+				aria-controls="collapseTwo">
+				<img src="resources/img/menu/마이페이지.png" class="sidebar-icon">
+			<span class="sidebar-component">마이페이지</span></a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
 						<a class="collapse-item" id="colItems" href="personalInfoPage">
-							<img src="resources/img/회원정보확인.png" class="sidebar-icon">회원 정보 확인
+							<img src="resources/img/menu/회원정보확인.png" class="sidebar-icon">회원 정보 확인
 						</a>
 						<a class="collapse-item" id="colItems" href="personalInfoChkPw">
-							<img src="resources/img/회원정보확인.png" class="sidebar-icon">회원 정보 수정
+							<img src="resources/img/menu/회원정보확인.png" class="sidebar-icon">회원 정보 수정
 						</a>
 						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1">
-							<img src="resources/img/리스트.png" class="sidebar-icon">나의 활동
+							<img src="resources/img/menu/리스트.png" class="sidebar-icon">나의 활동
 						</a>
 					</div>
 				</div>

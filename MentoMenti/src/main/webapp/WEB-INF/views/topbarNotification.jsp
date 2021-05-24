@@ -13,7 +13,7 @@
 	<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
 		role="button" data-toggle="dropdown" aria-haspopup="true"
 		aria-expanded="false">
-			<img src="resources/img/알림.png" style="width:20px;">
+			<img src="resources/img/menu/알림.png" style="width:20px;">
 		
 		<!-- 안읽은 알림 개수 -->
 		<%

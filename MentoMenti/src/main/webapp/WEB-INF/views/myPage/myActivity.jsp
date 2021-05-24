@@ -78,6 +78,7 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
+	<h1 class="h3 mb-0 text-gray-800">나의 활동</h1>
 </div>
 	
 <div class="wrapContents">
