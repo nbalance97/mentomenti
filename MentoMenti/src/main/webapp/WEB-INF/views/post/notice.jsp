@@ -67,7 +67,7 @@
 		<tr role="row">
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 60%">제목</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성자</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성일자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성 일자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
 		</tr>
 	</thead>
