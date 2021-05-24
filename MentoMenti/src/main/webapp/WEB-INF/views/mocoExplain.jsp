@@ -113,7 +113,7 @@ a, a:hover {
 		</p>
 	</div>
 	
-	<div class="up-on-scroll" id="site_intro2">
+	<div class="up-on-scroll" id="site_intro2" style="overflow:hidden">
 		<h3 class="font-weight-700" style="margin: 30px">설명 목차</h3>
 		<span><a href="#moco">1. MOCO란?</a></span>
 		<hr>
@@ -144,9 +144,6 @@ a, a:hover {
 		</div>
 	</div>
 	
-	<div class="up-on-scroll" id="site_intro2" style="color:#f8f9fc;">
-		<p>.</p>
-	</div>
 	
 	</br></br></br>
 	<a id="moco"></a>
