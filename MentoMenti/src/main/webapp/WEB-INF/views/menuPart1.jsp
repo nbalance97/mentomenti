@@ -113,15 +113,15 @@
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="personalInfoPage">
-								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 프로필
+								<img src="resources/img/menu/user.png" class="sidebar-icon"> 프로필
 								</a>
 								
 								<a class="dropdown-item" href="personalInfoChkPw">
-								<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 개인 정보 수정
+								<img src="resources/img/menu/gear.png" class="sidebar-icon"> 개인 정보 수정
 								</a>
 								
 								<a class="dropdown-item" href="activity?page=1&compage=1">
-								<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> 나의 활동
+								<img src="resources/img/menu/list.png" class="sidebar-icon"> 나의 활동
 								</a>
 								
 								<%
@@ -131,8 +131,9 @@
 								
 								if (isAdmin){
 								%>
-								<a class="dropdown-item" href="adminPage"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>관리자 페이지
+								<a class="dropdown-item" href="adminPage"> 
+									<img src="resources/img/menu/manage.png" class="sidebar-icon">
+									관리자 페이지
 								</a>
 								<%
 								}
@@ -142,8 +143,7 @@
 								
 								<!-- logoutModal은 menuPart2.jsp에 -->
 								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
-									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									data-target="#logoutModal"> <img src="resources/img/menu/exit.png" class="sidebar-icon">
 									로그아웃
 								</a>
 							</div>

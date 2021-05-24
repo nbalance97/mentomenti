@@ -145,7 +145,7 @@ a, a:hover {
 	</div>
 	
 	
-	</br></br></br>
+	</br>
 	<a id="moco"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px">MOCO란?</h3>
@@ -155,7 +155,7 @@ a, a:hover {
 		<p><b class="font-weight-500">자체적인 온라인 스터디 서비스</b>를 제공하고 있습니다.</p>
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="service"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px">MOCO의 서비스</h3>
@@ -170,20 +170,20 @@ a, a:hover {
 		<p><b class="font-weight-500">MOCO하나로 모두 가능합니다!</b></p>
 	</div>
 
-	</br></br></br>
+	</br>
 	<a id="use"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px">그럼 이제 MOCO를 이용하기 위해서 
 		<span class="font-weight-700" style="background-color:#D9E5FF">MOCO의 이용방법</span>을 알아볼까요?</h3>
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="join_study"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">MOCO사용법 - 스터디 참여</h3>
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="join_study1"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(1) 로그인 </h3>
@@ -192,7 +192,7 @@ a, a:hover {
 		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/1_login.png">
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="join_study2-1"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2-1) 스터디 그룹 가입</h3>
@@ -201,7 +201,7 @@ a, a:hover {
 		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_groupjoin.PNG">
 	</div>
 
-	</br></br></br>
+	</br>
 	<a id="join_study2-2"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2-2) 스터디 그룹 생성</h3>
@@ -210,7 +210,7 @@ a, a:hover {
 		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_makegroup.PNG">
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="join_study3"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(3) 스터디 그룹 페이지</h3>
@@ -219,7 +219,7 @@ a, a:hover {
 		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/3_grouppage.PNG">
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="join_study4"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(4) 온라인 스터디 참여</h3>
@@ -235,7 +235,7 @@ a, a:hover {
 	</div>
 	
 	
-	</br></br></br>
+	</br>
 	<a id="study_mentee_fn"></a>
 	<!-- 멘티 - 온라인 스터디 기능 설명 -->
 	<div class="up-on-scroll" id="site_intro2">
@@ -243,7 +243,7 @@ a, a:hover {
 		<p><b class="font-weight-500">지금부터는 MOCO에서 제공하는 온라인 스터디의 기능을 알아보겠습니다!</b></p>
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="study_mentee"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(1) 수업 페이지</h3>
@@ -267,7 +267,7 @@ a, a:hover {
 		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_studymentee.PNG">
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="prac_mentee"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2) 실습 페이지</h3>
@@ -280,13 +280,13 @@ a, a:hover {
 	</div>
 	
 	<!-- 멘토 - 온라인 스터디 기능 설명 -->
-	</br></br></br>
+	</br>
 	<a id="study_mentor_fn"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">MOCO사용법 -온라인 스터디 기능 : 멘토</h3>
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="study_mentor"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(1) 수업 페이지</h3>
@@ -309,7 +309,7 @@ a, a:hover {
 		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_studymentor.PNG">
 	</div>
 	
-	</br></br></br>
+	</br>
 	<a id="prac_mentor"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2) 실습 페이지</h3>

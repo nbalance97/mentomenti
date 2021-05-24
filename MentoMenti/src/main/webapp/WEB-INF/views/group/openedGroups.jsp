@@ -41,7 +41,7 @@
 						placeholder="그룹 명 검색" aria-label="Search" aria-describedby="basic-addon2" id="searchText">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
-							<i class="fas fa-search fa-sm"></i>
+							<img src="resources/img/menu/search.png" class="sidebar-icon" style="margin-right:0;">
 						</button>
 					</div>
 				</div>
