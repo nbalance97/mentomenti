@@ -13,6 +13,13 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
+<style>
+	.sidebar-icon{
+		width:15px;
+		margin-right:8px;
+	}
+</style>
+
 <script>
 	window.onload=function(){
 		var chkBtn = document.getElementById('check');
@@ -31,8 +38,9 @@
 <body>
 
 	<input type="checkbox" id="check" checked>
-	<label for="check"> <i class="fas fa-bars" id="btn"></i> <!-- 펼치는 버튼 -->
-		<i class="fas fa-times" id="cancel"></i> <!-- 접는 버튼 -->
+	<label for="check">
+		<i id="btn"><img src="resources/img/menu_show_btn.png" width="35px"></i> <!-- 펼치는 버튼 -->
+		<i id="cancel"><img src="resources/img/menu_close_btn.png" width="30px"></i> <!-- 접는 버튼 -->
 	</label>
 
 
@@ -42,31 +50,41 @@
 			<a href="main" class="sideLogo" style="text-decoration:none;">MOCO</a>
 		</header>
 		<ul class="navbar-nav sidebar accordion" id="accordionSidebar">
-			<li><a href="notice">
-				<img src="resources/img/공지.png" style="width:15px; margin-right : 8px;">
-				<span class="sidebar-component">공지사항</span>
-			</a></li>
-			<li><a href="freeBoard"><img src="resources/img/자유게시판.png" style="width:15px; margin-right : 8px;">
-				<span class="sidebar-component">자유게시판</span>
-			</a></li>
+			<li>
+				<a href="notice">
+					<img src="resources/img/공지.png" class="sidebar-icon">
+					<span class="sidebar-component">공지사항</span>
+				</a>
+			</li>
+			<li>
+				<a href="freeBoard">
+					<img src="resources/img/자유게시판.png" class="sidebar-icon">
+					<span class="sidebar-component">자유게시판</span>
+				</a>
+			</li>
 
-			<li><a class="collapsed" href="#" data-toggle="collapse"
-				data-target="#collapseOne" aria-expanded="true"
-				aria-controls="collapseOne"> <img src="resources/img/그룹.png" style="width:15px; margin-right : 12px;"><span class="sidebar-component">그룹</span>
-			</a>
+			<li>
+				<a class="collapsed" href="#" data-toggle="collapse"
+					data-target="#collapseOne" aria-expanded="true"
+					aria-controls="collapseOne">
+					<img src="resources/img/그룹.png" class="sidebar-icon">
+					<span class="sidebar-component">그룹</span>
+				</a>
 				<div id="collapseOne" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
 						<a class="collapse-item" id="colItems" href="openedGroups">
-						<img src="resources/img/리스트.png" style="width:15px; margin-right : 8px;">개설된 그룹
-						</a> <a class="collapse-item" id="colItems" href="joininggroups"> 
-						<img src="resources/img/리스트.png" style="width:15px; margin-right : 8px;">가입한 그룹
+							<img src="resources/img/리스트.png" class="sidebar-icon">개설된 그룹
+						</a>
+						<a class="collapse-item" id="colItems" href="joininggroups"> 
+							<img src="resources/img/리스트.png" class="sidebar-icon">가입한 그룹
 						</a>
 						<a class="collapse-item" id="colItems" href="createGroupPage">
-						<img src="resources/img/리스트.png" style="width:15px; margin-right : 8px;">그룹 개설
+							<img src="resources/img/리스트.png" class="sidebar-icon">그룹 개설
 						</a>
 					</div>
-				</div></li>
+				</div>
+			</li>
 
 			<li><a class="collapsed" href="#" data-toggle="collapse"
 				data-target="#collapseTwo" aria-expanded="true"
@@ -75,13 +93,13 @@
 					data-parent="#accordionSidebar">
 					<div class="py-2 collapse-inner rounded">
 						<a class="collapse-item" id="colItems" href="personalInfoPage">
-								<img src="resources/img/회원정보확인.png" style="width:15px; margin-right : 14px;">회원 정보 확인
+							<img src="resources/img/회원정보확인.png" class="sidebar-icon">회원 정보 확인
 						</a>
 						<a class="collapse-item" id="colItems" href="personalInfoChkPw">
-								<img src="resources/img/회원정보확인.png" style="width:15px; margin-right : 14px;">회원 정보 수정
+							<img src="resources/img/회원정보확인.png" class="sidebar-icon">회원 정보 수정
 						</a>
 						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1">
-						<img src="resources/img/리스트.png" style="width:15px; margin-right : 14px;">나의 활동
+							<img src="resources/img/리스트.png" class="sidebar-icon">나의 활동
 						</a>
 					</div>
 				</div>
