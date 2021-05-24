@@ -27,7 +27,6 @@ public class WhiteBoardSocketHandler extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message)
       throws InterruptedException, IOException {
-    	
     	/* JSON Parse */
     	JSONParser jsonParse = new JSONParser();
     	JSONObject jsonObj = null;

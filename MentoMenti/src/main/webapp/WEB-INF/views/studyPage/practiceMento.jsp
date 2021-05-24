@@ -470,18 +470,22 @@
 				        } 
 				        flg[target] = true;
 				        break;
-				    case "disconnected":
-				    case "failed":
-				    case "closed":
-						delete(pc[target]);
-						delete(dc[target]);
-						delete(share[target]);
-						delete(emoticon[target]);
-						delete(flg[target]);
-						if (audio_share[target] !== undefined)
-							delete(audio_share[target]);
-						removeVideo(target);
-				        break;
+				        
+					    case "disconnected":
+					    	break;
+					    case "failed":
+					    	console.log(peerConnection.connectionState);
+							delete(pc[target]);
+							delete(dc[target]);
+							delete(share[target]);
+							delete(emoticon[target]);
+							delete(flg[target]);
+							if (audio_share[target] !== undefined)
+								delete(audio_share[target]);
+							removeVideo(target);
+					        break;
+				    	case "closed":
+				       		break;
 				  }
 			}
 			
