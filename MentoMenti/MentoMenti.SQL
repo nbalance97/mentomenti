@@ -26,33 +26,15 @@ create table mmgroup(
 	constraint group_fk foreign key(mentoid) references user(id) on delete cascade
 );
 
-create table class(
-	classid 	int primary key auto_increment,
-	groupid 	int,
-	starttime 	datetime not null,
-	endtime 	datetime not null,
-	constraint class_fk 
-		foreign key(groupid) references mmgroup(groupid) on delete cascade
-);
-
-create table classmate(
-	id varchar(20) not null,
-	classid int not null,
-	constraint classmate_pk 
-		primary key(id, classid),
-	constraint classmate_fk 
-		foreign key(id) references user(id) on delete cascade,
-	constraint classmate_fk2 
-		foreign key(classid) references class(classid) on delete cascade
-);
-
 create table groupmate(
 	id 			varchar(20) not null,
 	groupid 	int not null,
 	constraint groupmate_pk 
 		primary key(id, groupid),
 	constraint groupmate_fk 
-		foreign key(groupid) references mmgroup(groupid) on delete cascade
+		foreign key(groupid) references mmgroup(groupid) on delete cascade,
+	constraint groupmate_fk2
+		foreign key(id) references user(id) on delete cascade
 );
 
 create table post(
