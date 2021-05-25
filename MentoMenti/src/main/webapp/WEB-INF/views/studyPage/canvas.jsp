@@ -70,8 +70,8 @@
 	}
 	
 	.way{
-		height:50%;
-		width:135%;
+		/*height:50%;*/
+		/*width:135%;*/
 		margin:0 auto;
 	}
 	
@@ -128,10 +128,8 @@
 						<button id="erase" class="btn btn-sm btn-outline-dark col-md-5">e</button>					
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
 						<button class="btn btn-sm btn-outline-success col-md-10"  onclick="clearPage()">메모🗑️</button>
-						<div class="way">
-								<input id="input-file" class="btn col-md-4" type="file" style="margin-top:10px;" onchange="uploadFile(this);" />
-								<button class="btn col-md-4" style="margin-top:10px;" onclick="sendCode();" >Send</button>
-						</div>
+						<input id="input-file" class="btn" type="file" style="margin-top:10px;" onchange="uploadFile(this);" />
+						<input type="button" class="btn btn-primary" style="margin-top:10px;" onclick="sendCode();" value="코드 전송" >
 				</div>
 			</div>
 		</div>
