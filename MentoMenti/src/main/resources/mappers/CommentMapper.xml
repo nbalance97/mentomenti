@@ -42,4 +42,11 @@
 		FROM comment
 		WHERE commentid = #{commentid};	
 	</select>
+	
+	<!-- 게시물 댓글 개수 -->
+	<select id="countComment" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM comment
+		WHERE postid = #{postid};
+	</select>
 </mapper>

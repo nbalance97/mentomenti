@@ -142,11 +142,21 @@
 					}
 					PostDTO gn = groupNotices.get(i);
 					String writerNick = HomeController.dao.getUserDAO().selectNicknameById(gn.getUserid());	//작성자 아이디
+					int cntComment = HomeController.dao.getCommentDAO().countComment(gn.getPostid());
 		%>
 		<tr role="row" class="odd">
-			<td>
-				<!-- 제목 -->
-				<a href="groupNoticeContent?postid=<%=gn.getPostid()%>" style="text-decoration: none; color: gray"><%=gn.getTitle() %></a>
+			<td><!-- 제목 -->
+				<a href="groupNoticeContent?postid=<%=gn.getPostid()%>"
+					style="text-decoration: none; color: gray">
+					<%=gn.getTitle() %>
+					<% 
+						if(cntComment > 0){	//댓글이 있는 게시물이면
+					%>
+					<span class="font-weight-500" style="color:#3162C7; margin:0px 3px">[<%=cntComment%>]</span>
+					<%
+						}
+					%>
+				</a>
 			</td>
 			<td><%=writerNick %></td> <!-- 작성자 -->
 			<td><%=gn.getPostdate()%></td> <!-- 작성일자 -->

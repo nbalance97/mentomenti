@@ -55,6 +55,7 @@
 	List<PostDTO> noticeList = HomeController.dao.getPostDAO().searchByPostId(postid);	//게시물 번호로 찾은 게시물
 	PostDTO notice = noticeList.get(0);
 	String nWriterNick = HomeController.dao.getUserDAO().selectNicknameById(notice.getUserid());	//작성자 아이디
+	int cntComment = HomeController.dao.getCommentDAO().countComment(notice.getPostid());
 %>
 
 <!-- Page Heading -->
@@ -99,11 +100,24 @@
 
 <!-- 댓글 영역 -->
 <div>
-	<h5 style="margin-bottom:20px">댓글</h5>
-	<div style="margin-bottom:20px">
+	<h5 style="margin-bottom:20px">
+		댓글
+		<%
+			if(cntComment > 0){
+		%>
+		<span class="font-weight-500" style="color:#3162C7; margin:0px 3px"><%=cntComment%></span>
+		<%
+			}
+		%>
+	</h5>
+	
+	<!-- 댓글 입력 부분 -->
+	<div id="comment-box">
 		<form action="processAddComment?postid=<%=postid%>" method="post">
-			<input type="text" style="width:90%; height:50px" name="comment" placeholder="댓글을 작성해주세요">
-			<input type="submit" value="등록" class="btn btn-primary"/>
+			<textarea id="comment-input" name="comment" placeholder="댓글을 작성해주세요"></textarea>
+			<div id="comment-bottom">
+				<input type="submit" value="등록" id="comment-button"/>
+			</div>
 		</form>
 	</div>
 	<%
