@@ -200,7 +200,7 @@
 			editor3.setSize("0%", "0%");
 			set_mode = e.value;
 			
-			if (e.value == "python") {
+			if (e.value === "python") {
 				settingFile = 'python';
 			} else if (e.value === "C") {
 				settingFile = "text/x-csrc";
@@ -235,6 +235,11 @@
 			editor.setSize("100%", "100%");
 			editor2.setSize("100%", "100%");
 			editor3.setSize("100%", "100%");	
+			
+			console.log(e.value);
+			if (e.value === "java") {
+				editor.setValue("public class MentoMenti {\n\tpublic static void main(String args[]) {\n\n\t}\n}");
+			}
 		}
 		
 		function processCompile() {
