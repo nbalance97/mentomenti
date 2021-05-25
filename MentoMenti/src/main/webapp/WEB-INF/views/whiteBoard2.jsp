@@ -135,12 +135,13 @@ input[type=range] {
 			return;
 		}
 		if (files[0].type.match(/image.*/)) {
-			$(e.target).css(
+			$('canvas').css(
 					{
 						"background-image" : "url("
 								+ window.URL.createObjectURL(files[0]) + ")",
 						"outline" : "none",
-						"background-size" : "100% 100%"
+						"background-repeat" : "no-repeat",
+						"background-size" : "auto"
 					});
 		} else {
 			alert('이미지가 아닙니다.');
