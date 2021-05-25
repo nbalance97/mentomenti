@@ -37,7 +37,7 @@ public class HomeController {
 
     @RequestMapping(value="/")
     public String index() {    
-        return "mainwoosub";
+        return "main";
     }
     
     @RequestMapping(value="/yewon")
@@ -55,9 +55,9 @@ public class HomeController {
     	return "loginPage";
     }
     
-    @RequestMapping(value="/main") //로그인 화면
+    @RequestMapping(value="/main") //메인
     public String index7() {
-    	return "mainwoosub";
+    	return "main";
     }
     
     @RequestMapping(value="/signup")//회원가입

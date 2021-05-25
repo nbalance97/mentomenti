@@ -17,7 +17,7 @@
 
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/newSlider.css" rel="stylesheet">
+<link href="resources/css/imgSlider.css" rel="stylesheet">
 
 </head>
 
@@ -57,7 +57,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 	.up-on-scroll{
 		font-size:1.2em;
 		text-align:center;
-		margin:100px 0px;
+		margin:120px 0px;
 	}
 	
 	div.container{
@@ -80,34 +80,14 @@ function isElementUnderBottom(elem, triggerDiff) {
 	}
 	
 	/*메인 화면 이중 스크롤바 해결*/
+	
 	#content-wrapper{
-		overflow:hidden;
+		-ms-overflow-style:none;
+		scrollbar-width:none;
 	}
 	
-	/*기능 설명*/
-	.fn{
-		overflow:hidden;
-		height:300px;
-	}
-	.fnbox{
-		width:40%;
-		height:100%; 
-		background : white;
-		border:3px dashed gray;
-		filter: drop-shadow(0 0 10px #0003);
-	}
-	.fnboxl{
-		float:left; 
-	}
-	.fnboxr{
-		float:right; 
-	}
-	.fnicon{
-		width:30%; 
-		object-fit: contain;
-	}
-	.fn_content{
-		padding:10px;
+	#content-wrapper::-webkit-scrollbar{
+		display:none;
 	}
 </style>
 
@@ -118,119 +98,122 @@ function isElementUnderBottom(elem, triggerDiff) {
 </div>
 
 <!-- 이미지 슬라이드 -->
-
-<div class="slidebox">
+<div class="slideSection" style="margin-bottom:100px;">
 	<input type="radio" name="slide" id="slide01" checked>
 	<input type="radio" name="slide" id="slide02">
 	<input type="radio" name="slide" id="slide03">
-	<input type="radio" name="slide" id="slide04">
-	<ul class="slidelist">
-		<!-- 그림크기 resources/img/mainimg1_2.png크기랑 같게 ~> 안그러면 밀리는느낌잇 -->
-		<li class="slideitem">
-			<div>
-				<label for="slide04" class="left"></label>
-				<label for="slide02" class="right"></label>
-				<a href="notice"><img src="resources/img/mainimg1_2.png"></a>
-			</div>
-		</li>
-		<li class="slideitem">
-			<div>
-				<label for="slide01" class="left"></label>
-				<label for="slide03" class="right"></label>
-				<a><img src="resources/img/slider/second_picture.png"></a>
-			</div>
-		</li>
-		<li class="slideitem">
-			<div>
-				<label for="slide02" class="left"></label>
-				<label for="slide04" class="right"></label>
-				<a><img src="resources/img/3번슬라이드.png"></a>
-			</div>
-		</li>
-		<li class="slideitem">
-			<div>
-				<label for="slide03" class="left"></label>
-				<label for="slide01" class="right"></label>
-				<a><img src="resources/img/4번슬라이드.png"></a>
-			</div>
-		</li>		
-	</ul>
-	<!-- 
-	<ul class="slide-pagelist">
-		<li><label for="slide01"></label></li>
-		<li><label for="slide02"></label></li>
-		<li><label for="slide03"></label></li>
-		<li><label for="slide04"></label></li>
-	</ul>
-	 -->
+	<div class="slidewrap">
+		<ul class="slidelist" style="margin-bottom:0">
+			<!-- 슬라이드 영역 -->
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/mainimg1_2.png">
+				</a>
+			</li>
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/programmer_img.jpg">
+				</a>
+			</li>
+			<li class="slideitem">
+				<a>
+					<img src="resources/img/programmer_img2.jpg">
+				</a>
+			</li>
+		</ul>
+		
+		<ul class="slide-pagelist">
+			<li><label for="slide01"></label></li>
+			<li><label for="slide02"></label></li>
+			<li><label for="slide03"></label></li>
+		</ul>
+	</div>
 </div>
 
+
+
 <!-- 사이트 설명 -->
+
 <div class="list">
 	<div class="up-on-scroll" id="site_intro1">
-		<a href="explain" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">모코가 처음이신가요?</a>
-		<h3 class="font-weight-700" style="margin:30px">Welcome to MOCO!</h3>
+		<h3 class="font-weight-700" style="margin:50px">Welcome to MOCO!</h3>
 		<p>누구나 멘토가 될 수 있고</p>
 		<p>누구나 멘티가 될 수 있는</p>
 		<p>모두의 코딩 교실,</p>
 		<p><b class="font-weight-500">모코(MOCO)</b>에 오신 것을 환영합니다!</p>
 	</div>
 	
-	<div class="up-on-scroll" id="site_intro1">
-		<p>MOCO는 <b class="font-weight-500">소규모 온라인 프로그래밍 스터디 사이트</b>입니다.</p>
-		<p>쉽고 간단한 온라인 프로그래밍 스터디 서비스를 위해 다음의 기능을 제공합니다.</p>
+	<div class="up-on-scroll" id="site_intro2">
+		<p>개설된 스터디 그룹 목록을 확인해보세요</p>
+		<p>자유게시판에서 다른 사용자들과 소통해보세요</p>
+		<p>그룹 가입 신청을 하세요</p>
+		<p>가입된 그룹 페이지에서 수업에 참여할 수 있습니다</p>
+		<p>...</p>
+		<p>약간 이런 식으로 사이트 튜토리얼도 나쁘지 않을듯</p>
 	</div>
-	
-	<div class="up-on-scroll fn" id="site_intro1">
-		<div class="fnbox fnboxl">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/group.png">
-				<p><b class="font-weight-500">스터디 그룹 가입/모집</b></p>
-				<p>자체적인 그룹핑 시스템으로 멘토, 멘티를 쉽게 모집할 수 있습니다.</p>
-			</div>
+
+	<div class="up-on-scroll">
+
+		<!-- 가장 최근 공지사항 5개 -->
+
+		<div class="item">
+			<p class="font-weight-500"><b>공지사항</b></p>
+			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
+				<thead>
+					<tr>
+						<th>제목</th>
+						<th>작성일자</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<%
+						List<PostDTO> curNotices = HomeController.dao.getPostDAO().curGeneralNotices(5);
+						for(PostDTO cn: curNotices){
+					%>
+					<tr>
+						<td><a href="noticeContent?postid=<%=cn.getPostid()%>"><%=cn.getTitle()%></a></td>
+						<td><%=cn.getPostdate() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+			<div style="text-align:right"><p class="seeMore"><a href="notice?page=1">더보기>></a></p></div>
 		</div>
-		<div class="fnbox fnboxr">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/screen.png">
-				<p><b class="font-weight-500">화면공유</b></p>
-				<p>온라인 스터디 수업에서 화면공유를 제공하여 효과적인 수업이 가능합니다.</p>
-			</div>
-		</div>
-	</div>
-	
-	<div class="up-on-scroll fn" id="site_intro1">
-		<div class="fnbox fnboxl">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/voice.png">
-				<p><b class="font-weight-500">화면공유</b></p>
-				<p>온라인 스터디에서 음성공유를 제공하여 효과적인 소통이 가능합니다.</p>
-			</div>
-		</div>
-		<div class="fnbox fnboxr">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/compiler.png">
-				<p><b class="font-weight-500">웹 컴파일러</b></p>
-				<p>온라인 스터디 실습에서 웹컴파일러를 제공하여 쉽고 빠른 프로그래밍이 가능합니다.</p>
-			</div>
-		</div>
-	</div>
-	
-	<div class="up-on-scroll fn" id="site_intro1">
-		<div class="fnbox fnboxl">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/board.png">
-				<p><b class="font-weight-500">음성공유</b></p>
-				<p>온라인 스터디 수업과 실습에서 화이트보드를 이용한 1:1 피드백이 가능합니다.</p>
-			</div>
-		</div>
-		<div class="fnbox fnboxr">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/chat.png">
-				<p><b class="font-weight-500">채팅</b></p>
-				<p>온라인 스터디에서 채팅을 제공하여 효과적인 소통이 가능합니다.</p>
-			</div>
+		
+
+		<!-- 가장 최근 자유게시판 글 5개 -->
+
+		<div class="item">
+			<p class="font-weight-500"><b>자유게시판</b></p>
+			<table class="table table-bordered dataTable" id="dataTable" style="width: 100%; background: white; text-align: center;">
+				<thead>
+					<tr>
+						<th>제목</th>
+						<th>작성일자</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<%
+						List<PostDTO> curPosts = HomeController.dao.getPostDAO().curGeneralPosts(5);
+						for(PostDTO cp: curPosts){
+					%>
+					<tr>
+						<td><a href="postContent?postid=<%=cp.getPostid()%>"><%=cp.getTitle()%></a></td>
+						<td><%=cp.getPostdate() %></td>
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+			<div style="text-align:right"><p class="seeMore"><a href="freeBoard?page=1">더보기>></a></p></div>
 		</div>
 	</div>
 </div>
+ 
 
 <%@include file="menuPart2.jsp"%>
