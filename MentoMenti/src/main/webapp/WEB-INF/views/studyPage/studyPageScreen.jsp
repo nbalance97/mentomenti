@@ -11,5 +11,5 @@
 	}
 </style>
 <div class="screen" id="screens">
-	<video class='center' id="v1" autoplay="true" width="80%" height="100%"></video> 
+	<video class='center' id="v1" autoplay="true" width="80%" height="100%" onclick="this.play()"></video> 
 </div> 

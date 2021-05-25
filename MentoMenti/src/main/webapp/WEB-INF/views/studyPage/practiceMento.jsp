@@ -267,7 +267,6 @@
 		var flg = {};
 		var pc = {};
 		var dc = {};
-		var share = {};
 		var audio_share = {};
 		var emoticon = {};
 		
@@ -368,7 +367,7 @@
 		}
 		
 		conn.onmessage = function(msg) {
-		    console.log("Got message", msg.data);
+		    //console.log("Got message", msg.data);
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
@@ -393,15 +392,13 @@
 			    	if (content.mode === "study")
 			    		break;
 			    	
+			    	if (pc[data] !== undefined || dc[data] !== undefined || audio_share[data] !== undefined || 
+			    			 emoticon[data] !== undefined) {
+			    		removeConnection(data);
+			    	}
+			    	
 			    	flg[data] = false;
-			    	if (pc[data] !== undefined)
-			    		send({
-			    			event : "duplicate",
-			    			from : myNick,
-			    			to : data
-			    		});
-			    	else
-			    		createOffer(data);
+			    	createOffer(data);
 			    	break;
 			    	
 			    case "rngt_offer":
@@ -410,12 +407,8 @@
 			    	break;
 			    	
 			    case "changeStatus":
-			    	emoticon[from] = data;
-			    	break;
-			    
-			    case "duplicate":
-			    	alert("이미 접속중인 ID입니다.");
-			    	window.location.href='/main';
+			    	if (emoticon[from] !== undefined)
+			    		emoticon[from] = data;
 			    	break;
 			    	
 			    default:
@@ -433,6 +426,27 @@
 			conn.send(JSON.stringify(message));
 		}
 		
+		function removeConnection(target) {
+			if (pc[target] !== undefined) {
+				pc[target].close();
+				delete(pc[target]);
+			}
+			
+			if (dc[target] !== undefined)
+				delete(dc[target]);
+			
+			if (emoticon[target] !== undefined)
+				delete(emoticon[target]);
+			
+			if (flg[target] !== undefined)
+				delete(flg[target]);
+			
+			if (audio_share[target] !== undefined)
+				delete(audio_share[target]);
+			
+			if (document.getElementById(target) !== null)
+				removeVideo(target);
+		}
 		
 		function createPeerConnection(target) {
 			var configuration = {
@@ -472,18 +486,11 @@
 				        
 					    case "disconnected":
 					    	break;
+					    	
 					    case "failed":
-					    	console.log(peerConnection.connectionState);
-							delete(pc[target]);
-							delete(dc[target]);
-							delete(share[target]);
-							delete(emoticon[target]);
-							delete(flg[target]);
-							if (audio_share[target] !== undefined)
-								delete(audio_share[target]);
-							removeVideo(target);
-					        break;
 				    	case "closed":
+					    	console.log(peerConnection.connectionState);
+							removeConnection(target);
 				       		break;
 				  }
 			}
@@ -623,7 +630,7 @@
 		}
 		
 		async function shareMicById(id) {
-			if (pc[id] === undefined || mic_stream === null) {
+			if (pc[id] === undefined || mic_stream === null || pc[id].connectionState !== "connected") {
 				console.log("mic stream이 없거나 pc[id]가 정의되지 않음.");
 				return;
 			}

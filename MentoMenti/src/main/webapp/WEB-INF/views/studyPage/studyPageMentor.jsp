@@ -163,35 +163,31 @@
 			$('#MemberTable *').remove(); // MemberTable 내부 전체 삭제
 			addMemberToList(myNick, myemoticon, idx++);
 			for (var key in pc) {
-				/*if (pc[key].connectionState === "disconnected" || pc[key].connectionState === "failed" // 유저 연결이 안되어 있는 경우 해당 유저 삭제 
-						|| pc[key].connectionState === "closed") {
-					console.log(key + "->" + pc[key].connectionState);
-					delete(pc[key]);
-					delete(dc[key]);
-					delete(share[key]);
-					delete(emoticon[key]);
-					delete(flg[key]);
-					removeVideo(key);
-				} else {*/
-					addMemberToList(key, emoticon[key], idx++);
-				/*}*/
+				addMemberToList(key, emoticon[key], idx++);
 			}
 		}
 		
 		function removeConnection(target) {
 			if (pc[target] !== undefined) {
+				pc[target].close();
 				delete(pc[target]);
 			}
+			
 			if (dc[target] !== undefined)
 				delete(dc[target]);
+			
 			if (share[target] !== undefined) 
 				delete(share[target]);
+			
 			if (emoticon[target] !== undefined)
 				delete(emoticon[target]);
+			
 			if (flg[target] !== undefined)
 				delete(flg[target]);
+			
 			if (audio_share[target] !== undefined)
 				delete(audio_share[target]);
+			
 			if (document.getElementById(target) !== null)
 				removeVideo(target);
 		}
@@ -221,7 +217,7 @@
 		}
 		
 		conn.onmessage = function(msg) {
-		    console.log("Got message", msg.data);
+		    //console.log("Got message", msg.data);
 		    var content = JSON.parse(msg.data);
 		    var from = content.from;
 		    var data = content.data;
@@ -251,27 +247,10 @@
 				    		break;
 				    	if (pc[data] !== undefined || dc[data] !== undefined || audio_share[data] !== undefined || 
 				    			share[data] !== undefined || emoticon[data] !== undefined) {
-				    		for (var key in pc) {
-					    		send({
-					    			event : "duplicate",
-					    			from : myNick,
-					    			to : key,
-					    			who : data
-					    		});
-				    		}
-				    		
-				    		send({
-				    			event : "duplicate",
-				    			from : myNick,
-				    			to : data,
-				    			who : data
-				    		});
-				    		
+				    		removeConnection(data);
 				    	}
-				    	else {
-					    	flg[data] = false;
-				    		createOffer(data);
-				    	}
+					    flg[data] = false;
+				    	createOffer(data);
 				    	break;
 				    	
 				    case "rngt_offer":
@@ -281,16 +260,6 @@
 				    	
 				    case "changeStatus":
 				    	emoticon[from] = data;
-				    	break;
-				    
-				    case "duplicate":
-				    	if (content.who === myNick) {
-					    	alert("이미 접속중인 ID입니다.");
-					    	window.location.href='/main';
-				    	} else {
-				    		if (pc[content.who] !== undefined)
-				    			pc[content.who].close();
-				    	}
 				    	break;
 				    	
 				    default:
@@ -495,10 +464,11 @@
 		}
 		
 		async function shareMicById(id) {
-			if (pc[id] === undefined || mic_stream === null) {
+			if (pc[id] === undefined || mic_stream === null || pc[id].connectionState !== "connected") {
 				console.log("mic stream이 없거나 pc[id]가 정의되지 않음.");
 				return;
 			}
+			
 			if (audio_share[id] !== undefined) {
 				console.log("audio가 이미 공유되고 있음.");
 				return;
@@ -547,6 +517,7 @@
 					video: true
 				}).then(async function(screenStream) {
 						screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+							screenStream = null;
 							for (var key in pc) {
 								send({
 									event : "stop_video",
@@ -563,7 +534,7 @@
 		}
 		
 		async function shareMonitorById(id) {
-			if (screen_stream === null | pc[id] === undefined) {
+			if (screen_stream === null || pc[id] === undefined || pc[id].connectionState !== "connected") {
 				return;
 			}
 
