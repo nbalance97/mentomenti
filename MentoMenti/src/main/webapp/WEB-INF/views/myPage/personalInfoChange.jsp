@@ -4,7 +4,6 @@
 <%@ page
 	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="java.util.List"%>
-<%@ page import="org.springframework.core.io.ClassPathResource" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
 
@@ -161,13 +160,8 @@
 	<!-- 프로필 이미지 -->
 	<%
 	
-	//File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-	//File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
-	String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();
-	String pngImgPath = uploadPath + "\\" + id + ".png";
-	String jpgImgPath = uploadPath + "\\" + id + ".jpg";
-	File pngImg = new File(pngImgPath);
-	File jpgImg = new File(jpgImgPath);
+	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
 	
 	if (pngImg.exists()) {
 	%>

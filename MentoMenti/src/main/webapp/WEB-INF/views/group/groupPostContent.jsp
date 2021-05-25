@@ -5,7 +5,6 @@
 <%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="Mento.Menti.Project.dto.CommentDTO, Mento.Menti.Project.dao.CommentDAO"%>
 <%@ page import="java.util.List"%>
-<%@ page import="org.springframework.core.io.ClassPathResource" %>
 
 <head>
 
@@ -126,13 +125,8 @@
 		<div class="comment_component nickname-tooltip">
 				<!-- 댓글 프로필 이미지 -->
 					<%
-						//File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
-						//File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
-						String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();
-						String pngImgPath = uploadPath + "\\" + commentId + ".png";
-						String jpgImgPath = uploadPath + "\\" + commentId + ".jpg";
-						File pngImg = new File(pngImgPath);
-						File jpgImg = new File(jpgImgPath);
+					File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
+					File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
 						
 						if (pngImg.exists()) {
 					%>
