@@ -107,7 +107,8 @@
                                         		</select>
                                         	</div>
                                         	<div class="form-group">
-                                        		<textarea style="rows:100%; text-align:left;" class="form-control form-control-user" name="intro" placeholder="소개말을 넣어주세요"></textarea>
+                                        		<textarea style="rows:100%; text-align:left;" id="intro_text" class="form-control form-control-user" name="intro" placeholder="소개말을 넣어주세요"></textarea>
+                                        		(<strong id="intro_len">0</strong><span>/70자</span>)
                                         	</div>                                        
                                         </div>
                                       <div style="float:right; width:100%;">
@@ -279,6 +280,11 @@
 				form.email1.focus();
 				return false;
 			}
+			if(form.intro.value.length>70){
+				alert("소개말은 70글자 이하로 작성해주세요");
+				return;
+			}
+			
 			alert("회원가입 성공!");
 			form.submit();
 		}
@@ -325,6 +331,46 @@
 			"left=500, top=200, toolbar=no, location=no, status=no, menubar=no, scrollbars=no,resizable=no, width=300, height=200");
 		}
 		
+		//텍스트 입력할 때마다 글자 수 실시간 반영
+	    (function (window, $, undefined) {
+	    	//글자수 셀 대상, 글자수 표시 text
+	        $intro_text = $('#intro_text'), $intro_len = $('#intro_len');
+
+	      //실시간 글자수 세기
+	        $intro_text.keyup(function () {
+	        	chkIntroLength(this);
+	        })
+	        
+	        function chkIntroLength(objMsg) { //소개말 길이 계산
+	            var pattern = /\r\n/gm;
+	            var vacuum_text;
+	            var vacuum_length;
+
+	            vacuum_text = $(objMsg).val();
+	            vacuum_length = lengthMsg($(objMsg).val());
+	            vacuum_text = vacuum_text.replace(pattern, '\n');
+	            $intro_len.html(vacuum_text.length);//현재 글자수 반영
+	        }
+	        
+	        //텍스트 길이 계산
+	        function lengthMsg(obj_msg) {
+	            var nbytes = 0;
+	            var i;
+	            for (i = 0; i < obj_msg.length; i++) {
+	                var ch = obj_msg.charAt(i);
+	                if (encodeURIComponent(ch).length > 4) { // 한글일 경우
+	                    nbytes += 2;
+	                } else if (ch === '\n') { // 줄바꿈일 경우
+	                    if (obj_msg.charAt(i - 1) !== '\r') { // 하지만 밀려서 줄이 바뀐경우가 아닐때
+	                        nbytes += 1;
+	                    }
+	                } else { //나머지는 모두 1byte
+	                    nbytes += 1;
+	                }
+	            }
+	            return nbytes;
+	        }
+	    })(window, jQuery, undefined);
 </script>
 
 </body>

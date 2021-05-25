@@ -85,7 +85,7 @@
 
 	<!-- 나의 게시글 -->
 	<div class="content1">
-		<h4 class="text1">My Posts</h4>
+		<h4 class="text1">작성한 게시글</h4>
 
 		<%
 			//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
@@ -183,7 +183,7 @@
 
 	<!-- 나의 댓글 -->
 	<div class="content2">
-		<h4 class="text1">My comments</h4>
+		<h4 class="text1">작성한 댓글</h4>
 				<table class="table table-bordered dataTable table-hover" id="dataTable" role="grid">
 
 			<thead>
