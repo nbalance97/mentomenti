@@ -40,32 +40,6 @@ public class HomeController {
         return "mainwoosub";
     }
     
-    @RequestMapping(value="/bh3")
-    public String indexxx() {
-    	return "BH_fileupload";
-    }
-    
-    @PostMapping("/upload")
-    public String fileUpload_example(@RequestParam("files") MultipartFile file) throws Exception {
-    	String root = System.getProperty("user.dir"); // Project의 root directory
-    	String uploadPath = "src/main/resources/uploaded";
-    	String filePath = root + "/" + uploadPath + "/" + file.getOriginalFilename();
-    	File dest = new File(filePath);
-    	file.transferTo(dest);
-    	
-    	return "BH_fileupload";
-    }
-    
-    @RequestMapping(value="/compiler")
-    public String index2() throws Exception{
-    	return "CompileTestView";
-    }
-    
-    @RequestMapping(value="/BH")
-    public String bhidx() throws Exception {
-    	return "BH_screenshare";
-    }
-    
     @RequestMapping(value="/yewon")
     public String index3() {
     	return "yewon";
@@ -123,11 +97,6 @@ public class HomeController {
     @RequestMapping(value="/writepage") //게시물 작성 페이지
     public String index16() {
     	return "writepage";
-    }
-    
-    @RequestMapping(value="/tmp") //테스트용
-    public String index20() {
-    	return "tmp";
     }
     
     @RequestMapping(value="/processLogin") //로그인 진행
@@ -352,21 +321,6 @@ public class HomeController {
     	return "/process/processWithdraw";
     }
     
-    
-    
-    
-    
-    
-    @RequestMapping(value="/chat") //채팅
-    public String index100() {
-    	return "chatPage";
-    }
-    
-    @RequestMapping(value="/chat2") //채팅2
-    public String index1001() {
-    	return "chat";
-    }
-    
     @RequestMapping(value="/screenShare") //화면공유
     public String index101() {
     	return "screenShare";
@@ -395,11 +349,6 @@ public class HomeController {
     @RequestMapping(value="/activity") //나의 활동 (작성한 게시물, 댓글 목록)
     public String index91() {
     	return "/myPage/myActivity";
-    }
-    
-    @RequestMapping(value="/bh2")
-    public String index93() {
-    	return "/BH_whiteboard";
     }
     
     @RequestMapping(value="/canvas")
