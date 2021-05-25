@@ -170,6 +170,8 @@ function pointMouseDown(event) {
   if (pos.isDraw) {
     return;
   }
+  if (usage)
+	  return;
 
   pos.isDraw = true;
   // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation << 이 페이지 참조
@@ -182,6 +184,10 @@ function pointMouseDown(event) {
   cvs.stroke();
   pos.X = startPos.X;
   pos.Y = startPos.Y;
+  
+  send({ //여기에 drawingMode 추가하면 될듯
+	  event: "recv_start"
+  });
 
   var newPoint = drawCommand();
   newPoint.mode = "pencil_begin";
@@ -190,6 +196,9 @@ function pointMouseDown(event) {
 
 
 function pointMouseMove(event) { // 이부분 좀 수정함
+  if (usage)
+	  return;
+  
   var currentPos = getMousePosition(event);
   var lWidth=document.getElementById('slider1'); //slider의 value 가져와서 펜 굵기로 사용
   cvs.lineTo(currentPos.X, currentPos.Y);
@@ -221,18 +230,27 @@ function pointMouseUp(event) {
   if (!pos.isDraw) {
     return;
   }
+  if (usage)
+	  return;
 
   pos.isDraw = false;
   cvs.closePath();
-
+  
+  send({ //여기에 drawingMode 추가하면 될듯
+	  event: "recv_finish"
+  });
+  
   var newPoint = drawCommand();
   newPoint.mode = "pencil_end";
 }
 
 function handleStart(event) {
+	event.preventDefault();
 	if (pos.isDraw) {
 		return;
 	}
+	if (usage)
+		return;
 
 	pos.isDraw = true;
 	// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
@@ -240,6 +258,10 @@ function handleStart(event) {
 	cvs.globalCompositeOperation = drawingMode === "draw" ? "source-over"
 			: "destination-out"; // draw일 때 원래 있던 것 위에 계속 쌓음, eraser일 때 새로운
 									// 것과 겹치지 않게 유지(투명하게). 즉 지우는 것처럼 '보임'
+	
+    send({ //여기에 drawingMode 추가하면 될듯
+	  event: "recv_start"
+    });
 
 	var touches = event.touches;
 
@@ -259,6 +281,9 @@ function handleStart(event) {
 
 
 function handleMove(event) { // 이부분 좀 수정함
+	  event.preventDefault(); 
+	  if (usage)
+		  return;
 	  var currentPos = getMousePosition(event);
 	  var lWidth=document.getElementById('slider1'); //slider의 value 가져와서 펜 굵기로 사용
 	  var touches = event.touches;
@@ -293,8 +318,13 @@ function handleEnd(event) {
 	  if (!pos.isDraw) {
 	    return;
 	  }
+	  if (usage)
+		  return;
 
 	  pos.isDraw = false;
+	  send({ //여기에 drawingMode 추가하면 될듯
+		  event: "recv_finish"
+	  });
 	  cvs.closePath();
 
 	  var newPoint = drawCommand();

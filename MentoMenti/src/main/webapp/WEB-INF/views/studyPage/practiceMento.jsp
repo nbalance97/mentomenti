@@ -139,6 +139,9 @@
 				</div>
 			</div>
 		</div>
+		<form name="tstform" method="post">
+			<input type="hidden" id="src" name="src"/>
+		</form>
 		<% 
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
@@ -327,9 +330,17 @@
 			var popupHeight = 700;
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
 			var popupY = (window.screen.height / 2) - (popupHeight / 2);
+			var realurl = url+'?my_id='+myNick+'&your_id='+btn.value;
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
-			myExternalWindow = window.open(url+'?my_id='+myNick+'&your_id='+btn.value, name, option+ ', left='+ popupX + ', top='+ popupY);
+			myExternalWindow = window.open("", name, option+ ', left='+ popupX + ', top='+ popupY);
 			myExternalWindow.resizeTo(1200,700);
+			var frm = document.tstform;
+			frm.src.value = editor.getValue();
+			frm.target = name;
+			frm.action = realurl;
+			frm.method = "post";
+			frm.submit();
+			
 		}
 		
 		function checkConnection() {
