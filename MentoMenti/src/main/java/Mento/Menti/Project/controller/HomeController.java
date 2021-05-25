@@ -321,6 +321,11 @@ public class HomeController {
     	return "/process/processWithdraw";
     }
     
+    @RequestMapping(value="/processModifyGroup")	//그룹 정보 수정 진행
+    public String groupModify() {
+    	return "/process/processModifyGroup";
+    }
+    
     @RequestMapping(value="/screenShare") //화면공유
     public String index101() {
     	return "screenShare";

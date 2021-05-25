@@ -84,4 +84,11 @@
   	FROM mmgroup
   	WHERE mentoid = #{id};
   </select>
+  
+  <!-- 그룹 소개글 수정 -->
+  <update id="updateGroupIntro" parameterType="Mento.Menti.Project.dto.GroupDTO">
+  	UPDATE mmgroup
+  	SET intro = #{intro}
+  	WHERE groupid = #{groupid};
+  </update>
 </mapper>

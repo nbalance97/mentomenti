@@ -119,7 +119,7 @@
   <select id="curGroupNotices" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT * FROM post
   	WHERE groupid = #{groupid} and is_notice = True
-  	ORDER BY postid
+  	ORDER BY postid desc
   	LIMIT 5;
   </select>
   	
@@ -127,7 +127,7 @@
   <select id="curGroupPosts" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="int">
   	SELECT * FROM post
   	WHERE groupid = #{groupid} and is_notice = False
-  	ORDER BY postid
+  	ORDER BY postid desc
   	LIMIT 5;
   </select>
   

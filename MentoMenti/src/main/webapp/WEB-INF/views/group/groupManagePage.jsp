@@ -123,9 +123,33 @@
 </div>
 
 <div style="margin-bottom:50px">
+	<h5>그룹 정보 수정</h5>
+	<div style="overflow:hidden; margin-right:10%">
+		<form action="processModifyGroup" method="post" name="modifyGroupForm">
+			<table class="table" style="float:left; text-align:center;">
+				<!-- 
+				<tr>
+					<td width="30%">그룹 이름</td>
+					<td><input type="text" style="width:100%; border:1px solid #e3e6f0; outline:none;"
+						value="<%=group.getName()%>" id="modifyName"></td>
+				<tr>
+				-->
+				<tr>
+					<td width="30%">소개글</td>
+					<td><textarea style="width:100%; resize:none; border:1px solid #e3e6f0; outline:none; height:80px"
+						id="intro_text" name="intro"><%=group.getIntro()%></textarea></td>
+				</tr>
+			</table>
+			<input type="text" name="groupId" value="<%=groupid%>" style="display:none;">
+			<input type="button" class="btn btn-primary modifyGroup" value="수정하기" style="float:right" onclick="modifyInfo()">
+		</form>
+	</div>
+</div>
+
+<div style="margin-bottom:50px">
 	<h5>그룹 해체</h5>
 	<div style="overflow:hidden; margin-right:10%">
-		<span style="float:left;">운영중인 그룹을 해체하면 되돌릴 수 없습니다.</span>
+		<span style="float:left; margin-bottom:20px">운영중인 그룹을 해체하면 되돌릴 수 없습니다.</span>
 		<input type="button" class="btn btn-danger deleteGroup" value="그룹 해체하기" style="float:right">
 	</div>
 </div>
@@ -134,6 +158,27 @@
 	function withdraw(menti){	//멘티 강퇴
 		if (confirm("멘티 "+menti+"님을 그룹에서 탈퇴시키겠습니까?")){
 			location.href="processWithdraw?groupid="+<%=group.getGroupid()%>+"&mentiNick="+menti;
+		}
+	}
+	
+	function modifyInfo(){	//그룹 정보 수정
+		var form = document.modifyGroupForm;
+		var intro = document.getElementById("intro_text").value;
+		
+		//소개글 길이 검사
+		if(intro.length>100){
+			alert("그룹 소개글은 100글자 이하로 작성해주세요");
+			return;
+		}
+		
+		//소개글 엔터 포함 여부 검사
+		if(intro.indexOf('\n') != -1){
+			alert("소개글에 엔터를 입력할 수 없습니다.");
+			return;
+		}
+	
+		if (confirm("그룹 정보를 수정하시겠습니까?")){
+			form.submit();
 		}
 	}
 
