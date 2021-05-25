@@ -125,8 +125,8 @@
 			alert("닉네임을 입력해주세요.");
 			return false;
 		}
-		else if(nick.value.length>20 || nick.value.length < 2){
-			alert("닉네임은 2~20글자 이내로 입력해주세요.");
+		else if(nick.value.length>9 || nick.value.length < 2){
+			alert("닉네임은 2~9글자 이내로 입력해주세요.");
 			return false;
 		}
 		url = "confirmNick_ch?nickname="+nick.value+"&origin="+originNick.value;

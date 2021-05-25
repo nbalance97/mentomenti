@@ -64,7 +64,7 @@
                                         				<input type="hidden" name="idDuplication" value="idUncheck">
                                         			</div>
                                         		</div>
-                                    		<div style="font-size:12px;">※비밀번호는 숫자, 영어, 특수문자를 포함한 7글자이상으로 입력해주세요.</div>
+                                    		<div style="font-size:12px; text-align:left;">※비밀번호는 숫자, 영어, 특수문자를 포함한 7글자이상으로 입력해주세요.</div>
                                         	<div class="form-group" style="display:flex;">
                                         	<!-- 비밀번호 입력 -->
                                             	<input type="password" class="form-control form-control-user" name="pw" id="pw" placeholder="비밀번호">
@@ -321,8 +321,8 @@
 				form.nickname.focus();
 				return false;
 			}
-			else if(form.nickname.value.length>20 || form.nickname.value.length<2){
-				alert("닉네임은 2~20글자 이내로 입력가능합니다.");
+			else if(form.nickname.value.length>9 || form.nickname.value.length<2){
+				alert("닉네임은 2~9글자 이내로 입력가능합니다.");
 				form.nickname.focus();
 				return false;
 			}
