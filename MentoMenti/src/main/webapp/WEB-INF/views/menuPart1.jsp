@@ -6,7 +6,6 @@
 <%@ page
 	import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO"%>
 <%@ page import="java.util.List"%>
-<%@ page import="org.springframework.core.io.ClassPathResource" %>
 <%@ page import="java.io.File" %>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -83,15 +82,10 @@
 							<span class="mr-2 d-none d-lg-inline small" style="color:white;"><%=nickname%>님</span>
 							
 							
-							<!-- 프로필 이미지 -->							
+							<!-- 프로필 이미지 -->
 							<%
-								//File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
-								//File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
-								String uploadPath = new ClassPathResource("/static/img/user").getFile().getAbsolutePath();
-								String pngImgPath = uploadPath + "\\" + id + ".png";
-								String jpgImgPath = uploadPath + "\\" + id + ".jpg";
-								File pngImg = new File(pngImgPath);
-								File jpgImg = new File(jpgImgPath);
+							File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
+							File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
 							
 								if (pngImg.exists()) {
 							%>
@@ -113,6 +107,9 @@
 							<%
 								}
 							%>
+
+
+
 							
 							</a>
 							
