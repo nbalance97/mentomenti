@@ -11,5 +11,5 @@
 	}
 </style>
 <div class="screen" id="screens">
-	<video class='center' id="v1" autoplay="true" width="80%" height="100%" onclick="this.play()"></video> 
+	<video class='center' id="v1" autoplay="true" width="80%" height="100%" onclick="this.play(); for (var key in pc) { if (document.getElementById(key) !== undefined) document.getElementById(key).play(); }"></video> 
 </div> 
