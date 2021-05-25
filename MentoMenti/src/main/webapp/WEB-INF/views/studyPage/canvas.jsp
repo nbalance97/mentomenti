@@ -31,10 +31,15 @@
 	.tool{
 		width:25%;
 		height:50vh;
-		display:flex;
 		float:right;
 		text-align:center;
 		border:1px solid gray;
+	}
+	.codeBox{
+		background:#422351;
+		width:25%;
+		height:50vh;
+		float:right;
 	}
 	.palette {
 		text-align:center;
@@ -44,7 +49,7 @@
 		padding-top:20px;
 	}
 	.colo{
-		margin-bottom:10px;
+		margin-bottom:3px;
 		width:100%;
 		float:left;
 	}
@@ -87,19 +92,22 @@
 	}
 	
 	input[type=range] { 
-		width:70%;
+		width:100%;
 		margin:0 auto;
 		background: transparent; 
 	}
 	
-	.codeBox{
-		background:#422351;
-		width:25%;
-		height:50vh;
-		float:right;
+	.canvas_icon{
+		padding-bottom:3px;
+		width:20px;
 	}
+	
 </style>
 </head>
+
+<script>
+</script>
+
 <body onresize="parent.resizeTo(1200,700)" onload="parent.resizeTo(1200,700)">
 	<div class="fullScreen">
 		<!-- 그림그리는 영역 -->
@@ -124,12 +132,12 @@
 					</div>
 				</div>
 				<div class="kit">
-						<button class="btn btn-sm btn-outline-dark col-md-5" onclick="selectTool('pencil')">🖊︎</button>
-						<button id="erase" class="btn btn-sm btn-outline-dark col-md-5">e</button>					
+						<button class="btn btn-outline-dark canvasfn" onclick="selectTool('pencil')"><img class="canvas_icon" alt="" src="resources/img/canvas/pen.png"></button>
+						<button id="erase" class="btn btn-outline-dark canvasfn"><img class="canvas_icon" alt="" src="resources/img/canvas/eraser.png"></button>					
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
-						<button class="btn btn-sm btn-outline-success col-md-10"  onclick="clearPage()">메모🗑️</button>
-						<input id="input-file" class="btn" type="file" style="margin-top:10px;" onchange="uploadFile(this);" />
-						<input type="button" class="btn btn-primary" style="margin-top:10px;" onclick="sendCode();" value="코드 전송" >
+						<button class="btn btn-sm btn-outline-success"  onclick="clearPage()">메모<img class="canvas_icon" style="width:14px;" alt="" src="resources/img/canvas/trash.png"></button>
+						<input type="button" class="btn btn-sm btn-primary" onclick="sendCode();" value="코드 전송" >
+						<input id="input-file" class="btn" type="file" style="margin-top:3px; width:100%;" onchange="uploadFile(this);" />
 				</div>
 			</div>
 		</div>
