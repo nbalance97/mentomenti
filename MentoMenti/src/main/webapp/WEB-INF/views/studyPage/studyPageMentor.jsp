@@ -6,9 +6,12 @@
 	import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
 <%@ page
 	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page import="Mento.Menti.Project.dto.NotificationDTO, Mento.Menti.Project.dao.NotificationDAO" %>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -79,6 +82,34 @@
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
 			if (mentoid.equals(id)){//멘토
+				
+				
+				//멘토 입장 시 멘티에게 수업 시작 알림
+				Calendar cal = Calendar.getInstance();
+				int year = cal.get(cal.YEAR);
+				int month = cal.get(cal.MONTH)+1;
+				int date = cal.get(cal.DATE);
+				String postdate = year+"-"+month+"-"+date;	//작성일자
+				String todaydate = year+"-"+month+"-"+date;
+				int curHour = cal.get(cal.HOUR_OF_DAY);
+				int curMin = cal.get(cal.MINUTE);
+				int curSec = cal.get(cal.SECOND);
+				DecimalFormat df = new DecimalFormat("00");	//두 자리로 형식 맞춤
+				String uploadDatetime = todaydate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
+				
+				String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();
+				List<GroupmateDTO> mentiList = HomeController.dao.getGroupmateDAO().selectMentiList(groupid);
+				for (GroupmateDTO menti: mentiList){
+					//알림 DB 추가
+					NotificationDTO notification = new NotificationDTO();
+					notification.setReceiverid(menti.getId());
+					notification.setSendtime(uploadDatetime);
+					notification.setContent("["+groupName+"] 그룹의 수업이 시작되었습니다.");
+					notification.setIsread(false);
+					HomeController.dao.getNotificationDAO().insertNotification(notification);
+				}
+				
+				
 				%>
 				<%@include file="studyBottomMentor.jsp"%>
 				<% 
