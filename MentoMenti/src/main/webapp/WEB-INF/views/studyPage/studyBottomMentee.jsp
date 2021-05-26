@@ -37,6 +37,15 @@
 				</div>
 			</div>
 		</div>
+		<!-- 
+		<div class="icon">
+			<div class="icon compilerbtn" style="padding:0;"><a onclick="openCompiler()" href="#"><i class="fas fa-laptop-code fa-3x change"></i></a>
+				<div class="compilerExplain">
+					컴파일러
+				</div>
+			</div>
+		</div>
+		 -->
 		<div class="icon">
 			<div class="icon movebtn" style="padding:0;"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
 				<div class="moveExplain">
@@ -56,6 +65,19 @@
 			
 		}
 	}
+	
+	function openCompiler(){
+		var url = "/compiler";
+		var name = "compiler";
+		var popupWidth = 1200;
+		var popupHeight = 700;
+		var popupX = (window.screen.width / 2) - (popupWidth / 2);
+		var popupY = (window.screen.height / 2) - (popupHeight / 2);
+		var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
+		myExternalWindow = window.open(url, name, option+ ', left='+ popupX + ', top='+ popupY);
+		myExternalWindow.resizeTo(1200,700);
+	}
+	
 	function movePractice(){
 		if(confirm("실습페이지로 이동하시겠습니까?")){
 			location.replace("/practiceMento?groupid=<%=group_.getGroupid()%>");

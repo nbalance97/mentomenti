@@ -124,53 +124,47 @@
 	%>
 	
 	<div class="main">
+		<div class="coding">
+			<div class="problemImg shadow img-rounded" id="savetemp">
+				<img id="prob_image" src="resources/img/practice/shared_image_mentee.png" style="width:100%; height:100%; object-fit: contain;"></img> 
+			</div>
+			<div class="codingFunc">
+			<div class="languageSelect">
+			<select id="selectpart" onchange="change_opt(this)">
+				<option value="python">Python</option>
+				<option value="C">C</option>
+				<option value="java">java</option>
+			</select>
+			</div>
+			<form name="compileView" style="width:100%; height:70%;" method="post" action="">
+				<div class="compiler img-rounded" style="padding:5px">
+						<label>코드 작성</label>
+						<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
+				</div>
+				<div class="input img-rounded" style="padding:5px">
+						<label> 입력값 </label>
+						<textarea style="width:100%; height:100%;" name="InputText" id="input"></textarea>
+				</div>
+					<input type="button" class="btn" style="margin:0px 10px; float:right;" value="실행" onclick="processCompile();">
+			</form>
+							
+			<div class="result img-rounded" style="padding:5px">
+				<label>결과</label>
+				<textarea style="width:100%; height:100%;" name="ResultText" id="result"></textarea>
+			</div>
+			</div>
+		</div>
+		<form name="tstform" method="post">
+			<input type="hidden" id="src" name="src"/>
+		</form>
 		<% 
-			//멘토아이디와 접속한 아이디 비교
-			//문제점 : 현재 멘토부분에 editor등이 없어서 캔버스가 안됨 - input hidden으로 할지 아니면 canvas 파라미터 받을때 멘토멘티나누어서 해결,,,?
-			//practiceBottomMentee.jsp에 화면공유 버튼 추가함
+		
 			if (mentoid.equals(id)){//멘토 화면
 				%>
-				<%@include file="studyPageScreen.jsp"%>
-				<div class="share_imag" id="savetemp">
-					<img id="prob_image" src="resources/img/practice/shared_image_mentor.png" style="width:100%; height:100%; object-fit: contain;"></img> 
-				</div>
 				<%@include file="practiceBottomMentor.jsp"%>
 				<% 
 			} else {//멘티 화면
 				%>
-						<div class="coding">
-							<div class="problemImg shadow img-rounded" id="savetemp">
-								<img id="prob_image" src="resources/img/practice/shared_image_mentee.png" style="width:100%; height:100%; object-fit: contain;"></img> 
-							</div>
-							<div class="codingFunc">
-								<div class="languageSelect">
-									<select id="selectpart" onchange="change_opt(this)">
-										<option value="python">Python</option>
-										<option value="C">C</option>
-										<option value="java">java</option>
-									</select>
-								</div>
-								<form name="compileView" style="width:100%; height:70%;" method="post" action="">
-									<div class="compiler img-rounded" style="padding:5px">
-											<label>코드 작성</label>
-											<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
-									</div>
-									<div class="input img-rounded" style="padding:5px">
-										<label> 입력값 </label>
-										<textarea style="width:100%; height:100%;" name="InputText" id="input"></textarea>
-									</div>
-									<input type="button" class="btn" style="margin:0px 10px; float:right;" value="실행" onclick="processCompile();">
-								</form>
-							
-								<div class="result img-rounded" style="padding:5px">
-									<label>결과</label>
-									<textarea style="width:100%; height:100%;" name="ResultText" id="result"></textarea>
-								</div>
-							</div>
-						</div>
-						<form name="tstform" method="post">
-							<input type="hidden" id="src" name="src"/>
-						</form>
 				<%@include file="practiceBottomMentee.jsp"%>
 				<%
 			}
