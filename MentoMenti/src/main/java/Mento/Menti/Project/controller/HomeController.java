@@ -417,4 +417,8 @@ public class HomeController {
     public String index113() {
     	return "/mocoExplain";
     }
+    @RequestMapping(value="/test") //연습페이지
+    public String index114() {
+    	return "/main2";
+    }
 }
