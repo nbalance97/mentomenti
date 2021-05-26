@@ -113,10 +113,11 @@
 	
 	<!-- 댓글 입력 부분 -->
 	<div id="comment-box">
-		<form action="processAddComment?postid=<%=postid%>" method="post">
+		<form action="processAddComment?postid=<%=postid%>" method="post" name="commentForm">
 			<textarea id="comment-input" name="comment" placeholder="댓글을 작성해주세요"></textarea>
 			<div id="comment-bottom">
-				<input type="submit" value="등록" id="comment-button"/>
+				<input type="button" value="등록" id="comment-button" onclick="addComment()"/>
+				<div style="float:right; line-height:40px; margin-right:10px">(<strong id="comment-len">-</strong><span>/200자</span>)</div>
 			</div>
 		</form>
 	</div>
@@ -214,6 +215,28 @@
 
 
 <script type="text/javascript">
+	function addComment(){
+		var form = document.commentForm;
+		var content = document.getElementById("comment-input").value;
+		
+		if(content.length == 0){
+			alert("댓글 내용을 작성해주세요");
+			return;
+		}
+		
+		if(content.length > 200){
+			alert("댓글은 200자 이하로 작성해주세요");
+			return;
+		}
+		
+		if(content.indexOf('\n') != -1){
+			alert("댓글에 엔터를 입력할 수 없습니다.");
+			return;
+		}
+		
+		form.submit();
+	}
+
 	$(document).ready(function(){
 		$(".deletePost").on('click', function(){
 		    if (confirm("게시물을 삭제하시겠습니까?")) {
@@ -233,6 +256,47 @@
 		    location.href = "modifyPostPage?postid="+<%=post.getPostid()%>;
 		});
 	});
+	
+	//댓글 입력할 때마다 글자 수 실시간 반영
+    (function (window, $, undefined) {
+    	//글자수 셀 대상, 글자수 표시 text
+        var $comment_text = $('#comment-input'), $comment_len = $('#comment-len');
+
+      	//실시간 글자수 세기
+        $comment_text.keyup(function () {
+            chkIntroLength(this);
+        });
+      
+        function chkIntroLength(objMsg) { //소개글 길이 계산
+            var pattern = /\r\n/gm;
+            var vacuum_text;
+            var vacuum_length;
+
+            vacuum_text = $(objMsg).val();
+            vacuum_length = lengthMsg($(objMsg).val());
+            vacuum_text = vacuum_text.replace(pattern, '\n');
+            $comment_len.html(vacuum_text.length);//현재 글자수 반영
+        }
+        
+        //텍스트 길이 계산
+        function lengthMsg(obj_msg) {
+            var nbytes = 0;
+            var i;
+            for (i = 0; i < obj_msg.length; i++) {
+                var ch = obj_msg.charAt(i);
+                if (encodeURIComponent(ch).length > 4) { // 한글일 경우
+                    nbytes += 2;
+                } else if (ch === '\n') { // 줄바꿈일 경우
+                    if (obj_msg.charAt(i - 1) !== '\r') { // 하지만 밀려서 줄이 바뀐경우가 아닐때
+                        nbytes += 1;
+                    }
+                } else { //나머지는 모두 1byte
+                    nbytes += 1;
+                }
+            }
+            return nbytes;
+        }
+    })(window, jQuery, undefined);
 </script>
 
 
