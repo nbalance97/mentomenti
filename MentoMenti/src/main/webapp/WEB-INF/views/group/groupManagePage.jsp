@@ -127,15 +127,8 @@
 	<div style="overflow:hidden; margin-right:10%">
 		<form action="processModifyGroup" method="post" name="modifyGroupForm">
 			<table class="table" style="float:left; text-align:center;">
-				<!-- 
 				<tr>
-					<td width="30%">그룹 이름</td>
-					<td><input type="text" style="width:100%; border:1px solid #e3e6f0; outline:none;"
-						value="<%=group.getName()%>" id="modifyName"></td>
-				<tr>
-				-->
-				<tr>
-					<td width="20%;" style="line-height:80px">소개글</td>
+					<td width="20%;" style="padding-top:20px">소개글<br>(<strong id="intro_len">-</strong><span>/100자</span>)</td>
 					<td><textarea style="width:100%; resize:none; border:1px solid #e3e6f0; outline:none; height:80px; padding:15px;"
 						id="intro_text" name="intro"><%=group.getIntro()%></textarea></td>
 				</tr>
@@ -193,6 +186,62 @@
 		    }
 		});
 	});
+	
+	//텍스트 입력할 때마다 글자 수 실시간 반영
+    (function (window, $, undefined) {
+    	//글자수 셀 대상, 글자수 표시 text
+        var $name_text = $('#name_text'), $name_len = $('#name_len'),
+        $intro_text = $('#intro_text'), $intro_len = $('#intro_len');
+
+      //실시간 글자수 세기
+        $name_text.keyup(function () {
+            chkNameLength(this);
+        });
+        $intro_text.keyup(function () {
+        	chkIntroLength(this);
+        })
+
+        function chkNameLength(objMsg) { //그룹 이름 길이 계산
+            var pattern = /\r\n/gm;
+            var vacuum_text;
+            var vacuum_length;
+
+            vacuum_text = $(objMsg).val();
+            vacuum_length = lengthMsg($(objMsg).val());
+            vacuum_text = vacuum_text.replace(pattern, '\n');
+            $name_len.html(vacuum_text.length);//현재 글자수 반영
+        }
+        
+        function chkIntroLength(objMsg) { //소개글 길이 계산
+            var pattern = /\r\n/gm;
+            var vacuum_text;
+            var vacuum_length;
+
+            vacuum_text = $(objMsg).val();
+            vacuum_length = lengthMsg($(objMsg).val());
+            vacuum_text = vacuum_text.replace(pattern, '\n');
+            $intro_len.html(vacuum_text.length);//현재 글자수 반영
+        }
+        
+        //텍스트 길이 계산
+        function lengthMsg(obj_msg) {
+            var nbytes = 0;
+            var i;
+            for (i = 0; i < obj_msg.length; i++) {
+                var ch = obj_msg.charAt(i);
+                if (encodeURIComponent(ch).length > 4) { // 한글일 경우
+                    nbytes += 2;
+                } else if (ch === '\n') { // 줄바꿈일 경우
+                    if (obj_msg.charAt(i - 1) !== '\r') { // 하지만 밀려서 줄이 바뀐경우가 아닐때
+                        nbytes += 1;
+                    }
+                } else { //나머지는 모두 1byte
+                    nbytes += 1;
+                }
+            }
+            return nbytes;
+        }
+    })(window, jQuery, undefined);
 </script>
 
 <%@include file="/WEB-INF/views/menuPart2.jsp"%>

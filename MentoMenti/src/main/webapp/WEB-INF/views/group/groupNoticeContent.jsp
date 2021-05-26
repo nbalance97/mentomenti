@@ -145,7 +145,7 @@
 			<textarea id="comment-input" name="comment" placeholder="댓글을 작성해주세요"></textarea>
 			<div id="comment-bottom">
 				<input type="button" value="등록" id="comment-button" onclick="addComment()"/>
-				<div style="float:right; line-height:40px; margin-right:10px">(<strong id="comment-len">-</strong><span>/200자</span>)</div>
+				<div style="float:right; line-height:40px; margin-right:10px">(<strong id="comment-len">0</strong><span>/200자</span>)</div>
 			</div>
 		</form>
 	</div>
