@@ -130,6 +130,10 @@
 		}
 		
 		//소개글 길이 검사
+		if(intro.length == 0){
+			alert("그룹 소개글을 작성해주세요");
+			return;
+		}
 		if(intro.length>100){
 			alert("그룹 소개글은 100글자 이하로 작성해주세요");
 			return;

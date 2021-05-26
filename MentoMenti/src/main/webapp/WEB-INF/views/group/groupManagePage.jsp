@@ -135,8 +135,8 @@
 				<tr>
 				-->
 				<tr>
-					<td width="30%">소개글</td>
-					<td><textarea style="width:100%; resize:none; border:1px solid #e3e6f0; outline:none; height:80px"
+					<td width="20%;" style="line-height:80px">소개글</td>
+					<td><textarea style="width:100%; resize:none; border:1px solid #e3e6f0; outline:none; height:80px; padding:15px;"
 						id="intro_text" name="intro"><%=group.getIntro()%></textarea></td>
 				</tr>
 			</table>
@@ -166,6 +166,10 @@
 		var intro = document.getElementById("intro_text").value;
 		
 		//소개글 길이 검사
+		if(intro.length == 0){
+			alert("그룹 소개글을 작성해주세요");
+			return;
+		}
 		if(intro.length>100){
 			alert("그룹 소개글은 100글자 이하로 작성해주세요");
 			return;

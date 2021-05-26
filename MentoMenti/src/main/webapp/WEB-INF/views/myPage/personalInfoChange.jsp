@@ -250,7 +250,7 @@
 			<tr>
 				<td>소개글</td>
 				<td>
-					<textarea id="intro_text" name="new_intro" rows="4" style="width: 80%"><%=loginUser.getIntro()%></textarea>
+					<textarea id="intro_text" name="new_intro" rows="4" style="width: 80%; resize:none;"><%=loginUser.getIntro()%></textarea>
 					(<strong id="intro_len">-</strong><span>/70자</span>)
 				</td>
 			</tr>

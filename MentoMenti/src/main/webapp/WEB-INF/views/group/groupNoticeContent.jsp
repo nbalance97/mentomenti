@@ -4,6 +4,7 @@
 <%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
 <%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
 <%@ page import="Mento.Menti.Project.dto.CommentDTO, Mento.Menti.Project.dao.CommentDAO"%>
+<%@ page import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
 <%@ page import="java.util.List"%>
 
 <head>
@@ -59,7 +60,26 @@
 	int cntComment = HomeController.dao.getCommentDAO().countComment(notice.getPostid());
 	
 	int groupid = notice.getGroupid();
+	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
 	String groupname = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();
+	List<GroupmateDTO> groupmateList = HomeController.dao.getGroupmateDAO().selectMentiList(group.getGroupid());	//그룹에 참여한 멘티 목록
+	
+	
+	UserDTO user = new UserDTO();
+	user.setId(id);
+	boolean isAdmin = HomeController.dao.getUserDAO().searchUserById(user).get(0).is_admin();
+	
+	//자신이 개설 or 가입한 그룹 페이지에만 접근할 수 있도록
+	boolean isMember = false;
+	if (group.getMentoid().equals((String)session.getAttribute("userID")))	//개설한 그룹인 경우
+		isMember = true;
+	for (GroupmateDTO gl: groupmateList){	//가입한 그룹인 경우
+		if (gl.getId().equals((String)session.getAttribute("userID")))
+			isMember = true;
+	}
+	if (!isMember && !isAdmin){	//관리자x && 해당 그룹의 멤버가 아니라면 접근 거부
+		response.sendRedirect("rejectedAccess?type=notMember");
+	}
 %>
 
 <!-- Page Heading -->

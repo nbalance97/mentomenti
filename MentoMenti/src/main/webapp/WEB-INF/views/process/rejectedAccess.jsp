@@ -33,7 +33,7 @@
 		}
 		
 		if (message.equals("notPostWriter")){
-			pw.print("<script>alert('자신의 게시물만 삭제할 수 있습니다');</script>");
+			pw.print("<script>alert('자신의 게시물만 수정/삭제할 수 있습니다');</script>");
 			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
 		}
 		

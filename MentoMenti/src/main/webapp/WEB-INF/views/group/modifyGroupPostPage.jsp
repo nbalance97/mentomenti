@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
-<%@ page
-	import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="Mento.Menti.Project.dto.PostDTO, Mento.Menti.Project.dao.PostDAO"%>
+<%@ page import="Mento.Menti.Project.dto.GroupDTO, Mento.Menti.Project.dao.GroupDAO"%>
+<%@ page import="Mento.Menti.Project.dto.GroupmateDTO, Mento.Menti.Project.dao.GroupmateDAO"%>
 <%@ page import="java.util.List"%>
 <head>
 
@@ -48,11 +49,12 @@
 
 <%
 	int postid = Integer.parseInt(request.getParameter("postid"));
-	List<PostDTO> findPost = HomeController.dao.getPostDAO().searchByPostId(postid);
-	String title = findPost.get(0).getTitle(); //기존에 작성한 제목
-	String content = findPost.get(0).getContent(); //기존에 작성한 내용
+	PostDTO findPost = HomeController.dao.getPostDAO().searchByPostId(postid).get(0);
+	String writerId = findPost.getUserid();	//작성자 아이디
+	String title = findPost.getTitle(); //기존에 작성한 제목
+	String content = findPost.getContent(); //기존에 작성한 내용
 	
-	int groupid = findPost.get(0).getGroupid();
+	int groupid = findPost.getGroupid();
 	
 	String backToList = "";
 	if (HomeController.dao.getPostDAO().isNotice(postid)){
@@ -66,6 +68,9 @@
 	response.sendRedirect("loginPage?mode=nidLogin");
 }
 	else {
+		if (!writerId.equals(id)){	//자신이 작성한 글이 아니면 접근 거부
+			response.sendRedirect("rejectedAccess?type=notPostWriter");
+		}
 %>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading"> <!-- 여기에 margin-top 포함되어있음 -->
