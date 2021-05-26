@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script><!-- 제이쿼리가 안불러져서 추가 -->
+
 <title>Insert title here</title>
 <style>
 	body{
@@ -102,11 +104,12 @@
 		width:20px;
 	}
 	
+	.active{
+		background: #6FBAF6 !important;
+	}
+	
 </style>
 </head>
-
-<script>
-</script>
 
 <body onresize="parent.resizeTo(1200,700)" onload="parent.resizeTo(1200,700)">
 	<div class="fullScreen">
@@ -132,7 +135,7 @@
 					</div>
 				</div>
 				<div class="kit">
-						<button class="btn btn-outline-dark canvasfn" onclick="selectTool('pencil')"><img class="canvas_icon" alt="" src="resources/img/canvas/pen.png"></button>
+						<button class="btn btn-outline-dark canvasfn active" onclick="selectTool('pencil')"><img class="canvas_icon" alt="" src="resources/img/canvas/pen.png"></button>
 						<button id="erase" class="btn btn-outline-dark canvasfn"><img class="canvas_icon" alt="" src="resources/img/canvas/eraser.png"></button>					
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
 						<button class="btn btn-sm btn-outline-success"  onclick="clearPage()">메모<img class="canvas_icon" style="width:14px;" alt="" src="resources/img/canvas/trash.png"></button>
@@ -276,6 +279,11 @@
 			conn.send(JSON.stringify(message));
 		}
 		
+		// 펜, 지우개 클릭시 클릭색 유지
+  		$('.canvasfn').click(function() {
+  			$('.canvasfn').removeClass('active');
+  			$(this).addClass('active');
+  		});
 	</script>
 </body>
 </html>
