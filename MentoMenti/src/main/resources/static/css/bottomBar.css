@@ -18,7 +18,7 @@
 		margin: 0 auto;
 	}
 	.icon{
-		padding:10px;
+		padding:5px;
 		display: table-cell;
 		vertical-align: middle;
 		text-align: center;
@@ -81,7 +81,7 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 80px;
-    left:-85px;
+    left:-70px;
     bottom: 55px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index:10000;

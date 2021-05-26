@@ -62,6 +62,22 @@
 		margin:20px;
 		float: right;
 	}
+	.screen{
+		float:left;
+		width:100%;
+		height:90%;
+		background:black;
+		positon :relative;
+	}
+	.share_imag{
+		width:100px;
+		height:100px;
+		background:white;
+		position: absolute;
+		top:0;
+		right:50px;
+		z-index:10;
+	}
 	</style>
 </head>
 <script>
@@ -108,49 +124,53 @@
 	%>
 	
 	<div class="main">
-			<!-- mode에 맞게 selected 되도록 설정 + 변경 시 redirect 설정 -->
-		<div class="coding">
-			<div class="problemImg shadow img-rounded" id="savetemp">
-				<img id="prob_image" src="resources/img/fileupload_default.png" style="width:100%; height:100%; object-fit: contain;"></img> 
-			</div>
-			<div class="codingFunc">
-				<div class="languageSelect">
-					<select id="selectpart" onchange="change_opt(this)">
-						<option value="python">Python</option>
-						<option value="C">C</option>
-						<option value="java">java</option>
-					</select>
-				</div>
-				<form name="compileView" style="width:100%; height:70%;" method="post" action="">
-					<div class="compiler img-rounded" style="padding:5px">
-							<label>코드 작성</label>
-							<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
-					</div>
-					<div class="input img-rounded" style="padding:5px">
-						<label> 입력값 </label>
-						<textarea style="width:100%; height:100%;" name="InputText" id="input"></textarea>
-					</div>
-					<input type="button" class="btn" style="margin:0px 10px; float:right;" value="Execute" onclick="processCompile();">
-				</form>
-			
-				<div class="result img-rounded" style="padding:5px">
-					<label>결과</label>
-					<textarea style="width:100%; height:100%;" name="ResultText" id="result"></textarea>
-				</div>
-			</div>
-		</div>
-		<form name="tstform" method="post">
-			<input type="hidden" id="src" name="src"/>
-		</form>
 		<% 
 			//멘토아이디와 접속한 아이디 비교
-			//True = 멘토, False = 멘티 확인
-			if (mentoid.equals(id)){//멘토
+			//문제점 : 현재 멘토부분에 editor등이 없어서 캔버스가 안됨 - input hidden으로 할지 아니면 canvas 파라미터 받을때 멘토멘티나누어서 해결,,,?
+			//practiceBottomMentee.jsp에 화면공유 버튼 추가함
+			if (mentoid.equals(id)){//멘토 화면
 				%>
+				<%@include file="studyPageScreen.jsp"%>
+				<div class="share_imag" id="savetemp">
+					<img id="prob_image" src="resources/img/practice/shared_image_mentor.png" style="width:100%; height:100%; object-fit: contain;"></img> 
+				</div>
 				<%@include file="practiceBottomMentor.jsp"%>
 				<% 
-			} else {//멘티인지 확인
+			} else {//멘티 화면
 				%>
+						<div class="coding">
+							<div class="problemImg shadow img-rounded" id="savetemp">
+								<img id="prob_image" src="resources/img/practice/shared_image_mentee.png" style="width:100%; height:100%; object-fit: contain;"></img> 
+							</div>
+							<div class="codingFunc">
+								<div class="languageSelect">
+									<select id="selectpart" onchange="change_opt(this)">
+										<option value="python">Python</option>
+										<option value="C">C</option>
+										<option value="java">java</option>
+									</select>
+								</div>
+								<form name="compileView" style="width:100%; height:70%;" method="post" action="">
+									<div class="compiler img-rounded" style="padding:5px">
+											<label>코드 작성</label>
+											<textarea style="width:100%; height:100%;" name="CodeText" id="editor"></textarea> 
+									</div>
+									<div class="input img-rounded" style="padding:5px">
+										<label> 입력값 </label>
+										<textarea style="width:100%; height:100%;" name="InputText" id="input"></textarea>
+									</div>
+									<input type="button" class="btn" style="margin:0px 10px; float:right;" value="실행" onclick="processCompile();">
+								</form>
+							
+								<div class="result img-rounded" style="padding:5px">
+									<label>결과</label>
+									<textarea style="width:100%; height:100%;" name="ResultText" id="result"></textarea>
+								</div>
+							</div>
+						</div>
+						<form name="tstform" method="post">
+							<input type="hidden" id="src" name="src"/>
+						</form>
 				<%@include file="practiceBottomMentee.jsp"%>
 				<%
 			}
@@ -339,6 +359,7 @@
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
 			myExternalWindow = window.open("", name, option+ ', left='+ popupX + ', top='+ popupY);
 			myExternalWindow.resizeTo(1200,700);
+	
 			var frm = document.tstform;
 			frm.src.value = editor.getValue();
 			frm.target = name;

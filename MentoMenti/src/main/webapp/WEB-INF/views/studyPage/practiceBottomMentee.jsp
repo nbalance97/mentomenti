@@ -26,7 +26,14 @@
 					마이크 끄기
 				</div>
 			</div>
-		</div>	
+		</div>
+		<div class="icon">
+			<div class="icon screenbtn" style="padding:0;"><a href="javascript:void(0);" onclick="share_monitor()"><i class="fas fa-desktop fa-3x monitor"></i></a>
+				<div class="screenExplain">
+					화면공유
+				</div>
+			</div>
+		</div>
 		<div class="dropdown icon">
 			<div class="icon dropbtn" style="padding:0;"><a id="emotionSelect" href="#"><i class="far fa-hand-paper fa-3x emotion-select"></i></a>
 				<div class="dropdown-content">
