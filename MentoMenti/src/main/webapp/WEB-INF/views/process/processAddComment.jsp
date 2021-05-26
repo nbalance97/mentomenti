@@ -17,15 +17,16 @@
 </head>
 <body>
 	<%
-		String writerid = (String) session.getAttribute("userID"); //작성자 id
+		String commentWriterId = (String) session.getAttribute("userID"); //작성자 id
 
-	if (writerid == null) {
+	if (commentWriterId == null) {
 		response.sendRedirect("loginPage?mode=nidLogin");
 	} else {
 
 		int postid = Integer.parseInt(request.getParameter("postid")); //게시물 번호
 		PostDTO post = HomeController.dao.getPostDAO().searchByPostId(postid).get(0);
 		String content = request.getParameter("comment"); //댓글 내용
+		String postWriterId = post.getUserid();	//게시물 작성자 아이디
 
 		Calendar cal = Calendar.getInstance();
 		int todayYear = cal.get(cal.YEAR);
@@ -35,7 +36,7 @@
 
 		CommentDTO newComment = new CommentDTO();
 		newComment.setPostid(postid);
-		newComment.setWriterid(writerid);
+		newComment.setWriterid(commentWriterId);
 		newComment.setContent(content);
 		newComment.setCommentdate(commentdate);
 
@@ -49,9 +50,10 @@
 			else response.sendRedirect("noticeContent?postid=" + postid);
 		}
 		else { //게시판
-			if (groupid > 0) {	//그룹 Q&A
-				
-				/*Q&A 작성자에게 답변 추가됨을 알림*/
+			
+			//자신이 올린 그룹 Q&A에 다른 사람이 댓글을 달았을 때
+			//Q&A 작성자에게 답변 추가됨을 알림
+			if (groupid > 0 && !postWriterId.equals(commentWriterId)) {
 				
 				//현재 시각 구하기
 				String todaydate = todayYear+"-"+todayMonth+"-"+todayDate;
