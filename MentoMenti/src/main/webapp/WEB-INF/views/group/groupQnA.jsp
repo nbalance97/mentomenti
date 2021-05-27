@@ -71,7 +71,7 @@
 	<h1 class="h3 mb-0 text-gray-800">
 		<a href="groupQnA?groupid=<%=groupid%>" class="text-gray-800 font-weight-500" style="text-decoration:none;">그룹 Q&A</a>
 	</h1>
-	<ul class="navbar-nav ml-auto">
+	<ul id="searchForm">
 		<li>
 			<form
 				class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
@@ -79,7 +79,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control border-0 small"
 						name="keyword" placeholder="검색" aria-label="Search"
-						aria-describedby="basic-addon2">
+						aria-describedby="basic-addon2" id="searchText">
 					<div class="input-group-append">
 						<button class="btn btn-primary" type="submit">
 							<img src="resources/img/menu/search.png" class="sidebar-icon" style="margin-right:0;">

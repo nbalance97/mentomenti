@@ -38,7 +38,7 @@
 	<h1 class="h3 mb-0 text-gray-800">
 		<a href="notice" class="text-gray-800 font-weight-500" style="text-decoration:none;">공지사항</a>
 	</h1>
-	<ul class="navbar-nav ml-auto">
+	<ul id="searchForm">
 		<li>
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
 				action="notice" method="GET">

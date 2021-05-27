@@ -32,7 +32,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4"
 	id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800">개설된 그룹</h1>
-	<ul class="navbar-nav ml-auto">
+	<ul id="searchForm">
 		<li>
 			<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
 				action="openedGroups" method="GET">

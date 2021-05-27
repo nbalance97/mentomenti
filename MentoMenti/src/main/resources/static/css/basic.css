@@ -125,3 +125,19 @@ thead > tr > th{
 		width:150px;
 	}
 }
+
+/*반응형 웹 검색창이 사라지는 현상 해결*/
+@media screen and (max-width:575px){
+	.d-sm-inline-block{
+		display:inline-block!important;
+	}
+	
+	.d-sm-block{
+		display:block!important;
+	}
+	
+	#searchForm{
+		float:right;
+		margin-left:20px;
+	}
+}
