@@ -198,7 +198,7 @@ a, a:hover {
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2-1) 스터디 그룹 가입</h3>
 		<p>본격적으로 MOCO를 알아볼까요? 원하는 스터디에 참여하기 위해 <b class="font-weight-500">스터디 그룹에 가입</b>해야합니다!</p>
 		<p>아래 그림과 같이 메뉴-그룹-개설된 그룹을 클릭해 원하는 그룹에 참여하세요.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_groupjoin.PNG">
+		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_groupjoin.png">
 	</div>
 
 	</br>
