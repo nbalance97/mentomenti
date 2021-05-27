@@ -15,12 +15,6 @@ public class DAOConfiguration {
     private UserDAO userDAO;
     
     @Autowired
-    private ClassDAO classDAO;
-    
-    @Autowired
-    private ClassmateDAO classmateDAO;
-    
-    @Autowired
     private CommentDAO commentDAO;
     
     @Autowired

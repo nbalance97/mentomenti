@@ -142,7 +142,8 @@
   <select id="searchMyPostsByUserId" resultType="Mento.Menti.Project.dto.PostDTO" parameterType="String">
 	SELECT *
 	FROM post
-	WHERE userid = #{id};
+	WHERE userid = #{id}
+	ORDER BY postid desc;
   </select>
   
   

@@ -21,7 +21,7 @@
 
 <style>
 .text1 {
-	font-weight:700;
+	font-weight:500;
 }
 
 .wrapContents {
@@ -80,12 +80,12 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800">나의 활동</h1>
 </div>
+<hr>
 	
 <div class="wrapContents">
-
 	<!-- 나의 게시글 -->
 	<div class="content1">
-		<h4 class="text1">작성한 게시글</h4>
+		<h5 class="text1">작성한 게시글</h5>
 
 		<%
 			//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
@@ -110,7 +110,6 @@
 				<%//페이지 따라 출력
 					List<PostDTO> posts = HomeController.dao.getPostDAO().searchMyPostsByUserId(id);
 				for (int i=(curPage-1)*5; i<(curPage-1)*5+5;i++) {
-					//PostDTO post : posts for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
 					if(i==posts.size()){
 						break;
 					}
@@ -183,7 +182,7 @@
 
 	<!-- 나의 댓글 -->
 	<div class="content2">
-		<h4 class="text1">작성한 댓글</h4>
+		<h5 class="text1">작성한 댓글</h5>
 				<table class="table table-bordered dataTable table-hover" id="dataTable" role="grid">
 
 			<thead>

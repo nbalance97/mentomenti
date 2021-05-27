@@ -26,7 +26,8 @@
 	<select id="searchMyCommentsByUserId" resultType="Mento.Menti.Project.dto.CommentDTO" parameterType="String">
 		SELECT *
 		FROM comment
-		WHERE writerid = #{id};
+		WHERE writerid = #{id}
+		ORDER BY commentid desc;
 	</select>
 	
 	<!-- 모든 댓글 -->
