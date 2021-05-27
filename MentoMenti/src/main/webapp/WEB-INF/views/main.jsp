@@ -10,8 +10,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
 <meta name="author" content="">
+<meta property="og:title" content="모코(MOCO)">
+<meta property="og:description" content="모두의 코딩교실, 모코(MOCO)">
+<meta property="og:image" content="resources/img/logo3.png" />
 
 <title>MOCO</title>
 
