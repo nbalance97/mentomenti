@@ -54,7 +54,7 @@
 						continue;
 		%>
 		<tr role="row" class="odd">
-			<td><%=u.getId()%></td>
+			<td><a href="activity?page=1&compage=1&userid=<%=u.getId()%>"><%=u.getId()%></a></td>
 			<td><%=u.getNickname() %></td>
 			<td><%=u.getJoindate() %></td>
 			<td><%=u.getIntro()%></td>

@@ -124,7 +124,7 @@
 								<img src="resources/img/menu/gear.png" class="sidebar-icon"> 개인 정보 수정
 								</a>
 								
-								<a class="dropdown-item" href="activity?page=1&compage=1">
+								<a class="dropdown-item" href="activity?page=1&compage=1&userid=<%=id%>">
 								<img src="resources/img/menu/list.png" class="sidebar-icon"> 나의 활동
 								</a>
 								

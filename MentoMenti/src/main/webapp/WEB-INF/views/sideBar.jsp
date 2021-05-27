@@ -102,7 +102,8 @@
 						<a class="collapse-item" id="colItems" href="personalInfoChkPw">
 							<img src="resources/img/menu/회원정보확인.png" class="sidebar-icon">회원 정보 수정
 						</a>
-						<a class="collapse-item" id="colItems" href="activity?page=1&compage=1">
+						<a class="collapse-item" id="colItems"
+							href="activity?page=1&compage=1&userid=<%=session.getAttribute("userID")%>">
 							<img src="resources/img/menu/리스트.png" class="sidebar-icon">나의 활동
 						</a>
 					</div>

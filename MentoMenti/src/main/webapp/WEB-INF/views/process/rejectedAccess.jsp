@@ -57,6 +57,11 @@
 			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
 		}
 		
+		if (message.equals("inaccessible")){
+			pw.print("<script>alert('접근 권한이 없습니다');</script>");
+			pw.print("<script>window.location=\"main\"</script>;");	//메인 화면으로 이동
+		}
+		
 		//이런 식으로 접근 권한 없는 페이지 처리하면 됨
 	%>
 </body>

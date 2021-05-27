@@ -74,6 +74,22 @@
 <%
 	int curPage = Integer.parseInt(request.getParameter("page"));
 	int curPage_c = Integer.parseInt(request.getParameter("compage"));
+	
+	//파라미터로 받은 유저
+	String userId = request.getParameter("userid");	//사용자 아이디
+	UserDTO findUser = new UserDTO(null, null, null, null, null, null, null, false, null);
+	findUser.setId(userId);
+	findUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
+	
+	//로그인한 유저
+	UserDTO loginUser = new UserDTO();
+	loginUser.setId(id);
+	loginUser = HomeController.dao.getUserDAO().searchUserById(loginUser).get(0);
+	boolean isAdmin = loginUser.is_admin();
+	
+	if(!userId.equals(id) && !isAdmin){	//1. 자신의 활동 내역이거나 2. 관리자일 때만 접근 가능
+		response.sendRedirect("rejectedAccess?type=inaccessible");
+	}
 %>
 
 <!-- Page Heading -->
@@ -86,19 +102,7 @@
 	<!-- 나의 게시글 -->
 	<div class="content1">
 		<h5 class="text1">작성한 게시글</h5>
-
-		<%
-			//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
-		UserDTO findUser = new UserDTO(null, null, null, null, null, null, null, false, null);
-		findUser.setId(id);
-		UserDTO loginUser = null;
-		if (HomeController.dao.getUserDAO().searchUserById(findUser).size() > 0) {
-			loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
-		}
-		%>
-
 		<table class="table table-bordered dataTable table-hover" id="dataTable" role="grid">
-
 			<thead>
 				<tr role="row">
 					<th tabindex="0" rowspan="1" colspan="1" style="width: 65%">게시글</th>
@@ -108,7 +112,7 @@
 			</thead>
 			<tbody>
 				<%//페이지 따라 출력
-					List<PostDTO> posts = HomeController.dao.getPostDAO().searchMyPostsByUserId(id);
+					List<PostDTO> posts = HomeController.dao.getPostDAO().searchMyPostsByUserId(userId);
 				for (int i=(curPage-1)*5; i<(curPage-1)*5+5;i++) {
 					if(i==posts.size()){
 						break;
@@ -198,7 +202,7 @@
 
 
 				<%
-					List<CommentDTO> comments = HomeController.dao.getCommentDAO().searchMyCommentsByUserId(id);
+					List<CommentDTO> comments = HomeController.dao.getCommentDAO().searchMyCommentsByUserId(userId);
 				for (int i=(curPage_c-1)*5; i<(curPage_c-1)*5+5;i++) {
 					//for (int i=(curPage-1)*3; i<(curPage-1)*3+3;i++) {
 						//CommentDTO comment : comments for(int i=(page-1)*3; i<(page-1)*3+3;i++) PostDTO post = posts.get(i);
