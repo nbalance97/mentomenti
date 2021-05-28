@@ -44,27 +44,19 @@
 .compiler, .input, .result {
 	height: 20%;
 	float: left;
-	width: 99%;
+	width: 100%;
 }
 
 .compiler {
-	height: 50%;
+	height: 85%;
 }
 
 .compiler, .input {
 	margin-bottom: 30px;
 }
 
-.problemImg {
-	height: 82vh;
-	float: left;
-	width: 48%;
-	border: 1px solid gray;
-	background: white;
-}
-
 .codingFunc {
-	width: 48%;
+	width: 100%;
 	height: 90%;
 	float: right;
 }
@@ -74,29 +66,12 @@
 	float: right;
 }
 
-.screen {
-	float: left;
-	width: 100%;
-	height: 90%;
-	background: black;
-	positon: relative;
-}
-
-.share_imag {
-	width: 100px;
-	height: 100px;
-	background: white;
-	position: absolute;
-	top: 0;
-	right: 50px;
-	z-index: 10;
-}
 </style>
 </head>
 <script>
 	
 </script>
-<body>
+<body onresize="parent.resizeTo(500,700)" onload="parent.resizeTo(500,700)">
 	<%
 		request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
@@ -104,11 +79,6 @@
 
 	<div class="main">
 		<div class="coding">
-			<div class="problemImg shadow img-rounded" id="savetemp">
-				<img id="prob_image"
-					src="resources/img/practice/shared_image_mentee.png"
-					style="width: 100%; height: 100%; object-fit: contain;"></img>
-			</div>
 			<div class="codingFunc">
 				<div class="languageSelect">
 					<select id="selectpart" onchange="change_opt(this)">

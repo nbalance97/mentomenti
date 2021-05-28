@@ -27,6 +27,7 @@
 				</div>
 			</div>
 		</div>
+		 <!-- 
 		<div class="icon">
 			<div class="icon movebtn" style="padding:0;"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
 				<div class="moveExplain">
@@ -34,6 +35,7 @@
 				</div>
 			</div>
 		</div>
+		 -->
 	</div>
 </div>
 <span class="exit-box"><a id="exitBtn" onclick="exit()" href="#"><i class="fas fa-sign-out-alt fa-2x exit"></i></a></span>

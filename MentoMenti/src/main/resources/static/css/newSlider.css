@@ -47,6 +47,7 @@ label.left{
 	background-position:center center;
 	background-size:50%;
 	background-repeat:no-repeat;
+	filter: drop-shadow(0 0 10px #0003);
 }
 label.right{
 	right:20px;
@@ -55,6 +56,7 @@ label.right{
 	background-position:center center;
 	background-size:50%;
 	background-repeat:no-repeat;
+	filter: drop-shadow(0 0 10px #0003);
 }
 
 

@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<!-- 
 		<div class="icon">
 			<div class="icon movebtn" style="padding:0;"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
 				<div class="moveExplain">
@@ -53,6 +53,7 @@
 				</div>
 			</div>
 		</div>
+		 -->
 	</div>
 </div>
 <span class="exit-box"><a id="exitBtn" onclick="exit()" href="#"><i class="fas fa-sign-out-alt fa-2x exit"></i></a></span>
@@ -69,13 +70,13 @@
 	function openCompiler(){
 		var url = "/compiler";
 		var name = "compiler";
-		var popupWidth = 1200;
+		var popupWidth = 500;
 		var popupHeight = 700;
 		var popupX = (window.screen.width / 2) - (popupWidth / 2);
 		var popupY = (window.screen.height / 2) - (popupHeight / 2);
 		var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
 		myExternalWindow = window.open(url, name, option+ ', left='+ popupX + ', top='+ popupY);
-		myExternalWindow.resizeTo(1200,700);
+		myExternalWindow.resizeTo(popupWidth,popupHeight);
 	}
 	
 	function movePractice(){
