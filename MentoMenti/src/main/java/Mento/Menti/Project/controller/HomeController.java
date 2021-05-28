@@ -4,6 +4,7 @@ import Mento.Menti.Project.WebCompiler.WebCompiler;
 import Mento.Menti.Project.controller.DAOConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
@@ -125,10 +126,18 @@ public class HomeController {
 	    	File existsPng = new File(uploadPath + "/" + id + ".png");	//원래 "\\"대신 "/" 였는데 수정해봄
 	    	File existsJpg = new File(uploadPath + "/" + id + ".jpg");
 	    	if(existsPng.exists()) {
-	    		existsPng.delete();
+	    		try {
+	    		    java.lang.Runtime.getRuntime().exec("rm -f " + existsPng.getAbsolutePath());
+	    		} catch (IOException e) {
+	    		    e.printStackTrace();
+	    		}  
 	    	}
 	    	if (existsJpg.exists()) {
-	    		existsJpg.delete();
+	    		try {
+	    		    java.lang.Runtime.getRuntime().exec("rm -f " + existsJpg.getAbsolutePath());
+	    		} catch (IOException e) {
+	    		    e.printStackTrace();
+	    		}  
 	    	}
 
 	    	//업로드 이미지 확장자
