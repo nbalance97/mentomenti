@@ -199,32 +199,15 @@ function isElementUnderBottom(elem, triggerDiff) {
 		<div class="fnbox fnboxl">
 			<div class="fn_content">
 				<img class="fnicon" src="resources/img/mainfn/group.png">
-				<p><b class="font-weight-500">스터디 그룹 가입/모집</b></p>
-				<p>자체적인 그룹핑 시스템으로 멘토, 멘티를 쉽게 모집할 수 있습니다.</p>
+				<p><b class="font-weight-500">스터디 그룹 참여</b></p>
+				<p>원하는 스터디 그룹의 개설 및 참여를 통해</br> 멘토, 멘티를 쉽게 모집할 수 있습니다.</p>
 			</div>
 		</div>
 		<div class="fnbox fnboxr">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/screen.png">
-				<p><b class="font-weight-500">화면공유</b></p>
-				<p>온라인 스터디 수업에서 화면공유 기능을 제공하여 효과적인 수업이 가능합니다.</p>
-			</div>
-		</div>
-	</div>
-	
-	<div class="up-on-scroll fn" id="site_intro1">
-		<div class="fnbox fnboxl">
 			<div class="fn_content">
 				<img class="fnicon" src="resources/img/mainfn/voice.png">
-				<p><b class="font-weight-500">음성공유</b></p>
-				<p>수업 진행 시 음성공유 통해 원활한 실시간 멘토-멘티 소통이 가능합니다.</p>
-			</div>
-		</div>
-		<div class="fnbox fnboxr">
-			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/compiler.png">
-				<p><b class="font-weight-500">웹 컴파일러</b></p>
-				<p>컴파일러 기능을 제공하여 웹 사이트 상에서 쉽고 빠른 프로그래밍 실습을 진행할 수 있습니다.</p>
+				<p><b class="font-weight-500">음성공유 및 채팅</b></p>
+				<p>스터디 수업 진행 시 음성공유와 채팅을 이용한 원활한 실시간 소통이 가능합니다.</p>
 			</div>
 		</div>
 	</div>
@@ -234,14 +217,31 @@ function isElementUnderBottom(elem, triggerDiff) {
 			<div class="fn_content">
 				<img class="fnicon" src="resources/img/mainfn/board.png">
 				<p><b class="font-weight-500">화이트보드</b></p>
-				<p>화이트보드 필기 기능을 이용한 1:1 피드백이 가능합니다.</p>
+				<p>양방향 필기기능을 이용한 1:1 피드백이</br>가능합니다.</p>
 			</div>
 		</div>
 		<div class="fnbox fnboxr">
 			<div class="fn_content">
-				<img class="fnicon" src="resources/img/mainfn/chat.png">
-				<p><b class="font-weight-500">채팅</b></p>
-				<p>온라인 스터디에서 채팅을 제공하여 효과적인 소통이 가능합니다.</p>
+				<img class="fnicon" src="resources/img/mainfn/screen.png">
+				<p><b class="font-weight-500">화면공유</b></p>
+				<p>온라인 스터디 수업에서 멘토의 화면공유를 통해 효과적인 스터디 진행이 가능합니다.</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="up-on-scroll fn" id="site_intro1">
+		<div class="fnbox fnboxl">
+			<div class="fn_content">
+				<img class="fnicon" src="resources/img/mainfn/emotion.png">
+				<p><b class="font-weight-500">이모티콘</b></p>
+				<p>온라인 스터디 중 멘티가 다른 그룹원에게</br> 자신의 상태를 공유할 수 있습니다.</p>
+			</div>
+		</div>
+		<div class="fnbox fnboxr">
+			<div class="fn_content">
+				<img class="fnicon" src="resources/img/mainfn/compiler.png">
+				<p><b class="font-weight-500">웹 컴파일러</b></p>
+				<p>웹 컴파일러 기능을 제공하여 쉽고 빠른</br> 프로그래밍 실습을 진행할 수 있습니다.</p>
 			</div>
 		</div>
 	</div>
