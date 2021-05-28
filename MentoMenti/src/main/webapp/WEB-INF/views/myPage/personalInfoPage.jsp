@@ -55,11 +55,11 @@
 <div style="text-align: center">
 
 	<!-- 이미지 리소스 로드 -->
-	<resources mapping="/image/**" location="file:////user/"> 
+	<resources mapping="/image/**" location="file:////root/user/"> 
 	<!-- 프로필 이미지 -->
 	<%
-	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+	File pngImg = new File("/root/user/"+id+".png");
+	File jpgImg = new File("/root/user/"+id+".jpg");
 	
 	if (pngImg.exists()) {
 	%>
