@@ -27,15 +27,13 @@
 				</div>
 			</div>
 		</div>
-		 <!-- 
 		<div class="icon">
 			<div class="icon movebtn" style="padding:0;"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
 				<div class="moveExplain">
-					실습페이지로 이동
+					피드백 페이지로 이동
 				</div>
 			</div>
 		</div>
-		 -->
 	</div>
 </div>
 <span class="exit-box"><a id="exitBtn" onclick="exit()" href="#"><i class="fas fa-sign-out-alt fa-2x exit"></i></a></span>
@@ -54,7 +52,7 @@
 		}
 	}
 	function movePractice(){
-		if(confirm("실습페이지로 이동하시겠습니까?")){
+		if(confirm("피드백페이지로 이동하시겠습니까?")){
 			location.replace("/practiceMento?groupid=<%=group_.getGroupid()%>");
 		}else{
 			

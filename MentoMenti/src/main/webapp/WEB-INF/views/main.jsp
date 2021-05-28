@@ -17,9 +17,10 @@
 
 <title>MOCO</title>
 
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="resources/css/newSlider.css" rel="stylesheet">
+<link href="resources/css/slider.css" rel="stylesheet">
 
 </head>
 
@@ -135,49 +136,30 @@ function isElementUnderBottom(elem, triggerDiff) {
 <!-- 이미지 슬라이드 -->
 
 <div class="slidebox">
-	<input type="radio" name="slide" id="slide01" checked>
-	<input type="radio" name="slide" id="slide02">
-	<input type="radio" name="slide" id="slide03">
-	<input type="radio" name="slide" id="slide04">
-	<ul class="slidelist">
-		<!-- 그림크기 resources/img/mainimg1_2.png크기랑 같게 ~> 안그러면 밀리는느낌잇 -->
-		<li class="slideitem">
-			<div>
-				<label for="slide04" class="left"></label>
-				<label for="slide02" class="right"></label>
-				<a href="notice"><img src="resources/img/mainimg1_2.png"></a>
-			</div>
-		</li>
-		<li class="slideitem">
-			<div>
-				<label for="slide01" class="left"></label>
-				<label for="slide03" class="right"></label>
-				<a><img src="resources/img/slider/second_picture.png"></a>
-			</div>
-		</li>
-		<li class="slideitem">
-			<div>
-				<label for="slide02" class="left"></label>
-				<label for="slide04" class="right"></label>
-				<a><img src="resources/img/3번슬라이드.png"></a>
-			</div>
-		</li>
-		<li class="slideitem">
-			<div>
-				<label for="slide03" class="left"></label>
-				<label for="slide01" class="right"></label>
-				<a><img src="resources/img/4번슬라이드.png"></a>
-			</div>
-		</li>		
-	</ul>
-	<!-- 
-	<ul class="slide-pagelist">
-		<li><label for="slide01"></label></li>
-		<li><label for="slide02"></label></li>
-		<li><label for="slide03"></label></li>
-		<li><label for="slide04"></label></li>
-	</ul>
-	 -->
+ 	<ul class="slider">
+ 		<li class="slideitem">
+ 			<div>
+ 				<img name="j_test" src="resources/img/mainimg1_2.png">
+ 			</div>
+ 		</li>
+ 		 <li class="slideitem">
+ 			<div>
+ 				<img name="j_test" src="resources/img/slider/second_picture.png">
+ 			</div>
+ 		</li>
+ 		<li class="slideitem">
+ 			<div>
+ 				<img name="j_test" src="resources/img/3번슬라이드.png">
+ 			</div>
+ 		</li>
+  		<li class="slideitem">
+ 			<div>
+ 				<img name="j_test" src="resources/img/4번슬라이드.png">
+ 			</div>
+ 		</li>
+ 	</ul>
+		<button type="button" id="prev"></button>
+		<button type="button" id="next"></button>
 </div>
 
 <!-- 사이트 설명 -->
@@ -251,5 +233,56 @@ function isElementUnderBottom(elem, triggerDiff) {
 		<a href="explain" class="btn btn-primary btn-lg" role="button" aria-pressed="true">모코 가이드 확인하기</a>
 	</div>
 </div>
+<script>
+$(function(){
+	  var $slider = $('.slider'),
+	      $firstSlide = $slider.find('li').first() // 첫번째 슬라이드
+	      .stop(true).animate({'opacity':1},400); // 첫번째 슬라이드만 보이게 하기
 
+	  function PrevSlide(){ // 이전버튼 함수
+	    stopSlide();startSlide(); //타이머 초기화
+	    var $lastSlide = $slider.find('li').last() //마지막 슬라이드
+	    .prependTo($slider); //마지막 슬라이드를 맨 앞으로 보내기  
+	    $secondSlide = $slider.find('li').eq(1)//두 번째 슬라이드 구하기
+	    .stop(true).animate({'opacity':0},400); //밀려난 두 번째 슬라이드는 fadeOut 시키고
+	    $firstSlide = $slider.find('li').first() //맨 처음 슬라이드 다시 구하기
+	    .stop(true).animate({'opacity':1},400);//새로 들어온 첫 번째 슬라이드는 fadeIn 시키기
+	  }
+	  
+	  function NextSlide(){ // 다음 버튼 함수
+	    stopSlide();startSlide(); //타이머 초기화
+	    $firstSlide = $slider.find('li').first() // 첫 번째 슬라이드
+	    .appendTo($slider); // 맨 마지막으로 보내기
+	    var $lastSlide = $slider.find('li').last() // 맨 마지막으로 보낸 슬라이드
+	    .stop(true).animate({'opacity':0},400); // fadeOut시키기
+	    $firstSlide = $slider.find('li').first()// 맨 처음 슬라이드
+	    .stop(true).animate({'opacity':1},400);// fadeIn 시키기
+	  }
+	  
+	  $('#next').on('click', function(){ //다음버튼 클릭
+	    NextSlide();
+	  });
+	  $('#prev').on('click', function(){ //이전 버튼 클릭
+	    PrevSlide();
+	  });
+
+	  startSlide(); // 자동 슬라이드 시작
+	  
+	  var theInterval;
+
+	  function startSlide() {
+	    theInterval = setInterval(NextSlide, 5000); //자동 슬라이드 설정
+	  }
+
+	  function stopSlide() { //자동 멈추기
+	    clearInterval(theInterval);
+	  }
+	  
+	  $('.slider').hover(function(){ //마우스 오버시 슬라이드 멈춤
+	    stopSlide();
+	  }, function (){
+	    startSlide();
+	  });
+	});
+</script>
 <%@include file="menuPart2.jsp"%>
