@@ -115,7 +115,7 @@ public class HomeController {
 	    	//업로드 경로
 	    	//String root = System.getProperty("user.dir");
 	    	
-	    	String uploadPath = "/root";
+	    	String uploadPath = "/root/user";
 
 	    	//String uploadPath = "src/main/resources/static/img/user";
 	    	//File existsPng = new File(root + "/" + uploadPath + "/" + id + ".png");

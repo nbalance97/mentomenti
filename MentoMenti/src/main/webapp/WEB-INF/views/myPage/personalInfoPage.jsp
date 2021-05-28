@@ -54,8 +54,6 @@
 
 <div style="text-align: center">
 
-	<!-- 이미지 리소스 로드 -->
-	<resources mapping="/image/**" location="file:////root/user/"> 
 	<!-- 프로필 이미지 -->
 	<%
 	File pngImg = new File("/root/user/"+id+".png");
@@ -64,13 +62,13 @@
 	if (pngImg.exists()) {
 	%>
 		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="<spring:url value='/image/<%=id%>.png'/>" style="width:100%; height:100%; object-fit: cover;">
+			<img src="/upload/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
 		</div>
 	<%
 	} else if (jpgImg.exists()){
 	%>
 		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="<spring:url value='/image/<%=id%>.jpg'/>" style="width:100%; height:100%; object-fit: cover;">
+			<img src="/upload/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 		</div>
 	<%
 	} else {	//기본 이미지
