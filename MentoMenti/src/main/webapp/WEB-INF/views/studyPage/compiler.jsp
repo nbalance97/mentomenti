@@ -26,6 +26,7 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/mdn-like.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/dracula.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- 파비콘 설정 -->
 <link rel="shortcut icon" href="resources/img/logo3.png">
 <link rel="icon" href="resources/img/logo3.png">
@@ -224,8 +225,7 @@
 
 			console.log(e.value);
 			if (e.value === "java") {
-				editor
-						.setValue("public class MentoMenti {\n\tpublic static void main(String args[]) {\n\n\t}\n}");
+				editor.setValue("public class MentoMenti {\n\tpublic static void main(String args[]) {\n\n\t}\n}");
 			}
 		}
 

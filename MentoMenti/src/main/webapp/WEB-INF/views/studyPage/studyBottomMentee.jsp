@@ -37,7 +37,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- 
+		
 		<div class="icon">
 			<div class="icon compilerbtn" style="padding:0;"><a onclick="openCompiler()" href="#"><i class="fas fa-laptop-code fa-3x change"></i></a>
 				<div class="compilerExplain">
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 		</div>
-		 -->
+		
 		<div class="icon">
 			<div class="icon movebtn" style="padding:0;"><a onclick="movePractice()" href="#"><i class="fas fa-exchange-alt fa-3x change"></i></a>
 				<div class="moveExplain">
