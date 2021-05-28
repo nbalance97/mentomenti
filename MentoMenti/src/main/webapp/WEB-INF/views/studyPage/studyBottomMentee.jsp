@@ -31,6 +31,8 @@
 					<span class="icon"><a onclick="changestatus('ques');"><i class="far fa-question-circle fa-3x emotion"></i></a></span>
 					<span class="icon"><a onclick="changestatus('finish');"><i class="far fa-check-circle fa-3x emotion"></i></a></span>
 					<span class="icon"><a onclick="changestatus('non-finish');"><i class="far fa-times-circle fa-3x emotion"></i></a></span>
+					<span class="icon"><a onclick="changestatus('hand-up');"><i class="far fa-hand-paper fa-3x emotion"></i></a></span>
+					<span class="icon"><a onclick="changestatus('thumb-up');"><i class="far fa-thumbs-up fa-3x emotion"></i></a></span>
 				</div>
 				<div class="emotionExplain">
 					이모티콘 전송

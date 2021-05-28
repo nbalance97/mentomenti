@@ -165,13 +165,17 @@
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-check-circle fa-2x "></i></td>';
 			else if (emot === 'non-finish')
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-times-circle fa-2x "></i></td>';
+			else if (emot === 'hand-up')
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-hand-paper fa-2x"></i></td>';
+			else if (emot === 'thumb-up')
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-thumbs-up fa-2x"></i></td>';
 			else if (emot === 'default')
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>';
-			
+				
 			if (id !== myNick)
 				tag = tag + '<td style="padding:6px;"><button type="button" class="btn btn-info" style="padding:2px;" onclick="canvas(this)" value="'+id+'">이동</button></td></tr>';
 			else
-				tag = tag + '<td></td></tr>'	
+				tag = tag + '<td></td></tr>'
 			
 			$(tag).appendTo('#MemberTable');
 			return;
