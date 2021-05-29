@@ -142,107 +142,6 @@
 	<%@include file="studySidebar.jsp"%>
 	<!-- Library textarea에 적용하는 과정 -->
 	<script>
-		var settingFile = 'python';
-		var set_mode = 'python';
-	
-		var textarea = document.getElementById('editor');
-		var editor = CodeMirror.fromTextArea(textarea, {
-			lineNumbers: true,
-			lineWrapping: true,
-			theme: "dracula",
-			mode: "python",
-			value: textarea.value,
-		});
-		
-		var textarea2 = document.getElementById('result');
-		var editor2 = CodeMirror.fromTextArea(textarea2, {
-			lineNumbers: true,
-			lineWrapping: true,
-			mode: "python",
-			theme: "dracula",
-			value: textarea2.value
-		});
-		
-		var textarea3 = document.getElementById('input');
-		var editor3 = CodeMirror.fromTextArea(textarea3, {
-			lineNumbers: true,
-			lineWrapping: true,
-			mode: "python",
-			theme: "dracula",
-			value: textarea3.value
-		});
-		
-		editor.setSize("100%", "100%");
-		editor2.setSize("100%", "100%");
-		editor3.setSize("100%", "100%");
-		
-		function change_opt(e) {
-			editor.setSize("0%", "0%"); // 0%에서 100%로 늘려줘야 점점 안커짐....,,,,,
-			editor2.setSize("0%", "0%");
-			editor3.setSize("0%", "0%");
-			set_mode = e.value;
-			
-			if (e.value === "python") {
-				settingFile = 'python';
-			} else if (e.value === "C") {
-				settingFile = "text/x-csrc";
-			} else {
-				settingFile = "text/x-java";
-			}
-			
-			editor = CodeMirror.fromTextArea(textarea, {
-				lineNumbers: true,
-				lineWrapping: true,
-				theme: "dracula",
-				mode: settingFile,
-				value: textarea.value,
-			});
-			
-			editor2 = CodeMirror.fromTextArea(textarea2, {
-				lineNumbers: true,
-				lineWrapping: true,
-				theme: "dracula",
-				mode: settingFile,
-				value: textarea2.value
-			});
-			
-			editor3 = CodeMirror.fromTextArea(textarea3, {
-				lineNumbers: true,
-				lineWrapping: true,
-				theme: "dracula",
-				mode: settingFile,
-				value: textarea3.value
-			});
-			
-			editor.setSize("100%", "100%");
-			editor2.setSize("100%", "100%");
-			editor3.setSize("100%", "100%");	
-			
-			console.log(e.value);
-			if (e.value === "java") {
-				editor.setValue("public class MentoMenti {\n\tpublic static void main(String args[]) {\n\n\t}\n}");
-			}
-		}
-		
-		function processCompile() {
-			var total_data = {
-				mode: set_mode,
-				src: editor.getValue(),
-				input: editor3.getValue(),
-			};
-			
-			$.ajax({
-		        url: "https://kgu.mentomenti.kro.kr:8000/WebCompile",
-		        type: "POST",
-		        async: true,
-		        data: total_data,
-		        success: function(data) {
-		            editor2.setValue(data);
-		        }
-		    });
-		}
-	</script>
-	<script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
 	    var myNick = "<%=nick%>";
@@ -295,21 +194,6 @@
 			return;
 		}
 		
-		function uploadFile(inputElement) {
-			var file = inputElement.files[0];
-			var reader = new FileReader();
-			reader.onloadend = function() {
-				//Data : reader.result;
-				arrayBuffer = reader.result;
-				for (var key in dc)
-					dc[key].send(arrayBuffer);
-				
-				var url = URL.createObjectURL(new Blob([arrayBuffer]));
-				image.src = url;
-			}
-			reader.readAsArrayBuffer(file);
-		}
-		
 		function canvas(btn){
 			var url = "/canvas";
 			var name = "canvas";
@@ -317,18 +201,9 @@
 			var popupHeight = 700;
 			var popupX = (window.screen.width / 2) - (popupWidth / 2);
 			var popupY = (window.screen.height / 2) - (popupHeight / 2);
-			var realurl = url+'?my_id='+myNick+'&your_id='+btn.value;
 			var option = "toolbar=no, location=no, status=no, scrollbars=no, resizable=no"
-			myExternalWindow = window.open("", name, option+ ', left='+ popupX + ', top='+ popupY);
+			myExternalWindow = window.open(url+'?my_id='+myNick+'&your_id='+btn.value, name, option+ ', left='+ popupX + ', top='+ popupY);
 			myExternalWindow.resizeTo(1200,700);
-	
-			var frm = document.tstform;
-			frm.src.value = editor.getValue();
-			frm.target = name;
-			frm.action = realurl;
-			frm.method = "post";
-			frm.submit();
-			
 		}
 		
 		function checkConnection() {

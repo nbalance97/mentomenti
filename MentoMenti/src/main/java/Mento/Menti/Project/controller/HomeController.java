@@ -425,10 +425,6 @@ public class HomeController {
     public String index113() {
     	return "/mocoExplain";
     }
-    @RequestMapping(value="/test") //메인연습페이지
-    public String index114() {
-    	return "/main2";
-    }
     @RequestMapping(value="/compiler") //컴파일러팝업
     public String index200() {
     	return "studyPage/compiler";

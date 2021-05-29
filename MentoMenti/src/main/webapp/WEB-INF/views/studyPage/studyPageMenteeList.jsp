@@ -9,6 +9,7 @@
 	}
 </style>
    <%
+   		
    		String url = request.getRequestURL().toString();
    %>
 <div class="list">
