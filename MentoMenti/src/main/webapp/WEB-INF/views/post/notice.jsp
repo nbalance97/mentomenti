@@ -65,9 +65,9 @@
 	style="width: 100%; background: white; text-align: center;">
 	<thead>
 		<tr role="row">
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 60%">제목</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성자</th>
-			<th tabindex="0" rowspan="1" colspan="1" style="width: 15%;">작성 일자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">제목</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 20%;" class="writer">작성자</th>
+			<th tabindex="0" rowspan="1" colspan="1" style="width: 20%;">작성일자</th>
 			<th tabindex="0" rowspan="1" colspan="1" style="width: 10%;">조회수</th>
 		</tr>
 	</thead>
@@ -117,7 +117,7 @@
 					%>
 				</a>
 			</td>
-			<td><%=writerNick %></td>	<!-- 작성자 닉네임 -->
+			<td class="writer"><%=writerNick %></td>	<!-- 작성자 닉네임 -->
 			<td><%=gn.getPostdate()%></td> <!-- 작성일자 -->
 			<td><%=gn.getViewcount() %></td> <!-- 조회수 -->
 		</tr>
