@@ -182,7 +182,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 			<div class="fn_content">
 				<img class="fnicon" src="resources/img/mainfn/group.png">
 				<p><b class="font-weight-500">스터디 그룹 참여</b></p>
-				<p>원하는 스터디 그룹의 개설 및 참여를 통해</br> 멘토, 멘티를 쉽게 모집할 수 있습니다.</p>
+				<p>원하는 스터디 그룹의 개설 및 참여를 통해 멘토, 멘티를 쉽게 모집할 수 있습니다.</p>
 			</div>
 		</div>
 		<div class="fnbox fnboxr">
@@ -199,7 +199,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 			<div class="fn_content">
 				<img class="fnicon" src="resources/img/mainfn/board.png">
 				<p><b class="font-weight-500">화이트보드</b></p>
-				<p>양방향 필기기능을 이용한 1:1 피드백이</br>가능합니다.</p>
+				<p>양방향 필기기능을 이용한 1:1 피드백이 가능합니다.</p>
 			</div>
 		</div>
 		<div class="fnbox fnboxr">
@@ -216,14 +216,14 @@ function isElementUnderBottom(elem, triggerDiff) {
 			<div class="fn_content">
 				<img class="fnicon" src="resources/img/mainfn/emotion.png">
 				<p><b class="font-weight-500">이모티콘</b></p>
-				<p>온라인 스터디 중 멘티가 다른 그룹원에게</br> 자신의 상태를 공유할 수 있습니다.</p>
+				<p>온라인 스터디 중 멘티가 다른 그룹원에게 자신의 상태를 공유할 수 있습니다.</p>
 			</div>
 		</div>
 		<div class="fnbox fnboxr">
 			<div class="fn_content">
 				<img class="fnicon" src="resources/img/mainfn/compiler.png">
 				<p><b class="font-weight-500">웹 컴파일러</b></p>
-				<p>웹 컴파일러 기능을 제공하여 쉽고 빠른</br> 프로그래밍 실습을 진행할 수 있습니다.</p>
+				<p>웹 컴파일러 기능을 제공하여 쉽고 빠른 프로그래밍 실습을 진행할 수 있습니다.</p>
 			</div>
 		</div>
 	</div>
