@@ -148,11 +148,11 @@ a, a:hover {
 	
 	<div class="up-on-scroll" id="site_intro2" style="overflow:hidden">
 		<h3 class="font-weight-700" style="margin: 30px">설명 목차</h3>
-		<span><a href="#moco">1. MOCO란?</a></span>
-		<hr>
-		<span><a href="#service">2. MOCO의 서비스</a></span>
-		<hr>
-		<p><a href="#use">3. MOCO 사용법</a></p>
+		<p style="margin-top:10px"><a href="#moco">1. MOCO란?</a></p>
+		<hr width="80%" style="margin:0 auto;">
+		<p style="margin-top:10px"><a href="#service">2. MOCO의 서비스</a></p>
+		<hr width="80%" style="margin:0 auto;">
+		<p style="margin-top:10px"><a href="#use">3. MOCO 사용법</a></p>
 		<hr width="80%" style="margin:0 auto;">
 		<div id="siteInstructions">
 			<div style="width:33%; float:left;">
