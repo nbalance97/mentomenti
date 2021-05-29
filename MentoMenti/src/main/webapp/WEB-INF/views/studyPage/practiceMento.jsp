@@ -140,7 +140,6 @@
 		%>
 	</div>
 	<%@include file="studySidebar.jsp"%>
-	<!-- Library textarea에 적용하는 과정 -->
 	<script>
 		var conn = new WebSocket('wss://kgu.mentomenti.kro.kr:8000/socket');
 	    var myName = "<%=session.getAttribute("userID")%>" // 자기 id 저장
@@ -156,6 +155,7 @@
 		var flg = {};
 		var pc = {};
 		var dc = {};
+		var share = {};
 		var audio_share = {};
 		var emoticon = {};
 		
@@ -183,8 +183,8 @@
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-check-circle fa-2x "></i></td>';
 			else if (emot === 'non-finish')
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-times-circle fa-2x "></i></td>';
-			else if (emot === 'default')
-				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>';
+			else if (emot === 'hand-up')
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-hand-paper fa-2x"></i></td>';
 			else if (emot === 'thumb-up')
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-thumbs-up fa-2x"></i></td>';
 			else if (emot === 'default')
@@ -218,6 +218,31 @@
 			for (var key in pc) {
 				addMemberToList(key, emoticon[key], idx++);
 			}
+		}
+		
+		function removeConnection(target) {
+			if (pc[target] !== undefined) {
+				pc[target].close();
+				delete(pc[target]);
+			}
+			
+			if (dc[target] !== undefined)
+				delete(dc[target]);
+			
+			if (share[target] !== undefined) 
+				delete(share[target]);
+			
+			if (emoticon[target] !== undefined)
+				delete(emoticon[target]);
+			
+			if (flg[target] !== undefined)
+				delete(flg[target]);
+			
+			if (audio_share[target] !== undefined)
+				delete(audio_share[target]);
+			
+			if (document.getElementById(target) !== null)
+				removeVideo(target);
 		}
 		
 		
