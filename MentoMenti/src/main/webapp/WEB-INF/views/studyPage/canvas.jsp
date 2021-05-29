@@ -105,7 +105,7 @@
 	}
 	
 	.active{
-		background: #6FBAF6 !important;
+		background: #007bff !important;
 	}
 	
 </style>
@@ -135,11 +135,11 @@
 					</div>
 				</div>
 				<div class="kit">
-						<button class="btn btn-outline-dark canvasfn active" onclick="selectTool('pencil')"><img class="canvas_icon" alt="" src="resources/img/canvas/pen.png"></button>
-						<button id="erase" class="btn btn-outline-dark canvasfn"><img class="canvas_icon" alt="" src="resources/img/canvas/eraser.png"></button>					
+						<button class="btn btn-outline-primary canvasfn active" onclick="selectTool('pencil')"><img class="canvas_icon" alt="" src="resources/img/canvas/pen.png"></button>
+						<button id="erase" class="btn btn-outline-primary canvasfn"><img class="canvas_icon" alt="" src="resources/img/canvas/eraser.png"></button>					
+						<button class="btn btn-outline-danger"  onclick="clearPage()"><img class="canvas_icon" alt="" src="resources/img/canvas/trash.png"></button>
+						
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
-						<button class="btn btn-sm btn-outline-success"  onclick="clearPage()">메모<img class="canvas_icon" style="width:14px;" alt="" src="resources/img/canvas/trash.png"></button>
-						<input type="button" class="btn btn-sm btn-primary" onclick="sendCode();" value="코드 전송" >
 						<input id="input-file" class="btn" type="file" style="margin-top:3px; width:100%;" onchange="uploadFile(this);" />
 				</div>
 			</div>
@@ -180,15 +180,6 @@
 				image.src = url;
 			}
 			reader.readAsArrayBuffer(file);
-		}
-		
-		function sendCode() {
-			send({
-				event: "code",
-				from: myName,
-				to: yourName,
-				data: mysrc
-			});
 		}
 		
 		conn.onopen = function() { // 소켓 열었을때
