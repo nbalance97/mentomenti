@@ -8,29 +8,35 @@
 		font-weight:300px;
 	}
 </style>
-    
+   <%
+   		String url = request.getRequestURL().toString();
+   %>
 <div class="list">
-	<h3>참여자</h3>
+	<%
+		if(url.contains("practice")){
+			%>
+				<h3>참여자 [피드백 페이지]</h3>
+			<%
+		}else{
+			%>
+				<h3>참여자 [수업 페이지]</h3>
+			<%
+		}
+	%>
 	<table class="table">
 		<thead>
 			<tr>
 				<th>No.</th>
 				<th>닉네임</th>
 				<th>상태</th>
-				<th>1:1</th>
+				<th>캔버스</th>
 			</tr>
 		</thead>
 		<tbody id="MemberTable">
 			<!--  <tr>
 				<td>1</td>
-				<td>cat5566</td>
+				<td>닉</td>
 				<td><i class="fas fa-exchange-alt stateIcon fa-2x"></i></td>
-				<td><button type="button" class="btn btn-info">이동</button></td>
-			</tr>
-			<tr>
-				<td >2</td>
-				<td>user4</td>
-				<td><i class="far fa-question-circle stateIcon fa-2x"></i></td>
 				<td><button type="button" class="btn btn-info">이동</button></td>
 			</tr>
 			-->

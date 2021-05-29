@@ -189,8 +189,8 @@
     		// 발행 뿌려주기
     		$("#year").append("<option value='' disabled selected hidden>년</option>");
 
-    		// 올해 기준으로 -100년부터 올해까지를 보여준다.
-    		for (var y = (com_year - 100); y <= (com_year); y++) {
+    		// 올해 기준으로 올해부터  -100년까지를 보여준다.
+    		for (var y = (com_year); y >= (com_year - 100); y--) {
       			$("#year").append("<option value='" + y + "'>" + y + " 년" + "</option>");
     		}
     		
@@ -224,6 +224,7 @@
   		
 		function checkSignup(){
 			var form = document.signupForm;
+			
 			//아이디
 			if(form.idDuplication.value != "idCheck"){
 				alert("아이디 중복체크를 해주세요.");
@@ -283,10 +284,16 @@
 				form.email1.focus();
 				return false;
 			}
-			if(form.email1.value>20 || form.email2.value>20){
+			if(form.email1.value.length>20){
 				alert("이메일은 20글자 이하로 작성해주세요");
+				form.email1.focus();
 				return;				
 			}
+			if(form.email2.value.length>20){
+				alert("이메일은 20글자 이하로 작성해주세요");
+				form.email2.focus();
+				return;				
+			}			
 			
 			if(form.intro.value.length>70){
 				alert("소개말은 70글자 이하로 작성해주세요");
