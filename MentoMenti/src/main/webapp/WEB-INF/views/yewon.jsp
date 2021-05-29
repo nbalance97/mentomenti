@@ -16,27 +16,28 @@
 <meta name="author" content="">
 
 <style>
-.text1 {
-	position: relative;
-	margin-bottom:40px;
-}
-
-.wrapContents {
-	width:100%;
+.filebox input[type="file"] {
+	display:none;
+	width: 1px;
+	height: 1px;
+	padding: 0;
 	overflow: hidden;
-	text-align:center;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
 }
 
-.content1 {
-	float: left;
-	width: 50%;
-	margin-bottom: 50px;
-}
-
-.content2 {
-	float: left;
-	width: 50%;
-	margin-bottom: 50px;
+.filebox .upload-name {
+	padding: .5em .75em; /* label의 패딩값과 일치 */
+	font-size: inherit;
+	font-family: inherit;
+	vertical-align: middle;
+	background-color: #f5f5f5;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
 }
 </style>
 
@@ -56,112 +57,73 @@
 <%@include file="/WEB-INF/views/menuPart1.jsp"%>
 
 <%
-	if (id == null){	//로그인 안된 상태면 로그인 페이지로 이동
-		response.sendRedirect("loginPage?mode=nidLogin");
-	} else {
+	if (id == null) { //로그인 안된 상태면 로그인 페이지로 이동
+	response.sendRedirect("loginPage?mode=nidLogin");
+} else {
 %>
 
 
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4" id="pageHeading">
+<div class="d-sm-flex align-items-center justify-content-between mb-4"
+	id="pageHeading">
 	<h1 class="h3 mb-0 text-gray-800">가입한 그룹</h1>
 </div>
-	
+
 <div class="wrapContents">
 
-	<!-- 자신이 멘토인 그룹 목록 -->
-	<div class="content1">
-		<h4 class="text1 text-gray-800 font-weight-700">Mento Groups</h4>
-		<img src="resources/img/mento.png"
-			style="display: block; width:50%; max-width:250px; position: relative; margin:0 auto">
-
-		<%
-			//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
-		UserDTO findUser = new UserDTO(null, null, null, null, null, null, null, false, null);
-		findUser.setId(id);
-		UserDTO loginUser = null;
-		if (HomeController.dao.getUserDAO().searchUserById(findUser).size() > 0) {
-			loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
-		}
-		%>
-
-		<table class="table table-bordered dataTable" id="dataTable"  cellspacing="0" role="grid"
-			aria-describedby="dataTable_info"
-			style="width:90%; background: white; position: relative; text-align: center; margin-top:30px">
-
-			<thead>
-				<tr role="row">
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">그룹이름</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘티 수</th>
-
-				</tr>
-			</thead>
-			<thead>
-				<%
-					List<GroupDTO> mentoGroups = HomeController.dao.getGroupDAO().searchMentoGroupsByUserId(id);
-				for (GroupDTO mg1 : mentoGroups) {
-					//현재 멘티 수와 최대 멘티 수 (정원)
-					int mentiCnt = HomeController.dao.getGroupmateDAO().cntMenti(mg1.getGroupid());
-					int maxPerson = mg1.getMaxperson();
-				%>
-				<tr style="width: 200px">
-					<td><a href="group?groupid=<%=mg1.getGroupid()%>" style="text-decoration: none;"><%=mg1.getName()%></a><br></td>
-					<td><%=mentiCnt%> / <%=maxPerson%></td>
-				</tr>
-				<%
-					}
-				%>
-
-
-			</tbody>
-
-		</table>
-	</div>
-
-
-	<!-- 멘티로 참여한 그룹 목록 -->
-	<div class="content2">
-		<h4 class="text1 text-gray-800 font-weight-700">Menti Groups</h4>
-		<img src="resources/img/menti.png"
-			style="display: block; width:50%; max-width:250px; position: relative; margin:0 auto">
-
-		<table class="table table-bordered dataTable" id="dataTable" cellspacing="0" role="grid"
-			aria-describedby="dataTable_info"
-			style="width:90%; background: white; position: relative; text-align: center; margin-top:30px">
-
-			<thead>
-				<tr role="row">
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%">그룹 이름</th>
-					<th tabindex="0" rowspan="1" colspan="1" style="width: 50%;">멘토</th>
-				</tr>
-			</thead>
-
-
-			<tbody>
-
-
-				<%
-					List<GroupDTO> mentoGroups2 = HomeController.dao.getGroupDAO().searchJoinGroupsByUserId(id);
-					for (GroupDTO mg2 : mentoGroups2) {
-						String mentoNick = HomeController.dao.getUserDAO().selectNicknameById(mg2.getMentoid());
-				%>
-				<tr style="width: 200px">
-					<td><a href="group?groupid=<%=mg2.getGroupid()%>" style="text-decoration: none;"><%=mg2.getName()%></a><br></td>
-					<td><%=mentoNick%></td>
-				</tr>
-				<%
-					}
-				%>
-
-			</tbody>
-
-		</table>
+	<div class="filebox preview-image" style="text-align:center;">
+		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+			<img src="/resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
+		</div>
+		
+		<input class="upload-name" value="파일선택" disabled="disabled">
+		<label for="ex_filename" class="btn btn-success">프로필 등록</label>
+		<input type="file" id="ex_filename" class="upload-hidden">
 	</div>
 </div>
 
 <%
 	}
 %>
-
+<script type="text/javascript">
+$(document).ready(function(){
+	var fileTarget = $('.filebox .upload-hidden');
+	fileTarget.on('change', function(){ // 값이 변경되면
+		if(window.FileReader){ // modern browser
+			var filename = $(this)[0].files[0].name;
+		} else { // old IE
+			var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+		}
+	
+		// 추출한 파일명 삽입
+		$(this).siblings('.upload-name').val(filename);
+	});
+	
+	var imgTarget = $('.preview-image .upload-hidden');
+	imgTarget.on('change', function(){
+		var parent = $(this).parent();
+		parent.children('.upload-display').remove();
+		parent.children('.profileImg').remove();
+		
+		if(window.FileReader){
+			if (!$(this)[0].files[0].type.match(/image\//)) return;
+			var reader = new FileReader();
+			reader.onload = function(e){
+				var src = e.target.result;
+				parent.prepend('<div class="upload-display profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;"><img src="'+src+'" style="width:100%; height:100%; object-fit: cover;"></div>');
+			}
+			reader.readAsDataURL($(this)[0].files[0]);
+		} else {
+			$(this)[0].select();
+			$(this)[0].blur();
+			var imgSrc = document.selection.createRange().text;
+			parent.prepend('<div class="upload-display profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;"><img src="'+src+'" style="width:100%; height:100%; object-fit: cover;"></div>');
+			
+			var img = $(this).siblings('.upload-display').find('img');
+			img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
+		}
+	});
+});
+</script>
 <%@include file="/WEB-INF/views/menuPart2.jsp"%>
 </html>

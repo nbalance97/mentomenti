@@ -30,6 +30,30 @@
 		width:95%;
 	}
 }
+
+.filebox input[type="file"] {
+	display:none;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.filebox .upload-name {
+	padding: .5em .75em; /* label의 패딩값과 일치 */
+	font-size: inherit;
+	font-family: inherit;
+	vertical-align: middle;
+	background-color: #f5f5f5;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	-moz-appearance: none;
+	appearance: none;
+}
 </style>
 </head>
 
@@ -157,48 +181,55 @@
 
 
 	<!-- 프로필 이미지 -->
-	<%
-	File pngImg = new File("/root/user/"+id+".png");
-	File jpgImg = new File("/root/user/"+id+".jpg");
-	
-	if (pngImg.exists()) {
-	%>
-		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="/upload/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
-		</div>
-	<%
-	} else if (jpgImg.exists()){
-	%>
-		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="/upload/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
-		</div>
-	<%
-	} else {	//기본 이미지
-	%>
-		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
-		</div>
-	<%
-		}
-	%>
 	
 	<form action="processPersonalInfoChange?userid=<%=id%>" method="post" enctype="multipart/form-data" name="changeForm">
-	<div style="margin-bottom:20px;">
-		<!-- 프로필 사진 업로드 버튼 -->
-		<label for="file" class="btn btn-success">프로필 등록</label>
-		<input type="file" id="file" name="profileImg" style="display:none;">
-	</div>
+		<div class="filebox preview-image" style="text-align:center; margin-bottom:20px">
+			<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+			<%
+			File pngImg = new File("/root/user/"+id+".png");
+			File jpgImg = new File("/root/user/"+id+".jpg");
+			
+			if (pngImg.exists()) {
+			%>
+				<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+					<img src="/upload/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
+				</div>
+			<%
+			} else if (jpgImg.exists()){
+			%>
+				<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+					<img src="/upload/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+				</div>
+			<%
+			} else {	//기본 이미지
+			%>
+				<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
+					<img src="resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
+				</div>
+			<%
+				}
+			%>
+			</div>
+			
+			<!-- 프로필 사진 업로드 버튼 -->
+			<input class="upload-name" value="파일선택" disabled="disabled">
+			<label for="ex_filename" class="btn btn-success">업로드</label>
+			<input type="file" id="ex_filename" class="upload-hidden" name="profileImg">
+			<p style="font-size:14px;">※ png, jpg 파일만 업로드 가능합니다. ※</p>
+			
+			<!-- <label for="file" class="btn btn-success">프로필 등록</label> -->
+			<!-- <input type="file" id="file" name="profileImg" style="display:none;"> -->
+		</div>
 
-
-	<%
+		<%
 		//세션에 등록된 아이디를 이용해 사용자 정보 가져오기
-	UserDTO findUser = new UserDTO(null, null, null, null, null, null, null, false, null);
-	findUser.setId(id);
-	UserDTO loginUser = null;
-	if (HomeController.dao.getUserDAO().searchUserById(findUser).size() > 0) {
-		loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
-	}
-	%>
+		UserDTO findUser = new UserDTO(null, null, null, null, null, null, null, false, null);
+		findUser.setId(id);
+		UserDTO loginUser = null;
+		if (HomeController.dao.getUserDAO().searchUserById(findUser).size() > 0) {
+			loginUser = HomeController.dao.getUserDAO().searchUserById(findUser).get(0);
+		}
+		%>
 	
 		<table class="table" id="personalInfoTable" style="margin: 0 auto;">
 			<tr style="width: 50px">
@@ -271,7 +302,8 @@
 
 
 
-<script type="text/javascript">	
+<script type="text/javascript">
+
 	//소개글 텍스트 입력할 때마다 글자 수 실시간 반영
     (function (window, $, undefined) {
     	//글자수 셀 대상, 글자수 표시 text
@@ -312,4 +344,45 @@
             return nbytes;
         }
     })(window, jQuery, undefined);
+	
+	
+	//프로필 사진
+    $(document).ready(function(){
+    	var fileTarget = $('.filebox .upload-hidden');
+    	fileTarget.on('change', function(){ // 값이 변경되면
+    		if(window.FileReader){ // modern browser
+    			var filename = $(this)[0].files[0].name;
+    		} else { // old IE
+    			var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+    		}
+    	
+    		// 추출한 파일명 삽입
+    		$(this).siblings('.upload-name').val(filename);
+    	});
+    	
+    	var imgTarget = $('.preview-image .upload-hidden');
+    	imgTarget.on('change', function(){
+    		var parent = $(this).parent();
+    		parent.children('.upload-display').remove();
+    		parent.children('.profileImg').remove();
+    		
+    		if(window.FileReader){
+    			if (!$(this)[0].files[0].type.match(/image\//)) return;
+    			var reader = new FileReader();
+    			reader.onload = function(e){
+    				var src = e.target.result;
+    				parent.prepend('<div class="upload-display profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;"><img src="'+src+'" style="width:100%; height:100%; object-fit: cover;"></div>');
+    			}
+    			reader.readAsDataURL($(this)[0].files[0]);
+    		} else {
+    			$(this)[0].select();
+    			$(this)[0].blur();
+    			var imgSrc = document.selection.createRange().text;
+    			parent.prepend('<div class="upload-display profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;"><img src="'+src+'" style="width:100%; height:100%; object-fit: cover;"></div>');
+    			
+    			var img = $(this).siblings('.upload-display').find('img');
+    			img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")";
+    		}
+    	});
+    });
 </script>
