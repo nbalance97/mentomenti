@@ -142,7 +142,6 @@
 
 		var screen_stream = null;
 		var mic_stream = null;
-		
 		var mic_status = false;
 		
 		function addVideo(id) {

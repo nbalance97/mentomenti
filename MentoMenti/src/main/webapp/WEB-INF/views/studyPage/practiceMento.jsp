@@ -164,7 +164,7 @@
 		var mic_status = false;
 		
 		function addVideo(id) {
-			$('<video id="'+id+'" autoplay="true" width="1"></video>').appendTo('#savetemp');
+			$('<video id="'+id+'" autoplay="true" width="1"></video>').appendTo('#screens');
 			//$('#'+id).play;
 		}
 		
