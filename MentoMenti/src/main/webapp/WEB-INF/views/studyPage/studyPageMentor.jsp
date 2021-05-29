@@ -16,9 +16,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
-<link href="/resources/css/defaultStudyPractice.css" rel="stylesheet" type="text/css">
+	<link rel="shortcut icon" href="/resources/img/logo3.png">
+	<link rel="icon" href="/resources/img/logo3.png">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/resources/css/defaultStudyPractice.css" rel="stylesheet" type="text/css">
 <%
 	PrintWriter pw = response.getWriter();
 	//방만들기 클릭시 class대한 세션설정 필요?
