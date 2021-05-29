@@ -158,8 +158,8 @@ function isElementUnderBottom(elem, triggerDiff) {
  			</div>
  		</li>
  	</ul>
-		<button type="button" id="prev"></button>
-		<button type="button" id="next"></button>
+		<button type="button" class="sliderBtn" id="prev"></button>
+		<button type="button" class="sliderBtn" id="next"></button>
 </div>
 
 <!-- 사이트 설명 -->
