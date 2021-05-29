@@ -100,9 +100,15 @@ thead > tr > th{
 	}
 }
 
-@media screen and (max-width:767px){
+@media screen and (max-width:767px) and (min-width:401px){
 	#searchText{
 		width:150px;
+	}
+}
+
+@media screen and (max-width:400px){
+	#searchText{
+		width:100px;
 	}
 }
 

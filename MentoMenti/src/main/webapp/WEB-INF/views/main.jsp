@@ -165,7 +165,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 <!-- 사이트 설명 -->
 <div class="list">
 	<div class="up-on-scroll" id="site_intro1">
-		<h3 class="font-weight-700" style="margin:100px; font-size:40px">Welcome to MOCO!</h3>
+		<h3 class="font-weight-700" style="margin:100px 0px; font-size:40px">Welcome to MOCO!</h3>
 		<p>누구나 멘토가 될 수 있고</p>
 		<p>누구나 멘티가 될 수 있는</p>
 		<p>모두의 코딩 교실,</p>

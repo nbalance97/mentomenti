@@ -2,9 +2,6 @@
 
 /* 모바일/태블릿 환경 사이드바 관련 요소 */
 
-
-/*.sidebar이 부트스트랩 css와 충돌나서 다시 지정*/
-
 /*사이드바 상단 로고부분*/
 .sideLogo{
 	font-size : 22px;
@@ -131,6 +128,11 @@ label #cancel{
 
 #sidebar-bottom{
 	display:none;
+}
+
+/*스크롤 시 사이드바 사라지는 문제 해결*/
+.sidebar.toggled{
+	width:100%!important;
 }
 
 

@@ -66,6 +66,11 @@
 	font-size:18px;
 }
 
+/*스크롤 시 사이드바 사라지는 문제 해결*/
+.sidebar.toggled{
+	width:100%!important;
+}
+
 @media screen and (max-height:800px){
 	#sidebar-bottom{display:none;}
 }
