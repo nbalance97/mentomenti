@@ -127,14 +127,22 @@ public class HomeController {
 	    	File existsJpg = new File(uploadPath + "/" + id + ".jpg");
 	    	if(existsPng.exists()) {
 	    		try {
-	    		    java.lang.Runtime.getRuntime().exec("rm -f " + existsPng.getAbsolutePath());
+	    		    Process process = java.lang.Runtime.getRuntime().exec("rm -f " + existsPng.getAbsolutePath());
+	    		    process.getInputStream().close();
+	    		    process.getOutputStream().close();
+	    		    process.getErrorStream().close();
+	    		    process.waitFor();
 	    		} catch (IOException e) {
 	    		    e.printStackTrace();
 	    		}  
 	    	}
 	    	if (existsJpg.exists()) {
 	    		try {
-	    		    java.lang.Runtime.getRuntime().exec("rm -f " + existsJpg.getAbsolutePath());
+	    		    Process process = java.lang.Runtime.getRuntime().exec("rm -f " + existsJpg.getAbsolutePath());
+	    		    process.getInputStream().close();
+	    		    process.getOutputStream().close();
+	    		    process.getErrorStream().close();
+	    		    process.waitFor();
 	    		} catch (IOException e) {
 	    		    e.printStackTrace();
 	    		}  
