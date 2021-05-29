@@ -160,19 +160,19 @@
 		<div class="comment_component nickname-tooltip">
 				<!-- 댓글 프로필 이미지 -->
 					<%
-					File pngImg = new File("src/main/resources/static/img/user/"+commentId+".png");
-					File jpgImg = new File("src/main/resources/static/img/user/"+commentId+".jpg");
+					File pngImg = new File("/root/user/"+commentId+".png");
+					File jpgImg = new File("/root/user/"+commentId+".jpg");
 						
 						if (pngImg.exists()) {
 					%>
 						<div class="profileImg rounded-circle" style="width:30px; height:30px; float:left; margin-right:10px">
-							<img src="resources/img/user/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
+							<img src="/upload/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else if (jpgImg.exists()){
 					%>
 						<div class="profileImg rounded-circle" style="width:30px; height:30px; float:left; margin-right:10px">
-							<img src="resources/img/user/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+							<img src="/upload/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else {
@@ -195,13 +195,13 @@
 						if (pngImg.exists()) {
 					%>
 						<div class="profileImg rounded-circle" style="width:120px; height:120px;">
-							<img src="resources/img/user/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
+							<img src="/upload/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else if (jpgImg.exists()){
 					%>
 						<div class="profileImg rounded-circle" style="width:120px; height:120px;">
-							<img src="resources/img/user/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+							<img src="/upload/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else {

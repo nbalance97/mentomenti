@@ -84,28 +84,28 @@
 							
 							<!-- 프로필 이미지 -->
 							<%
-							File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-							File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+							File pngImg = new File("/root/user/"+id+".png");
+							File jpgImg = new File("/root/user/"+id+".jpg");
 							
-								if (pngImg.exists()) {
+							if (pngImg.exists()) {
 							%>
 								<div class="profileImg rounded-circle" style="width:40px; height:40px; float:left; margin-right:10px">
-									<img src="resources/img/user/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
+									<img src="/upload/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
 								</div>
 							<%
-								} else if (jpgImg.exists()){
+							} else if (jpgImg.exists()){
 							%>
 								<div class="profileImg rounded-circle" style="width:40px; height:40px; float:left; margin-right:10px">
-									<img src="resources/img/user/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+									<img src="/upload/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 								</div>
 							<%
-								} else {
+							} else {
 							%>
 								<div class="profileImg rounded-circle" style="width:40px; height:40px; float:left; margin-right:10px">
 									<img src="resources/img/user/user.png" style="width:100%; height:100%; object-fit: cover;">
 								</div>
 							<%
-								}
+							}
 							%>
 
 

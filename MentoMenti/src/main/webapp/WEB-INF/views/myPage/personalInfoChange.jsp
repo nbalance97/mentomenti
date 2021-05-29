@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="Mento.Menti.Project.controller.HomeController"%>
-<%@ page
-	import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
+<%@ page import="Mento.Menti.Project.dto.UserDTO, Mento.Menti.Project.dao.UserDAO"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
@@ -159,20 +158,19 @@
 
 	<!-- 프로필 이미지 -->
 	<%
-	
-	File pngImg = new File("src/main/resources/static/img/user/"+id+".png");
-	File jpgImg = new File("src/main/resources/static/img/user/"+id+".jpg");
+	File pngImg = new File("/root/user/"+id+".png");
+	File jpgImg = new File("/root/user/"+id+".jpg");
 	
 	if (pngImg.exists()) {
 	%>
 		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="resources/img/user/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
+			<img src="/upload/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
 		</div>
 	<%
 	} else if (jpgImg.exists()){
 	%>
 		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="resources/img/user/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+			<img src="/upload/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 		</div>
 	<%
 	} else {	//기본 이미지
