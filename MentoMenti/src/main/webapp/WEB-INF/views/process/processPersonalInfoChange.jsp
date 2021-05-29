@@ -32,7 +32,7 @@
 		user.setIntro(intro);
 		
 		if (pw.equals("")){	//비밀번호 변경 x
-			user.setPw(HomeController.dao.getUserDAO().searchUser(user).get(0).getPw());
+			user.setPw(HomeController.dao.getUserDAO().searchUserById(user).get(0).getPw());
 		} else {	//비밀번호 변경 o
 			user.setPw(pw);
 		}
