@@ -57,7 +57,7 @@ function isElementUnderBottom(elem, triggerDiff) {
 .up-on-scroll {
 	font-size: 1.2em;
 	text-align: center;
-	margin: 100px 0px;
+	margin: 80px 0px;
 }
 
 div.container {
@@ -79,7 +79,40 @@ a, a:hover {
 	font-size: 0.7em;
 }
 
-/*메인 화면 이중 스크롤바 해결*/
+#welcomeText{
+	font-size:50px;
+}
+
+.guideImg{
+	width:90%;
+	object-fit:contain;
+}
+
+#siteInstructions{
+	margin-top:30px;
+}
+
+/*반응형 웹*/
+@media screen and (max-width:870px){
+	#welcomeText{
+		font-size:40px;
+	}
+	
+	.guideImg{
+		width:100%;
+		object-fit:contain;
+	}
+
+	#siteInstructions{
+		display:none;
+	}
+	
+	.up-on-scroll{
+		margin:30px 0px;
+	}
+}
+
+/*이중 스크롤바 해결*/
 #content-wrapper {
 	overflow: hidden;
 }
@@ -103,7 +136,7 @@ a, a:hover {
 <div class="list">
 	<div class="up-on-scroll" id="site_intro1">
 		<img style="width:30%; object-fit: contain;" src="resources/img/logo3.png">
-		<h3 class="font-weight-700" style="margin: 30px; font-size:50px;">Welcome to MOCO!</h3>
+		<h3 class="font-weight-700" id="welcomeText" style="margin: 30px;">Welcome to MOCO!</h3>
 		</br>
 		<p>누구나 멘토가 될 수 있고</p>
 		<p>누구나 멘티가 될 수 있는</p>
@@ -121,8 +154,7 @@ a, a:hover {
 		<hr>
 		<p><a href="#use">3. MOCO 사용법</a></p>
 		<hr width="80%" style="margin:0 auto;">
-		</br>
-		<div>
+		<div id="siteInstructions">
 			<div style="width:33%; float:left;">
 				<p><a href="#join_study">- 스터디 참여 방법</a></p>
 				<p><a href="#join_study1"> (1) 로그인</a></p>
@@ -165,7 +197,7 @@ a, a:hover {
 		<p>멘토의 화면을 공유할 수 있는 <b class="font-weight-500">화면공유</b></p>
 		<p>서로 대화하여 소통할 수 있는 <b class="font-weight-500">음성공유와 채팅</b></p>
 		<p>다른 사람들에게 자신의 이해정도를 알릴 수 있는 <b class="font-weight-500">이모티콘</b></p>
-		<p>프로그래밍 실습이 필요할 경우 활용할 수 있는 <b class="font-weight-500">웹컴파일러</b></p>
+		<p>프로그래밍 실습이 필요할 경우 활용할 수 있는 <b class="font-weight-500">웹 컴파일러</b></p>
 		<p>멘토와의 1:1 소통이 가능한 <b class="font-weight-500">화이트보드</b></p>
 		<p><b class="font-weight-500">MOCO하나로 모두 가능합니다!</b></p>
 	</div>
@@ -173,8 +205,8 @@ a, a:hover {
 	</br>
 	<a id="use"></a>
 	<div class="up-on-scroll" id="site_intro2">
-		<h3 class="font-weight-700" style="margin: 30px">그럼 이제 MOCO를 이용하기 위해서 
-		<span class="font-weight-700" style="background-color:#D9E5FF">MOCO의 이용 방법</span>을 알아볼까요?</h3>
+		<h3 class="font-weight-700" style="margin: 30px;">그럼 이제 
+		<span class="font-weight-700" style="background-color:#D9E5FF;">MOCO의 이용 방법</span>을 알아볼까요?</h3>
 	</div>
 	
 	</br>
@@ -189,25 +221,28 @@ a, a:hover {
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(1) 로그인 </h3>
 		<p>모코의 핵심적인 기능들을 사용하기 위해선 먼저 <b class="font-weight-500">로그인</b>이 필요합니다!</p>
 		<p>회원가입으로 가입 후 로그인 해 주세요.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/1_login.png">
+		<img class="guideImg" src="resources/img/mocoExplain/1_login.png">
 	</div>
 	
 	</br>
 	<a id="join_study2-1"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2-1) 스터디 그룹 가입</h3>
-		<p>본격적으로 MOCO를 알아볼까요? 원하는 스터디에 참여하기 위해 <b class="font-weight-500">스터디 그룹에 가입</b>해야합니다!</p>
+		<p>본격적으로 MOCO를 알아볼까요?<p>
+		<p>원하는 스터디에 참여하기 위해 <b class="font-weight-500">스터디 그룹에 가입</b>해야합니다!</p>
 		<p>아래 그림과 같이 메뉴-그룹-개설된 그룹을 클릭해 원하는 그룹에 참여하세요.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_groupjoin.png">
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/2_groupjoin.png">
 	</div>
 
 	</br>
 	<a id="join_study2-2"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2-2) 스터디 그룹 생성</h3>
-		<p>만약 멘토가 되어 멘티를 모집하고 싶다면? 우선 멘티들을 모집하기 위해 <b class="font-weight-500">스터디 그룹을 개설</b>해야합니다!</p>
+		<p>만약 멘토가 되어 멘티를 모집하고 싶다면?</p><p>우선 멘티들을 모집하기 위해 <b class="font-weight-500">스터디 그룹을 개설</b>해야합니다!</p>
 		<p>아래 그림과 같이 메뉴-그룹-그룹개설을 클릭해 스터디 그룹을 개설하세요.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_makegroup.PNG">
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/2_makegroup.PNG">
 	</div>
 	
 	</br>
@@ -216,7 +251,8 @@ a, a:hover {
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(3) 스터디 그룹 페이지</h3>
 		<p>이제 가입한 그룹 목록에서<b class="font-weight-500">해당 그룹의 페이지로 이동</b>할 수 있습니다!</p>
 		<p>아래 그림과 같이 가입한 메뉴-그룹-가입한 그룹-원하는 그룹 페이지로 이동하세요.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/3_grouppage.PNG">
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/3_grouppage.PNG">
 	</div>
 	
 	</br>
@@ -225,13 +261,15 @@ a, a:hover {
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(4) 온라인 스터디 참여</h3>
 		<p>이제 거의 끝났습니다! <b class="font-weight-500">입장하기 버튼을 통해 수업페이지로 이동</b>하세요!</p>
 		<p>아래 그림과 같이 해당 그룹 페이지의 입장버튼을 클릭하세요.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/4_groupgo.PNG">
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/4_groupgo.PNG">
 	</div>
 	
-	<div class="up-on-scroll" id="site_intro2">
+	<div class="up-on-scroll" id="site_intro2" style="margin:0px 50px;">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">온라인 스터디의 준비가 끝났습니다!</h3>
 		<p>그룹원들과 함께 스터디를 진행해봅시다</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/5_join.PNG">
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/5_join.PNG">
 	</div>
 	
 	
@@ -253,7 +291,7 @@ a, a:hover {
 		<p>멘티 역시 음성을 통해 멘토와 원활한 소통을 가질 수 있습니다.</p>
 		<p>수업의 이해 정도를 표시하기 위해 하단의 이모티콘을 이용할 수 있습니다.</p>
 		<br>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/1_studymentee.PNG">
+		<img class="guideImg" src="resources/img/mocoExplain/1_studymentee.PNG">
 	</div>
 
 	<div class="up-on-scroll" id="site_intro2">
@@ -264,7 +302,7 @@ a, a:hover {
 		<p>참여자 목록의 상태를 통해 다른 멘티들의 상태(이모티콘)를 확인할 수 있습니다.</p>
 		<p>참여자 목록의 1:1 버튼을 클릭하여 화이트보드를 이용한 1:1 피드백 화면으로 이동할 수 있습니다.</p>
 		<br>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_studymentee.PNG">
+		<img class="guideImg" src="resources/img/mocoExplain/2_studymentee.PNG">
 	</div>
 	
 	</br>
@@ -276,7 +314,8 @@ a, a:hover {
 		<p>C언어, 자바, 파이썬 - 3가지 언어를 지원하는 웹 컴파일러가 준비되어 있습니다.</p>
 		<p>컴파일러에 작성한 코드를 바로 실행시켜 결과를 확인할 수 있습니다.</p>
 		<p>작성한 코드는 1:1 피드백 페이지 이동 시 멘토에게 공유됩니다.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/3_pracmentee.PNG">
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/3_pracmentee.PNG">
 	</div>
 	
 	<!-- 멘토 - 온라인 스터디 기능 설명 -->
@@ -295,7 +334,7 @@ a, a:hover {
 		<p>멘토는 직접화면을 공유하여 수업을  진행할 수 있습니다.</p>
 		<p>음성 공유를 통해 멘티와 소통하며 수업할 수 있습니다.</p>
 		<br>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/1_studymentor.PNG">
+		<img class="guideImg" src="resources/img/mocoExplain/1_studymentor.PNG">
 	</div>
 	
 	<div class="up-on-scroll" id="site_intro2">
@@ -306,7 +345,7 @@ a, a:hover {
 		<p>채팅 기능을 통해 멘티와 소통을 할 수 있습니다.</p>
 		<p>참여자 목록의 1:1 버튼을 클릭하여 화이트보드를 이용한 1:1 피드백 화면으로 이동할 수 있습니다.</p>
 		<br>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/2_studymentor.PNG">
+		<img class="guideImg" src="resources/img/mocoExplain/2_studymentor.PNG">
 	</div>
 	
 	</br>
@@ -319,7 +358,8 @@ a, a:hover {
 		<p>C언어, 자바, 파이썬 - 3가지 언어를 지원하는 웹 컴파일러가 준비되어 있습니다.</p>
 		<p>컴파일러에 작성한 코드를 바로 실행시켜 결과를 확인할 수 있습니다.</p>
 		<p>멘티가 작성한 코드는 1:1 피드백 페이지 이동 시 멘토에게 공유됩니다.</p>
-		<img style="width:70%; object-fit: contain;" src="resources/img/mocoExplain/3_pracmentor.PNG">
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/3_pracmentor.PNG">
 	</div>
 	
 	<div class="up-on-scroll" id="site_intro2">
