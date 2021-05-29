@@ -56,6 +56,25 @@
 
 }
 
+/*사이드바 각 요소*/
+.sidebar-component{
+	font-size:16px;
+}
+
+#sidebar-bottom{
+	width:100%;
+	position:absolute;
+	bottom:0;
+	margin:30px 0px;
+	
+	text-align:center;
+	color:white;
+	font-size:18px;
+}
+
+@media screen and (max-height:800px){
+	#sidebar-bottom{display:none;}
+}
 
 /* 모바일/태블릿 환경 사이드바 버튼 */
 #check{
