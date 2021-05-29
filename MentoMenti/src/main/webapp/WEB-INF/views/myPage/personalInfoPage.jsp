@@ -62,13 +62,13 @@
 	if (pngImg.exists()) {
 	%>
 		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="/upload/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
+			<img src="https://kgu.mentomenti.kro.kr/upload/<%=id%>.png" style="width:100%; height:100%; object-fit: cover;">
 		</div>
 	<%
 	} else if (jpgImg.exists()){
 	%>
 		<div class="profileImg rounded-circle" style="width:200px; height:200px; margin-bottom:30px;">
-			<img src="/upload/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+			<img src="https://kgu.mentomenti.kro.kr/upload/<%=id%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 		</div>
 	<%
 	} else {	//기본 이미지

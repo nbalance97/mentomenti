@@ -138,13 +138,13 @@
 						if (pngImg.exists()) {
 					%>
 						<div class="profileImg rounded-circle" style="width:30px; height:30px; float:left; margin-right:10px">
-							<img src="/upload/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
+							<img src="https://kgu.mentomenti.kro.kr/upload/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else if (jpgImg.exists()){
 					%>
 						<div class="profileImg rounded-circle" style="width:30px; height:30px; float:left; margin-right:10px">
-							<img src="/upload/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+							<img src="https://kgu.mentomenti.kro.kr/upload/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else {
@@ -167,13 +167,13 @@
 						if (pngImg.exists()) {
 					%>
 						<div class="profileImg rounded-circle" style="width:120px; height:120px;">
-							<img src="/upload/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
+							<img src="https://kgu.mentomenti.kro.kr/upload/<%=commentId%>.png" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else if (jpgImg.exists()){
 					%>
 						<div class="profileImg rounded-circle" style="width:120px; height:120px;">
-							<img src="/upload/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
+							<img src="https://kgu.mentomenti.kro.kr/upload/<%=commentId%>.jpg" style="width:100%; height:100%; object-fit: cover;">
 						</div>
 					<%
 						} else {
