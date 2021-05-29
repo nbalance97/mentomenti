@@ -186,7 +186,7 @@
 					%>
 					</div>
 					<div style="float:right; padding-top:10px">
-					<p><b><%=commentNick%></b> (<%=commentId%>)</p>
+					<p><b><%=commentNick%></b><br>(<%=commentId%>)</p>
 					<p style="width:200px;"><%=userIntro%></p>
 					</div>
 				</div>
