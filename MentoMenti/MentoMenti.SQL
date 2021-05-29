@@ -9,7 +9,7 @@ create table user(
 	pw 			varchar(20) not null,
 	birth 		date not null,
 	joindate 	date not null,
-	email 		varchar(20) not null,
+	email 		varchar(40) not null,
 	name 		varchar(20) not null,
 	nickname 	varchar(20) not null,
 	is_admin 	boolean not null,
