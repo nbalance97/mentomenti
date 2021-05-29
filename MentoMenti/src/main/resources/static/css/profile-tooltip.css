@@ -19,12 +19,22 @@
 	border-radius:10px;
 	
 	overflow:hidden;
+	z-index:2;
 }
 
-.nickname-tooltip:hover{
-	cursor:pointer;
+@media screen and (min-width:591px){
+	.nickname-tooltip:hover{
+		cursor:pointer;
+	}
+	
+	.nickname-tooltip:hover .tooltip-content{
+		display:block;
+	}	
 }
 
-.nickname-tooltip:hover .tooltip-content{
-	display:block;
+@media screen and (max-width:590px){
+	
+	.nickname-tooltip:hover .tooltip-content{
+		display:none;
+	}
 }
