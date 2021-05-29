@@ -49,7 +49,6 @@
 }
 
 </style>
-<!--내용 부실시 아래에 흰 공간 생성제거: wrapper=height:100%-->
 
 <title>MOCO</title>
 
@@ -271,6 +270,7 @@
 		</table>
 		<input type="hidden" id="curPage_c" value="<%=curPage_c%>"/>
 		<input type="hidden" id="commentSize" value="<%=comments.size() %>"/>
+		<input type="hidden" id="userid" value="<%=userId%>"/>
 		<nav aria-label="Page navigation example">
   			<ul class="pagination justify-content-center" id="list-body_c">
     			<!-- 페이징 생성 -->
@@ -285,11 +285,11 @@
 
 <%@include file="/WEB-INF/views/menuPart2.jsp"%>
 <script>
-	//작성한 글 개수 가져오기
 	var postData = document.getElementById("postSize").value;
 	var curpage = document.getElementById("curPage").value;
 	var commentData = document.getElementById("commentSize").value;
 	var curpage_c = document.getElementById("curPage_c").value;
+	var userid = document.getElementById("userid").value;
 	$(document).ready(function () {
 		paging(postData,curpage);//작성글수, 현재페이지 : activity?page=1??? getParameter
 		paging_c(commentData,curpage_c)
@@ -317,17 +317,17 @@
 		
 		$('#list-body').empty();
 		if(startPage > countPage){
-			$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+prev+ "&compage="+curpage_c+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+			$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+prev+ "&compage="+curpage_c+"&userid="+userid+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 		}
 		for(var j=startPage ; j<=endPage ; j++){
 			if(currentPage==(j)){
-				$("#list-body").append("<li class='page-item active'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+"'>" + j + "</a></li>");
+				$("#list-body").append("<li class='page-item active'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+"&userid="+userid+"'>" + j + "</a></li>");
 			}else if(j>0){
-				$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+ "'>" + j + "</a></li>");		
+				$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page=" + j + "&compage="+curpage_c+"&userid="+userid+ "'>" + j + "</a></li>");		
 			}
 		}
 		if(next > 5 && next < totalPage)
-		$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+next+ "&compage="+curpage_c+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		$("#list-body").append("<li class='page-item'><a class='page-link' href='activity?page="+next+ "&compage="+curpage_c+"&userid="+userid+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 	} 
 	
 	function paging_c(totalData, currentPage){
@@ -352,17 +352,17 @@
 		
 		$('#list-body_c').empty();
 		if(startPage > countPage){
-			$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+prev+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
+			$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+prev+"&userid="+userid+"'"+" aria-label='Next'><span aria-hidden='true'>&laquo;</span></a></li>");	
 		}
 		for(var j=startPage ; j<=endPage ; j++){
 			if(currentPage==(j)){
-				$("#list-body_c").append("<li class='page-item active'><a class='page-link' href='activity?page=" + curpage + "&compage="+ j +"'>" + j + "</a></li>");
+				$("#list-body_c").append("<li class='page-item active'><a class='page-link' href='activity?page=" + curpage + "&compage="+ j+"&userid="+userid +"'>" + j + "</a></li>");
 			}else if(j>0){
-				$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page=" + curpage + "&compage="+j+ "'>" + j + "</a></li>");		
+				$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page=" + curpage + "&compage="+j+"&userid="+userid+ "'>" + j + "</a></li>");		
 			}
 		}
 		if(next > 5 && next < totalPage)
-		$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+next+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
+		$("#list-body_c").append("<li class='page-item'><a class='page-link' href='activity?page="+curpage+ "&compage="+next+"&userid="+userid+"'"+" aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>")
 	} 
 </script>
 
