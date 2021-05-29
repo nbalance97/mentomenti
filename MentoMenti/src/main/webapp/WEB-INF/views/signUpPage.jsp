@@ -161,6 +161,7 @@
   			}
   			
   			$('#day').children('option:not(:first)').remove();
+  			$("#day").append("<option value='' disabled selected hidden>일</option>");
   		 	for (var i = 1; i <= leafday; i++) {
       			$("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
     		}
@@ -169,7 +170,9 @@
   		
   		function setMonthBox(){
   			$('#day').children('option:not(:first)').remove();
+  			$("#day").append("<option value='' disabled selected hidden>일</option>");
   			$('#month').children('option:not(:first)').remove();
+  			$("#month").append("<option value='' disabled selected hidden>월</option>");
   			for (var i = 1; i <= 12; i++) {
       			$("#month").append("<option value='" + i + "'>" + i + " 월" + "</option>");
     		}
@@ -280,6 +283,11 @@
 				form.email1.focus();
 				return false;
 			}
+			if(form.email1.value>20 || form.email2.value>20){
+				alert("이메일은 20글자 이하로 작성해주세요");
+				return;				
+			}
+			
 			if(form.intro.value.length>70){
 				alert("소개말은 70글자 이하로 작성해주세요");
 				return;
