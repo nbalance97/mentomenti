@@ -159,6 +159,7 @@
 		var audio_share = {};
 		var emoticon = {};
 		
+		var screen_stream = null;
 		var mic_stream = null;
 		var mic_status = false;
 		
@@ -175,13 +176,17 @@
 			var tag = '';
 			tag = tag + '<tr>';
 			tag = tag + '<td>'+idx+'</td>';
-			tag = tag + '<td>'+id+'</td>';//아이디->닉네임으로 변경
+			tag = tag + '<td>'+id+'</td>'; //아이디->닉네임으로 변경
 			if (emot === "ques")
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-question-circle  fa-2x"></i></td>';
 			else if (emot === "finish")
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-check-circle fa-2x "></i></td>';
 			else if (emot === 'non-finish')
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-times-circle fa-2x "></i></td>';
+			else if (emot === 'default')
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>';
+			else if (emot === 'thumb-up')
+				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-thumbs-up fa-2x"></i></td>';
 			else if (emot === 'default')
 				tag = tag + '<td style="padding:5px;">'+'<i class="far fa-circle fa-2x"></i></td>';
 			
@@ -235,7 +240,7 @@
 				event: "namecall",
 				data: myNick,
 				group: myGroup,
-				mode: "practice"
+				mode: "practice" // mode가 practice일때 구분
 			});
 			//initialize();
 		}
@@ -277,20 +282,20 @@
 			    	
 			    case "rngt_offer":
 			    	flg[from] = true;
+			    	screen_stream = null;
 			    	handleOffer(from, to, data, true);
 			    	break;
 			    	
 			    case "changeStatus":
-			    	if (emoticon[from] !== undefined)
-			    		emoticon[from] = data;
+			    	emoticon[from] = data;
 			    	break;
 			    	
 			    default:
 			        break;
 		    	}
-	   		}
+	    	}
 		}
-		
+	
 		function isOpen(ws) { 
 			return ws.readyState === ws.OPEN; 
 		}
@@ -300,27 +305,6 @@
 			conn.send(JSON.stringify(message));
 		}
 		
-		function removeConnection(target) {
-			if (pc[target] !== undefined) {
-				pc[target].close();
-				delete(pc[target]);
-			}
-			
-			if (dc[target] !== undefined)
-				delete(dc[target]);
-			
-			if (emoticon[target] !== undefined)
-				delete(emoticon[target]);
-			
-			if (flg[target] !== undefined)
-				delete(flg[target]);
-			
-			if (audio_share[target] !== undefined)
-				delete(audio_share[target]);
-			
-			if (document.getElementById(target) !== null)
-				removeVideo(target);
-		}
 		
 		function createPeerConnection(target) {
 			var configuration = {
@@ -351,26 +335,26 @@
 				  switch(peerConnection.connectionState) {
 				      case "connected":
 				      	if (flg[target] === false) {
-				    	console.log("[onconnectionstatechange]" + target + "에게 연결되었으니 공유");
+				    	console.log("[onconnectionstatechange]" + target + "에게 연결되었으니 화면공유");
+						shareMonitorById(target);
 						if (mic_status)
-						       shareMicById(target);
+						   shareMicById(target);
 				        } 
 				        flg[target] = true;
 				        break;
-				        
-					    case "disconnected":
-					    	break;
-					    	
-					    case "failed":
-				    	case "closed":
-					    	console.log(peerConnection.connectionState);
-							removeConnection(target);
-				       		break;
+				    case "disconnected":
+				    	break;
+				    case "failed":
+				    case "closed":
+				    	console.log(peerConnection.connectionState);
+						removeConnection(target);
+				        break;
 				  }
 			}
 			
 			flg[target] = false; // renegotiation flg false
 			setDataChannel(peerConnection, target);
+	
 			return peerConnection;
 		}
 		
@@ -379,7 +363,7 @@
 				reliable: true
 			});
 			
-			dataChannel.onopen = function(event) {
+			dataChannel.onopen = function(event) { 
 				console.log("dataChannel successfully opened!");
 			};
 			
@@ -389,24 +373,19 @@
 			
 			dataChannel.onclose = function() {
 				console.log("Data Channel is closed");
-				delete(dc[target]);
 			};
 			
 			dataChannel.onmessage = function(event) {
 				console.log("Message:", event.data);
-				var arrayBuffer = event.data;
-				var url = URL.createObjectURL(new Blob([arrayBuffer]));
-				image.src = url;
 			};
 			
 			peerConnection.ondatachannel = function(event) {
-				dc[target] = event.channel; // datachannel 따로 저장
+				dc[target] = event.channel; 
 			};
 		}
 		
 		function createOffer(name) { // 상대방의 name으로 connection 생성
 			var peerConnection = createPeerConnection(name);
-			
 			peerConnection.createOffer(async function(offer) { // offer 상대 peer에 전송
 				await send({
 					event : "offer",
@@ -420,17 +399,21 @@
 				
 			});	
 			
+			
 			pc[name] = peerConnection; // pc 객체에 저장
 			addVideo(name);
 			pc[name].ontrack = function(e) {
 				console.log(e);
-				if (e.track.kind === "audio") {
+				if (e.track.kind === "video") {
+					v1.srcObject = e.streams[0];
+					console.log(name, "Video");
+				}
+				else if (e.track.kind === "audio") {
 					var targets = document.getElementById(name);
 					targets.srcObject = e.streams[0];
 					console.log(name, "Audio");
 				}
 			};
-
 			emoticon[name] = "default";
 		}
 		
@@ -440,7 +423,11 @@
 				pc[from] = createPeerConnection(from);
 				addVideo(from);
 				pc[from].ontrack = function(e) {		
-					if (e.track.kind === "audio") {
+					if (e.track.kind === "video") {
+						v1.srcObject = e.streams[0];
+						console.log(from, "Video");
+					}
+					else if (e.track.kind === "audio") {
 						var targets = document.getElementById(from);
 						targets.srcObject = e.streams[0];
 						console.log(from, "Audio");
@@ -482,6 +469,7 @@
 			input.value = "";
 		}
 		
+		
 		async function setMicStream() {
 			if (mic_stream !== null) {
 				return mic_stream;
@@ -508,6 +496,7 @@
 				console.log("mic stream이 없거나 pc[id]가 정의되지 않음.");
 				return;
 			}
+			
 			if (audio_share[id] !== undefined) {
 				console.log("audio가 이미 공유되고 있음.");
 				return;
@@ -547,6 +536,73 @@
 				});
 			}
 			mic_status = !mic_status;
+		}
+		
+		
+		
+		async function setDisplayStream() {	
+		    return navigator.mediaDevices.getDisplayMedia({
+					video: true
+				}).then(async function(screenStream) {
+						screenStream.getVideoTracks()[0].addEventListener('ended', () => {
+							screenStream = null;
+							for (var key in pc) {
+								send({
+									event : "stop_video",
+									from : myNick,
+									to : key
+								});
+							}
+						});
+						
+						screen_stream = screenStream;
+						v1.srcObject = screenStream;
+					    return;
+				});
+		}
+		
+		async function shareMonitorById(id) {
+			if (screen_stream === null || pc[id] === undefined || pc[id].connectionState !== "connected") {
+				return;
+			}
+	
+			(function (id){ // 클로저로 선언해야 제대로 맞추어서 들어감 .. ㅡㅡ
+				//console.log(id);
+				pc[id].onnegotiationneeded = function() {
+			    	pc[id].createOffer(async function(offer) { // offer 상대 peer에 전송
+						await send({
+							event : "rngt_offer",
+							data : offer,
+							from : myNick,
+							to : id
+						});	
+						pc[id].setLocalDescription(offer); 
+					}, function(error) {
+						
+					});	
+			    };
+				
+			    if (id in share) // 이미 공유중인 상황이라면 replace
+			    	screen_stream.getTracks().forEach((track) =>{
+			    		share[id].replaceTrack(track);
+			    	}); 
+			    else { // 공유중이지 않다면 새로 addTrack
+					screen_stream.getTracks().forEach((track) => {
+						share[id] = pc[id].addTrack(track, screen_stream);
+					});
+			    }
+			})(id);
+			console.log(id + '에게 화면공유');
+		}
+	
+		async function share_monitor() { 
+			/* 실행순서 맞추기 위한 콜백 프로미스 처리 */
+			setDisplayStream().then(function() {
+				for (var key in pc) {
+					shareMonitorById(key);
+				}
+			    return;
+			});
 		}
 	</script>
 </body>

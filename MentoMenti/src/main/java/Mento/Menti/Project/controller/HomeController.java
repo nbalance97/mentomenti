@@ -111,7 +111,7 @@ public class HomeController {
     }
     
     @RequestMapping(value="/processPersonalInfoChange") //회원 정보 수정 진행
-    public String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
+    public synchronized String changePersonalInfo(@RequestParam("profileImg") MultipartFile img, @RequestParam("userid") String id) throws Exception {
     	if (!img.isEmpty()) {
 	    	//업로드 경로
 	    	//String root = System.getProperty("user.dir");
