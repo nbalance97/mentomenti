@@ -13,6 +13,7 @@
 	body{
 		margin:0;
 		padding:0;
+		overflow:hidden;
 	}
 	.canvas_div{
 		width:75%;
@@ -32,7 +33,7 @@
 	
 	.tool{
 		width:25%;
-		height:50vh;
+		height:100vh;
 		float:right;
 		text-align:center;
 		border:1px solid gray;
@@ -51,7 +52,7 @@
 		padding-top:20px;
 	}
 	.colo{
-		margin-bottom:3px;
+		margin-bottom:20px;
 		width:100%;
 		float:left;
 	}
@@ -86,7 +87,7 @@
 		margin:0 auto;
 		width: 100px;
 		height: 30px;
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 		border-radius: 30px;
 		cursor: pointer;
 		box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px
@@ -106,6 +107,10 @@
 	
 	.active{
 		background: #007bff !important;
+	}
+	
+	.btn-box{
+		margin:20px;
 	}
 	
 </style>
@@ -135,18 +140,16 @@
 					</div>
 				</div>
 				<div class="kit">
+					<div class="btn-box">
 						<button class="btn btn-outline-primary canvasfn active" onclick="selectTool('pencil')"><img class="canvas_icon" alt="" src="resources/img/canvas/pen.png"></button>
 						<button id="erase" class="btn btn-outline-primary canvasfn"><img class="canvas_icon" alt="" src="resources/img/canvas/eraser.png"></button>					
 						<button class="btn btn-outline-danger"  onclick="clearPage()"><img class="canvas_icon" alt="" src="resources/img/canvas/trash.png"></button>
-						
+					</div>	
 						<input id="slider1" class="form-range" type="range" min="1" max="20" value="3" onchange="lineWidth(this.value);" />
-						<input id="input-file" class="btn" type="file" style="margin-top:3px; width:100%;" onchange="uploadFile(this);" />
+						<input id="input-file" class="btn" type="file" style="margin-top:10px; width:100%;" onchange="uploadFile(this);" />
+					<div style="position:relative; width:100%; height:100%;"><img src="resources/img/logo3.png" style="position:absolute; margin:0 auto; top: 50%; left: 50%; transform: translate(-50%, -50%); width:170px;"></div>
 				</div>
 			</div>
-		</div>
-		<!-- 코드 영역 -->
-		<div class="codeBox">
-			<textarea id="codearea" style="resize: none; width:100%; height:100%;"></textarea>
 		</div>
 	</div>
 	<%
