@@ -50,28 +50,30 @@
 				else response.sendRedirect("noticeContent?postid=" + postid);
 			}
 			else { //게시판
-				
-				//자신이 올린 그룹 Q&A에 다른 사람이 댓글을 달았을 때
-				//Q&A 작성자에게 답변 추가됨을 알림
-				if (groupid > 0 && !postWriterId.equals(commentWriterId)) {
+				if (groupid > 0) {	//그룹 Q&A
 					
-					//현재 시각 구하기
-					String todaydate = todayYear+"-"+todayMonth+"-"+todayDate;
-					int curHour = cal.get(cal.HOUR_OF_DAY);
-					int curMin = cal.get(cal.MINUTE);
-					int curSec = cal.get(cal.SECOND);
-					DecimalFormat df = new DecimalFormat("00");	//두 자리로 형식 맞춤
-					String addDatetime = todaydate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
-					//그룹 이름 찾기
-					String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();
-					
-					//알림 DB 추가
-					NotificationDTO notification = new NotificationDTO();
-					notification.setReceiverid(post.getUserid());	//Q&A 작성자
-					notification.setSendtime(addDatetime);
-					notification.setContent("["+groupName+"] 작성한 Q&A에 답변이 등록되었습니다.");
-					notification.setIsread(false);
-					HomeController.dao.getNotificationDAO().insertNotification(notification);
+						//자신이 올린 그룹 Q&A에 다른 사람이 댓글을 달았을 때
+						//Q&A 작성자에게 답변 추가됨을 알림
+						if(!postWriterId.equals(commentWriterId)){
+						
+						//현재 시각 구하기
+						String todaydate = todayYear+"-"+todayMonth+"-"+todayDate;
+						int curHour = cal.get(cal.HOUR_OF_DAY);
+						int curMin = cal.get(cal.MINUTE);
+						int curSec = cal.get(cal.SECOND);
+						DecimalFormat df = new DecimalFormat("00");	//두 자리로 형식 맞춤
+						String addDatetime = todaydate + " " + df.format(curHour) + ":" + df.format(curMin) + ":" + df.format(curSec);
+						//그룹 이름 찾기
+						String groupName = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid).getName();
+						
+						//알림 DB 추가
+						NotificationDTO notification = new NotificationDTO();
+						notification.setReceiverid(post.getUserid());	//Q&A 작성자
+						notification.setSendtime(addDatetime);
+						notification.setContent("["+groupName+"] 작성한 Q&A에 답변이 등록되었습니다.");
+						notification.setIsread(false);
+						HomeController.dao.getNotificationDAO().insertNotification(notification);
+					}
 					
 					response.sendRedirect("groupPostContent?postid=" + postid);
 				}
