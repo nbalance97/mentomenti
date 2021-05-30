@@ -73,7 +73,7 @@
 			<tr>
 				<td>소개글</td>
 				<td>
-					<textarea name="intro" id="intro_text" rows="4" style="width: 80%"></textarea>
+					<textarea name="intro" id="intro_text" rows="4" style="width: 80%; resize:none;"></textarea>
 				 	(<strong id="intro_len">0</strong><span>/100자</span>)
 				</td>
 			</tr>
