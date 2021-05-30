@@ -16,6 +16,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
 	<link rel="shortcut icon" href="/resources/img/logo3.png">
 	<link rel="icon" href="/resources/img/logo3.png">
 	
@@ -23,7 +25,6 @@
 	<link href="/resources/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="/resources/css/defaultStudyPractice.css" rel="stylesheet" type="text/css">
 <%
-	PrintWriter pw = response.getWriter();
 	//방만들기 클릭시 class대한 세션설정 필요?
 	//클래스아이디 받아오기
 	//해당 클래스아이디의 그룹아이디 찾기 -> grouppage에서 그룹 아이디 보내도록 했음
@@ -31,6 +32,7 @@
 	if (temp == null)  { %>
 	    <c:redirect url="../main" />
    <% }
+	
 	int groupid = Integer.parseInt(temp);
 	GroupDTO group = HomeController.dao.getGroupDAO().searchGroupByGroupid(groupid);
 	//해당 그룹의 멘토아이디 받아오기
@@ -84,9 +86,8 @@
 			<% 
 			//멘토아이디와 접속한 아이디 비교
 			//True = 멘토, False = 멘티 확인
-			if (mentoid.equals(id)){//멘토
-				
-				
+			if (mentoid.equals(id) && request.getParameter("flag") == null){//멘토
+
 				//멘토 입장 시 멘티에게 수업 시작 알림
 				Calendar cal = Calendar.getInstance();
 				int year = cal.get(cal.YEAR);

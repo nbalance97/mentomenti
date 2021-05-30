@@ -114,7 +114,6 @@
 				pw.print("<script>alert('해당그룹에 가입하지 않았습니다.');</script>");
 				pw.print("<script>window.location='main'</script>"); //자신의 그룹 목록 페이지로 이동
 			}
-			
 			%>
 
 	<% 

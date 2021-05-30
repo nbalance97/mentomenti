@@ -62,7 +62,7 @@
 	}
 	function moveStudy(){
 		if(confirm("수업페이지로 이동하시겠습니까?")){
-			location.replace("/studyPage/studyPageMentor?groupid=<%=group_.getGroupid()%>");
+			location.replace("/studyPage/studyPageMentor?groupid=<%=group_.getGroupid()%>&flag=a");
 		}else{
 			
 		}
