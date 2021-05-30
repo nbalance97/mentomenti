@@ -107,7 +107,7 @@
                                         		</select>
                                         	</div>
                                         	<div class="form-group">
-                                        		<textarea style="rows:100%; text-align:left;" id="intro_text" class="form-control form-control-user" name="intro" placeholder="소개말을 넣어주세요"></textarea>
+                                        		<textarea style="rows:100%; text-align:left; resize:none;" id="intro_text" class="form-control form-control-user" name="intro" placeholder="소개말을 넣어주세요"></textarea>
                                         		(<strong id="intro_len">0</strong><span>/70자</span>)
                                         	</div>                                        
                                         </div>
