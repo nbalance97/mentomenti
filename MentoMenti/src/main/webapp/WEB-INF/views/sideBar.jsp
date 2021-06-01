@@ -9,8 +9,8 @@
 <link href="resources/css/basic.css" rel="stylesheet" type="text/css">	<!-- 기본 css -->
 <link href="resources/css/comment.css" rel="stylesheet" type="text/css">	<!-- 댓글 css -->
 <link href="resources/css/profile-tooltip.css" rel="stylesheet" type="text/css">
-<link href="resources/css/sidebar.css" rel="stylesheet" type="text/css" media="screen and (min-width:768px)"> <!-- PC 환경 사이드바 css -->
-<link href="resources/css/sidebar_phone.css" rel="stylesheet" type="text/css" media="screen and (max-width:767px)">	<!-- 모바일 환경 사이드바 CSS -->
+<link href="resources/css/sidebar.css" rel="stylesheet" type="text/css" media="screen and (min-width:1000px)"> <!-- PC 환경 사이드바 css -->
+<link href="resources/css/sidebar_phone.css" rel="stylesheet" type="text/css" media="screen and (max-width:999px)">	<!-- 모바일 환경 사이드바 CSS -->
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
@@ -26,7 +26,7 @@
 		var chkBtn = document.getElementById('check');
 		var sideBar = document.getElementsByClassName('sidebar2');
 		
-		if(matchMedia("screen and (min-width:768px)").matches){	//PC 환경
+		if(matchMedia("screen and (min-width:1000px)").matches){	//PC 환경
 			chkBtn.checked = true;
 			sideBar.display='block';
 		} else {	//모바일, 태블릿
