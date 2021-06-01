@@ -78,7 +78,7 @@
 		<tr>
 			<td colspan="3" style="padding:70px 20px">
 				<c:set var="content" value="<%=notice.getContent()%>"/>
-				${fn:replace(fn:escapeXml(content), cn, br)}
+				${fn:replace(content, cn, br)}
 			</td>
 		</tr>
 	</tbody>

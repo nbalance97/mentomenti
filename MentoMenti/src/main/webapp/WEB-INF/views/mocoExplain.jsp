@@ -194,6 +194,7 @@ a, a:hover {
 		<p>쉽고 간편한 <b class="font-weight-500">스터디 그룹 생성과 모집</b></p>
 		<p>해당 <b class="font-weight-500">스터디 그룹 전용 페이지</b>를 통한 소통</p>
 		<p>스터디 모집 후 바로 스터디를 진행할 수 있는 <b class="font-weight-500">수업페이지</b></p>
+		<p>멘토와 멘티간 private한 피드백 진행을 가능하게 하는 <b class="font-weight-500">피드백페이지</b></p>
 		<p>멘토의 화면을 공유할 수 있는 <b class="font-weight-500">화면공유</b></p>
 		<p>서로 대화하여 소통할 수 있는 <b class="font-weight-500">음성공유와 채팅</b></p>
 		<p>다른 사람들에게 자신의 이해정도를 알릴 수 있는 <b class="font-weight-500">이모티콘</b></p>
@@ -287,8 +288,8 @@ a, a:hover {
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(1) 수업 페이지</h3>
 		
 		<!-- 기본 수업 페이지에서 수업 진행 방식 설명 -->
-		<p>멘토가 공유한 화면과 음성을 통해 수업이 진행됩니다.</p>
-		<p>멘티 역시 음성을 통해 멘토와 원활한 소통을 가질 수 있습니다.</p>
+		<p>그룹페이지에서 입장하기 버튼을 클릭하면 수업페이지로 이동됩니다!</p>
+		<p>그룹에 참여한 멘티들은 멘토가 공유한 화면을 보며 수업을 듣게 됩니다.</p>
 		<p>수업의 이해 정도를 표시하기 위해 하단의 이모티콘을 이용할 수 있습니다.</p>
 		<br>
 		<img class="guideImg" src="resources/img/mocoExplain/1_studymentee.PNG">
@@ -298,22 +299,37 @@ a, a:hover {
 		<!-- 사이드바 설명 (채팅창, 참여자 목록) -->
 		<p>좌측 상단의 버튼을 클릭하여 사이드바를 확인할 수 있으며</p>
 		<p>사이드바에서는 채팅창과 수업 참여자 목록을 확인할 수 있습니다.</p>
-		<p>채팅 기능을 통해 멘토 및 수업에 참여한 다른 사람들과 소통을 할 수 있습니다.</p>
-		<p>참여자 목록의 상태를 통해 다른 멘티들의 상태(이모티콘)를 확인할 수 있습니다.</p>
-		<p>참여자 목록의 1:1 버튼을 클릭하여 화이트보드를 이용한 1:1 피드백 화면으로 이동할 수 있습니다.</p>
+		<p>채팅과 음성공유 기능을 통해 멘토 및 수업에 참여한 다른 사람들과 소통이 가능합니다.</p>
+		<p>참여자 목록의 캔버스 버튼을 클릭하여 화이트보드로 이동할 수 있습니다.</p>
 		<br>
 		<img class="guideImg" src="resources/img/mocoExplain/2_studymentee.PNG">
+	</div>
+	
+	<div class="up-on-scroll" id="site_intro2">
+		<!-- 웹컴파 -->
+		<p>프로그래밍 실습을 위해 하단의 컴파일러 기능을 이용해보세요!</p>
+		<p>별 다른 설치없이 코드를 작성하고 실행하면 바로 결과를 확인할 수 있습니다.</p>
+		<p>C언어, Java, Python - 3가지 언어를 지원하고 있습니다.</p>
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/webcompiler_mentee.PNG">
+	</div>
+	
+	<div class="up-on-scroll" id="site_intro2">
+		<!-- 화이트보드 -->
+		<p>멘토와의 필기를 원한다면 화이트보드 기능을 이용해보세요!</p>
+		<p>사이드바에 있는 참여자 목록의 캔버스버튼을 클릭하여 화이트보드로 이동할 수 있습니다.</p>
+		<p>하나의 화이트보드에 같이 필기를 할 수 있습니다.</p>
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/board.PNG">
 	</div>
 	
 	</br>
 	<a id="prac_mentee"></a>
 	<div class="up-on-scroll" id="site_intro2">
-		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2) 실습 페이지</h3>
+		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2) 피드백 페이지</h3>
 		<!-- 실습 페이지 설명 -->
-		<p>프로그래밍 실습이 필요하다면 실습페이지로 이동하세요!</p>
-		<p>C언어, 자바, 파이썬 - 3가지 언어를 지원하는 웹 컴파일러가 준비되어 있습니다.</p>
-		<p>컴파일러에 작성한 코드를 바로 실행시켜 결과를 확인할 수 있습니다.</p>
-		<p>작성한 코드는 1:1 피드백 페이지 이동 시 멘토에게 공유됩니다.</p>
+		<p>수업 진행 중이나 프로그래밍 실습 중에 멘토에게 궁금한 것이 있다면 피드백 페이지로 이동하세요!</p>
+		<p>멘토에게 화면을 공유해 쉽고 간단하게 피드백을 받을 수 있습니다.</p>
 		<br>
 		<img class="guideImg" src="resources/img/mocoExplain/3_pracmentee.PNG">
 	</div>
@@ -331,8 +347,8 @@ a, a:hover {
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(1) 수업 페이지</h3>
 		
 		<!-- 기본 수업 페이지에서 수업 진행 방식 설명 -->
-		<p>멘토는 직접화면을 공유하여 수업을  진행할 수 있습니다.</p>
-		<p>음성 공유를 통해 멘티와 소통하며 수업할 수 있습니다.</p>
+		<p>그룹페이지에서 입장하기 버튼을 클릭하면 수업페이지로 이동됩니다!</p>
+		<p>그룹을 만든 멘토는 직접화면을 공유하여 수업을  진행할 수 있습니다.</p>
 		<br>
 		<img class="guideImg" src="resources/img/mocoExplain/1_studymentor.PNG">
 	</div>
@@ -342,22 +358,36 @@ a, a:hover {
 		<p>좌측 상단의 버튼을 클릭하여 사이드바를 확인할 수 있으며</p>
 		<p>사이드바에서는 채팅창과 수업 참여자 목록을 확인할 수 있습니다.</p>
 		<p>각 멘티들의 상태를 확인하면서 수업을 진행합시다!</p>
-		<p>채팅 기능을 통해 멘티와 소통을 할 수 있습니다.</p>
-		<p>참여자 목록의 1:1 버튼을 클릭하여 화이트보드를 이용한 1:1 피드백 화면으로 이동할 수 있습니다.</p>
+		<p>채팅과 음성공유 기능을 통해 멘티와 소통을 할 수 있습니다.</p>
 		<br>
 		<img class="guideImg" src="resources/img/mocoExplain/2_studymentor.PNG">
 	</div>
-	
+
+	<div class="up-on-scroll" id="site_intro2">
+		<!-- 웹컴파 -->
+		<p>프로그래밍 실습을 위해 하단의 컴파일러 기능을 이용해보세요!</p>
+		<p>별 다른 설치없이 코드를 작성하고 실행하면 바로 결과를 확인할 수 있습니다.</p>
+		<p>C언어, Java, Python - 3가지 언어를 지원하고 있습니다.</p>
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/webcompiler_mentor.PNG">
+	</div>
+
+	<div class="up-on-scroll" id="site_intro2">
+		<!-- 화이트보드 -->
+		<p>멘티와의 필기를 원한다면 화이트보드 기능을 이용해보세요!</p>
+		<p>사이드바에 있는 참여자 목록의 캔버스버튼을 클릭하여 화이트보드로 이동할 수 있습니다.</p>
+		<p>하나의 화이트보드에 같이 필기를 할 수 있습니다.</p>
+		<br>
+		<img class="guideImg" src="resources/img/mocoExplain/board.PNG">
+	</div>
+
 	</br>
 	<a id="prac_mentor"></a>
 	<div class="up-on-scroll" id="site_intro2">
 		<h3 class="font-weight-700" style="margin: 30px; font-size:30px;">(2) 실습 페이지</h3>
 		<!-- 실습 페이지 설명 -->
-		<p>프로그래밍 실습이 필요하다면 실습페이지로 이동하세요!</p>
-		<p>멘토는 문제가 적힌 그림파일을 파일업로드를 통해 멘티들에게 공유할 수 있습니다</p>
-		<p>C언어, 자바, 파이썬 - 3가지 언어를 지원하는 웹 컴파일러가 준비되어 있습니다.</p>
-		<p>컴파일러에 작성한 코드를 바로 실행시켜 결과를 확인할 수 있습니다.</p>
-		<p>멘티가 작성한 코드는 1:1 피드백 페이지 이동 시 멘토에게 공유됩니다.</p>
+		<p>멘티가 수업이나 프로그래밍 실습 중 피드백을 원한다면 피드백 페이지로 이동하세요!</p>
+		<p>멘티가 공유한 화면을 보며 간단하게 피드백을 할 수 있습니다.</p>
 		<br>
 		<img class="guideImg" src="resources/img/mocoExplain/3_pracmentor.PNG">
 	</div>
