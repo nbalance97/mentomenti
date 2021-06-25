@@ -2,14 +2,14 @@
 2021-1 캡스톤디자인
 
 <h1> 개발 환경 </h1>
-- Spring Boot
-- WebRTC 프레임워크
-- JSP, JS, CSS, HTML
+<p>- Spring Boot
+<p>- WebRTC 프레임워크
+<p>- JSP, JS, CSS, HTML
 
 <h1> 서버 환경 </h1>
-- Naver Cloud Platform
-- Ubuntu 18.04
-- Docker
+<p>- Naver Cloud Platform
+<p>- Ubuntu 18.04
+<p>- Docker
 
 <hr>
 <h2> 로그인/회원가입 </h2>
