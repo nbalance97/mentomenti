@@ -10,6 +10,17 @@
 <p>- Naver Cloud Platform
 <p>- Ubuntu 18.04
 <p>- Docker
+<p>- MySQL 
+<p>- coturn
+<hr>
+
+<h1> 개발 로그 </h1>
+- JSP, JS, CSS, HTML 활용하여 전체 페이지 구성
+- WebRTC를 활용하여 PeerConnection 연결 / 마이크 공유 / 화면 공유 구현
+- Docker 컨테이너 구성하여 Docker 컨테이너 내에서 웹 컴파일러 동작하도록 구현
+- 웹 컴파일러 Ajax 활용하여 비동기 구현
+- 화면 공유 시 필요에 의해 도메인 / 인증서 받음 (certbot)
+- WebSocket 데이터 전송을 활용한 화이트보드 구현 
 
 <hr>
 <h2> 로그인/회원가입 </h2>
